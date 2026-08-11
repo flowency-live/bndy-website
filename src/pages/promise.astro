@@ -1,0 +1,100 @@
+---
+// Our promise. Copy source: 10-Projects\bndy-website\our-promise.md (byte-exact).
+// Layout per spec §4: eight promises as broadsheet rows, stub device as the page header.
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+---
+<Base
+  title="Our promise · bndy"
+  description="Plenty of platforms say they love live music. Here's what we'll actually hold ourselves to. Eight promises, in writing, no small print."
+  path="/promise"
+>
+  <section class="stub-wrap" style="padding-top:4rem">
+    <div class="stub">
+      <div class="stub-main">
+        <div class="k">Our promise</div>
+        <h3 class="tight">Plenty of platforms say they love live music. Here's what we'll actually hold ourselves to.</h3>
+      </div>
+      <div class="stub-side">
+        <div class="no tight">No ticket<br />required</div>
+        <div class="adm">Admit everyone</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beliefs">
+    <div class="beliefs-head reveal"><h2 class="tight">Eight promises</h2><span class="mono">NO SMALL PRINT</span></div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">01</div>
+      <h3 class="tight">We won't hide gigs because nobody paid us.</h3>
+      <div class="row-body">
+        <p>If we know about a genuine grassroots gig, we want people to be able to find it.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">02</div>
+      <h3 class="tight">We won't make artists pay to exist.</h3>
+      <div class="row-body">
+        <p>Artists shouldn't disappear from the map because they don't subscribe to a software platform.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">03</div>
+      <h3 class="tight">We won't make venues pay to exist.</h3>
+      <div class="row-body">
+        <p>A venue putting on live music is already contributing to the ecosystem.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">04</div>
+      <h3 class="tight">We won't prioritise a gig because the ticket is worth more.</h3>
+      <div class="row-body">
+        <p>£0 and £100 are both gigs.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">05</div>
+      <h3 class="tight">We'll try to show where our information came from.</h3>
+      <div class="row-body">
+        <p>The web is messy. Gigs change. People make mistakes. We want bndy to become increasingly transparent about what we know, where we learned it and how confident we are.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">06</div>
+      <h3 class="tight">We'll correct things.</h3>
+      <div class="row-body">
+        <p>bndy isn't supposed to be a giant untouchable database. Artists, venues and people who actually know their local scene should be able to help make it better.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">07</div>
+      <h3 class="tight">We won't try to keep you in the app.</h3>
+      <div class="row-body">
+        <p>No endless scrolling. No notifications designed to drag you back.</p>
+        <p><span class="em">The objective isn't to keep you in bndy. It's to get you out to a gig.</span></p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">08</div>
+      <h3 class="tight">We'll keep looking.</h3>
+      <div class="row-body">
+        <p>The objective isn't to list some gigs.</p>
+        <p><b>It's to find the gigs.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="close-section reveal" id="flag">
+    <p class="aside" style="font-style:italic">Spotted something wrong? Flag it on the record and we'll look at it. No account needed.</p>
+  </section>
+
+  <Doors />
+</Base>

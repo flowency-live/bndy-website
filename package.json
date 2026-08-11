@@ -1,0 +1,24 @@
+{
+  "name": "bndy-website",
+  "version": "1.0.0",
+  "description": "bndy public website. Static, house design D.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/inter-tight": "^5.3.0",
+    "astro": "^7.2.1"
+  },
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "fontpie": "^0.3.0",
+    "lighthouse": "^13.4.1",
+    "playwright": "^1.62.1"
+  }
+}

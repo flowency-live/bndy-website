@@ -1,0 +1,167 @@
+---
+// Home. Copy source: 10-Projects\bndy-website\home.md (byte-exact, full seven-section sequence).
+// Structure per spec §4 and design D: hero, marquee, belief rows, statement, stub teaser, close, doors.
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Marquee from '../components/Marquee.astro';
+import Doors from '../components/Doors.astro';
+import { MAP_URL, STAGE_LOGIN_URL, SITE_URL } from '../config';
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'bndy',
+  url: `${SITE_URL}/`,
+  logo: `${SITE_URL}/og-card.png`,
+  slogan: 'Keeping live music alive',
+  description:
+    'bndy helps people find grassroots live music near them: pubs, clubs, bars, back rooms, small stages and local venues. Built for the gigs everybody else misses.',
+};
+---
+<Base
+  title="bndy · Keeping live music alive"
+  description="Find live music near you. Tonight, this weekend, wherever you are. bndy is built for the gigs everybody else misses. No ticket required."
+  path="/"
+  structuredData={organization}
+>
+  <header class="hero hero-with-bg">
+    <picture class="hero-bg">
+      <source media="(max-width: 768px)" srcset="/images/bndy_landing_banner_mobile.jpg" />
+      <img src="/images/bndy_landing_banner.jpg" alt="" loading="eager" />
+    </picture>
+    <div class="hero-bg-overlay"></div>
+    <div class="beams"></div>
+    <div class="hero-inner">
+      <Logo class="hero-logo" label="bndy" />
+      <h1 class="strap">Keeping <span class="live">LIVE</span> Music <span class="alive">ALIVE</span></h1>
+      <p class="hero-sub"><b>Find live music near you. Tonight, this weekend, wherever you are.</b></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={MAP_URL}>Open the map</a>
+        <a class="btn btn-secondary" href={STAGE_LOGIN_URL}>Backstage login</a>
+      </div>
+      <div class="hero-note">no account needed to look · artists and venues sign in to Backstage</div>
+    </div>
+  </header>
+
+  <Marquee />
+
+  <section class="beliefs" id="beliefs">
+    <div class="beliefs-head reveal"><h2 class="tight">What we believe</h2><span class="mono">SET 1 OF 1</span></div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">01</div>
+      <h3 class="tight">Live music doesn't start in arenas</h3>
+      <div class="row-body">
+        <p>It starts in pubs, clubs, bars, back rooms, small stages and local venues. With bands playing because they love it, venues taking a chance, and people deciding to go out rather than stay in.</p>
+        <p>That's the bit of live music we care about.</p>
+        <p>bndy exists to help people find it.</p>
+        <p>No matter how small the gig.<br />No matter whether there's a ticket.<br />No matter whether the artist has 50 followers or 50,000.</p>
+        <p><span class="em">If it's live music, it deserves to be found.</span></p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">02</div>
+      <h3 class="tight">Most gigs aren't on the big ticket sites</h3>
+      <div class="row-body">
+        <p>There are thousands of gigs happening every week that never appear on the big music platforms.</p>
+        <p>Because there's nothing to sell.</p>
+        <p>A free band in a pub doesn't generate a booking fee. An acoustic night in a local bar isn't interesting to a ticketing company. A covers band playing a packed little venue might barely exist online outside a Facebook post.</p>
+        <p>But these gigs matter.</p>
+        <p>They keep musicians playing.<br />They keep venues open.<br />They get people out.<br />They create scenes.</p>
+        <p><span class="em">bndy is built for the gigs everybody else misses.</span></p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">03</div>
+      <h3 class="tight">Free doesn't mean less important</h3>
+      <div class="row-body">
+        <p>A gig doesn't become more valuable because somebody put a £25 ticket on it.</p>
+        <p>Some of the best nights happen in places where you simply walk through the door.</p>
+        <p>So bndy treats free-to-attend live music as first-class live music.</p>
+        <p>Not filler.<br />Not an afterthought.<br />Not something buried underneath ticketed events.</p>
+        <p>It's at the heart of what we're building.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">04</div>
+      <h3 class="tight">The scene belongs to the people in it</h3>
+      <div class="row-body">
+        <p>The bands. The venues. The promoters. The people who turn up.</p>
+        <p>bndy isn't here to put a tollbooth in the middle of that.</p>
+        <p>We're here to connect what already exists, make it easier to discover, and help more people through the door.</p>
+        <p><b>The technology should serve the scene.</b></p>
+        <p><b>Not the other way around.</b></p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">05</div>
+      <h3 class="tight">You shouldn't have to know where to look</h3>
+      <div class="row-body">
+        <p>Finding local music is weirdly difficult.</p>
+        <p>One venue posts on Facebook. Another uses Instagram. A band puts its dates on its website. Somebody else posts a flyer into a local group. Another gig only appears on a listings site you've never heard of.</p>
+        <p>You shouldn't need to follow 40 venues and 100 bands just to work out what's happening on Saturday night.</p>
+        <p>That's our job.</p>
+        <p>bndy searches, connects and organises the fragmented world of grassroots live music so you can simply open the map and see what's happening around you.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">06</div>
+      <h3 class="tight">The map starts with where you are</h3>
+      <div class="row-body">
+        <p>Most music platforms start with an artist.</p>
+        <p>We start with you.</p>
+        <p>Open bndy and look around.</p>
+        <p>Tonight. Tomorrow. This weekend.<br />Walkable. A short drive. Somewhere worth going.</p>
+        <p>Because sometimes you don't know which band you want to see.</p>
+        <p>You just know you fancy seeing a band.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">07</div>
+      <h3 class="tight">We measure success in people turning up</h3>
+      <div class="row-body">
+        <p>Not time spent in the app.<br />Not endless scrolling.<br />Not notifications designed to drag you back.</p>
+        <p>If bndy helps you find a band you've never heard of, walk into a venue you've never visited and have a brilliant night, it worked.</p>
+        <p><span class="em">The objective isn't to keep you in bndy. It's to get you out to a gig.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement reveal-scale">
+    <h2 class="tight">NO TICKET REQUIRED.</h2>
+    <p>Some of the most important live music in Britain happens without one.</p>
+    <p><b>bndy finds the music happening outside the ticketing ecosystem.</b></p>
+  </section>
+
+  <section class="stub-wrap reveal" id="promise">
+    <div class="stub">
+      <div class="stub-main">
+        <div class="k">Our promise</div>
+        <h3 class="tight">We won't hide gigs because nobody paid us.</h3>
+        <p>We won't make artists pay to exist. We won't make venues pay to exist. £0 and £100 are both gigs. Eight promises, in writing, no small print.</p>
+        <a href="/promise">Read our promise →</a>
+      </div>
+      <div class="stub-side">
+        <div class="no tight">No ticket<br />required</div>
+        <div class="adm">Admit everyone</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close-section reveal">
+    <p>Go to gigs. Try a band you've never heard of. Walk into a venue you've never visited.</p>
+    <p><b>We'll help you find it. The rest is up to all of us.</b></p>
+    <div class="close-actions">
+      <a class="btn btn-primary" href={MAP_URL}>Open the map</a>
+      <a class="btn btn-secondary" href="/why">Read why we're building this →</a>
+    </div>
+  </section>
+
+  <Doors />
+</Base>

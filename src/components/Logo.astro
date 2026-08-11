@@ -1,0 +1,16 @@
+---
+// One <use> of the shared mark. Defs render once per page in Base.astro.
+interface Props {
+  class?: string;
+  label?: string;
+}
+const { class: className, label } = Astro.props;
+---
+<svg
+  class={className}
+  viewBox="25 11 29 13"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  role={label ? 'img' : undefined}
+><use href="#bndy-mark" /></svg>

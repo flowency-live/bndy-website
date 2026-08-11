@@ -1,0 +1,24 @@
+---
+// The two doors. Decision 1.4: both stay prominent on every relevant page.
+import { MAP_URL, STAGE_LOGIN_URL } from '../config';
+interface Props {
+  backstageHeading?: string;
+}
+const { backstageHeading = 'Backstage login' } = Astro.props;
+---
+<div class="doors-wrap">
+  <section class="doors reveal">
+    <a class="door door-explore reveal-left stagger-1" href={MAP_URL}>
+      <div class="tag">For everyone</div>
+      <h3 class="tight">Explore gigs</h3>
+      <p>Open the map. See the live music around you tonight, tomorrow, this weekend. Walkable, a short drive, somewhere worth going.</p>
+      <span class="arrow">Open the map →</span>
+    </a>
+    <a class="door door-backstage reveal-right stagger-2" href={STAGE_LOGIN_URL}>
+      <div class="tag">Artists &amp; venues</div>
+      <h3 class="tight">{backstageHeading}</h3>
+      <p>Manage your profile, your gigs, your availability. Already here? Claim your place and help us get it right.</p>
+      <span class="arrow">Sign in to Backstage →</span>
+    </a>
+  </section>
+</div>

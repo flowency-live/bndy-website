@@ -1,0 +1,73 @@
+# Build and deploy bndy-website to AWS Amplify Hosting.
+#
+# The workflow builds the static site, zips dist/, and pushes it to Amplify
+# as a manual deployment. Amplify does not build; GitHub Actions does.
+#
+# Required repository configuration before the first run:
+#   Secrets:
+#     AWS_ACCESS_KEY_ID     IAM user or role key with amplify:CreateDeployment,
+#     AWS_SECRET_ACCESS_KEY amplify:StartDeployment on the app.
+#   Variables:
+#     AMPLIFY_APP_ID        The Amplify app id (create the app first, manual deploy type).
+#     AMPLIFY_BRANCH        The Amplify branch name to deploy to (for example "staging").
+#     AWS_REGION            For example "eu-west-2".
+#
+# ⚠ No DNS or CloudFront change happens here. Staging first. Jason cuts over.
+
+name: Deploy to Amplify
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Check output
+        run: |
+          test -f dist/index.html
+          # Hard rule: no em dash in built output.
+          if grep -rl $'—' dist --include='*.html'; then
+            echo 'Em dash found in built HTML. Failing.'; exit 1
+          fi
+
+      - name: Zip
+        run: cd dist && zip -r ../site.zip .
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Deploy to Amplify
+        run: |
+          set -euo pipefail
+          APP_ID="${{ vars.AMPLIFY_APP_ID }}"
+          BRANCH="${{ vars.AMPLIFY_BRANCH }}"
+          CREATE=$(aws amplify create-deployment --app-id "$APP_ID" --branch-name "$BRANCH")
+          JOB_ID=$(echo "$CREATE" | python3 -c 'import json,sys; print(json.load(sys.stdin)["jobId"])')
+          UPLOAD_URL=$(echo "$CREATE" | python3 -c 'import json,sys; print(json.load(sys.stdin)["zipUploadUrl"])')
+          curl -sf -H 'Content-Type: application/zip' --upload-file site.zip "$UPLOAD_URL"
+          aws amplify start-deployment --app-id "$APP_ID" --branch-name "$BRANCH" --job-id "$JOB_ID"
+          echo "Deployment started: job $JOB_ID on $BRANCH"

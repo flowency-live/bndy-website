@@ -1,0 +1,96 @@
+---
+// The Backstage page. Structure per spec §5.3.
+// Copy ported verbatim 2026-08 from CombinedAbout.tsx (spec §5.2); rewrite scheduled, Jason owns it.
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Doors from '../components/Doors.astro';
+import { STAGE_LOGIN_URL } from '../config';
+---
+<Base
+  title="Backstage · Manage & promote your music"
+  description="Artist, venue, and studio management solution. Simplify your music journey with collaborative tools built by musicians, for musicians."
+  path="/backstage"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div style="position:relative">
+      <Logo class="hero-logo" />
+      <h1 class="tight" style="margin-top:0">Backstage</h1>
+      <p class="sub">Artist, venue, and studio management solution. Simplify your music journey with collaborative tools built by musicians, for musicians.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={STAGE_LOGIN_URL}>Sign in to Backstage</a>
+      </div>
+      <p class="note">New here? <a href="/why">Read why we exist →</a></p>
+    </div>
+  </header>
+
+  <section class="prose reveal" style="padding-bottom:1rem">
+    <h2 class="tight">Artists &amp; Venues: Manage &amp; Promote Your Music</h2>
+    <p>Join our community of artists and venues to manage and promote your events.</p>
+    <p><b>Join Our Community.</b> Connect with other artists, venues, and promoters. Share resources, collaborate on events, and be part of a supportive grassroots music ecosystem.</p>
+    <p><b>Manage Your Events.</b> Easily create and manage events, setlists, and promotional materials. Reach your audience directly without competing with algorithms or paying for visibility.</p>
+  </section>
+
+  <section class="beliefs">
+    <div class="beliefs-head reveal"><h2 class="tight">Current features</h2><span class="mono">LIVE NOW</span></div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">01</div>
+      <h3 class="tight">Song Repertoire Management</h3>
+      <div class="row-body"><p>Organize, categorize, and manage your band's entire song library in one place.</p></div>
+    </div>
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">02</div>
+      <h3 class="tight">Collaborative Setlist Builder</h3>
+      <div class="row-body"><p>Create setlists together in real-time with your band members, with drag-and-drop functionality.</p></div>
+    </div>
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">03</div>
+      <h3 class="tight">Band Member Permissions</h3>
+      <div class="row-body"><p>Control who can view, edit, or manage your band's content with customizable permissions.</p></div>
+    </div>
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">04</div>
+      <h3 class="tight">Performance Analytics</h3>
+      <div class="row-body"><p>Track song popularity, audience engagement, and set effectiveness over time.</p></div>
+    </div>
+  </section>
+
+  <section class="beliefs" style="padding-top:0">
+    <div class="beliefs-head reveal"><h2 class="tight">Upcoming features</h2><span class="mono">SOUNDCHECK</span></div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">05</div>
+      <h3 class="tight">Events Management</h3>
+      <div class="row-body"><p>Schedule and manage gigs, rehearsals, and band meetings with an intuitive calendar interface.</p></div>
+    </div>
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">06</div>
+      <h3 class="tight">Media Library</h3>
+      <div class="row-body"><p>Store and organize band photos, videos, and recordings securely in one place.</p></div>
+    </div>
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">07</div>
+      <h3 class="tight">AI Setlist Generation</h3>
+      <div class="row-body"><p>Smart setlist suggestions based on your band's style, audience preferences, and venue requirements.</p></div>
+    </div>
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">08</div>
+      <h3 class="tight">Venue Database</h3>
+      <div class="row-body"><p>Access and contribute to our growing database of venue information and booking contacts.</p></div>
+    </div>
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">09</div>
+      <h3 class="tight">Social Media Integration</h3>
+      <div class="row-body"><p>Seamlessly share your events across multiple platforms with custom messaging.</p></div>
+    </div>
+  </section>
+
+  <section class="close-section reveal" style="padding-top:0">
+    <div class="close-actions">
+      <a class="btn btn-primary" href={STAGE_LOGIN_URL}>Join the Community</a>
+    </div>
+  </section>
+
+  <Doors backstageHeading="Sign in to Backstage" />
+</Base>

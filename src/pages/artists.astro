@@ -1,0 +1,39 @@
+---
+// For artists. Copy source: 10-Projects\bndy-website\for-artists.md (byte-exact). Short page + doors.
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+import { MAP_URL } from '../config';
+---
+<Base
+  title="For artists · bndy"
+  description="You shouldn't have to become a marketer just to be discoverable. Play gigs. Tell people where you're playing. We'll help people find you."
+  path="/artists"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">For artists</div>
+    <h1 class="tight" style="position:relative">You shouldn't have to become a marketer just to be discoverable.</h1>
+    <p class="sub" style="position:relative">You're already doing the hard part. Learning the songs, lugging the gear, playing the rooms.</p>
+  </header>
+
+  <section class="prose">
+    <p>So here's the deal:</p>
+    <p><b>Play gigs. Tell people where you're playing.</b> We'll do everything we can to connect those dates with the venues, places and people looking for live music nearby.</p>
+    <p>We're out there finding gigs the same way punters do: venue pages, posters, local listings, the corners of the internet where grassroots music actually lives. There's a decent chance we've already found yours.</p>
+
+    <h2 class="tight" style="margin-top:2.6rem">Already on bndy?</h2>
+    <p>If we've already found you: <b>claim your place in bndy and help us get it right.</b></p>
+    <p>Once it's yours, it's yours. Your profile, your dates, your story. Nothing changes on your page unless you say so, though the local curators who help keep bndy accurate can still fix a wrong date for you.</p>
+
+    <h2 class="tight" style="margin-top:2.6rem">Not on bndy yet?</h2>
+    <p>Add your next gig. It takes about a minute, and it puts you on the map. Literally.</p>
+    <div class="close-actions" style="justify-content:flex-start">
+      <a class="btn btn-primary" href={MAP_URL}>Add a gig</a>
+      <a class="btn btn-secondary" href={MAP_URL}>Find your band on bndy</a>
+    </div>
+
+    <p class="aside" style="margin-top:2.6rem">It doesn't matter if you play originals or covers, weddings or open mics, three gigs a year or three a week. If you're making live music, you belong on the map.</p>
+  </section>
+
+  <Doors />
+</Base>

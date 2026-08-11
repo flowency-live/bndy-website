@@ -1,0 +1,119 @@
+---
+// The manifesto. Copy source: 10-Projects\bndy-website\why.md (byte-exact).
+// Layout per spec §4: single column, generous measure, belief-row styling for sub-sections.
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+import Logo from '../components/Logo.astro';
+import { MAP_URL } from '../config';
+---
+<Base
+  title="Why bndy exists · bndy"
+  description="Live music needs people in rooms. We're building the most complete picture of grassroots live music we can: every artist, every venue, every gig we can find."
+  path="/why"
+>
+  <article class="manifesto">
+    <header class="manifesto-header">
+      <div class="kicker">Why bndy exists</div>
+      <h1 class="manifesto-display tight">Live music needs people in rooms.</h1>
+    </header>
+
+    <div class="manifesto-intro reveal">
+      <p class="manifesto-lead">Not streams. Not likes. Not followers.</p>
+      <p class="manifesto-lead">People standing in front of musicians.</p>
+    </div>
+
+    <hr class="manifesto-rule" />
+
+    <div class="manifesto-section reveal">
+      <p>All over the country, bands and artists are playing in pubs, bars, clubs, hotels, community venues and tiny independent stages.</p>
+      <p>A huge amount of it is free.</p>
+      <p class="manifesto-accent">And much of it is almost invisible.</p>
+      <p>It exists in Facebook posts, posters, venue websites, local groups and dozens of disconnected corners of the internet.</p>
+      <p>The biggest music platforms don't have much reason to fix that. Their businesses are built around tickets, tours and artists big enough to monetise.</p>
+    </div>
+
+    <aside class="manifesto-pullquote reveal-scale">
+      <p><b>We're building bndy for everything underneath that.</b></p>
+    </aside>
+
+    <div class="manifesto-section reveal">
+      <p>We want to build the most complete picture of grassroots live music we can.</p>
+      <p>Not to own it.</p>
+      <p>To make it easier to find, support and keep alive.</p>
+    </div>
+
+    <div class="manifesto-list reveal-fade">
+      <div class="manifesto-list-item"><span class="manifesto-list-marker"></span><p>Every artist.</p></div>
+      <div class="manifesto-list-item"><span class="manifesto-list-marker"></span><p>Every venue.</p></div>
+      <div class="manifesto-list-item"><span class="manifesto-list-marker"></span><p>Every gig we can find.</p></div>
+    </div>
+
+    <div class="manifesto-section reveal">
+      <p>Connected together and put on a map.</p>
+      <p>Not because every gig needs to become commercialised.</p>
+      <p class="manifesto-accent">Quite the opposite.</p>
+      <p>Because a band playing for pocket money in a pub on Saturday night deserves to be discoverable too.</p>
+    </div>
+
+    <hr class="manifesto-rule" />
+
+    <div class="manifesto-beliefs reveal">
+      <p>We believe local live music is part of what makes towns worth living in.</p>
+      <p>We believe small venues matter.</p>
+      <p>We believe working musicians matter.</p>
+      <p>We believe free gigs matter.</p>
+    </div>
+
+    <div class="manifesto-close reveal">
+      <p>And we believe finding them should be ridiculously easy.</p>
+      <p class="manifesto-accent manifesto-thats">That's <Logo class="inline-logo" label="bndy" />.</p>
+      <p class="manifesto-strap tight">Keeping live music alive.</p>
+    </div>
+  </article>
+
+  <section class="beliefs">
+    <div class="beliefs-head reveal"><h2 class="tight">The long version</h2><span class="mono">SET 1 OF 1</span></div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">01</div>
+      <h3 class="tight">Grassroots means grassroots</h3>
+      <div class="row-body">
+        <p>Grassroots music isn't only a particular class of recognised music venue.</p>
+        <p>It's the pub with a band in the corner.<br />The social club with a packed Saturday night.<br />The hotel that puts music on every Friday.<br />The tiny independent venue giving original bands their first show.<br />The covers band doing 70 gigs a year.<br />The acoustic singer playing to 30 people.<br />The open mic where somebody plays live for the first time.</p>
+        <p><b>If people are making live music and people are turning up to hear it, it matters to bndy.</b></p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">02</div>
+      <h3 class="tight">We don't just collect listings</h3>
+      <div class="row-body">
+        <p>A gig is connected to a band.<br />A band is connected to venues.<br />A venue is connected to a town.</p>
+        <p>Those relationships continue long after Saturday night has passed.</p>
+        <p>So bndy is building something deeper than another events calendar.</p>
+        <p>We're creating a living record of grassroots music: the artists playing it, the venues supporting it, where they're playing, where they've played before, and the local scenes connecting them.</p>
+        <p>Every gig makes that picture a little clearer.</p>
+        <p>And it stays what it has always been: the scene's own picture of itself, made easier to see. The scene belongs to the people in it. The bands, the venues, the promoters, the people who turn up. <b>The technology should serve the scene. Not the other way around.</b></p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">03</div>
+      <h3 class="tight">The rest is up to all of us</h3>
+      <div class="row-body">
+        <p>Go to gigs.<br />Try a band you've never heard of.<br />Walk into a venue you've never visited.<br />Spend some money at the bar.<br />Tell somebody when a band was brilliant.<br />Take your mates next time.</p>
+        <p>Because grassroots live music only stays alive if people turn up.</p>
+        <p><span class="em">We'll help you find it.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="close-section reveal">
+    <div class="close-actions">
+      <a class="btn btn-primary" href={MAP_URL}>Open the map</a>
+      <a class="btn btn-secondary" href="/promise">Our promise →</a>
+    </div>
+  </section>
+
+  <Doors />
+</Base>

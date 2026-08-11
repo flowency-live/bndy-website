@@ -1,0 +1,20 @@
+---
+import Logo from './Logo.astro';
+import { MAP_URL, STAGE_LOGIN_URL } from '../config';
+---
+<nav>
+  <a class="brand" href="/" aria-label="bndy home">
+    <Logo />
+  </a>
+  <div class="nav-right">
+    <a href="/">Home</a>
+    <a href="/why">Why</a>
+    <a href="/artists">Artists</a>
+    <a href="/venues">Venues</a>
+    <a href="/go">Go</a>
+    <a href="/promise">Our promise</a>
+    <a href="/backstage">Backstage</a>
+    <a class="explore-link" href={MAP_URL}>Explore gigs</a>
+    <button class="theme-btn" id="themeBtn" aria-label="Switch light and dark mode">◐</button>
+  </div>
+</nav>

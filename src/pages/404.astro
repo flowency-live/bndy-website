@@ -1,0 +1,19 @@
+---
+// 404 per spec §4: one line + the two doors.
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+---
+<Base
+  title="Page not found · bndy"
+  description="This page isn't on the map."
+  path="/404"
+>
+  <section class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">404</div>
+    <h1 class="tight" style="position:relative">This page isn't on the map.</h1>
+  </section>
+  <div style="padding-top:3.5rem">
+    <Doors />
+  </div>
+</Base>

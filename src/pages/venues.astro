@@ -1,0 +1,37 @@
+---
+// For venues. Copy source: 10-Projects\bndy-website\for-venues.md (byte-exact). Short page + doors.
+// Closing line renders as display type per spec §4.
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+import { MAP_URL } from '../config';
+---
+<Base
+  title="For venues · bndy"
+  description="You put the music on. We'll help people find it. If we can find your gigs, we'll try to list them. Claiming your venue costs nothing."
+  path="/venues"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">For venues</div>
+    <h1 class="tight" style="position:relative">Putting live music on is difficult enough.</h1>
+    <p class="sub" style="position:relative">You're booking the bands, paying the bands, moving the furniture, hoping the weather doesn't kill the walk-in.</p>
+  </header>
+
+  <section class="prose">
+    <p>You shouldn't have to publish the same gig into another dozen databases just so people know it's happening.</p>
+    <p><b>If we can find your gigs, we'll try to list them.</b></p>
+    <p>Post them wherever you already post them: your Facebook page, your website, the local listings. We're built to find gigs where they're already announced, connect them to your venue, and put them in front of people nearby who are looking for exactly what you're putting on.</p>
+
+    <h2 class="tight" style="margin-top:2.6rem">Claim your venue when you're ready</h2>
+    <p>Claim your venue and help us make the information better. Your page, your details, your what's-on. Once claimed, nothing on your profile changes unless you change it.</p>
+    <p>And it costs nothing. A venue putting on live music is already contributing to the ecosystem. That's our promise, in writing, on <a href="/promise">the promise page</a>.</p>
+    <div class="close-actions" style="justify-content:flex-start">
+      <a class="btn btn-primary" href={MAP_URL}>Find your venue on bndy</a>
+      <a class="btn btn-secondary" href={MAP_URL}>Add a gig</a>
+    </div>
+
+    <p class="display-close tight" style="margin-top:3.2rem">You put the music on. We'll help people find it.</p>
+  </section>
+
+  <Doors />
+</Base>

@@ -1,0 +1,190 @@
+---
+// Base layout. Dark by default, light is first-class. Theme set before paint.
+// Analytics hook point: see the single marked slot at the end of <head>. Spec §8.5.
+import '@fontsource/inter-tight/latin-600.css';
+import '@fontsource/inter-tight/latin-700.css';
+import '@fontsource/inter-tight/latin-800.css';
+import '@fontsource/inter-tight/latin-900.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/latin-700.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '../styles/global.css';
+// Preload the four fonts that paint above the fold. Same hashed assets the CSS references.
+import interTight800 from '@fontsource/inter-tight/files/inter-tight-latin-800-normal.woff2?url';
+import interTight900 from '@fontsource/inter-tight/files/inter-tight-latin-900-normal.woff2?url';
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
+import plexMono500 from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2?url';
+import BndyMarkDefs from '../components/BndyMarkDefs.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string; // '/', '/why', ...
+  structuredData?: object;
+}
+const { title, description, path, structuredData } = Astro.props;
+const canonical = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`;
+const ogImage = `${SITE_URL}/og-card.png`;
+---
+<!DOCTYPE html>
+<html lang="en-GB" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="preload" href={interTight800} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={interTight900} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={plexMono500} as="font" type="font/woff2" crossorigin />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0F1729" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="bndy" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <script is:inline>
+    // Theme before paint. Respect the OS preference on first load; remember the toggle.
+    (function () {
+      var t = 'dark';
+      try {
+        var s = localStorage.getItem('bndy-theme');
+        if (s === 'light' || s === 'dark') { t = s; }
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { t = 'light'; }
+      } catch (e) { /* default stays dark */ }
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  {structuredData && (
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  )}
+
+  <!-- ANALYTICS HOOK POINT (spec §8.5): when a tool is chosen, load it here and only here. -->
+</head>
+<body>
+  <BndyMarkDefs />
+  <Nav />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+
+  <script is:inline>
+    (function () {
+      var btn = document.getElementById('themeBtn');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var root = document.documentElement;
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('bndy-theme', next); } catch (e) { /* fine */ }
+      });
+    })();
+  </script>
+
+  <!-- Scroll-reveal observer: lightweight, respects reduced motion -->
+  <script is:inline>
+    (function () {
+      // Skip if reduced motion preferred
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-fade');
+      if (!reveals.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // Only animate once
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -60px 0px'
+      });
+
+      reveals.forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+  </script>
+
+  <!-- Parallax effect for marquee on scroll -->
+  <script is:inline>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var device = document.querySelector('.device-track');
+      if (!device) return;
+
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            var scrollY = window.scrollY;
+            var speedMod = 1 + (scrollY * 0.0005); // Subtle speed increase on scroll
+            device.style.animationDuration = (28 / speedMod) + 's';
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+  </script>
+
+  <!-- Counter animation for belief numbers -->
+  <script is:inline>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var numbers = document.querySelectorAll('.row-no');
+      if (!numbers.length) return;
+
+      var observed = new Set();
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !observed.has(entry.target)) {
+            observed.add(entry.target);
+            var el = entry.target;
+            var final = el.textContent;
+            var num = parseInt(final, 10);
+            if (isNaN(num) || num < 1 || num > 20) return;
+
+            el.textContent = '00';
+            var count = 0;
+            var interval = setInterval(function () {
+              count++;
+              el.textContent = count < 10 ? '0' + count : String(count);
+              if (count >= num) {
+                clearInterval(interval);
+                el.textContent = final; // Restore original format
+              }
+            }, 60);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      numbers.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>
