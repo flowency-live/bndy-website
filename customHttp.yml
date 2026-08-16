@@ -1,0 +1,20 @@
+# Browser/cache policy for the public website.
+#
+# Browser content must always revalidate so a future deployment/domain move can
+# never strand users on an old HTML/app shell. Amplify may keep the current
+# deployment at the CDN edge; Amplify invalidates that edge cache on each CI/CD
+# deployment.
+#
+# /sw.js is a permanent tombstone for the historical bndy-backstage Workbox
+# service worker that was once registered on www.bndy.co.uk with scope '/'.
+customHeaders:
+  - pattern: '**'
+    headers:
+      - key: 'Cache-Control'
+        value: 'public, max-age=0, must-revalidate, s-maxage=31536000'
+  - pattern: '/sw.js'
+    headers:
+      - key: 'Clear-Site-Data'
+        value: '"cache"'
+      - key: 'Service-Worker-Allowed'
+        value: '/'
