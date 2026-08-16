@@ -101,6 +101,34 @@ const ogImage = `${SITE_URL}/og-card.png`;
     })();
   </script>
 
+  <!-- Legacy public-domain PWA cleanup. The old Backstage app once owned www.bndy.co.uk. -->
+  <script is:inline>
+    (function () {
+      if (!('serviceWorker' in navigator)) return;
+
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.getRegistrations()
+          .then(function (registrations) {
+            if (!registrations.length && !navigator.serviceWorker.controller) return;
+
+            return Promise.all(registrations.map(function (registration) {
+              return registration.unregister();
+            })).then(function () {
+              if (!('caches' in window)) return;
+              return caches.keys().then(function (keys) {
+                return Promise.all(keys.map(function (key) {
+                  return caches.delete(key);
+                }));
+              });
+            });
+          })
+          .catch(function () {
+            // Migration cleanup must never interfere with the public website.
+          });
+      });
+    })();
+  </script>
+
   <!-- Scroll-reveal observer: lightweight, respects reduced motion -->
   <script is:inline>
     (function () {
