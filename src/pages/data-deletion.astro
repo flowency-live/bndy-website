@@ -1,0 +1,40 @@
+---
+// Data deletion instructions. Also serves as the deletion-instructions URL for
+// social sign-in app review (for example Facebook Login). DRAFT for Jason's review.
+import Base from '../layouts/Base.astro';
+import { CONTACT_EMAIL, LEGAL_UPDATED } from '../legal';
+---
+<Base
+  title="Data deletion · bndy"
+  description="How to delete your Backstage account and personal data, and how to request removal of personal information from listings."
+  path="/data-deletion"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">Legal</div>
+    <h1 class="tight" style="position:relative">Data deletion</h1>
+    <p class="sub" style="position:relative">How to delete your account and your data. One email is enough.</p>
+  </header>
+
+  <article class="legal">
+    <p class="updated">Last updated: {LEGAL_UPDATED}</p>
+
+    <h2 class="tight"><span class="n">01</span>Delete your Backstage account</h2>
+    <p>Email <a href={`mailto:${CONTACT_EMAIL}?subject=Delete my account`}>{CONTACT_EMAIL}</a> from the address on your account, with the subject "Delete my account". We will confirm, delete the account, and remove your personal data within 30 days.</p>
+    <p>What deletion covers: your account, your sign-in details, your email address and your personal profile data.</p>
+    <p>What stays: public gig listings. A gig that happened is part of the public record of live music, so the event itself stays on the map. Anything personal that you added and want removed alongside your account, say so in the email and we will remove it.</p>
+
+    <h2 class="tight"><span class="n">02</span>If you signed in with Facebook or Google</h2>
+    <p>Deleting your bndy account also deletes the name and email address we received from the sign-in service. You can additionally remove bndy from your own settings on that service: on Facebook under Settings, Apps and Websites; on Google under Security, Third-party access.</p>
+    <p>To request deletion of data received through a sign-in service without keeping your account, use the same email route above. This page is bndy's data deletion instructions URL for those services.</p>
+
+    <h2 class="tight"><span class="n">03</span>Personal information in listings, without an account</h2>
+    <p>bndy lists publicly announced gigs, so an artist or venue can appear on the map without ever having had an account. If a listing shows personal information about you that you want corrected or removed, email <a href={`mailto:${CONTACT_EMAIL}?subject=Remove my information`}>{CONTACT_EMAIL}</a> or <a href="/contact">flag it</a>. No account needed. We respond within one month.</p>
+
+    <h2 class="tight"><span class="n">04</span>What we may need from you</h2>
+    <p>Enough to be sure the request comes from the right person: usually just sending the email from the address linked to the account or listing. For listing removals we may ask a question or two to confirm you are who the information is about.</p>
+
+    <h2 class="tight"><span class="n">05</span>More detail</h2>
+    <p>Retention periods and your full legal rights are in the <a href="/privacy">privacy policy</a>.</p>
+  </article>
+</Base>

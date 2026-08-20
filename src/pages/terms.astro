@@ -1,0 +1,72 @@
+---
+// Terms of use. Covers the whole bndy platform. DRAFT for Jason's review.
+import Base from '../layouts/Base.astro';
+import { MAP_URL } from '../config';
+import { COMPANY_NAME, COMPANY_NUMBER, REGISTERED_OFFICE, CONTACT_EMAIL, LEGAL_UPDATED } from '../legal';
+---
+<Base
+  title="Terms of use · bndy"
+  description="The terms for using bndy: the website, the gig map and Backstage. Short sentences, no traps."
+  path="/terms"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">Legal</div>
+    <h1 class="tight" style="position:relative">Terms of use</h1>
+    <p class="sub" style="position:relative">The rules for using bndy. Short sentences, no traps.</p>
+  </header>
+
+  <article class="legal">
+    <p class="updated">Last updated: {LEGAL_UPDATED}</p>
+
+    <p class="lead" style="margin-top:1.4rem">These terms cover this website, the gig map and Backstage. By using any of them you agree to these terms. If you don't agree, don't use bndy.</p>
+
+    <h2 class="tight"><span class="n">01</span>Who we are</h2>
+    <p>bndy is operated by {COMPANY_NAME}, registered in England and Wales (company number {COMPANY_NUMBER}), registered office {REGISTERED_OFFICE}. Contact: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+
+    <h2 class="tight"><span class="n">02</span>What bndy is, and what it isn't</h2>
+    <p>bndy lists live music that has been announced publicly, and connects it to artists, venues and places. We are not the organiser, the promoter or the ticket seller. We don't sell tickets and we take no booking fees.</p>
+    <p><b>Gigs change.</b> Bands fall ill, weather intervenes, venues rearrange. We work hard to keep listings accurate, but the listing is not a promise that the gig will happen as described. If a night matters to you, check with the venue before you travel.</p>
+
+    <h2 class="tight"><span class="n">03</span>Using the map and the website</h2>
+    <p>The map and the website are free, and looking needs no account. Use them for finding and sharing live music. Don't use them to break the law, mislead people, or interfere with the service.</p>
+
+    <h2 class="tight"><span class="n">04</span>Backstage accounts</h2>
+    <ul>
+      <li>You must be 16 or over to hold an account.</li>
+      <li>Give accurate details and keep your sign-in credentials to yourself. You are responsible for activity on your account.</li>
+      <li>One person can manage several acts or venues, but impersonating somebody else's act or venue is not allowed. See the <a href="/claim-policy">claim policy</a>.</li>
+    </ul>
+
+    <h2 class="tight"><span class="n">05</span>Your content</h2>
+    <p>What you add to bndy (profiles, dates, images, descriptions) stays yours. By adding it you give us a non-exclusive licence to host it, display it and share it as part of bndy's listings, which is what you added it for. You must have the right to share what you add, including any photos.</p>
+
+    <h2 class="tight"><span class="n">06</span>Listings, corrections and takedowns</h2>
+    <p>Anyone can flag a wrong or objectionable listing, no account needed: <a href="/contact">contact us</a>. We correct mistakes, and we remove content that breaks these terms or the law. Where a listing came from a public announcement, we may point back to the original source.</p>
+
+    <h2 class="tight"><span class="n">07</span>Acceptable use</h2>
+    <ul>
+      <li>No fake events, no misleading listings, no impersonation.</li>
+      <li>No attempts to break, overload or probe the service.</li>
+      <li>No bulk extraction of bndy's data at a scale or rate that harms the service. If you want the data for something good, ask us. We like people who help the scene.</li>
+    </ul>
+
+    <h2 class="tight"><span class="n">08</span>Intellectual property</h2>
+    <p>The bndy name, logo and the design of the service belong to us. Artist and venue names, images and content belong to their owners. Nothing in these terms transfers ownership either way.</p>
+
+    <h2 class="tight"><span class="n">09</span>The service is provided as-is</h2>
+    <p>bndy is provided free and "as is". We don't guarantee it will always be available, complete or error-free. To the fullest extent the law allows, we exclude implied warranties.</p>
+
+    <h2 class="tight"><span class="n">10</span>Liability</h2>
+    <p>Nothing in these terms excludes liability that cannot be excluded by law, including for death or personal injury caused by negligence, or for fraud. Beyond that, we are not liable for indirect or consequential loss, and our total liability connected with the service is limited to £100. What happens at a gig is between you, the venue and the event: we are not responsible for the events themselves.</p>
+
+    <h2 class="tight"><span class="n">11</span>Ending an account</h2>
+    <p>You can close your account at any time: see <a href="/data-deletion">data deletion</a>. We can suspend or close accounts that break these terms. Where reasonable we will warn you first.</p>
+
+    <h2 class="tight"><span class="n">12</span>Changes to these terms</h2>
+    <p>If we change these terms in a way that matters, we will update this page and change the date at the top. Continuing to use bndy after a change means you accept the new terms.</p>
+
+    <h2 class="tight"><span class="n">13</span>Governing law</h2>
+    <p>These terms are governed by the law of England and Wales, and the courts of England and Wales have jurisdiction. If you live in Scotland or Northern Ireland, you keep any rights to bring proceedings at home.</p>
+  </article>
+</Base>

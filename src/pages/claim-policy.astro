@@ -1,0 +1,61 @@
+---
+// Claim policy: who may claim an artist or venue, verification, disputes.
+// DRAFT written by Cowork 2026-08-20 from the vault claim rules (for-artists.md,
+// for-venues.md, our-promise.md). Jason supplies final copy; replace then.
+import Base from '../layouts/Base.astro';
+import { CONTACT_EMAIL, LEGAL_UPDATED } from '../legal';
+---
+<Base
+  title="Claim policy · bndy"
+  description="Who may claim an artist or venue page on bndy, how verification works, and how disputes are resolved. Claiming costs nothing."
+  path="/claim-policy"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">Legal</div>
+    <h1 class="tight" style="position:relative">Claim policy</h1>
+    <p class="sub" style="position:relative">Who can claim a page, how we check, and what happens when two people claim the same one.</p>
+  </header>
+
+  <article class="legal">
+    <p class="updated">Last updated: {LEGAL_UPDATED}</p>
+
+    <h2 class="tight"><span class="n">01</span>What claiming means</h2>
+    <p>bndy finds artists, venues and gigs from public announcements, so your page may exist before you do anything. Claiming makes it yours: your profile, your dates, your story. Once claimed, nothing changes on your page unless you change it, though the local curators who help keep bndy accurate can still fix a wrong date for you.</p>
+    <p><b>Claiming costs nothing.</b> That's our promise, in writing, on <a href="/promise">the promise page</a>.</p>
+
+    <h2 class="tight"><span class="n">02</span>Who may claim an artist</h2>
+    <ul>
+      <li>The artist themselves.</li>
+      <li>A current member of the act.</li>
+      <li>Somebody authorised to act for them, such as a manager. We may ask for confirmation from a member.</li>
+    </ul>
+
+    <h2 class="tight"><span class="n">03</span>Who may claim a venue</h2>
+    <ul>
+      <li>The owner or licensee.</li>
+      <li>The manager, or a steward or committee member for clubs and community venues.</li>
+      <li>A member of staff authorised to manage the venue's listings.</li>
+    </ul>
+
+    <h2 class="tight"><span class="n">04</span>How verification works</h2>
+    <p>We check that the person claiming is connected to the act or venue in the real world. Evidence we accept includes:</p>
+    <ul>
+      <li>Contact from an email address, page or website that the act or venue already uses publicly.</li>
+      <li>A reply or post from the act or venue's established public page confirming the claim.</li>
+      <li>For venues: confirmation through details that match public records, or a phone call to the venue's published number.</li>
+    </ul>
+    <p>We may ask a question or two. We approve when the evidence adds up, and not before. Blank beats wrong, and unclaimed beats wrongly claimed.</p>
+
+    <h2 class="tight"><span class="n">05</span>Disputes</h2>
+    <p>If two people claim the same page, evidence decides, not speed. We look at who currently runs the act or venue in the real world: who plays the gigs, who runs the room, who controls the established public pages.</p>
+    <p>Band splits happen. Where two groups continue from one act, we will usually keep the page with the line-up that continues under the name, and help the other create its own page. Where it is truly unclear, the page stays with the curators until it is clear.</p>
+    <p>To dispute a claim, email <a href={`mailto:${CONTACT_EMAIL}?subject=Claim dispute`}>{CONTACT_EMAIL}</a> with the page and your evidence. We respond within 14 days.</p>
+
+    <h2 class="tight"><span class="n">06</span>Misuse</h2>
+    <p>A false claim is impersonation. We revoke false claims, restore the page, and may close the account under the <a href="/terms">terms of use</a>.</p>
+
+    <h2 class="tight"><span class="n">07</span>Removing a claim</h2>
+    <p>You can hand a page back at any time, and claiming never locks you in. If you leave an act or a venue, tell us and we will pass control to the right person.</p>
+  </article>
+</Base>

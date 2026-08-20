@@ -1,0 +1,86 @@
+---
+// Privacy policy. Covers the whole bndy platform: this website, the map app and Backstage.
+// DRAFT for Jason's review. Company details come from src/legal.ts (placeholders until confirmed).
+import Base from '../layouts/Base.astro';
+import { MAP_URL, STAGE_LOGIN_URL } from '../config';
+import { COMPANY_NAME, COMPANY_NUMBER, REGISTERED_OFFICE, CONTACT_EMAIL, LEGAL_UPDATED } from '../legal';
+---
+<Base
+  title="Privacy policy · bndy"
+  description="How bndy handles personal information across the website, the map and Backstage. Plain words, no small print."
+  path="/privacy"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">Legal</div>
+    <h1 class="tight" style="position:relative">Privacy policy</h1>
+    <p class="sub" style="position:relative">How bndy handles personal information. Written to be read, not scrolled past.</p>
+  </header>
+
+  <article class="legal">
+    <p class="updated">Last updated: {LEGAL_UPDATED}</p>
+
+    <p class="lead" style="margin-top:1.4rem">This policy covers everything bndy runs: this website, the gig map, and Backstage. The short version: <b>we collect as little as we can, we don't sell data, and we don't run advertising trackers.</b></p>
+
+    <h2 class="tight"><span class="n">01</span>Who we are</h2>
+    <p>bndy is operated by {COMPANY_NAME}, registered in England and Wales (company number {COMPANY_NUMBER}), registered office {REGISTERED_OFFICE}. We are the data controller for the personal information described in this policy.</p>
+    <p>Questions, requests or complaints: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+
+    <h2 class="tight"><span class="n">02</span>What bndy does</h2>
+    <p>bndy finds live music that has already been announced publicly: on venue pages, band pages, posters and local listings. We connect those announcements to artists, venues and places, and put them on a map so people can find gigs near them.</p>
+
+    <h2 class="tight"><span class="n">03</span>Information about artists and venues from public sources</h2>
+    <p>Because of what bndy does, our listings include information that artists, venues and promoters have already made public: act names, venue names and addresses, gig dates, and links to public pages and websites. Some of this counts as personal information, for example where an act performs under a personal name.</p>
+    <p>We process it on the basis of our <b>legitimate interest</b> in helping people find live music that has already been publicly announced. We only gather what was published to promote the gig, and we show it for exactly that purpose.</p>
+    <p>If something about you is wrong, or you want it removed, tell us: <a href="/contact">flag it</a> or email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. No account needed. See also our <a href="/data-deletion">data deletion page</a>.</p>
+
+    <h2 class="tight"><span class="n">04</span>Information you give us</h2>
+    <ul>
+      <li><b>Backstage accounts.</b> When you create an account we collect your name, email address and the profile details you choose to add for your act or venue.</li>
+      <li><b>Sign-in with another service.</b> If you sign in with a service like Google or Facebook, we receive your name and email address from that service. We do not receive your password and we do not post on your behalf.</li>
+      <li><b>Messages.</b> When you email us or flag a problem, we keep the message so we can deal with it.</li>
+      <li><b>Claims.</b> When you claim an artist or venue page, we keep the evidence you provide so we can verify the claim. See the <a href="/claim-policy">claim policy</a>.</li>
+    </ul>
+    <p>We process this information to provide the service you asked for (performance of a contract) and, for claim evidence, in our legitimate interest in keeping listings accurate and preventing false claims.</p>
+
+    <h2 class="tight"><span class="n">05</span>Information collected automatically</h2>
+    <ul>
+      <li><b>Server logs.</b> Like almost every website, our servers record IP addresses, request times and pages requested. We use these for security and to keep the service running. Logs are kept for a short period and then deleted.</li>
+      <li><b>Your theme choice.</b> This website stores your light/dark preference in your own browser. It never reaches our servers.</li>
+      <li><b>Location on the map.</b> If you allow the map to use your device location, that happens on your device to centre the map. We do not build a history of where you have been.</li>
+    </ul>
+    <p>We do not run third-party advertising trackers, and we do not sell or rent personal information to anyone. See the <a href="/cookies">cookie policy</a> for the full picture.</p>
+
+    <h2 class="tight"><span class="n">06</span>Who we share information with</h2>
+    <ul>
+      <li><b>Service providers.</b> We use cloud hosting and email providers to run bndy. They process data on our instructions under contract.</li>
+      <li><b>The public.</b> Artist and venue profiles, and gig listings, are public. That is the point of them. Your Backstage account email address is never shown publicly.</li>
+      <li><b>Legal requirements.</b> We disclose information if the law requires it.</li>
+    </ul>
+    <p>That's the whole list. No data brokers, no advertisers.</p>
+
+    <h2 class="tight"><span class="n">07</span>Where data is stored</h2>
+    <p>Our services run on cloud infrastructure in the UK and Europe where possible. Where a provider processes data outside the UK, we rely on recognised safeguards such as adequacy decisions or standard contractual clauses.</p>
+
+    <h2 class="tight"><span class="n">08</span>How long we keep things</h2>
+    <ul>
+      <li><b>Account data:</b> for as long as your account exists, then deleted within 30 days of closure.</li>
+      <li><b>Public listings:</b> gig history is part of the living record of grassroots music, so past events stay listed. Personal data within a listing is corrected or removed on request.</li>
+      <li><b>Messages:</b> up to 24 months after the last contact, then deleted.</li>
+      <li><b>Server logs:</b> a short rolling period, then deleted.</li>
+    </ul>
+
+    <h2 class="tight"><span class="n">09</span>Your rights</h2>
+    <p>Under UK data protection law you can ask us to: access the personal information we hold about you, correct it, delete it, restrict how we use it, object to our use of it, or give you a copy in a portable format.</p>
+    <p>Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and we will respond within one month. If you are unhappy with our answer, you can complain to the Information Commissioner's Office at <a href="https://ico.org.uk" rel="noopener">ico.org.uk</a>.</p>
+
+    <h2 class="tight"><span class="n">10</span>Children</h2>
+    <p>Backstage accounts are for people aged 16 and over. The public map and website carry no age restriction: they are gig listings.</p>
+
+    <h2 class="tight"><span class="n">11</span>Changes to this policy</h2>
+    <p>If we change this policy in a way that matters, we will update this page and change the date at the top. We won't quietly weaken it.</p>
+
+    <h2 class="tight"><span class="n">12</span>Contact</h2>
+    <p>{COMPANY_NAME} · <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+  </article>
+</Base>

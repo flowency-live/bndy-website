@@ -3,8 +3,13 @@ import Logo from './Logo.astro';
 import { FLAG_URL } from '../config';
 ---
 <footer>
-  <div class="foot-links">
-    <a href="/why">Why</a><a href="/promise">Our promise</a><a href="/artists">For artists</a><a href="/venues">For venues</a><a href="/backstage">Backstage</a><a href={FLAG_URL}>Flag a problem</a>
+  <div class="foot-main">
+    <div class="foot-links">
+      <a href="/why">Why</a><a href="/promise">Our promise</a><a href="/artists">For artists</a><a href="/venues">For venues</a><a href="/backstage">Backstage</a><a href={FLAG_URL}>Flag a problem</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/cookies">Cookies</a><a href="/data-deletion">Data deletion</a><a href="/claim-policy">Claim policy</a>
+    </div>
   </div>
   <div class="foot-brand">
     <Logo />

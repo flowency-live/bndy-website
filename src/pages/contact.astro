@@ -1,0 +1,59 @@
+---
+// Contact page. One address, clearly signposted routes. DRAFT for Jason's review.
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+import { CONTACT_EMAIL } from '../legal';
+---
+<Base
+  title="Contact · bndy"
+  description="Get in touch with bndy: flag a problem with a listing, claim your artist or venue page, or just say hello. No account needed."
+  path="/contact"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">Contact</div>
+    <h1 class="tight" style="position:relative">Talk to a person, not a form.</h1>
+    <p class="sub" style="position:relative">One address reaches us: <a href={`mailto:${CONTACT_EMAIL}`} style="color:var(--cyan);text-decoration:none;font-weight:600">{CONTACT_EMAIL}</a></p>
+  </header>
+
+  <section class="beliefs">
+    <div class="beliefs-head"><h2 class="tight">What can we help with</h2><span class="mono">NO ACCOUNT NEEDED</span></div>
+
+    <div class="row">
+      <div class="row-no">01</div>
+      <h3 class="tight">Flag a problem</h3>
+      <div class="row-body">
+        <p>Wrong date, wrong venue, a gig that isn't happening, something about you that shouldn't be there. Spotted something wrong? Flag it and we'll look at it. No account needed.</p>
+        <p><a href={`mailto:${CONTACT_EMAIL}?subject=Flag a problem`} style="color:var(--cyan);text-decoration:none;font-weight:600">Email with subject "Flag a problem" →</a></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-no">02</div>
+      <h3 class="tight">Claim your page</h3>
+      <div class="row-body">
+        <p>Artists and venues: claim your place in bndy and help us get it right. How claiming and verification work is in the <a href="/claim-policy" style="color:var(--cyan);text-decoration:none;font-weight:600">claim policy</a>.</p>
+        <p><a href={`mailto:${CONTACT_EMAIL}?subject=Claim my page`} style="color:var(--cyan);text-decoration:none;font-weight:600">Email with subject "Claim my page" →</a></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-no">03</div>
+      <h3 class="tight">Privacy and data</h3>
+      <div class="row-body">
+        <p>Requests about your personal information, including deletion. The routes are on the <a href="/data-deletion" style="color:var(--cyan);text-decoration:none;font-weight:600">data deletion page</a> and in the <a href="/privacy" style="color:var(--cyan);text-decoration:none;font-weight:600">privacy policy</a>.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-no">04</div>
+      <h3 class="tight">Everything else</h3>
+      <div class="row-body">
+        <p>Ideas, partnerships, a venue that deserves a shout, or just to tell us about a brilliant night. We read everything.</p>
+        <p><a href={`mailto:${CONTACT_EMAIL}`} style="color:var(--cyan);text-decoration:none;font-weight:600">{CONTACT_EMAIL} →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <Doors />
+</Base>

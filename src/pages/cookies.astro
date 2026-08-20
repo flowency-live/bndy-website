@@ -1,0 +1,43 @@
+---
+// Cookie policy. DRAFT for Jason's review.
+import Base from '../layouts/Base.astro';
+import { CONTACT_EMAIL, LEGAL_UPDATED } from '../legal';
+---
+<Base
+  title="Cookie policy · bndy"
+  description="What bndy stores in your browser and why. No advertising cookies, no third-party trackers."
+  path="/cookies"
+>
+  <header class="page-hero">
+    <div class="beams"></div>
+    <div class="kicker" style="position:relative">Legal</div>
+    <h1 class="tight" style="position:relative">Cookie policy</h1>
+    <p class="sub" style="position:relative"><b>The short version: no advertising cookies, no third-party trackers.</b></p>
+  </header>
+
+  <article class="legal">
+    <p class="updated">Last updated: {LEGAL_UPDATED}</p>
+
+    <h2 class="tight"><span class="n">01</span>What we store and why</h2>
+    <ul>
+      <li><b>Theme preference (this website).</b> Your light/dark choice is stored in your browser's local storage. It never leaves your device.</li>
+      <li><b>Sign-in session (Backstage and the map).</b> When you sign in, essential cookies and similar storage keep you signed in and keep the session secure. Without them, signing in doesn't work.</li>
+      <li><b>Map settings (the map app).</b> The map may remember settings like your last view in your browser so it opens usefully next time.</li>
+    </ul>
+    <p>All of the above are strictly necessary for the thing you asked the service to do, or store a preference you chose. None of them track you across other websites.</p>
+
+    <h2 class="tight"><span class="n">02</span>What we don't do</h2>
+    <ul>
+      <li>No advertising cookies.</li>
+      <li>No cross-site tracking.</li>
+      <li>No selling of browsing data.</li>
+      <li>No analytics trackers on this website at present. If we ever add privacy-respecting analytics, we will update this page first and ask for consent where the law requires it.</li>
+    </ul>
+
+    <h2 class="tight"><span class="n">03</span>Managing cookies</h2>
+    <p>You can clear or block cookies and local storage in your browser settings at any time. Blocking essential storage will stop sign-in from working; everything public on bndy keeps working without any of it.</p>
+
+    <h2 class="tight"><span class="n">04</span>Questions</h2>
+    <p><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> · more detail in the <a href="/privacy">privacy policy</a>.</p>
+  </article>
+</Base>

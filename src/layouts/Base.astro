@@ -62,13 +62,13 @@ const ogImage = `${SITE_URL}/og-card.png`;
   <meta name="twitter:image" content={ogImage} />
 
   <script is:inline>
-    // Theme before paint. Respect the OS preference on first load; remember the toggle.
+    // Theme before paint. Dark by default for everyone (Jason ruling 2026-08-20).
+    // The OS preference is ignored on first load; only the toggle switches, and it is remembered.
     (function () {
       var t = 'dark';
       try {
         var s = localStorage.getItem('bndy-theme');
         if (s === 'light' || s === 'dark') { t = s; }
-        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) { t = 'light'; }
       } catch (e) { /* default stays dark */ }
       document.documentElement.setAttribute('data-theme', t);
     })();
