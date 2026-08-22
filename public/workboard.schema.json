@@ -5,7 +5,7 @@
   "type": "object",
   "required": ["version", "updatedAt", "repositories", "lanes"],
   "properties": {
-    "version": {"type": "integer", "minimum": 1},
+    "version": {"type": "integer", "minimum": 2},
     "updatedAt": {"type": "string", "format": "date-time"},
     "updatedBy": {"type": "string"},
     "title": {"type": "string"},
@@ -31,12 +31,14 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "title", "objective", "health", "done", "now", "next"],
+        "required": ["id", "title", "objective", "health", "deliveryState", "targetState", "done", "now", "next"],
         "properties": {
           "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
           "title": {"type": "string"},
           "objective": {"type": "string"},
           "health": {"enum": ["green", "amber", "red", "blue", "grey"]},
+          "deliveryState": {"enum": ["live", "building", "planned", "legacy", "decommissioned"]},
+          "targetState": {"type": "boolean"},
           "repos": {"type": "array", "items": {"type": "string"}},
           "done": {"$ref": "#/$defs/cards"},
           "now": {"$ref": "#/$defs/cards"},
