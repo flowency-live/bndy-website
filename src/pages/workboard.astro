@@ -1,0 +1,525 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="BNDY Workboard | What we are building"
+  description="Live visual backlog of the BNDY product, data, ingestion and intelligence workstreams."
+  path="/workboard"
+>
+  <section class="wb-shell">
+    <header class="wb-hero">
+      <div>
+        <div class="wb-kicker">BNDY / OPERATING VIEW</div>
+        <h1>One board.<br /><span>Every moving part.</span></h1>
+        <p class="wb-lede">The live map of what BNDY serves, what has shipped, what is moving now and what should happen next.</p>
+      </div>
+      <div class="wb-hero-actions">
+        <a class="wb-btn wb-btn-primary" href="/workboard.json" target="_blank" rel="noreferrer">View structured JSON</a>
+        <a class="wb-btn" href="https://github.com/flowency-live/bndy-website/blob/main/WORKBOARD.md" target="_blank" rel="noreferrer">Agent update rules</a>
+      </div>
+    </header>
+
+    <div class="wb-summary" id="wbSummary" aria-live="polite">
+      <div class="wb-summary-card"><strong id="wbLaneCount">-</strong><span>workstreams</span></div>
+      <div class="wb-summary-card"><strong id="wbProdRepoCount">-</strong><span>production repos</span></div>
+      <div class="wb-summary-card wb-summary-risk"><strong id="wbRiskCount">-</strong><span>critical / amber streams</span></div>
+      <div class="wb-summary-card"><strong id="wbUpdated">-</strong><span>board updated</span></div>
+    </div>
+
+    <section class="wb-architecture">
+      <div class="wb-section-head">
+        <div>
+          <div class="wb-kicker">THE CONVERGENCE RULE</div>
+          <h2>How new information should enter BNDY</h2>
+        </div>
+      </div>
+      <div class="wb-flow" aria-label="Target BNDY data flow">
+        <div class="wb-flow-node">Transport<span>Android · Web · WhatsApp · Messenger</span></div>
+        <div class="wb-flow-arrow">→</div>
+        <div class="wb-flow-node">Capture<span>durable intake + evidence</span></div>
+        <div class="wb-flow-arrow">→</div>
+        <div class="wb-flow-node wb-flow-focus">Enrichment<span>extract · interpret · claims</span></div>
+        <div class="wb-flow-arrow">→</div>
+        <div class="wb-flow-node">Projection<span>authority + dedupe policy</span></div>
+        <div class="wb-flow-arrow">→</div>
+        <div class="wb-flow-node">Canonical BNDY<span>artists · venues · gigs · festivals</span></div>
+      </div>
+      <div class="wb-alert">
+        <strong>Current architectural gap:</strong>
+        <span>some assisted and Capture flows already use Enrichment for resolution, but still call canonical creation directly instead of making durable claims + projection the shared authoritative path.</span>
+      </div>
+    </section>
+
+    <section class="wb-section">
+      <div class="wb-section-head wb-sticky-head">
+        <div>
+          <div class="wb-kicker">KANBAN / SWIMLANES</div>
+          <h2>Workstreams</h2>
+        </div>
+        <div class="wb-tools">
+          <input id="wbSearch" class="wb-search" type="search" placeholder="Filter streams, repos or work..." aria-label="Filter workboard" />
+          <button id="wbClear" class="wb-btn wb-btn-small" type="button">Clear</button>
+        </div>
+      </div>
+
+      <div class="wb-board-head" aria-hidden="true">
+        <div>Stream</div><div>Done</div><div>Now</div><div>Next</div>
+      </div>
+      <div id="wbBoard" class="wb-board">
+        <div class="wb-loading">Loading workboard…</div>
+      </div>
+    </section>
+
+    <section class="wb-section">
+      <div class="wb-section-head">
+        <div>
+          <div class="wb-kicker">REPOSITORY MAP</div>
+          <h2>What each codebase actually serves</h2>
+        </div>
+      </div>
+      <div id="wbRepos" class="wb-repos"></div>
+    </section>
+
+    <section class="wb-section wb-activity-section">
+      <div class="wb-section-head">
+        <div>
+          <div class="wb-kicker">LIVE GITHUB SIGNAL</div>
+          <h2>Recent commits & open PRs</h2>
+          <p class="wb-muted">Pulled directly from public GitHub when you open this page. The backlog itself remains the structured JSON above.</p>
+        </div>
+        <button id="wbRefreshActivity" class="wb-btn wb-btn-small" type="button">Refresh GitHub</button>
+      </div>
+      <div class="wb-activity-grid">
+        <div class="wb-activity-panel">
+          <h3>Latest commits</h3>
+          <div id="wbCommits" class="wb-activity-list"><div class="wb-loading">Loading GitHub…</div></div>
+        </div>
+        <div class="wb-activity-panel">
+          <h3>Open pull requests</h3>
+          <div id="wbPrs" class="wb-activity-list"><div class="wb-loading">Loading GitHub…</div></div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <script>
+    const boardEl = document.getElementById('wbBoard');
+    const reposEl = document.getElementById('wbRepos');
+    const searchEl = document.getElementById('wbSearch');
+    const clearEl = document.getElementById('wbClear');
+    const commitsEl = document.getElementById('wbCommits');
+    const prsEl = document.getElementById('wbPrs');
+    const refreshActivityEl = document.getElementById('wbRefreshActivity');
+
+    let workboard = null;
+
+    const el = (tag, className, text) => {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined) node.textContent = text;
+      return node;
+    };
+
+    function repoUrl(repo) {
+      if (!repo || !repo.startsWith('flowency-live/')) return null;
+      return `https://github.com/${repo}`;
+    }
+
+    function renderSummary(data) {
+      document.getElementById('wbLaneCount').textContent = String(data.lanes.length);
+      document.getElementById('wbProdRepoCount').textContent = String(data.repositories.filter(r => r.status === 'production').length);
+      document.getElementById('wbRiskCount').textContent = String(data.lanes.filter(l => l.health === 'red' || l.health === 'amber').length);
+      const d = new Date(data.updatedAt);
+      document.getElementById('wbUpdated').textContent = Number.isNaN(d.getTime()) ? data.updatedAt : d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+    }
+
+    function repoChip(repoId, repoMap) {
+      const info = repoMap.get(repoId);
+      const name = info ? info.repo.replace('flowency-live/', '') : repoId;
+      const href = info ? repoUrl(info.repo) : null;
+      const chip = href ? el('a', 'wb-repo-chip', name) : el('span', 'wb-repo-chip', name);
+      if (href) {
+        chip.href = href;
+        chip.target = '_blank';
+        chip.rel = 'noreferrer';
+      }
+      return chip;
+    }
+
+    function taskCard(task, column) {
+      const card = el('article', `wb-task wb-task-${column}`);
+      const title = el('h4', '', task.title);
+      const detail = el('p', '', task.detail);
+      card.append(title, detail);
+      if (Array.isArray(task.evidence) && task.evidence.length) {
+        const evidence = el('div', 'wb-evidence');
+        task.evidence.forEach((href, idx) => {
+          const a = el('a', '', `evidence ${idx + 1}`);
+          a.href = href;
+          a.target = '_blank';
+          a.rel = 'noreferrer';
+          evidence.appendChild(a);
+        });
+        card.appendChild(evidence);
+      }
+      return card;
+    }
+
+    function taskColumn(items, column) {
+      const wrap = el('div', `wb-column wb-column-${column}`);
+      if (!items.length) {
+        wrap.appendChild(el('div', 'wb-empty', 'Nothing queued'));
+        return wrap;
+      }
+      items.forEach(item => wrap.appendChild(taskCard(item, column)));
+      return wrap;
+    }
+
+    function renderBoard(data, query = '') {
+      const repoMap = new Map(data.repositories.map(r => [r.id, r]));
+      const q = query.trim().toLowerCase();
+      boardEl.replaceChildren();
+
+      const filtered = data.lanes.filter(lane => {
+        if (!q) return true;
+        const haystack = [
+          lane.title, lane.objective, ...(lane.repos || []),
+          ...lane.done.flatMap(x => [x.title, x.detail]),
+          ...lane.now.flatMap(x => [x.title, x.detail]),
+          ...lane.next.flatMap(x => [x.title, x.detail])
+        ].join(' ').toLowerCase();
+        return haystack.includes(q);
+      });
+
+      filtered.forEach(lane => {
+        const row = el('section', `wb-lane wb-health-${lane.health}`);
+        row.dataset.search = lane.title.toLowerCase();
+
+        const identity = el('div', 'wb-lane-identity');
+        const health = el('span', `wb-health wb-health-${lane.health}`, lane.health);
+        const title = el('h3', '', lane.title);
+        const objective = el('p', '', lane.objective);
+        const chips = el('div', 'wb-repo-chips');
+        (lane.repos || []).forEach(repoId => chips.appendChild(repoChip(repoId, repoMap)));
+        identity.append(health, title, objective, chips);
+
+        row.append(identity, taskColumn(lane.done, 'done'), taskColumn(lane.now, 'now'), taskColumn(lane.next, 'next'));
+        boardEl.appendChild(row);
+      });
+
+      if (!filtered.length) boardEl.appendChild(el('div', 'wb-loading', 'No workstreams match that filter.'));
+    }
+
+    function renderRepos(data) {
+      reposEl.replaceChildren();
+      data.repositories.forEach(repo => {
+        const card = el('article', 'wb-repo-card');
+        const top = el('div', 'wb-repo-top');
+        const name = el('h3', '', repo.repo.replace('flowency-live/', ''));
+        const status = el('span', `wb-repo-status wb-repo-status-${repo.status}`, repo.status);
+        top.append(name, status);
+        const serves = el('div', 'wb-serves', repo.serves || '');
+        const role = el('p', '', repo.role);
+        card.append(top, serves, role);
+        const href = repoUrl(repo.repo);
+        if (href) {
+          card.tabIndex = 0;
+          card.addEventListener('click', () => window.open(href, '_blank', 'noopener'));
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter') window.open(href, '_blank', 'noopener');
+          });
+        }
+        reposEl.appendChild(card);
+      });
+    }
+
+    async function loadBoard() {
+      try {
+        const res = await fetch('/workboard.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`workboard ${res.status}`);
+        workboard = await res.json();
+        renderSummary(workboard);
+        renderBoard(workboard);
+        renderRepos(workboard);
+        loadGithubActivity(false);
+      } catch (error) {
+        boardEl.replaceChildren(el('div', 'wb-error', 'Could not load workboard.json.'));
+        console.error(error);
+      }
+    }
+
+    function activityRow({ title, subtitle, href, meta }) {
+      const row = el('a', 'wb-activity-row');
+      row.href = href;
+      row.target = '_blank';
+      row.rel = 'noreferrer';
+      const body = el('div', 'wb-activity-body');
+      body.append(el('strong', '', title), el('span', '', subtitle));
+      row.append(body, el('time', '', meta));
+      return row;
+    }
+
+    function relativeTime(value) {
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return '';
+      const diff = Date.now() - d.getTime();
+      const mins = Math.max(0, Math.round(diff / 60000));
+      if (mins < 60) return `${mins}m`;
+      const hours = Math.round(mins / 60);
+      if (hours < 48) return `${hours}h`;
+      return `${Math.round(hours / 24)}d`;
+    }
+
+    async function githubJson(url) {
+      const res = await fetch(url, {
+        headers: { 'Accept': 'application/vnd.github+json' }
+      });
+      if (!res.ok) throw new Error(`GitHub ${res.status}`);
+      return res.json();
+    }
+
+    async function loadGithubActivity(force) {
+      if (!workboard) return;
+      refreshActivityEl.disabled = true;
+      refreshActivityEl.textContent = 'Refreshing…';
+
+      const cacheKey = 'bndy-workboard-github-v1';
+      if (!force) {
+        try {
+          const cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null');
+          if (cached && Date.now() - cached.savedAt < 300000) {
+            renderActivity(cached.commits, cached.prs);
+            refreshActivityEl.disabled = false;
+            refreshActivityEl.textContent = 'Refresh GitHub';
+            return;
+          }
+        } catch (_) {}
+      }
+
+      try {
+        const commitRequests = workboard.activityRepos.map(async repo => {
+          const data = await githubJson(`https://api.github.com/repos/${repo}/commits?per_page=1`);
+          const c = data[0];
+          if (!c) return null;
+          return {
+            repo,
+            title: c.commit?.message?.split('\n')[0] || c.sha.slice(0, 7),
+            date: c.commit?.committer?.date || c.commit?.author?.date,
+            href: c.html_url
+          };
+        });
+
+        const prRequest = githubJson('https://api.github.com/search/issues?q=org%3Aflowency-live+is%3Apr+is%3Aopen&sort=updated&order=desc&per_page=30');
+        const settledCommits = await Promise.allSettled(commitRequests);
+        const commits = settledCommits
+          .filter(x => x.status === 'fulfilled' && x.value)
+          .map(x => x.value)
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 12);
+
+        const prData = await prRequest;
+        const prs = (prData.items || [])
+          .filter(item => /\/bndy[^/]*\//i.test(item.repository_url + '/'))
+          .slice(0, 12)
+          .map(item => ({
+            title: item.title,
+            repo: item.repository_url.split('/').pop(),
+            number: item.number,
+            updated: item.updated_at,
+            href: item.html_url
+          }));
+
+        renderActivity(commits, prs);
+        try { sessionStorage.setItem(cacheKey, JSON.stringify({ savedAt: Date.now(), commits, prs })); } catch (_) {}
+      } catch (error) {
+        commitsEl.replaceChildren(el('div', 'wb-error', 'GitHub activity is temporarily unavailable or rate-limited.'));
+        prsEl.replaceChildren(el('div', 'wb-error', 'The structured backlog above is unaffected.'));
+        console.error(error);
+      } finally {
+        refreshActivityEl.disabled = false;
+        refreshActivityEl.textContent = 'Refresh GitHub';
+      }
+    }
+
+    function renderActivity(commits, prs) {
+      commitsEl.replaceChildren();
+      prsEl.replaceChildren();
+      if (!commits.length) commitsEl.appendChild(el('div', 'wb-empty', 'No recent commit data.'));
+      commits.forEach(c => commitsEl.appendChild(activityRow({
+        title: c.title,
+        subtitle: c.repo.replace('flowency-live/', ''),
+        href: c.href,
+        meta: relativeTime(c.date)
+      })));
+      if (!prs.length) prsEl.appendChild(el('div', 'wb-empty', 'No open BNDY pull requests.'));
+      prs.forEach(pr => prsEl.appendChild(activityRow({
+        title: pr.title,
+        subtitle: `${pr.repo} · PR #${pr.number}`,
+        href: pr.href,
+        meta: relativeTime(pr.updated)
+      })));
+    }
+
+    searchEl?.addEventListener('input', () => workboard && renderBoard(workboard, searchEl.value));
+    clearEl?.addEventListener('click', () => {
+      if (!searchEl) return;
+      searchEl.value = '';
+      workboard && renderBoard(workboard);
+      searchEl.focus();
+    });
+    refreshActivityEl?.addEventListener('click', () => loadGithubActivity(true));
+
+    loadBoard();
+  </script>
+
+  <style is:global>
+    .wb-shell {
+      --wb-bg: #0b1220;
+      --wb-panel: #111b2e;
+      --wb-panel-2: #152238;
+      --wb-border: rgba(255,255,255,.10);
+      --wb-text: #f7f8fb;
+      --wb-muted: #9eadc3;
+      --wb-green: #39df91;
+      --wb-amber: #ffb347;
+      --wb-red: #ff5c6a;
+      --wb-blue: #62a7ff;
+      --wb-cyan: #46d7e8;
+      color: var(--wb-text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(70,215,232,.08), transparent 28rem),
+        radial-gradient(circle at 88% 10%, rgba(98,167,255,.08), transparent 32rem),
+        #09111f;
+      min-height: 100vh;
+      padding: 5rem clamp(1rem, 3vw, 3rem) 7rem;
+    }
+    html[data-theme="light"] .wb-shell {
+      --wb-bg: #f4f6fa;
+      --wb-panel: #ffffff;
+      --wb-panel-2: #f7f9fc;
+      --wb-border: rgba(15,23,41,.12);
+      --wb-text: #0f1729;
+      --wb-muted: #5a687d;
+      background: #f3f5f8;
+    }
+    .wb-hero, .wb-section, .wb-architecture, .wb-summary { max-width: 1600px; margin-left: auto; margin-right: auto; }
+    .wb-hero { display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; margin-bottom:2rem; }
+    .wb-kicker { font-family:'IBM Plex Mono', monospace; color:var(--wb-cyan); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; margin-bottom:.7rem; }
+    .wb-hero h1 { font-family:'Inter Tight', sans-serif; font-size:clamp(3rem, 7vw, 7.2rem); line-height:.86; letter-spacing:-.055em; margin:0; max-width:980px; }
+    .wb-hero h1 span { color:var(--wb-muted); }
+    .wb-lede { max-width:760px; font-size:clamp(1rem, 1.4vw, 1.3rem); color:var(--wb-muted); margin:1.5rem 0 0; }
+    .wb-hero-actions, .wb-tools { display:flex; gap:.65rem; flex-wrap:wrap; }
+    .wb-btn { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:.7rem .95rem; border:1px solid var(--wb-border); background:var(--wb-panel); color:var(--wb-text); text-decoration:none; font:600 .82rem 'Inter',sans-serif; cursor:pointer; border-radius:6px; }
+    .wb-btn:hover { border-color:rgba(70,215,232,.65); }
+    .wb-btn-primary { background:var(--wb-cyan); color:#07111f; border-color:var(--wb-cyan); }
+    .wb-btn-small { min-height:38px; padding:.55rem .8rem; }
+    .wb-btn:disabled { opacity:.55; cursor:wait; }
+    .wb-summary { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--wb-border); background:var(--wb-panel); margin-bottom:2rem; }
+    .wb-summary-card { padding:1.15rem 1.35rem; border-right:1px solid var(--wb-border); display:flex; align-items:baseline; gap:.7rem; }
+    .wb-summary-card:last-child { border-right:0; }
+    .wb-summary-card strong { font:800 1.8rem 'Inter Tight',sans-serif; }
+    .wb-summary-card span { color:var(--wb-muted); font-size:.78rem; }
+    .wb-summary-risk strong { color:var(--wb-amber); }
+    .wb-architecture { padding:1.6rem; border:1px solid var(--wb-border); background:linear-gradient(135deg,var(--wb-panel),rgba(21,34,56,.72)); margin-bottom:2.2rem; border-radius:8px; }
+    .wb-section { margin-top:3.5rem; }
+    .wb-section-head { display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; margin-bottom:1rem; }
+    .wb-section-head h2 { margin:0; font:800 clamp(1.7rem,3vw,2.7rem) 'Inter Tight',sans-serif; letter-spacing:-.035em; }
+    .wb-muted { color:var(--wb-muted); margin:.45rem 0 0; max-width:760px; }
+    .wb-flow { display:grid; grid-template-columns:1.3fr auto 1fr auto 1.25fr auto 1fr auto 1.25fr; align-items:stretch; gap:.55rem; margin-top:1.5rem; }
+    .wb-flow-node { border:1px solid var(--wb-border); background:rgba(7,17,31,.32); padding:.85rem; font:700 .9rem 'Inter',sans-serif; display:flex; flex-direction:column; justify-content:center; min-height:76px; }
+    html[data-theme="light"] .wb-flow-node { background:#fff; }
+    .wb-flow-node span { color:var(--wb-muted); font:400 .7rem 'IBM Plex Mono',monospace; margin-top:.35rem; line-height:1.35; }
+    .wb-flow-focus { border-color:rgba(70,215,232,.65); box-shadow:inset 0 0 0 1px rgba(70,215,232,.14); }
+    .wb-flow-arrow { display:flex; align-items:center; color:var(--wb-muted); font-size:1.1rem; }
+    .wb-alert { margin-top:1rem; padding:.9rem 1rem; border-left:3px solid var(--wb-red); background:rgba(255,92,106,.07); display:flex; gap:.55rem; align-items:flex-start; font-size:.84rem; }
+    .wb-alert span { color:var(--wb-muted); }
+    .wb-search { min-width:min(360px,70vw); min-height:38px; padding:.6rem .75rem; background:var(--wb-panel); color:var(--wb-text); border:1px solid var(--wb-border); border-radius:6px; outline:none; }
+    .wb-search:focus { border-color:var(--wb-cyan); }
+    .wb-board-head { display:grid; grid-template-columns:250px repeat(3,minmax(260px,1fr)); gap:1px; background:var(--wb-border); border:1px solid var(--wb-border); border-bottom:0; color:var(--wb-muted); font:500 .7rem 'IBM Plex Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
+    .wb-board-head > div { background:var(--wb-panel); padding:.7rem .85rem; }
+    .wb-board { border:1px solid var(--wb-border); }
+    .wb-lane { display:grid; grid-template-columns:250px repeat(3,minmax(260px,1fr)); gap:1px; background:var(--wb-border); border-bottom:1px solid var(--wb-border); }
+    .wb-lane:last-child { border-bottom:0; }
+    .wb-lane > * { background:var(--wb-panel); }
+    .wb-lane-identity { padding:1rem; position:relative; }
+    .wb-lane-identity h3 { font:800 1.15rem 'Inter Tight',sans-serif; margin:.5rem 0 .35rem; line-height:1.05; }
+    .wb-lane-identity p { color:var(--wb-muted); font-size:.76rem; line-height:1.45; margin:0 0 .8rem; }
+    .wb-health { display:inline-flex; padding:.18rem .42rem; border:1px solid currentColor; border-radius:99px; font:500 .6rem 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.08em; }
+    .wb-health-green { color:var(--wb-green); }
+    .wb-health-amber { color:var(--wb-amber); }
+    .wb-health-red { color:var(--wb-red); }
+    .wb-health-blue { color:var(--wb-blue); }
+    .wb-health-grey { color:var(--wb-muted); }
+    .wb-repo-chips { display:flex; flex-wrap:wrap; gap:.35rem; }
+    .wb-repo-chip { font:500 .64rem 'IBM Plex Mono',monospace; color:var(--wb-muted); border:1px solid var(--wb-border); padding:.2rem .35rem; text-decoration:none; border-radius:3px; }
+    a.wb-repo-chip:hover { color:var(--wb-cyan); border-color:var(--wb-cyan); }
+    .wb-column { padding:.65rem; min-height:124px; display:flex; flex-direction:column; gap:.55rem; }
+    .wb-task { padding:.75rem .8rem; border:1px solid var(--wb-border); background:var(--wb-panel-2); border-radius:5px; }
+    .wb-task h4 { font:700 .82rem 'Inter',sans-serif; margin:0 0 .3rem; line-height:1.25; }
+    .wb-task p { color:var(--wb-muted); font-size:.72rem; line-height:1.45; margin:0; }
+    .wb-task-done { border-left:3px solid rgba(57,223,145,.72); }
+    .wb-task-now { border-left:3px solid rgba(255,179,71,.9); }
+    .wb-task-next { border-left:3px solid rgba(98,167,255,.8); }
+    .wb-evidence { margin-top:.55rem; display:flex; gap:.4rem; flex-wrap:wrap; }
+    .wb-evidence a { color:var(--wb-cyan); font:500 .62rem 'IBM Plex Mono',monospace; }
+    .wb-empty, .wb-loading, .wb-error { color:var(--wb-muted); font:400 .75rem 'IBM Plex Mono',monospace; padding:1rem; }
+    .wb-error { color:var(--wb-red); }
+    .wb-repos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }
+    .wb-repo-card { border:1px solid var(--wb-border); background:var(--wb-panel); padding:1rem; cursor:default; border-radius:6px; }
+    .wb-repo-card[tabindex] { cursor:pointer; }
+    .wb-repo-card[tabindex]:hover { border-color:rgba(70,215,232,.5); transform:translateY(-1px); }
+    .wb-repo-top { display:flex; justify-content:space-between; gap:.6rem; align-items:flex-start; }
+    .wb-repo-top h3 { margin:0; font:800 1rem 'Inter Tight',sans-serif; }
+    .wb-repo-status { padding:.18rem .38rem; border-radius:3px; font:500 .58rem 'IBM Plex Mono',monospace; text-transform:uppercase; border:1px solid var(--wb-border); color:var(--wb-muted); }
+    .wb-repo-status-production { color:var(--wb-green); }
+    .wb-repo-status-active { color:var(--wb-blue); }
+    .wb-repo-status-legacy, .wb-repo-status-audit { color:var(--wb-amber); }
+    .wb-repo-status-decommissioned { color:var(--wb-red); }
+    .wb-serves { color:var(--wb-cyan); font:500 .68rem 'IBM Plex Mono',monospace; margin:.6rem 0; overflow-wrap:anywhere; }
+    .wb-repo-card p { color:var(--wb-muted); margin:0; font-size:.76rem; line-height:1.5; }
+    .wb-activity-grid { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+    .wb-activity-panel { border:1px solid var(--wb-border); background:var(--wb-panel); }
+    .wb-activity-panel h3 { font:800 1rem 'Inter Tight',sans-serif; margin:0; padding:.85rem 1rem; border-bottom:1px solid var(--wb-border); }
+    .wb-activity-list { display:flex; flex-direction:column; }
+    .wb-activity-row { display:flex; justify-content:space-between; gap:1rem; padding:.72rem 1rem; border-bottom:1px solid var(--wb-border); text-decoration:none; color:var(--wb-text); }
+    .wb-activity-row:last-child { border-bottom:0; }
+    .wb-activity-row:hover { background:var(--wb-panel-2); }
+    .wb-activity-body { display:flex; flex-direction:column; min-width:0; }
+    .wb-activity-body strong { font-size:.77rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .wb-activity-body span { color:var(--wb-muted); font:400 .64rem 'IBM Plex Mono',monospace; margin-top:.25rem; }
+    .wb-activity-row time { color:var(--wb-muted); font:400 .62rem 'IBM Plex Mono',monospace; flex:0 0 auto; }
+
+    @media (max-width: 1180px) {
+      .wb-board-head { display:none; }
+      .wb-lane { grid-template-columns:210px repeat(3,minmax(240px,1fr)); overflow-x:auto; }
+      .wb-board { overflow-x:auto; }
+      .wb-flow { grid-template-columns:1fr; }
+      .wb-flow-arrow { transform:rotate(90deg); justify-content:center; height:12px; }
+      .wb-repos { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .wb-shell { padding:3rem .8rem 5rem; }
+      .wb-hero { display:block; }
+      .wb-hero-actions { margin-top:1.3rem; }
+      .wb-summary { grid-template-columns:1fr 1fr; }
+      .wb-summary-card { border-bottom:1px solid var(--wb-border); }
+      .wb-summary-card:nth-child(2) { border-right:0; }
+      .wb-summary-card:nth-child(3), .wb-summary-card:nth-child(4) { border-bottom:0; }
+      .wb-section-head { align-items:flex-start; flex-direction:column; }
+      .wb-tools { width:100%; }
+      .wb-search { min-width:0; flex:1; }
+      .wb-board { border:0; overflow:visible; }
+      .wb-lane { display:block; border:1px solid var(--wb-border); margin-bottom:1rem; background:transparent; }
+      .wb-lane-identity { border-bottom:1px solid var(--wb-border); }
+      .wb-column { border-bottom:1px solid var(--wb-border); }
+      .wb-column:last-child { border-bottom:0; }
+      .wb-column::before { font:500 .62rem 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:var(--wb-muted); padding:.2rem .1rem; }
+      .wb-column-done::before { content:'Done'; color:var(--wb-green); }
+      .wb-column-now::before { content:'Now'; color:var(--wb-amber); }
+      .wb-column-next::before { content:'Next'; color:var(--wb-blue); }
+      .wb-repos, .wb-activity-grid { grid-template-columns:1fr; }
+      .wb-alert { flex-direction:column; }
+    }
+  </style>
+</Base>
