@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.bndy.co.uk/workboard.schema.json",
+  "title": "BNDY workboard",
+  "type": "object",
+  "required": ["version", "updatedAt", "repositories", "lanes"],
+  "properties": {
+    "version": {"type": "integer", "minimum": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "updatedBy": {"type": "string"},
+    "title": {"type": "string"},
+    "description": {"type": "string"},
+    "principles": {"type": "array", "items": {"type": "string"}},
+    "activityRepos": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "repo", "role", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "repo": {"type": "string"},
+          "serves": {"type": "string"},
+          "role": {"type": "string"},
+          "status": {"enum": ["production", "active", "support", "legacy", "decommissioned", "audit"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "lanes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "objective", "health", "done", "now", "next"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "title": {"type": "string"},
+          "objective": {"type": "string"},
+          "health": {"enum": ["green", "amber", "red", "blue", "grey"]},
+          "repos": {"type": "array", "items": {"type": "string"}},
+          "done": {"$ref": "#/$defs/cards"},
+          "now": {"$ref": "#/$defs/cards"},
+          "next": {"$ref": "#/$defs/cards"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "detail"],
+        "properties": {
+          "title": {"type": "string"},
+          "detail": {"type": "string"},
+          "owner": {"type": "string"},
+          "evidence": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
