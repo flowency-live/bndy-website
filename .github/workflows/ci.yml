@@ -21,12 +21,15 @@ jobs:
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const board = JSON.parse(fs.readFileSync('public/workboard.json', 'utf8'));
-          if (board.version !== 1) throw new Error('Unsupported workboard version');
+          if (board.version !== 2) throw new Error('Unsupported workboard version');
           if (!Array.isArray(board.repositories) || !board.repositories.length) throw new Error('repositories missing');
           if (!Array.isArray(board.lanes) || !board.lanes.length) throw new Error('lanes missing');
           const ids = new Set(board.repositories.map(r => r.id));
+          const states = new Set(['live','building','planned','legacy','decommissioned']);
           for (const lane of board.lanes) {
             if (!lane.id || !lane.title) throw new Error('lane identity missing');
+            if (!states.has(lane.deliveryState)) throw new Error(`Invalid deliveryState ${lane.deliveryState} in ${lane.id}`);
+            if (typeof lane.targetState !== 'boolean') throw new Error(`${lane.id}.targetState must be boolean`);
             for (const repoId of lane.repos || []) {
               if (!ids.has(repoId)) throw new Error(`Unknown repo id ${repoId} in ${lane.id}`);
             }
@@ -42,3 +45,5 @@ jobs:
           test -f dist/workboard.json
           test -f dist/workboard.schema.json
           grep -q 'KANBAN / SWIMLANES' dist/workboard.html
+          grep -q 'NOW across all' dist/workboard.html
+          grep -q 'TARGET STATE' dist/workboard.html
