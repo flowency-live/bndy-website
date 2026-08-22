@@ -12,7 +12,7 @@ import Base from '../layouts/Base.astro';
       <div>
         <div class="wb-kicker">BNDY / OPERATING VIEW</div>
         <h1>One board.<br /><span>Every moving part.</span></h1>
-        <p class="wb-lede">The live map of what BNDY serves, what has shipped, what is moving now and what should happen next.</p>
+        <p class="wb-lede">What is live now, what is actively being built, the target state we are aiming at, and what comes after.</p>
       </div>
       <div class="wb-hero-actions">
         <a class="wb-btn wb-btn-primary" href="/workboard.json" target="_blank" rel="noreferrer">View structured JSON</a>
@@ -20,10 +20,10 @@ import Base from '../layouts/Base.astro';
       </div>
     </header>
 
-    <div class="wb-summary" id="wbSummary" aria-live="polite">
+    <div class="wb-summary" aria-live="polite">
       <div class="wb-summary-card"><strong id="wbLaneCount">-</strong><span>workstreams</span></div>
       <div class="wb-summary-card"><strong id="wbProdRepoCount">-</strong><span>production repos</span></div>
-      <div class="wb-summary-card wb-summary-risk"><strong id="wbRiskCount">-</strong><span>critical / amber streams</span></div>
+      <div class="wb-summary-card wb-summary-risk"><strong id="wbRiskCount">-</strong><span>needs attention</span></div>
       <div class="wb-summary-card"><strong id="wbUpdated">-</strong><span>board updated</span></div>
     </div>
 
@@ -31,7 +31,10 @@ import Base from '../layouts/Base.astro';
       <div class="wb-section-head">
         <div>
           <div class="wb-kicker">THE CONVERGENCE RULE</div>
-          <h2>How new information should enter BNDY</h2>
+          <div class="wb-title-line">
+            <h2>How new information should enter BNDY</h2>
+            <span class="wb-stamp wb-stamp-target">TARGET STATE</span>
+          </div>
         </div>
       </div>
       <div class="wb-flow" aria-label="Target BNDY data flow">
@@ -41,21 +44,27 @@ import Base from '../layouts/Base.astro';
         <div class="wb-flow-arrow">→</div>
         <div class="wb-flow-node wb-flow-focus">Enrichment<span>extract · interpret · claims</span></div>
         <div class="wb-flow-arrow">→</div>
-        <div class="wb-flow-node">Projection<span>authority + dedupe policy</span></div>
+        <div class="wb-flow-node wb-flow-focus">Projection<span>authority + dedupe policy</span></div>
         <div class="wb-flow-arrow">→</div>
         <div class="wb-flow-node">Canonical BNDY<span>artists · venues · gigs · festivals</span></div>
       </div>
       <div class="wb-alert">
-        <strong>Current architectural gap:</strong>
-        <span>some assisted and Capture flows already use Enrichment for resolution, but still call canonical creation directly instead of making durable claims + projection the shared authoritative path.</span>
+        <strong>Not all the way there yet.</strong>
+        <span>Some assisted and Capture flows already use Enrichment for resolution, but still call canonical creation directly. The durable claims + projection route is being built into the shared authoritative path.</span>
       </div>
     </section>
 
     <section class="wb-section">
-      <div class="wb-section-head wb-sticky-head">
+      <div class="wb-section-head wb-workstream-head">
         <div>
           <div class="wb-kicker">KANBAN / SWIMLANES</div>
           <h2>Workstreams</h2>
+          <div class="wb-legend" aria-label="Workstream state legend">
+            <span class="wb-stamp wb-state-live">LIVE</span><span class="wb-legend-copy">working today</span>
+            <span class="wb-stamp wb-state-building">BUILDING</span><span class="wb-legend-copy">active change</span>
+            <span class="wb-stamp wb-state-planned">PLANNED</span><span class="wb-legend-copy">backlog</span>
+            <span class="wb-stamp wb-stamp-target">TARGET STATE</span><span class="wb-legend-copy">future architecture/capability</span>
+          </div>
         </div>
         <div class="wb-tools">
           <input id="wbSearch" class="wb-search" type="search" placeholder="Filter streams, repos or work..." aria-label="Filter workboard" />
@@ -63,9 +72,22 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
 
-      <div class="wb-board-head" aria-hidden="true">
-        <div>Stream</div><div>Done</div><div>Now</div><div>Next</div>
+      <div class="wb-viewbar" aria-label="Board view controls">
+        <div class="wb-viewbar-group">
+          <span>Swimlanes</span>
+          <button id="wbExpandLanes" class="wb-view-btn" type="button">Expand all</button>
+          <button id="wbCollapseLanes" class="wb-view-btn" type="button">Collapse all</button>
+          <button id="wbFocusNow" class="wb-view-btn wb-view-btn-focus" type="button">NOW across all</button>
+        </div>
+        <div class="wb-viewbar-group">
+          <span>Columns</span>
+          <button class="wb-view-btn wb-col-global" data-column="now" type="button">NOW</button>
+          <button class="wb-view-btn wb-col-global" data-column="next" type="button">TODO</button>
+          <button class="wb-view-btn wb-col-global" data-column="done" type="button">DONE</button>
+          <button id="wbResetView" class="wb-view-btn" type="button">Reset view</button>
+        </div>
       </div>
+
       <div id="wbBoard" class="wb-board">
         <div class="wb-loading">Loading workboard…</div>
       </div>
@@ -111,8 +133,10 @@ import Base from '../layouts/Base.astro';
     const commitsEl = document.getElementById('wbCommits');
     const prsEl = document.getElementById('wbPrs');
     const refreshActivityEl = document.getElementById('wbRefreshActivity');
+    const prefsKey = 'bndy-workboard-view-v2';
 
     let workboard = null;
+    let viewPrefs = { lanes: {} };
 
     const el = (tag, className, text) => {
       const node = document.createElement(tag);
@@ -124,6 +148,33 @@ import Base from '../layouts/Base.astro';
     function repoUrl(repo) {
       if (!repo || !repo.startsWith('flowency-live/')) return null;
       return `https://github.com/${repo}`;
+    }
+
+    function loadPrefs() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(prefsKey) || 'null');
+        if (saved && saved.lanes) viewPrefs = saved;
+      } catch (_) {}
+    }
+
+    function savePrefs() {
+      try { localStorage.setItem(prefsKey, JSON.stringify(viewPrefs)); } catch (_) {}
+    }
+
+    function lanePrefs(id) {
+      if (!viewPrefs.lanes[id]) {
+        viewPrefs.lanes[id] = {
+          expanded: true,
+          columns: { now: false, next: false, done: false }
+        };
+      }
+      const prefs = viewPrefs.lanes[id];
+      prefs.columns ||= { now: false, next: false, done: false };
+      return prefs;
+    }
+
+    function stateLabel(state) {
+      return ({ live: 'LIVE', building: 'BUILDING', planned: 'PLANNED', legacy: 'LEGACY', decommissioned: 'DECOMMISSIONED' })[state] || String(state || 'UNKNOWN').toUpperCase();
     }
 
     function renderSummary(data) {
@@ -143,15 +194,14 @@ import Base from '../layouts/Base.astro';
         chip.href = href;
         chip.target = '_blank';
         chip.rel = 'noreferrer';
+        chip.addEventListener('click', e => e.stopPropagation());
       }
       return chip;
     }
 
     function taskCard(task, column) {
       const card = el('article', `wb-task wb-task-${column}`);
-      const title = el('h4', '', task.title);
-      const detail = el('p', '', task.detail);
-      card.append(title, detail);
+      card.append(el('h4', '', task.title), el('p', '', task.detail));
       if (Array.isArray(task.evidence) && task.evidence.length) {
         const evidence = el('div', 'wb-evidence');
         task.evidence.forEach((href, idx) => {
@@ -166,13 +216,45 @@ import Base from '../layouts/Base.astro';
       return card;
     }
 
-    function taskColumn(items, column) {
-      const wrap = el('div', `wb-column wb-column-${column}`);
-      if (!items.length) {
-        wrap.appendChild(el('div', 'wb-empty', 'Nothing queued'));
-        return wrap;
+    function toggleLane(id) {
+      const prefs = lanePrefs(id);
+      prefs.expanded = !prefs.expanded;
+      savePrefs();
+      renderBoard(workboard, searchEl?.value || '');
+    }
+
+    function soloLane(id) {
+      workboard.lanes.forEach(lane => { lanePrefs(lane.id).expanded = lane.id === id; });
+      savePrefs();
+      renderBoard(workboard, searchEl?.value || '');
+    }
+
+    function toggleLaneColumn(id, column) {
+      const prefs = lanePrefs(id);
+      prefs.columns[column] = !prefs.columns[column];
+      savePrefs();
+      renderBoard(workboard, searchEl?.value || '');
+    }
+
+    function taskColumn(lane, column, label) {
+      const prefs = lanePrefs(lane.id);
+      const items = lane[column] || [];
+      const collapsed = !!prefs.columns[column];
+      const wrap = el('section', `wb-column wb-column-${column}${collapsed ? ' is-collapsed' : ''}`);
+      const head = el('button', 'wb-column-head');
+      head.type = 'button';
+      head.title = collapsed ? `Expand ${label}` : `Collapse ${label}`;
+      head.setAttribute('aria-expanded', String(!collapsed));
+      head.append(el('span', 'wb-column-title', label), el('span', 'wb-column-count', String(items.length)), el('span', 'wb-column-chevron', collapsed ? '＋' : '−'));
+      head.addEventListener('click', () => toggleLaneColumn(lane.id, column));
+      wrap.appendChild(head);
+
+      if (!collapsed) {
+        const content = el('div', 'wb-column-content');
+        if (!items.length) content.appendChild(el('div', 'wb-empty', 'Nothing queued'));
+        items.forEach(item => content.appendChild(taskCard(item, column)));
+        wrap.appendChild(content);
       }
-      items.forEach(item => wrap.appendChild(taskCard(item, column)));
       return wrap;
     }
 
@@ -184,7 +266,7 @@ import Base from '../layouts/Base.astro';
       const filtered = data.lanes.filter(lane => {
         if (!q) return true;
         const haystack = [
-          lane.title, lane.objective, ...(lane.repos || []),
+          lane.title, lane.objective, lane.deliveryState, ...(lane.repos || []),
           ...lane.done.flatMap(x => [x.title, x.detail]),
           ...lane.now.flatMap(x => [x.title, x.detail]),
           ...lane.next.flatMap(x => [x.title, x.detail])
@@ -193,22 +275,97 @@ import Base from '../layouts/Base.astro';
       });
 
       filtered.forEach(lane => {
-        const row = el('section', `wb-lane wb-health-${lane.health}`);
-        row.dataset.search = lane.title.toLowerCase();
+        const prefs = lanePrefs(lane.id);
+        const row = el('section', `wb-lane wb-delivery-${lane.deliveryState}${lane.targetState ? ' wb-is-target' : ''}${prefs.expanded ? '' : ' is-collapsed'}`);
+        row.dataset.lane = lane.id;
 
-        const identity = el('div', 'wb-lane-identity');
-        const health = el('span', `wb-health wb-health-${lane.health}`, lane.health);
-        const title = el('h3', '', lane.title);
-        const objective = el('p', '', lane.objective);
+        const head = el('div', 'wb-lane-head');
+        head.tabIndex = 0;
+        head.setAttribute('role', 'button');
+        head.setAttribute('aria-expanded', String(prefs.expanded));
+        head.addEventListener('click', () => toggleLane(lane.id));
+        head.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleLane(lane.id); }
+        });
+
+        const toggle = el('span', 'wb-lane-toggle', prefs.expanded ? '−' : '+');
+        const identity = el('div', 'wb-lane-copy');
+        const stampRow = el('div', 'wb-stamp-row');
+        stampRow.appendChild(el('span', `wb-stamp wb-state-${lane.deliveryState}`, stateLabel(lane.deliveryState)));
+        if (lane.targetState) stampRow.appendChild(el('span', 'wb-stamp wb-stamp-target', 'TARGET STATE'));
+        if (lane.health === 'red' || lane.health === 'amber') stampRow.appendChild(el('span', `wb-risk wb-risk-${lane.health}`, lane.health === 'red' ? 'CRITICAL GAP' : 'ATTENTION'));
+        identity.append(stampRow, el('h3', '', lane.title), el('p', '', lane.objective));
+
         const chips = el('div', 'wb-repo-chips');
         (lane.repos || []).forEach(repoId => chips.appendChild(repoChip(repoId, repoMap)));
-        identity.append(health, title, objective, chips);
+        identity.appendChild(chips);
 
-        row.append(identity, taskColumn(lane.done, 'done'), taskColumn(lane.now, 'now'), taskColumn(lane.next, 'next'));
+        const counts = el('div', 'wb-lane-counts');
+        counts.append(el('span', 'wb-count-now', `NOW ${lane.now.length}`), el('span', '', `TODO ${lane.next.length}`), el('span', '', `DONE ${lane.done.length}`));
+
+        const actions = el('div', 'wb-lane-actions');
+        const solo = el('button', 'wb-mini-btn', 'SOLO');
+        solo.type = 'button';
+        solo.title = 'Collapse every other swimlane';
+        solo.addEventListener('click', e => { e.stopPropagation(); soloLane(lane.id); });
+        actions.append(solo, counts);
+
+        head.append(toggle, identity, actions);
+        row.appendChild(head);
+
+        if (prefs.expanded) {
+          const body = el('div', 'wb-lane-body');
+          const columns = ['now', 'next', 'done'];
+          body.style.gridTemplateColumns = columns.map(c => prefs.columns[c] ? '48px' : 'minmax(240px, 1fr)').join(' ');
+          body.append(taskColumn(lane, 'now', 'NOW'), taskColumn(lane, 'next', 'TODO / NEXT'), taskColumn(lane, 'done', 'DONE'));
+          row.appendChild(body);
+        }
         boardEl.appendChild(row);
       });
 
       if (!filtered.length) boardEl.appendChild(el('div', 'wb-loading', 'No workstreams match that filter.'));
+      updateGlobalColumnButtons();
+    }
+
+    function setAllLanes(expanded) {
+      workboard.lanes.forEach(lane => { lanePrefs(lane.id).expanded = expanded; });
+      savePrefs();
+      renderBoard(workboard, searchEl?.value || '');
+    }
+
+    function focusNow() {
+      workboard.lanes.forEach(lane => {
+        const prefs = lanePrefs(lane.id);
+        prefs.expanded = true;
+        prefs.columns.now = false;
+        prefs.columns.next = true;
+        prefs.columns.done = true;
+      });
+      savePrefs();
+      renderBoard(workboard, searchEl?.value || '');
+    }
+
+    function toggleGlobalColumn(column) {
+      const allCollapsed = workboard.lanes.every(lane => lanePrefs(lane.id).columns[column]);
+      workboard.lanes.forEach(lane => { lanePrefs(lane.id).columns[column] = !allCollapsed; });
+      savePrefs();
+      renderBoard(workboard, searchEl?.value || '');
+    }
+
+    function updateGlobalColumnButtons() {
+      if (!workboard) return;
+      document.querySelectorAll('.wb-col-global').forEach(button => {
+        const column = button.dataset.column;
+        const allCollapsed = workboard.lanes.every(lane => lanePrefs(lane.id).columns[column]);
+        button.classList.toggle('is-off', allCollapsed);
+        button.setAttribute('aria-pressed', String(!allCollapsed));
+      });
+    }
+
+    function resetView() {
+      viewPrefs = { lanes: {} };
+      savePrefs();
+      renderBoard(workboard, searchEl?.value || '');
     }
 
     function renderRepos(data) {
@@ -216,19 +373,13 @@ import Base from '../layouts/Base.astro';
       data.repositories.forEach(repo => {
         const card = el('article', 'wb-repo-card');
         const top = el('div', 'wb-repo-top');
-        const name = el('h3', '', repo.repo.replace('flowency-live/', ''));
-        const status = el('span', `wb-repo-status wb-repo-status-${repo.status}`, repo.status);
-        top.append(name, status);
-        const serves = el('div', 'wb-serves', repo.serves || '');
-        const role = el('p', '', repo.role);
-        card.append(top, serves, role);
+        top.append(el('h3', '', repo.repo.replace('flowency-live/', '')), el('span', `wb-repo-status wb-repo-status-${repo.status}`, repo.status));
+        card.append(top, el('div', 'wb-serves', repo.serves || ''), el('p', '', repo.role));
         const href = repoUrl(repo.repo);
         if (href) {
           card.tabIndex = 0;
           card.addEventListener('click', () => window.open(href, '_blank', 'noopener'));
-          card.addEventListener('keydown', e => {
-            if (e.key === 'Enter') window.open(href, '_blank', 'noopener');
-          });
+          card.addEventListener('keydown', e => { if (e.key === 'Enter') window.open(href, '_blank', 'noopener'); });
         }
         reposEl.appendChild(card);
       });
@@ -239,6 +390,7 @@ import Base from '../layouts/Base.astro';
         const res = await fetch('/workboard.json', { cache: 'no-store' });
         if (!res.ok) throw new Error(`workboard ${res.status}`);
         workboard = await res.json();
+        loadPrefs();
         renderSummary(workboard);
         renderBoard(workboard);
         renderRepos(workboard);
@@ -263,8 +415,7 @@ import Base from '../layouts/Base.astro';
     function relativeTime(value) {
       const d = new Date(value);
       if (Number.isNaN(d.getTime())) return '';
-      const diff = Date.now() - d.getTime();
-      const mins = Math.max(0, Math.round(diff / 60000));
+      const mins = Math.max(0, Math.round((Date.now() - d.getTime()) / 60000));
       if (mins < 60) return `${mins}m`;
       const hours = Math.round(mins / 60);
       if (hours < 48) return `${hours}h`;
@@ -272,9 +423,7 @@ import Base from '../layouts/Base.astro';
     }
 
     async function githubJson(url) {
-      const res = await fetch(url, {
-        headers: { 'Accept': 'application/vnd.github+json' }
-      });
+      const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } });
       if (!res.ok) throw new Error(`GitHub ${res.status}`);
       return res.json();
     }
@@ -283,8 +432,8 @@ import Base from '../layouts/Base.astro';
       if (!workboard) return;
       refreshActivityEl.disabled = true;
       refreshActivityEl.textContent = 'Refreshing…';
+      const cacheKey = 'bndy-workboard-github-v2';
 
-      const cacheKey = 'bndy-workboard-github-v1';
       if (!force) {
         try {
           const cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null');
@@ -302,34 +451,13 @@ import Base from '../layouts/Base.astro';
           const data = await githubJson(`https://api.github.com/repos/${repo}/commits?per_page=1`);
           const c = data[0];
           if (!c) return null;
-          return {
-            repo,
-            title: c.commit?.message?.split('\n')[0] || c.sha.slice(0, 7),
-            date: c.commit?.committer?.date || c.commit?.author?.date,
-            href: c.html_url
-          };
+          return { repo, title: c.commit?.message?.split('\n')[0] || c.sha.slice(0, 7), date: c.commit?.committer?.date || c.commit?.author?.date, href: c.html_url };
         });
-
         const prRequest = githubJson('https://api.github.com/search/issues?q=org%3Aflowency-live+is%3Apr+is%3Aopen&sort=updated&order=desc&per_page=30');
-        const settledCommits = await Promise.allSettled(commitRequests);
-        const commits = settledCommits
-          .filter(x => x.status === 'fulfilled' && x.value)
-          .map(x => x.value)
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-          .slice(0, 12);
-
+        const settled = await Promise.allSettled(commitRequests);
+        const commits = settled.filter(x => x.status === 'fulfilled' && x.value).map(x => x.value).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 12);
         const prData = await prRequest;
-        const prs = (prData.items || [])
-          .filter(item => /\/bndy[^/]*\//i.test(item.repository_url + '/'))
-          .slice(0, 12)
-          .map(item => ({
-            title: item.title,
-            repo: item.repository_url.split('/').pop(),
-            number: item.number,
-            updated: item.updated_at,
-            href: item.html_url
-          }));
-
+        const prs = (prData.items || []).filter(item => /\/bndy[^/]*\//i.test(item.repository_url + '/')).slice(0, 12).map(item => ({ title: item.title, repo: item.repository_url.split('/').pop(), number: item.number, updated: item.updated_at, href: item.html_url }));
         renderActivity(commits, prs);
         try { sessionStorage.setItem(cacheKey, JSON.stringify({ savedAt: Date.now(), commits, prs })); } catch (_) {}
       } catch (error) {
@@ -346,28 +474,18 @@ import Base from '../layouts/Base.astro';
       commitsEl.replaceChildren();
       prsEl.replaceChildren();
       if (!commits.length) commitsEl.appendChild(el('div', 'wb-empty', 'No recent commit data.'));
-      commits.forEach(c => commitsEl.appendChild(activityRow({
-        title: c.title,
-        subtitle: c.repo.replace('flowency-live/', ''),
-        href: c.href,
-        meta: relativeTime(c.date)
-      })));
+      commits.forEach(c => commitsEl.appendChild(activityRow({ title: c.title, subtitle: c.repo.replace('flowency-live/', ''), href: c.href, meta: relativeTime(c.date) })));
       if (!prs.length) prsEl.appendChild(el('div', 'wb-empty', 'No open BNDY pull requests.'));
-      prs.forEach(pr => prsEl.appendChild(activityRow({
-        title: pr.title,
-        subtitle: `${pr.repo} · PR #${pr.number}`,
-        href: pr.href,
-        meta: relativeTime(pr.updated)
-      })));
+      prs.forEach(pr => prsEl.appendChild(activityRow({ title: pr.title, subtitle: `${pr.repo} · PR #${pr.number}`, href: pr.href, meta: relativeTime(pr.updated) })));
     }
 
     searchEl?.addEventListener('input', () => workboard && renderBoard(workboard, searchEl.value));
-    clearEl?.addEventListener('click', () => {
-      if (!searchEl) return;
-      searchEl.value = '';
-      workboard && renderBoard(workboard);
-      searchEl.focus();
-    });
+    clearEl?.addEventListener('click', () => { if (searchEl) { searchEl.value = ''; renderBoard(workboard); searchEl.focus(); } });
+    document.getElementById('wbExpandLanes')?.addEventListener('click', () => setAllLanes(true));
+    document.getElementById('wbCollapseLanes')?.addEventListener('click', () => setAllLanes(false));
+    document.getElementById('wbFocusNow')?.addEventListener('click', focusNow);
+    document.getElementById('wbResetView')?.addEventListener('click', resetView);
+    document.querySelectorAll('.wb-col-global').forEach(button => button.addEventListener('click', () => toggleGlobalColumn(button.dataset.column)));
     refreshActivityEl?.addEventListener('click', () => loadGithubActivity(true));
 
     loadBoard();
@@ -375,46 +493,24 @@ import Base from '../layouts/Base.astro';
 
   <style is:global>
     .wb-shell {
-      --wb-bg: #0b1220;
-      --wb-panel: #111b2e;
-      --wb-panel-2: #152238;
-      --wb-border: rgba(255,255,255,.10);
-      --wb-text: #f7f8fb;
-      --wb-muted: #9eadc3;
-      --wb-green: #39df91;
-      --wb-amber: #ffb347;
-      --wb-red: #ff5c6a;
-      --wb-blue: #62a7ff;
-      --wb-cyan: #46d7e8;
-      color: var(--wb-text);
-      background:
-        radial-gradient(circle at 12% 0%, rgba(70,215,232,.08), transparent 28rem),
-        radial-gradient(circle at 88% 10%, rgba(98,167,255,.08), transparent 32rem),
-        #09111f;
-      min-height: 100vh;
-      padding: 5rem clamp(1rem, 3vw, 3rem) 7rem;
+      --wb-panel:#111b2e; --wb-panel-2:#152238; --wb-border:rgba(255,255,255,.10); --wb-text:#f7f8fb; --wb-muted:#9eadc3;
+      --wb-green:#39df91; --wb-amber:#ffb347; --wb-red:#ff5c6a; --wb-blue:#62a7ff; --wb-cyan:#46d7e8; --wb-target:#d78cff;
+      color:var(--wb-text); background:radial-gradient(circle at 12% 0%,rgba(70,215,232,.08),transparent 28rem),radial-gradient(circle at 88% 10%,rgba(215,140,255,.06),transparent 32rem),#09111f;
+      min-height:100vh; padding:5rem clamp(1rem,3vw,3rem) 7rem;
     }
-    html[data-theme="light"] .wb-shell {
-      --wb-bg: #f4f6fa;
-      --wb-panel: #ffffff;
-      --wb-panel-2: #f7f9fc;
-      --wb-border: rgba(15,23,41,.12);
-      --wb-text: #0f1729;
-      --wb-muted: #5a687d;
-      background: #f3f5f8;
-    }
-    .wb-hero, .wb-section, .wb-architecture, .wb-summary { max-width: 1600px; margin-left: auto; margin-right: auto; }
+    html[data-theme="light"] .wb-shell { --wb-panel:#fff; --wb-panel-2:#f7f9fc; --wb-border:rgba(15,23,41,.12); --wb-text:#0f1729; --wb-muted:#5a687d; background:#f3f5f8; }
+    .wb-hero,.wb-section,.wb-architecture,.wb-summary { max-width:1600px; margin-left:auto; margin-right:auto; }
     .wb-hero { display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; margin-bottom:2rem; }
-    .wb-kicker { font-family:'IBM Plex Mono', monospace; color:var(--wb-cyan); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; margin-bottom:.7rem; }
-    .wb-hero h1 { font-family:'Inter Tight', sans-serif; font-size:clamp(3rem, 7vw, 7.2rem); line-height:.86; letter-spacing:-.055em; margin:0; max-width:980px; }
-    .wb-hero h1 span { color:var(--wb-muted); }
-    .wb-lede { max-width:760px; font-size:clamp(1rem, 1.4vw, 1.3rem); color:var(--wb-muted); margin:1.5rem 0 0; }
-    .wb-hero-actions, .wb-tools { display:flex; gap:.65rem; flex-wrap:wrap; }
-    .wb-btn { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:.7rem .95rem; border:1px solid var(--wb-border); background:var(--wb-panel); color:var(--wb-text); text-decoration:none; font:600 .82rem 'Inter',sans-serif; cursor:pointer; border-radius:6px; }
-    .wb-btn:hover { border-color:rgba(70,215,232,.65); }
-    .wb-btn-primary { background:var(--wb-cyan); color:#07111f; border-color:var(--wb-cyan); }
+    .wb-kicker { font-family:'IBM Plex Mono',monospace; color:var(--wb-cyan); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; margin-bottom:.7rem; }
+    .wb-hero h1 { font-family:'Inter Tight',sans-serif; font-size:clamp(3rem,7vw,7.2rem); line-height:.86; letter-spacing:-.055em; margin:0; max-width:980px; }
+    .wb-hero h1 span,.wb-muted { color:var(--wb-muted); }
+    .wb-lede { max-width:760px; font-size:clamp(1rem,1.4vw,1.3rem); color:var(--wb-muted); margin:1.5rem 0 0; }
+    .wb-hero-actions,.wb-tools,.wb-title-line,.wb-legend,.wb-stamp-row,.wb-repo-chips,.wb-viewbar,.wb-viewbar-group,.wb-lane-counts { display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+    .wb-btn,.wb-view-btn,.wb-mini-btn { display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--wb-border); background:var(--wb-panel); color:var(--wb-text); text-decoration:none; font:600 .78rem 'Inter',sans-serif; cursor:pointer; border-radius:6px; }
+    .wb-btn { min-height:42px; padding:.7rem .95rem; }
     .wb-btn-small { min-height:38px; padding:.55rem .8rem; }
-    .wb-btn:disabled { opacity:.55; cursor:wait; }
+    .wb-btn-primary { background:var(--wb-cyan); color:#07111f; border-color:var(--wb-cyan); }
+    .wb-btn:hover,.wb-view-btn:hover,.wb-mini-btn:hover { border-color:rgba(70,215,232,.65); }
     .wb-summary { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--wb-border); background:var(--wb-panel); margin-bottom:2rem; }
     .wb-summary-card { padding:1.15rem 1.35rem; border-right:1px solid var(--wb-border); display:flex; align-items:baseline; gap:.7rem; }
     .wb-summary-card:last-child { border-right:0; }
@@ -425,101 +521,102 @@ import Base from '../layouts/Base.astro';
     .wb-section { margin-top:3.5rem; }
     .wb-section-head { display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; margin-bottom:1rem; }
     .wb-section-head h2 { margin:0; font:800 clamp(1.7rem,3vw,2.7rem) 'Inter Tight',sans-serif; letter-spacing:-.035em; }
-    .wb-muted { color:var(--wb-muted); margin:.45rem 0 0; max-width:760px; }
     .wb-flow { display:grid; grid-template-columns:1.3fr auto 1fr auto 1.25fr auto 1fr auto 1.25fr; align-items:stretch; gap:.55rem; margin-top:1.5rem; }
     .wb-flow-node { border:1px solid var(--wb-border); background:rgba(7,17,31,.32); padding:.85rem; font:700 .9rem 'Inter',sans-serif; display:flex; flex-direction:column; justify-content:center; min-height:76px; }
     html[data-theme="light"] .wb-flow-node { background:#fff; }
     .wb-flow-node span { color:var(--wb-muted); font:400 .7rem 'IBM Plex Mono',monospace; margin-top:.35rem; line-height:1.35; }
-    .wb-flow-focus { border-color:rgba(70,215,232,.65); box-shadow:inset 0 0 0 1px rgba(70,215,232,.14); }
-    .wb-flow-arrow { display:flex; align-items:center; color:var(--wb-muted); font-size:1.1rem; }
-    .wb-alert { margin-top:1rem; padding:.9rem 1rem; border-left:3px solid var(--wb-red); background:rgba(255,92,106,.07); display:flex; gap:.55rem; align-items:flex-start; font-size:.84rem; }
+    .wb-flow-focus { border-color:rgba(215,140,255,.7); box-shadow:inset 0 0 0 1px rgba(215,140,255,.12); }
+    .wb-flow-arrow { display:flex; align-items:center; color:var(--wb-muted); }
+    .wb-alert { margin-top:1rem; padding:.9rem 1rem; border-left:3px solid var(--wb-target); background:rgba(215,140,255,.07); display:flex; gap:.55rem; align-items:flex-start; font-size:.84rem; }
     .wb-alert span { color:var(--wb-muted); }
-    .wb-search { min-width:min(360px,70vw); min-height:38px; padding:.6rem .75rem; background:var(--wb-panel); color:var(--wb-text); border:1px solid var(--wb-border); border-radius:6px; outline:none; }
+    .wb-stamp { display:inline-flex; align-items:center; padding:.22rem .48rem; border:1px solid currentColor; border-radius:3px; font:600 .58rem 'IBM Plex Mono',monospace; letter-spacing:.08em; white-space:nowrap; }
+    .wb-state-live { color:var(--wb-green); }
+    .wb-state-building { color:var(--wb-amber); }
+    .wb-state-planned { color:var(--wb-blue); }
+    .wb-state-legacy { color:var(--wb-muted); }
+    .wb-state-decommissioned { color:var(--wb-red); }
+    .wb-stamp-target { color:var(--wb-target); background:rgba(215,140,255,.08); font-weight:700; }
+    .wb-risk { font:600 .56rem 'IBM Plex Mono',monospace; letter-spacing:.07em; }
+    .wb-risk-red { color:var(--wb-red); }
+    .wb-risk-amber { color:var(--wb-amber); }
+    .wb-legend { margin-top:.8rem; row-gap:.35rem; }
+    .wb-legend-copy { color:var(--wb-muted); font-size:.68rem; margin-right:.45rem; }
+    .wb-search { min-width:min(340px,70vw); min-height:38px; padding:.6rem .75rem; background:var(--wb-panel); color:var(--wb-text); border:1px solid var(--wb-border); border-radius:6px; outline:none; }
     .wb-search:focus { border-color:var(--wb-cyan); }
-    .wb-board-head { display:grid; grid-template-columns:250px repeat(3,minmax(260px,1fr)); gap:1px; background:var(--wb-border); border:1px solid var(--wb-border); border-bottom:0; color:var(--wb-muted); font:500 .7rem 'IBM Plex Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
-    .wb-board-head > div { background:var(--wb-panel); padding:.7rem .85rem; }
-    .wb-board { border:1px solid var(--wb-border); }
-    .wb-lane { display:grid; grid-template-columns:250px repeat(3,minmax(260px,1fr)); gap:1px; background:var(--wb-border); border-bottom:1px solid var(--wb-border); }
-    .wb-lane:last-child { border-bottom:0; }
-    .wb-lane > * { background:var(--wb-panel); }
-    .wb-lane-identity { padding:1rem; position:relative; }
-    .wb-lane-identity h3 { font:800 1.15rem 'Inter Tight',sans-serif; margin:.5rem 0 .35rem; line-height:1.05; }
-    .wb-lane-identity p { color:var(--wb-muted); font-size:.76rem; line-height:1.45; margin:0 0 .8rem; }
-    .wb-health { display:inline-flex; padding:.18rem .42rem; border:1px solid currentColor; border-radius:99px; font:500 .6rem 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.08em; }
-    .wb-health-green { color:var(--wb-green); }
-    .wb-health-amber { color:var(--wb-amber); }
-    .wb-health-red { color:var(--wb-red); }
-    .wb-health-blue { color:var(--wb-blue); }
-    .wb-health-grey { color:var(--wb-muted); }
-    .wb-repo-chips { display:flex; flex-wrap:wrap; gap:.35rem; }
-    .wb-repo-chip { font:500 .64rem 'IBM Plex Mono',monospace; color:var(--wb-muted); border:1px solid var(--wb-border); padding:.2rem .35rem; text-decoration:none; border-radius:3px; }
+    .wb-viewbar { justify-content:space-between; padding:.65rem; border:1px solid var(--wb-border); background:var(--wb-panel); margin-bottom:.75rem; }
+    .wb-viewbar-group > span { color:var(--wb-muted); font:500 .62rem 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.08em; }
+    .wb-view-btn { min-height:32px; padding:.4rem .65rem; font-size:.68rem; }
+    .wb-view-btn-focus { border-color:rgba(255,179,71,.65); color:var(--wb-amber); }
+    .wb-view-btn.is-off { opacity:.42; text-decoration:line-through; }
+    .wb-board { display:flex; flex-direction:column; gap:.65rem; }
+    .wb-lane { border:1px solid var(--wb-border); background:var(--wb-panel); border-left-width:4px; border-radius:7px; overflow:hidden; }
+    .wb-delivery-live { border-left-color:var(--wb-green); }
+    .wb-delivery-building { border-left-color:var(--wb-amber); }
+    .wb-delivery-planned { border-left-color:var(--wb-blue); }
+    .wb-delivery-legacy { border-left-color:var(--wb-muted); }
+    .wb-delivery-decommissioned { border-left-color:var(--wb-red); }
+    .wb-is-target { box-shadow:inset 0 0 0 1px rgba(215,140,255,.08); }
+    .wb-lane-head { display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:.8rem; align-items:center; padding:.9rem 1rem; cursor:pointer; background:var(--wb-panel); }
+    .wb-lane-head:hover { background:var(--wb-panel-2); }
+    .wb-lane-toggle { width:28px; height:28px; display:grid; place-items:center; border:1px solid var(--wb-border); border-radius:4px; color:var(--wb-muted); font:500 1rem 'IBM Plex Mono',monospace; }
+    .wb-lane-copy h3 { font:800 1.15rem 'Inter Tight',sans-serif; margin:.42rem 0 .25rem; }
+    .wb-lane-copy p { color:var(--wb-muted); font-size:.75rem; line-height:1.42; margin:0 0 .65rem; max-width:900px; }
+    .wb-repo-chip { font:500 .61rem 'IBM Plex Mono',monospace; color:var(--wb-muted); border:1px solid var(--wb-border); padding:.18rem .34rem; text-decoration:none; border-radius:3px; }
     a.wb-repo-chip:hover { color:var(--wb-cyan); border-color:var(--wb-cyan); }
-    .wb-column { padding:.65rem; min-height:124px; display:flex; flex-direction:column; gap:.55rem; }
+    .wb-lane-actions { display:flex; align-items:flex-end; flex-direction:column; gap:.6rem; }
+    .wb-mini-btn { min-height:28px; padding:.3rem .48rem; font:600 .58rem 'IBM Plex Mono',monospace; letter-spacing:.06em; }
+    .wb-lane-counts { color:var(--wb-muted); font:500 .58rem 'IBM Plex Mono',monospace; justify-content:flex-end; }
+    .wb-count-now { color:var(--wb-amber); }
+    .wb-lane-body { display:grid; gap:1px; background:var(--wb-border); border-top:1px solid var(--wb-border); transition:grid-template-columns .18s ease; }
+    .wb-column { background:var(--wb-panel); min-width:0; }
+    .wb-column-head { width:100%; border:0; border-bottom:1px solid var(--wb-border); background:transparent; color:var(--wb-text); min-height:40px; padding:.55rem .7rem; display:flex; align-items:center; gap:.5rem; cursor:pointer; text-align:left; }
+    .wb-column-head:hover { background:var(--wb-panel-2); }
+    .wb-column-title { font:700 .67rem 'IBM Plex Mono',monospace; letter-spacing:.08em; }
+    .wb-column-count { color:var(--wb-muted); font:500 .6rem 'IBM Plex Mono',monospace; }
+    .wb-column-chevron { margin-left:auto; color:var(--wb-muted); }
+    .wb-column-now .wb-column-title { color:var(--wb-amber); }
+    .wb-column-next .wb-column-title { color:var(--wb-blue); }
+    .wb-column-done .wb-column-title { color:var(--wb-green); }
+    .wb-column.is-collapsed { width:48px; }
+    .wb-column.is-collapsed .wb-column-head { height:100%; min-height:130px; padding:.55rem 0; flex-direction:column; justify-content:flex-start; }
+    .wb-column.is-collapsed .wb-column-title { writing-mode:vertical-rl; transform:rotate(180deg); margin-top:.25rem; }
+    .wb-column.is-collapsed .wb-column-chevron { margin:auto 0 .3rem; }
+    .wb-column-content { padding:.65rem; display:flex; flex-direction:column; gap:.55rem; }
     .wb-task { padding:.75rem .8rem; border:1px solid var(--wb-border); background:var(--wb-panel-2); border-radius:5px; }
     .wb-task h4 { font:700 .82rem 'Inter',sans-serif; margin:0 0 .3rem; line-height:1.25; }
     .wb-task p { color:var(--wb-muted); font-size:.72rem; line-height:1.45; margin:0; }
-    .wb-task-done { border-left:3px solid rgba(57,223,145,.72); }
     .wb-task-now { border-left:3px solid rgba(255,179,71,.9); }
     .wb-task-next { border-left:3px solid rgba(98,167,255,.8); }
+    .wb-task-done { border-left:3px solid rgba(57,223,145,.72); opacity:.86; }
     .wb-evidence { margin-top:.55rem; display:flex; gap:.4rem; flex-wrap:wrap; }
     .wb-evidence a { color:var(--wb-cyan); font:500 .62rem 'IBM Plex Mono',monospace; }
-    .wb-empty, .wb-loading, .wb-error { color:var(--wb-muted); font:400 .75rem 'IBM Plex Mono',monospace; padding:1rem; }
+    .wb-empty,.wb-loading,.wb-error { color:var(--wb-muted); font:400 .75rem 'IBM Plex Mono',monospace; padding:1rem; }
     .wb-error { color:var(--wb-red); }
     .wb-repos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }
-    .wb-repo-card { border:1px solid var(--wb-border); background:var(--wb-panel); padding:1rem; cursor:default; border-radius:6px; }
+    .wb-repo-card { border:1px solid var(--wb-border); background:var(--wb-panel); padding:1rem; border-radius:6px; }
     .wb-repo-card[tabindex] { cursor:pointer; }
     .wb-repo-card[tabindex]:hover { border-color:rgba(70,215,232,.5); transform:translateY(-1px); }
     .wb-repo-top { display:flex; justify-content:space-between; gap:.6rem; align-items:flex-start; }
     .wb-repo-top h3 { margin:0; font:800 1rem 'Inter Tight',sans-serif; }
     .wb-repo-status { padding:.18rem .38rem; border-radius:3px; font:500 .58rem 'IBM Plex Mono',monospace; text-transform:uppercase; border:1px solid var(--wb-border); color:var(--wb-muted); }
-    .wb-repo-status-production { color:var(--wb-green); }
-    .wb-repo-status-active { color:var(--wb-blue); }
-    .wb-repo-status-legacy, .wb-repo-status-audit { color:var(--wb-amber); }
-    .wb-repo-status-decommissioned { color:var(--wb-red); }
+    .wb-repo-status-production { color:var(--wb-green); }.wb-repo-status-active { color:var(--wb-blue); }.wb-repo-status-legacy,.wb-repo-status-audit { color:var(--wb-amber); }.wb-repo-status-decommissioned { color:var(--wb-red); }
     .wb-serves { color:var(--wb-cyan); font:500 .68rem 'IBM Plex Mono',monospace; margin:.6rem 0; overflow-wrap:anywhere; }
     .wb-repo-card p { color:var(--wb-muted); margin:0; font-size:.76rem; line-height:1.5; }
     .wb-activity-grid { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
     .wb-activity-panel { border:1px solid var(--wb-border); background:var(--wb-panel); }
     .wb-activity-panel h3 { font:800 1rem 'Inter Tight',sans-serif; margin:0; padding:.85rem 1rem; border-bottom:1px solid var(--wb-border); }
-    .wb-activity-list { display:flex; flex-direction:column; }
     .wb-activity-row { display:flex; justify-content:space-between; gap:1rem; padding:.72rem 1rem; border-bottom:1px solid var(--wb-border); text-decoration:none; color:var(--wb-text); }
-    .wb-activity-row:last-child { border-bottom:0; }
-    .wb-activity-row:hover { background:var(--wb-panel-2); }
-    .wb-activity-body { display:flex; flex-direction:column; min-width:0; }
-    .wb-activity-body strong { font-size:.77rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .wb-activity-body span { color:var(--wb-muted); font:400 .64rem 'IBM Plex Mono',monospace; margin-top:.25rem; }
-    .wb-activity-row time { color:var(--wb-muted); font:400 .62rem 'IBM Plex Mono',monospace; flex:0 0 auto; }
+    .wb-activity-row:hover { background:var(--wb-panel-2); }.wb-activity-body { display:flex; flex-direction:column; min-width:0; }.wb-activity-body strong { font-size:.77rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }.wb-activity-body span,.wb-activity-row time { color:var(--wb-muted); font:400 .62rem 'IBM Plex Mono',monospace; margin-top:.25rem; }
 
-    @media (max-width: 1180px) {
-      .wb-board-head { display:none; }
-      .wb-lane { grid-template-columns:210px repeat(3,minmax(240px,1fr)); overflow-x:auto; }
-      .wb-board { overflow-x:auto; }
-      .wb-flow { grid-template-columns:1fr; }
-      .wb-flow-arrow { transform:rotate(90deg); justify-content:center; height:12px; }
+    @media (max-width:900px) {
+      .wb-flow { grid-template-columns:1fr; }.wb-flow-arrow { transform:rotate(90deg); justify-content:center; height:12px; }
       .wb-repos { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .wb-lane-head { grid-template-columns:30px minmax(0,1fr); }.wb-lane-actions { grid-column:2; align-items:flex-start; flex-direction:row; }
+      .wb-lane-body { grid-template-columns:1fr !important; }.wb-column.is-collapsed { width:auto; }.wb-column.is-collapsed .wb-column-head { min-height:40px; height:auto; padding:.55rem .7rem; flex-direction:row; }.wb-column.is-collapsed .wb-column-title { writing-mode:horizontal-tb; transform:none; margin:0; }.wb-column.is-collapsed .wb-column-chevron { margin-left:auto; }
     }
-    @media (max-width: 760px) {
-      .wb-shell { padding:3rem .8rem 5rem; }
-      .wb-hero { display:block; }
-      .wb-hero-actions { margin-top:1.3rem; }
-      .wb-summary { grid-template-columns:1fr 1fr; }
-      .wb-summary-card { border-bottom:1px solid var(--wb-border); }
-      .wb-summary-card:nth-child(2) { border-right:0; }
-      .wb-summary-card:nth-child(3), .wb-summary-card:nth-child(4) { border-bottom:0; }
-      .wb-section-head { align-items:flex-start; flex-direction:column; }
-      .wb-tools { width:100%; }
-      .wb-search { min-width:0; flex:1; }
-      .wb-board { border:0; overflow:visible; }
-      .wb-lane { display:block; border:1px solid var(--wb-border); margin-bottom:1rem; background:transparent; }
-      .wb-lane-identity { border-bottom:1px solid var(--wb-border); }
-      .wb-column { border-bottom:1px solid var(--wb-border); }
-      .wb-column:last-child { border-bottom:0; }
-      .wb-column::before { font:500 .62rem 'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.1em; color:var(--wb-muted); padding:.2rem .1rem; }
-      .wb-column-done::before { content:'Done'; color:var(--wb-green); }
-      .wb-column-now::before { content:'Now'; color:var(--wb-amber); }
-      .wb-column-next::before { content:'Next'; color:var(--wb-blue); }
-      .wb-repos, .wb-activity-grid { grid-template-columns:1fr; }
-      .wb-alert { flex-direction:column; }
+    @media (max-width:760px) {
+      .wb-shell { padding:3rem .8rem 5rem; }.wb-hero { display:block; }.wb-hero-actions { margin-top:1.3rem; }.wb-summary { grid-template-columns:1fr 1fr; }.wb-summary-card { border-bottom:1px solid var(--wb-border); }.wb-summary-card:nth-child(2) { border-right:0; }.wb-summary-card:nth-child(3),.wb-summary-card:nth-child(4) { border-bottom:0; }
+      .wb-section-head { align-items:flex-start; flex-direction:column; }.wb-tools { width:100%; }.wb-search { min-width:0; flex:1; }.wb-viewbar { align-items:flex-start; flex-direction:column; }.wb-repos,.wb-activity-grid { grid-template-columns:1fr; }.wb-alert { flex-direction:column; }.wb-title-line { align-items:flex-start; }
     }
   </style>
 </Base>
