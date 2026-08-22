@@ -38,6 +38,7 @@ jobs:
       - run: npm run build
       - name: Verify workboard output
         run: |
-          test -f dist/workboard/index.html
+          test -f dist/workboard.html
           test -f dist/workboard.json
-          grep -q 'KANBAN / SWIMLANES' dist/workboard/index.html
+          test -f dist/workboard.schema.json
+          grep -q 'KANBAN / SWIMLANES' dist/workboard.html
