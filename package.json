@@ -4,7 +4,7 @@
   "description": "bndy public website. Static, house design D.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/duplicate-brassbands-route.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
