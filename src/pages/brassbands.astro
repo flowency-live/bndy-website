@@ -4,20 +4,20 @@ import Base from '../layouts/Base.astro';
 
 <Base
   title="Brass bands · what bndy is building"
-  description="How bndy is building a trustworthy, evidence-led map of brass bands, concerts and festivals while keeping the existing grassroots live edition isolated."
+  description="How bndy is building a trustworthy, evidence-led map of brass bands, productions, concerts and festivals while keeping the existing grassroots live edition isolated."
   path="/brassbands"
 >
   <section class="brass-hero">
     <div class="kicker">A new bndy edition</div>
     <h1>Brass bands deserve a living map too.</h1>
-    <p class="lead">We’re building <strong>brass.bndy.live</strong>: bands, concerts, festivals and the relationships between them, assembled from public evidence and projected into bndy only when we’re confident enough to stand behind it.</p>
+    <p class="lead">We’re building <strong>brass.bndy.live</strong>: bands, productions, concerts, festivals and the relationships between them, assembled from public evidence and projected into bndy only when we’re confident enough to stand behind it.</p>
     <div class="signals"><span>EVIDENCE FIRST</span><span>CLAIMABLE</span><span>SOURCE AWARE</span><span>EDITION ISOLATED</span></div>
   </section>
 
   <section class="section">
     <span class="eyebrow">THE IDEA</span>
     <h2>Not another scraped events list.</h2>
-    <p>A brass band changes name. A sponsor changes. A conductor appears for one concert. A website gets updated. A contest result records an old identity. A venue lists a date differently to the band.</p>
+    <p>A brass band changes name. A sponsor changes. A conductor appears for one concert. A band tours a named show. A website gets updated. A contest result records an old identity. A venue lists a date differently to the band.</p>
     <p><strong>Those are not just rows. They are claims about real things.</strong></p>
   </section>
 
@@ -26,11 +26,11 @@ import Base from '../layouts/Base.astro';
     <div class="arrow">→</div>
     <div class="node"><span>02</span><h3>Observations</h3><p>What did this source actually say, when did we see it, and where did it come from?</p></div>
     <div class="arrow">→</div>
-    <div class="node"><span>03</span><h3>Claims</h3><p>This is the current band name. This was a former name. This concert is at this venue on this date.</p></div>
+    <div class="node"><span>03</span><h3>Claims</h3><p>This is the current band name. This is one of its Productions. This Concert is at this venue on this date.</p></div>
     <div class="arrow">→</div>
     <div class="node accent"><span>04</span><h3>Verification + inference</h3><p>Independent evidence reinforces or conflicts with a claim. Confidence rises, falls, or goes to review.</p></div>
     <div class="arrow down">↓</div>
-    <div class="node projection"><span>05</span><h3>Projection</h3><p>Only when the evidence is strong enough do we project a clean canonical Band, Concert, Festival or Venue into bndy. Ambiguous identities stay out until they are resolved.</p></div>
+    <div class="node projection"><span>05</span><h3>Projection</h3><p>Only when the evidence is strong enough do we project a clean canonical Band, Production, Concert, Festival or Venue into bndy. Ambiguous identities stay out until they are resolved.</p></div>
     <div class="arrow">→</div>
     <div class="node canonical"><span>06</span><h3>Canonical bndy record</h3><p>One persistent identity, linked to the evidence that made us believe it.</p></div>
   </section>
@@ -51,6 +51,38 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <section class="section productions-section">
+    <span class="eyebrow">PRODUCTIONS</span>
+    <h2>The Band, the show and the Concert are different things.</h2>
+    <p>A Band can have several separately branded shows or programmes. We call those <strong>Productions</strong>. They belong to the Band, but they are not duplicate Band profiles and they are not individual Concerts.</p>
+    <p>A Concert can simply be the Band appearing in concert, or it can be a dated performance of a specific Production. That means bndy can understand the difference between <strong>who is performing</strong>, <strong>what they are presenting</strong> and <strong>when and where it is happening</strong>.</p>
+    <div class="production-model" aria-label="Band Production Concert relationship">
+      <div class="production-band">
+        <small>BAND</small>
+        <strong>KNDS Fairey Band</strong>
+        <span>one persistent performing identity</span>
+      </div>
+      <div class="production-arrow">→</div>
+      <div class="production-list">
+        <small>PRODUCTIONS</small>
+        <b>Acid Brass</b>
+        <b>Aardman with Brass Band</b>
+        <b>The Wrong Trousers</b>
+        <b>A Grand Day Out</b>
+        <b>The Snowman</b>
+        <span>one Band can own many</span>
+      </div>
+      <div class="production-arrow">→</div>
+      <div class="production-concert">
+        <small>CONCERT</small>
+        <strong>4:00 PM · Buxton Opera House</strong>
+        <span>A Grand Day Out</span>
+        <em>one dated performance</em>
+      </div>
+    </div>
+    <p class="production-rule"><strong>Band ≠ Production ≠ Concert.</strong> Keeping those identities separate lets us connect them properly instead of flattening everything into event titles.</p>
+  </section>
+
   <section class="section">
     <span class="eyebrow">TRUST MODEL</span>
     <h2>Inference helps. It never outranks ownership.</h2>
@@ -67,7 +99,7 @@ import Base from '../layouts/Base.astro';
     <div>
       <span class="eyebrow">ONE PLATFORM · MULTIPLE EDITIONS</span>
       <h2>Brass does not contaminate bndy.live.</h2>
-      <p>We use the same canonical platform, but publication is explicit. A brass-only Band, Concert or Venue is invisible to the existing grassroots live edition unless we deliberately choose to share it.</p>
+      <p>We use the same canonical platform, but publication is explicit. A brass-only Band, Production, Concert or Venue is invisible to the existing grassroots live edition unless we deliberately choose to share it.</p>
     </div>
     <div class="scope">
       <div><code>["live"]</code><span>→</span><b>bndy.live</b></div>
@@ -81,7 +113,7 @@ import Base from '../layouts/Base.astro';
     <div class="map-copy">
       <span class="eyebrow">WHERE IT ENDS UP</span>
       <h2>A map you can actually use.</h2>
-      <p><strong>Concerts</strong> shows what’s happening, using practical date and favourites controls.</p>
+      <p><strong>Concerts</strong> shows what’s happening, using practical date and favourites controls. Where a Concert belongs to a named Production, bndy can show that relationship too.</p>
       <p><strong>Bands</strong> switches the map to the home locations of brass bands across the country.</p>
       <div class="toggle"><span class="active">CONCERTS</span><span>BANDS</span></div>
     </div>
@@ -98,14 +130,16 @@ import Base from '../layouts/Base.astro';
 
 <style>
   .brass-hero,.section,.pipeline,.map-block,.close{width:min(1180px,calc(100% - 36px));margin-inline:auto}
-  .brass-hero{padding:110px 0 70px;max-width:1040px}.kicker,.eyebrow,.node>span,.identity small{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent,#7c3aed)}
+  .brass-hero{padding:110px 0 70px;max-width:1040px}.kicker,.eyebrow,.node>span,.identity small,.production-model small{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent,#7c3aed)}
   .brass-hero h1{font-family:'Inter Tight',sans-serif;font-size:clamp(3rem,8vw,6.8rem);line-height:.88;letter-spacing:-.055em;margin:18px 0 30px}.lead{font-size:clamp(1.1rem,2vw,1.45rem);line-height:1.55;max-width:850px;color:var(--muted,#a7afbf)}
   .signals{display:flex;flex-wrap:wrap;margin-top:30px;border-top:1px solid color-mix(in srgb,currentColor 18%,transparent);border-left:1px solid color-mix(in srgb,currentColor 18%,transparent);width:max-content;max-width:100%}.signals span{padding:10px 14px;border-right:1px solid color-mix(in srgb,currentColor 18%,transparent);border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent);font-family:'IBM Plex Mono',monospace;font-size:.7rem}
   .section{padding:78px 0;border-top:1px solid color-mix(in srgb,currentColor 13%,transparent)}.section h2,.map-block h2,.close h2{font-family:'Inter Tight',sans-serif;font-size:clamp(2.1rem,5vw,4.2rem);line-height:.95;letter-spacing:-.04em;margin:12px 0 24px}.section>p,.split p,.map-copy p{max-width:850px;font-size:1.08rem;line-height:1.65;color:var(--muted,#a7afbf)}
   .pipeline{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1.15fr;gap:0;padding:20px 0 90px}.node{padding:24px;border:1px solid color-mix(in srgb,currentColor 15%,transparent);background:color-mix(in srgb,currentColor 4%,transparent)}.node h3{font-family:'Inter Tight',sans-serif;font-size:1.4rem;margin:14px 0 9px}.node p{font-size:.9rem;line-height:1.55;color:var(--muted,#a7afbf);margin:0}.node.accent{border-color:var(--accent,#7c3aed)}.node.projection{grid-column:2/5}.node.canonical{grid-column:6/8}.arrow{align-self:center;padding:10px;font-size:1.4rem;opacity:.45}.arrow.down{grid-column:1/8;text-align:center;padding:14px}
-  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}.identity,.scope{border:1px solid color-mix(in srgb,currentColor 15%,transparent);padding:28px}.identity>strong{display:block;font-family:'Inter Tight',sans-serif;font-size:2rem;margin:8px 0 20px}.identity>div,.scope>div{display:grid;grid-template-columns:145px 1fr;gap:10px;border-top:1px solid color-mix(in srgb,currentColor 10%,transparent);padding:13px 0}.identity>div span{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--accent,#7c3aed)}.identity p{margin-bottom:0;font-weight:700}.trust{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid color-mix(in srgb,currentColor 13%,transparent);border-left:1px solid color-mix(in srgb,currentColor 13%,transparent);margin:32px 0}.trust>div{padding:22px;border-right:1px solid color-mix(in srgb,currentColor 13%,transparent);border-bottom:1px solid color-mix(in srgb,currentColor 13%,transparent)}.trust b{font-family:'Inter Tight',sans-serif;font-size:1.25rem}.trust p{font-size:.9rem;line-height:1.5;color:var(--muted,#a7afbf)}.scope>div{grid-template-columns:1.3fr auto 1fr}.scope .brass{color:var(--accent,#7c3aed)}
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}.identity,.scope{border:1px solid color-mix(in srgb,currentColor 15%,transparent);padding:28px}.identity>strong{display:block;font-family:'Inter Tight',sans-serif;font-size:2rem;margin:8px 0 20px}.identity>div,.scope>div{display:grid;grid-template-columns:145px 1fr;gap:10px;border-top:1px solid color-mix(in srgb,currentColor 10%,transparent);padding:13px 0}.identity>div span{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--accent,#7c3aed)}.identity p{margin-bottom:0;font-weight:700}
+  .productions-section{overflow:hidden}.production-model{display:grid;grid-template-columns:1fr auto 1.15fr auto 1fr;gap:14px;align-items:stretch;margin:38px 0 28px}.production-band,.production-list,.production-concert{display:flex;flex-direction:column;gap:9px;padding:26px;border:1px solid color-mix(in srgb,currentColor 15%,transparent);background:color-mix(in srgb,currentColor 4%,transparent)}.production-band strong,.production-concert strong{font-family:'Inter Tight',sans-serif;font-size:1.5rem;line-height:1.05}.production-model span,.production-model em{color:var(--muted,#a7afbf);font-size:.87rem;line-height:1.45}.production-list b{padding:8px 0;border-top:1px solid color-mix(in srgb,currentColor 10%,transparent)}.production-arrow{align-self:center;font-size:1.6rem;opacity:.45}.production-concert{border-color:var(--accent,#7c3aed)}.production-concert>span{color:var(--accent,#7c3aed);font-weight:800}.production-rule{margin-bottom:0}
+  .trust{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid color-mix(in srgb,currentColor 13%,transparent);border-left:1px solid color-mix(in srgb,currentColor 13%,transparent);margin:32px 0}.trust>div{padding:22px;border-right:1px solid color-mix(in srgb,currentColor 13%,transparent);border-bottom:1px solid color-mix(in srgb,currentColor 13%,transparent)}.trust b{font-family:'Inter Tight',sans-serif;font-size:1.25rem}.trust p{font-size:.9rem;line-height:1.5;color:var(--muted,#a7afbf)}.scope>div{grid-template-columns:1.3fr auto 1fr}.scope .brass{color:var(--accent,#7c3aed)}
   .map-block{position:relative;min-height:520px;overflow:hidden;margin-top:70px;margin-bottom:90px;border:1px solid color-mix(in srgb,currentColor 15%,transparent);background:color-mix(in srgb,currentColor 3%,transparent)}.grid{position:absolute;inset:0;background-image:linear-gradient(color-mix(in srgb,currentColor 7%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,currentColor 7%,transparent) 1px,transparent 1px);background-size:48px 48px}.map-copy{position:relative;z-index:2;width:min(540px,90%);padding:70px 0 70px 7%}.toggle{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid color-mix(in srgb,currentColor 15%,transparent);margin-top:15px}.toggle span{padding:9px 14px;font-family:'IBM Plex Mono',monospace;font-size:.75rem}.toggle .active{background:var(--accent,#7c3aed);color:white}.pins{position:absolute;inset:0}.pins i{position:absolute;width:14px;height:14px;background:var(--accent,#7c3aed);transform:rotate(45deg);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent,#7c3aed) 14%,transparent)}
   .close{padding:90px 0 120px;border-top:1px solid color-mix(in srgb,currentColor 13%,transparent)}.close h2{max-width:950px}.close p{color:var(--muted,#a7afbf);font-size:1.1rem}.close a{display:inline-block;margin-top:20px;padding:14px 18px;background:var(--accent,#7c3aed);color:white;text-decoration:none;font-weight:800}
-  @media(max-width:900px){.pipeline{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.arrow.down{grid-column:auto;transform:none}.node.projection,.node.canonical{grid-column:auto}.split{grid-template-columns:1fr;gap:28px}.trust{grid-template-columns:1fr 1fr}}
+  @media(max-width:900px){.pipeline{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.arrow.down{grid-column:auto;transform:none}.node.projection,.node.canonical{grid-column:auto}.split{grid-template-columns:1fr;gap:28px}.trust{grid-template-columns:1fr 1fr}.production-model{grid-template-columns:1fr}.production-arrow{transform:rotate(90deg);text-align:center}}
   @media(max-width:560px){.brass-hero{padding-top:75px}.section{padding:56px 0}.trust{grid-template-columns:1fr}.identity>div,.scope>div{grid-template-columns:1fr}.map-copy{padding:48px 24px;width:auto}.close{padding:70px 0 90px}}
 </style>
