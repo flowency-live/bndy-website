@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Validate workboard JSON
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const board = JSON.parse(fs.readFileSync('public/workboard.json', 'utf8'));
+          if (board.version !== 1) throw new Error('Unsupported workboard version');
+          if (!Array.isArray(board.repositories) || !board.repositories.length) throw new Error('repositories missing');
+          if (!Array.isArray(board.lanes) || !board.lanes.length) throw new Error('lanes missing');
+          const ids = new Set(board.repositories.map(r => r.id));
+          for (const lane of board.lanes) {
+            if (!lane.id || !lane.title) throw new Error('lane identity missing');
+            for (const repoId of lane.repos || []) {
+              if (!ids.has(repoId)) throw new Error(`Unknown repo id ${repoId} in ${lane.id}`);
+            }
+            for (const col of ['done', 'now', 'next']) {
+              if (!Array.isArray(lane[col])) throw new Error(`${lane.id}.${col} must be an array`);
+            }
+          }
+          NODE
+      - run: npm run build
+      - name: Verify workboard output
+        run: |
+          test -f dist/workboard/index.html
+          test -f dist/workboard.json
+          grep -q 'KANBAN / SWIMLANES' dist/workboard/index.html
