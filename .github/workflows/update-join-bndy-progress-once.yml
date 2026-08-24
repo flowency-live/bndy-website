@@ -1,0 +1,60 @@
+name: Update Join bndy progress once
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: contains(github.event.head_commit.message, 'Refresh Join bndy progress')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refresh Join bndy lane
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = 'public/workboard.json';
+          const board = JSON.parse(fs.readFileSync(path, 'utf8'));
+          const lane = board.lanes.find((item) => item.id === 'join-bndy');
+          if (!lane) throw new Error('join-bndy lane missing');
+          board.updatedAt = new Date().toISOString();
+          board.updatedBy = 'ChatGPT Join bndy autonomous delivery';
+          lane.health = 'green';
+          lane.deliveryState = 'building';
+          lane.done = [
+            { title: 'JOIN-01 — Join shell', detail: '/join, /join/artist and /join/venue are implemented as dedicated mobile-first onboarding rather than reusing Add utility UI.', evidence: ['https://github.com/flowency-live/bndy-app/blob/main/src/features/join/JoinPageClient.tsx'] },
+            { title: 'JOIN-02 — identity before creation', detail: 'Artist Join dry-runs the canonical resolver and exposes aliases/name variants plus location. Venue Join uses exact Google Place identity and canonical venue dedupe before create.', evidence: ['https://github.com/flowency-live/bndy-serverless-api/commit/7cd8e673e3620a1b0553299ab185625d2c5af890'] },
+            { title: 'JOIN-03 — auth resume', detail: 'Join journey state persists across authentication and restores Artist/Venue intent without making the user re-enter identity details.', evidence: ['https://github.com/flowency-live/bndy-app/commit/ef0e5bf8796a9a59c76e89f0e49597f49fca487c'] },
+            { title: 'JOIN-04 — owned Artist creation', detail: 'Authenticated /api/join/artists reruns identity at commit, creates through canonical uniqueness gates, binds an owner membership transactionally and compensates a failed ownership bind. Owner-supplied facts publish to Backline afterwards.', evidence: ['https://github.com/flowency-live/bndy-serverless-api/commit/a93b72d97c90a4e136ac1a66414deb2e755b8051'] },
+            { title: 'JOIN-05 — owned Venue creation', detail: 'Authenticated /api/join/venues uses Google Place identity, creates a generic entity owner relationship, compensates partial failure and publishes user-created Venue evidence/Claims into Backline.', evidence: ['https://github.com/flowency-live/bndy-serverless-api/commit/8df2f651d36796d301921dd06dc4f4aca5f6b7d6'] },
+            { title: 'JOIN-07 — Claim persistence and review backend', detail: 'Existing entities create durable pending Claim Requests rather than being overwritten. Godmode has an ownership Claim review queue and approval creates the correct Artist/Venue relationship transactionally.', evidence: ['https://github.com/flowency-live/bndy-serverless-api/commit/110e55d98924ad27094b405fa38d27f2267f5e08','https://github.com/flowency-live/bndy-backstage/commit/9ce7879b67011c4f9b3fee4caad2b02db9538bfe'] }
+          ];
+          lane.now = [
+            { title: 'JOIN-06 — profile completion polish', detail: 'Turn the current identity + ownership success path into the final lightweight Artist/Venue profile-completion experience, reusing canonical taxonomy and Facebook/Google assistance.' },
+            { title: 'JOIN-08 — delegates and ownership lifecycle', detail: 'Entity membership API now supports venue owner/admin delegation and transfer semantics. Finish user-facing management, invitations for people not yet registered, and Artist parity without shared passwords.' },
+            { title: 'Production verification', detail: 'Exercise auth resume, duplicate races, new Artist/Venue ownership, pending Claim creation and Godmode approval against deployed infrastructure before calling the journey live-complete.' }
+          ];
+          lane.next = [
+            { title: 'JOIN-09 — owner authority in Backline', detail: 'Make owner-supplied facts explicitly protected by projection policy and expose conflicts/provenance in Backline Explorer.' },
+            { title: 'JOIN-10 — funnel hardening', detail: 'Instrument Join funnel analytics, add end-to-end and accessibility tests, mobile performance checks and production smoke coverage.' }
+          ];
+          fs.writeFileSync(path, JSON.stringify(board));
+          NODE
+          node -e "JSON.parse(require('fs').readFileSync('public/workboard.json','utf8')); console.log('workboard valid')"
+      - name: Commit
+        run: |
+          git config user.name 'bndy-product-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/workboard.json
+          git commit -m 'Refresh Join bndy progress'
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
