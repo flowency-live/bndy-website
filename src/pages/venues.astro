@@ -3,6 +3,7 @@
 // Closing line renders as display type per spec §4.
 import Base from '../layouts/Base.astro';
 import Doors from '../components/Doors.astro';
+import Logo from '../components/Logo.astro';
 import { MAP_URL } from '../config';
 ---
 <Base
@@ -26,13 +27,13 @@ import { MAP_URL } from '../config';
     <p>Grassroots music doesn't only happen in dedicated music venues.</p>
     <p>It happens in pubs, bars, social clubs, hotels and back rooms. Sometimes it's an originals night giving new artists somewhere to be heard. Sometimes it's a covers band filling the room on a Saturday night.</p>
     <p>Both matter. Both put musicians in front of people. Both give people a reason to go out, stay for another drink and come back next week.</p>
-    <p><b>If you regularly put live music in front of an audience, you are part of the live music ecosystem bndy is built to support.</b></p>
+    <p><b>If you regularly put live music in front of an audience, you are part of the live music ecosystem <Logo class="inline-logo" label="bndy" /> is built to support.</b></p>
 
     <h2 class="tight" style="margin-top:2.6rem">Claim your venue when you're ready</h2>
     <p>Claim your venue and help us make the information better. Your page, your details, your what's-on. Once claimed, nothing on your profile changes unless you change it.</p>
     <p>And it costs nothing. A venue putting on live music is already contributing to the ecosystem. That's our promise, in writing, on <a href="/promise">the promise page</a>.</p>
     <div class="close-actions" style="justify-content:flex-start">
-      <a class="btn btn-primary" href={MAP_URL}>Find your venue on bndy</a>
+      <a class="btn btn-primary" href={MAP_URL}>Find your venue</a>
       <a class="btn btn-secondary" href={MAP_URL}>Add a gig</a>
     </div>
 
