@@ -3,9 +3,13 @@ import Logo from './Logo.astro';
 import { FLAG_URL } from '../config';
 ---
 <footer>
+  <a class="tech-teaser" href="/how-bndy-thinks">
+    <span class="tech-teaser-kicker">CURIOUS HOW BNDY ACTUALLY WORKS?</span>
+    <strong>Geek out on Backline →</strong>
+  </a>
   <div class="foot-main">
     <div class="foot-links">
-      <a href="/why">Why</a><a href="/promise">Our promise</a><a href="/artists">For artists</a><a href="/venues">For venues</a><a href="/backstage">Backstage</a><a href={FLAG_URL}>Flag a problem</a>
+      <a href="/why">Why</a><a href="/promise">Our promise</a><a href="/artists">For artists</a><a href="/venues">For venues</a><a href="/how-bndy-thinks">How bndy thinks</a><a href="/backstage">Backstage</a><a href={FLAG_URL}>Flag a problem</a>
     </div>
     <div class="foot-legal">
       <a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/cookies">Cookies</a><a href="/data-deletion">Data deletion</a><a href="/claim-policy">Claim policy</a>
@@ -16,3 +20,39 @@ import { FLAG_URL } from '../config';
     <span>Keeping live music alive</span>
   </div>
 </footer>
+
+<style>
+  .tech-teaser {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.35rem 2rem;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    background: var(--surface);
+  }
+
+  .tech-teaser:hover strong { color: var(--cyan); }
+
+  .tech-teaser-kicker {
+    font: 500 .68rem/1.2 'IBM Plex Mono', 'IBM Plex Mono Fallback', monospace;
+    letter-spacing: .15em;
+    color: var(--muted);
+  }
+
+  .tech-teaser strong {
+    font-family: 'Inter Tight', 'Inter Tight Fallback', system-ui, sans-serif;
+    font-size: clamp(1.15rem, 2.3vw, 1.55rem);
+    color: var(--orange);
+    transition: color .15s ease;
+  }
+
+  @media (max-width: 620px) {
+    .tech-teaser {
+      grid-template-columns: 1fr;
+      gap: .45rem;
+      padding-inline: 1.25rem;
+    }
+  }
+</style>
