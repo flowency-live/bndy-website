@@ -1,4 +1,4 @@
-name: Update Backline workboard once
+name: Log next Backline source once
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   update:
-    if: contains(github.event.head_commit.message, 'Record Lemonrock Backline production milestone')
+    if: contains(github.event.head_commit.message, 'Log OnTheCaseMusic next Backline source')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,54 +18,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Update workboard from production evidence
+      - name: Record OnTheCaseMusic as next source
         run: |
           node <<'NODE'
           const fs = require('fs');
           const path = 'public/workboard.json';
           const board = JSON.parse(fs.readFileSync(path, 'utf8'));
           board.updatedAt = new Date().toISOString();
-          board.updatedBy = 'ChatGPT Lemonrock Backline production deployment';
-          const upsertDone = (lane, item) => {
-            lane.done ||= [];
-            const i = lane.done.findIndex(x => x.title === item.title);
-            if (i >= 0) lane.done[i] = item; else lane.done.push(item);
+          board.updatedBy = 'ChatGPT BNDY Backline source sequencing';
+          const lane = board.lanes.find(x => x.id === 'source-automation');
+          if (!lane) throw new Error('source-automation lane not found');
+          lane.next ||= [];
+          const item = {
+            title: 'OnTheCaseMusic into BNDY Backline',
+            detail: 'Next external source after the existing canonical BNDY corpus bootstrap. Assess and ingest OnTheCaseMusic through the same Backline evidence → Observation → atomised Claim → resolution pipeline, preserving source-native identities and keeping canonical projection separately governed.'
           };
-          const removeEverywhere = (lane, title) => {
-            for (const key of ['now','next']) if (Array.isArray(lane[key])) lane[key] = lane[key].filter(x => x.title !== title);
-          };
-          const intelligence = board.lanes.find(x => x.id === 'intelligence');
-          if (intelligence) {
-            intelligence.health = 'amber';
-            upsertDone(intelligence, {
-              title: 'National Lemonrock Backline bootstrap live in AWS',
-              detail: 'National Lemonrock ingestion is running durably on Lambda + SQS + DynamoDB + S3 in shadow mode. Production verification recorded 2,837 durable Lemonrock task rows, 2,836 completed, six in flight, zero visible backlog, zero SourceScan DLQ messages and zero SourceWorker Lambda errors in the prior hour. Rich artist, venue and gig observations are accumulating without enabling canonical mass writes.',
-              evidence: [
-                'https://github.com/flowency-live/bndy-enrichment',
-                'https://github.com/flowency-live/bndy-serverless-api/blob/ops/lemonrock-prod-deploy/ops/lemonrock-live-health.json'
-              ]
-            });
-            upsertDone(intelligence, {
-              title: 'Backline Explorer live in Backstage Godmode',
-              detail: 'The authenticated read-only Backline Explorer API and Backstage UI are deployed. Production Lambda probing returns the expected 401 without a Godmode session, and the bndy-backstage Amplify production main branch is deployed successfully.',
-              evidence: [
-                'https://github.com/flowency-live/bndy-serverless-api/blob/master/source-runs-lambda/backline.js',
-                'https://github.com/flowency-live/bndy-serverless-api/blob/ops/lemonrock-prod-deploy/ops/lemonrock-explorer-prod-proof.json'
-              ]
-            });
-            removeEverywhere(intelligence, 'Backline Explorer');
-          }
-          const source = board.lanes.find(x => x.id === 'source-automation');
-          if (source) {
-            upsertDone(source, {
-              title: 'Lemonrock national ingest deployed and unattended',
-              detail: 'National artist/venue directories, current and future gigs, explicit cancellations and rich profile hydration now run through the Backline Source Runner with immutable evidence, observations, claims, durable fan-out, bounded concurrency, retries and production schedules. The redirect and DynamoDB undefined-marshalling defects discovered during bootstrap were fixed and the SourceScan DLQ was redriven to zero.',
-              evidence: [
-                'https://github.com/flowency-live/bndy-enrichment',
-                'https://github.com/flowency-live/bndy-serverless-api/blob/ops/lemonrock-prod-deploy/ops/lemonrock-live-health.json'
-              ]
-            });
-          }
+          const idx = lane.next.findIndex(x => x.title === item.title);
+          if (idx >= 0) lane.next[idx] = item; else lane.next.unshift(item);
           fs.writeFileSync(path, JSON.stringify(board));
           NODE
           node -e "JSON.parse(require('fs').readFileSync('public/workboard.json','utf8')); console.log('workboard valid')"
@@ -74,6 +43,6 @@ jobs:
           git config user.name 'bndy-backline-bot'
           git config user.email 'actions@users.noreply.github.com'
           git add public/workboard.json
-          git commit -m 'Record Lemonrock Backline production evidence on workboard'
+          git commit -m 'Record OnTheCaseMusic as next Backline source'
           git pull --rebase --autostash origin main
           git push origin HEAD:main
