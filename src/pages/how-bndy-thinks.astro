@@ -1,0 +1,324 @@
+---
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+import { MAP_URL } from '../config';
+---
+<Base
+  title="How bndy thinks · BNDY Backline"
+  description="Meet BNDY Backline: the evidence-first intelligence layer behind bndy. It keeps source evidence, compares claims, resolves conflicts and helps build a living picture of grassroots live music."
+  path="/how-bndy-thinks"
+>
+  <header class="tech-hero">
+    <div class="tech-hero-inner">
+      <div class="kicker mono">UNDER THE HOOD</div>
+      <h1 class="tight">How bndy thinks.</h1>
+      <p class="tech-lead">Most gig platforms store listings. <b>bndy is building a continuously learning model of grassroots live music.</b></p>
+      <p class="tech-sub">We call the intelligence layer behind it <span>BNDY Backline</span>.</p>
+      <div class="tech-actions">
+        <a class="btn btn-primary" href="#simple">Give me the simple version</a>
+        <a class="btn btn-secondary" href="#geek">I want to geek out</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="tech-shell" id="simple">
+    <div class="tech-section-head reveal">
+      <span class="mono">01 / THE SIMPLE VERSION</span>
+      <h2 class="tight">A gig can exist in five places at once.</h2>
+    </div>
+
+    <div class="simple-grid">
+      <div class="simple-copy reveal-left">
+        <p>A local gig might appear on a venue website, Facebook, Lemonrock, a poster or an artist's own page.</p>
+        <p>Those sources can disagree. They can change. They can disappear.</p>
+        <p>Most systems copy the latest thing they found into a database and quietly lose the story behind it.</p>
+        <p class="tech-accent"><b>Backline keeps the evidence.</b></p>
+        <p>It remembers what each source said, when it said it, and how strongly that source should be trusted for that particular fact.</p>
+      </div>
+
+      <div class="backline-diagram reveal-scale" aria-label="Sources feed evidence and claims into BNDY Backline, which projects the best-supported current view into bndy">
+        <div class="source-cluster">
+          <div class="source-card">VENUE SITE</div>
+          <div class="source-card">FACEBOOK</div>
+          <div class="source-card">LEMONROCK</div>
+          <div class="source-card">POSTER</div>
+          <div class="source-card">COMMUNITY</div>
+        </div>
+        <div class="diagram-arrow" aria-hidden="true">↓</div>
+        <div class="backline-core">
+          <div class="core-kicker mono">BNDY BACKLINE</div>
+          <strong>Evidence → Claims → Resolution</strong>
+          <span>Keep what was seen. Compare what was said. Decide what is best supported.</span>
+        </div>
+        <div class="diagram-arrow" aria-hidden="true">↓</div>
+        <div class="product-card">
+          <span class="mono">CURRENT VIEW</span>
+          <strong>bndy</strong>
+          <small>artists · venues · gigs · map</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="show-working">
+    <div class="show-working-inner reveal">
+      <div class="show-label mono">THE IMPORTANT BIT</div>
+      <h2 class="tight">We don't ask AI to be right. We ask it to show its working.</h2>
+      <p>AI is useful for messy information, ambiguous names, posters and relationships. But the model itself is not treated as truth.</p>
+      <p><b>The original evidence stays underneath the decision.</b></p>
+    </div>
+  </section>
+
+  <section class="beliefs tech-beliefs">
+    <div class="beliefs-head reveal"><h2 class="tight">What that changes</h2><span class="mono">BACKLINE PRINCIPLES</span></div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">01</div>
+      <h3 class="tight">Evidence, not overwrite</h3>
+      <div class="row-body">
+        <p>If one source says a gig starts at 9pm and another says 9:30pm, we don't have to throw either one away.</p>
+        <p>Backline can retain both claims, their sources and their timestamps, then decide which is better supported.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">02</div>
+      <h3 class="tight">Claims, not giant blobs</h3>
+      <div class="row-body">
+        <p>Backline breaks what it sees into small assertions: this artist has this name, this venue is at this address, this gig is on this date.</p>
+        <p>That makes provenance, disagreement and later correction first-class parts of the system.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">03</div>
+      <h3 class="tight">The system can change its mind</h3>
+      <div class="row-body">
+        <p>Better evidence can arrive tomorrow. Backline does not need to rewrite history to accept it.</p>
+        <p>The evidence stays. The resolution changes. The public view can then change with it.</p>
+      </div>
+    </div>
+
+    <div class="row reveal-right stagger-1">
+      <div class="row-no">04</div>
+      <h3 class="tight">Uncertainty is allowed</h3>
+      <div class="row-body">
+        <p>Traditional software wants an ID or an error. Real life is messier.</p>
+        <p>If two artists might be the same act, Backline can keep that uncertainty, gather more evidence and resolve it later instead of inventing certainty.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement reveal-scale tech-statement">
+    <h2 class="tight">THE DATABASE ISN'T THE TRUTH.</h2>
+    <p>It is the current product view of what BNDY believes.</p>
+    <p><b>The durable evidence underneath it is what lets that belief be challenged, explained and improved.</b></p>
+  </section>
+
+  <section class="tech-shell" id="geek">
+    <div class="tech-section-head reveal">
+      <span class="mono">02 / WANT TO GEEK OUT?</span>
+      <h2 class="tight">Welcome to Backline.</h2>
+      <p>This is the technical bit. You were warned.</p>
+    </div>
+
+    <div class="architecture-flow reveal-fade" aria-label="BNDY Backline architecture flow">
+      <div class="flow-box"><span class="mono">01</span><strong>Acquire</strong><small>web · feeds · captures · posters</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-box"><span class="mono">02</span><strong>Evidence</strong><small>immutable source snapshots</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-box"><span class="mono">03</span><strong>Claims</strong><small>atomic assertions + provenance</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-box"><span class="mono">04</span><strong>Resolve</strong><small>identity · authority · conflicts</small></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-box"><span class="mono">05</span><strong>Project</strong><small>canonical BNDY APIs</small></div>
+    </div>
+
+    <div class="geek-grid">
+      <article class="geek-card reveal-left">
+        <span class="mono">KNOWLEDGE MODEL</span>
+        <h3 class="tight">An evidence graph, not just a knowledge graph</h3>
+        <p>The useful question is not only "what is connected to what?" It is also "who says this is true, what evidence supports it, and what conflicts with it?"</p>
+        <p>That makes Backline closer to an <b>epistemic graph</b>: entities and relationships plus the evidence behind them.</p>
+      </article>
+
+      <article class="geek-card reveal-right">
+        <span class="mono">AI-NATIVE</span>
+        <h3 class="tight">Agents can investigate instead of guess</h3>
+        <p>An AI agent can follow relationships, inspect observations, seek corroborating sources and leave an identity unresolved when the evidence is weak.</p>
+        <p>The aim is agentic reasoning over durable knowledge, not an LLM writing directly into production tables.</p>
+      </article>
+
+      <article class="geek-card reveal-left">
+        <span class="mono">PROJECTION</span>
+        <h3 class="tight">Product data becomes a materialised view</h3>
+        <p>The public Artist, Venue and Event records stay fast and simple for the app.</p>
+        <p>Backline sits underneath them, preserving the richer evidence and reasoning needed to rebuild or revise that view safely.</p>
+      </article>
+
+      <article class="geek-card reveal-right">
+        <span class="mono">GRAPH-RAG READY</span>
+        <h3 class="tight">Relationships are ready for AI retrieval</h3>
+        <p>Connected evidence is a better substrate for multi-step questions than flat text chunks alone.</p>
+        <p>A future graph projection can support GraphRAG-style traversal without making a graph database the source of truth.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="stack-section reveal">
+    <div class="stack-inner">
+      <div>
+        <div class="show-label mono">CURRENT BACKLINE STACK</div>
+        <h2 class="tight">Serverless by design.</h2>
+        <p>Backline is built as a low-cost AWS runtime rather than an always-on crawler farm.</p>
+      </div>
+      <div class="stack-tags" aria-label="Current BNDY Backline technology stack">
+        <span>TypeScript</span><span>Node.js 22</span><span>AWS CDK</span><span>Lambda</span><span>SQS</span><span>DynamoDB</span><span>S3</span><span>EventBridge</span><span>Canonical APIs</span><span>AI where useful</span>
+      </div>
+      <p class="stack-note">The graph is currently a derived view over durable evidence and claims. A dedicated graph store may come later if it earns its place.</p>
+    </div>
+  </section>
+
+  <section class="tech-shell public-value">
+    <div class="tech-section-head reveal">
+      <span class="mono">03 / WHY THIS MATTERS</span>
+      <h2 class="tight">A map today. A picture of the scene tomorrow.</h2>
+    </div>
+    <div class="public-value-grid">
+      <div class="reveal-left">
+        <p>Once artists, venues, gigs and sources are connected over time, BNDY can begin to see patterns that individual listings cannot show.</p>
+        <p>Where live music is growing. Which venues are becoming more active. Where scenes connect. Where activity is disappearing. Which sources are reliable. Which parts of grassroots music are missing from commercial datasets.</p>
+      </div>
+      <div class="value-callout reveal-right">
+        <span class="mono">THE BIGGER IDEA</span>
+        <strong class="tight">BNDY is not trying to own the scene.</strong>
+        <p>We are trying to make the scene easier to see, understand and support.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="close-section reveal">
+    <p class="tight close-geek">Still with us? Respect.</p>
+    <p>Now go and use all that technology for its actual purpose: finding a gig.</p>
+    <div class="close-actions">
+      <a class="btn btn-primary" href={MAP_URL}>Open the map</a>
+      <a class="btn btn-secondary" href="/why">Why we're building it →</a>
+    </div>
+  </section>
+
+  <Doors />
+</Base>
+
+<style>
+  .tech-hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    padding: clamp(5rem, 10vw, 8rem) 2rem clamp(4rem, 8vw, 6.5rem);
+    background:
+      linear-gradient(90deg, transparent 49.8%, var(--line) 50%, transparent 50.2%),
+      linear-gradient(0deg, transparent 49.8%, var(--line) 50%, transparent 50.2%),
+      radial-gradient(circle at 50% 40%, var(--beam-a), transparent 34%),
+      var(--bg);
+    background-size: 84px 84px, 84px 84px, auto, auto;
+  }
+  .tech-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 15%, var(--bg) 100%);
+    pointer-events: none;
+  }
+  .tech-hero-inner { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; text-align: center; }
+  .kicker, .tech-section-head > span, .show-label, .show-working .show-label {
+    color: var(--cyan);
+    font-size: .74rem;
+    letter-spacing: .18em;
+  }
+  .tech-hero h1 { font-size: clamp(3.6rem, 10vw, 8rem); line-height: .88; letter-spacing: -.055em; margin-top: 1.1rem; }
+  .tech-lead { max-width: 780px; margin: 2rem auto 0; font-size: clamp(1.35rem, 2.4vw, 2rem); line-height: 1.35; color: var(--muted); }
+  .tech-lead b { color: var(--text); }
+  .tech-sub { margin-top: 1rem; color: var(--muted); font-size: 1.05rem; }
+  .tech-sub span { color: var(--orange); font-weight: 700; }
+  .tech-actions { margin-top: 2.3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  .tech-shell { max-width: 1180px; margin: 0 auto; padding: clamp(4rem, 8vw, 7rem) 2rem; }
+  .tech-section-head { border-bottom: 3px solid var(--rule); padding-bottom: 1.5rem; margin-bottom: 3rem; }
+  .tech-section-head h2 { margin-top: .7rem; font-size: clamp(2.2rem, 5.5vw, 4.6rem); line-height: .98; letter-spacing: -.04em; max-width: 920px; }
+  .tech-section-head p { margin-top: 1rem; color: var(--muted); }
+  .simple-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  .simple-copy { font-size: 1.08rem; color: var(--muted); }
+  .simple-copy p { margin-bottom: 1.15rem; }
+  .simple-copy b { color: var(--text); }
+  .tech-accent { color: var(--orange) !important; font-size: 1.25rem; }
+
+  .backline-diagram { border: 1px solid var(--rule); padding: 1.4rem; background: var(--surface); box-shadow: 10px 10px 0 var(--line); }
+  .source-cluster { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; }
+  .source-card { border: 1px solid var(--line); min-height: 62px; display: grid; place-items: center; text-align: center; padding: .6rem; font: 500 .68rem/1.2 'IBM Plex Mono', monospace; color: var(--muted); }
+  .source-card:nth-child(odd) { border-top: 3px solid var(--cyan); }
+  .source-card:nth-child(even) { border-top: 3px solid var(--orange); }
+  .diagram-arrow { text-align: center; font-size: 1.8rem; line-height: 1; color: var(--muted); padding: .65rem 0; }
+  .backline-core { border: 2px solid var(--orange); background: var(--stub-bg); color: #F1F5F9; padding: 1.5rem; text-align: center; display: grid; gap: .45rem; }
+  .core-kicker { color: #22D3EE; font-size: .72rem; letter-spacing: .16em; }
+  .backline-core strong { font-family: 'Inter Tight', sans-serif; font-size: clamp(1.15rem, 2.2vw, 1.6rem); }
+  .backline-core span { color: #A9B4C9; font-size: .88rem; }
+  .product-card { border: 2px solid var(--cyan); padding: 1.2rem; display: grid; justify-items: center; gap: .15rem; }
+  .product-card span { color: var(--cyan); font-size: .67rem; letter-spacing: .14em; }
+  .product-card strong { font-family: 'Inter Tight', sans-serif; color: var(--orange); font-size: 2rem; }
+  .product-card small { color: var(--muted); }
+
+  .show-working { background: var(--stub-bg); color: #F1F5F9; border-block: 1px solid var(--line); }
+  .show-working-inner { max-width: 900px; margin: 0 auto; padding: clamp(4rem, 8vw, 7rem) 2rem; }
+  .show-working h2 { margin-top: 1rem; font-size: clamp(2.4rem, 6vw, 5.2rem); line-height: .98; letter-spacing: -.04em; }
+  .show-working p { margin-top: 1.2rem; max-width: 760px; color: #A9B4C9; font-size: 1.12rem; }
+  .show-working b { color: #F1F5F9; }
+  .tech-beliefs { padding-top: 6rem; }
+  .tech-statement h2 { font-size: clamp(2.6rem, 7vw, 6rem); }
+
+  .architecture-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr; gap: .55rem; align-items: stretch; margin-bottom: 4rem; }
+  .flow-box { border: 1px solid var(--rule); padding: 1.25rem 1rem; display: grid; gap: .25rem; min-width: 0; }
+  .flow-box span { color: var(--cyan); font-size: .67rem; }
+  .flow-box strong { font-family: 'Inter Tight', sans-serif; font-size: 1.2rem; }
+  .flow-box small { color: var(--muted); line-height: 1.35; }
+  .flow-arrow { display: grid; place-items: center; color: var(--orange); font-size: 1.35rem; }
+
+  .geek-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .geek-card { background: var(--bg); padding: clamp(1.8rem, 4vw, 3rem); }
+  .geek-card > span { color: var(--cyan); font-size: .68rem; letter-spacing: .15em; }
+  .geek-card h3 { margin-top: .8rem; font-size: clamp(1.45rem, 3vw, 2.1rem); line-height: 1.05; }
+  .geek-card p { margin-top: 1rem; color: var(--muted); }
+  .geek-card b { color: var(--text); }
+
+  .stack-section { background: var(--surface); border-block: 1px solid var(--line); }
+  .stack-inner { max-width: 1180px; margin: 0 auto; padding: clamp(4rem, 8vw, 6rem) 2rem; }
+  .stack-inner h2 { margin-top: .6rem; font-size: clamp(2.2rem, 5vw, 4rem); }
+  .stack-inner > div:first-child p { color: var(--muted); margin-top: .7rem; }
+  .stack-tags { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 2.2rem; }
+  .stack-tags span { background: var(--bg); padding: 1rem .8rem; font: 500 .77rem/1.2 'IBM Plex Mono', monospace; text-align: center; }
+  .stack-note { color: var(--muted); margin-top: 1.2rem; font-size: .92rem; }
+
+  .public-value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .public-value-grid > div:first-child { color: var(--muted); font-size: 1.08rem; }
+  .public-value-grid p + p { margin-top: 1rem; }
+  .value-callout { border-left: 4px solid var(--orange); padding: .4rem 0 .4rem 1.6rem; }
+  .value-callout span { color: var(--cyan); font-size: .68rem; letter-spacing: .15em; }
+  .value-callout strong { display: block; margin-top: .7rem; font-size: clamp(1.6rem, 3.4vw, 2.7rem); line-height: 1.05; }
+  .value-callout p { color: var(--muted); }
+  .close-geek { font-size: clamp(1.7rem, 4vw, 2.8rem); font-weight: 800; }
+
+  @media (max-width: 900px) {
+    .simple-grid, .public-value-grid { grid-template-columns: 1fr; }
+    .architecture-flow { grid-template-columns: 1fr; }
+    .flow-arrow { transform: rotate(90deg); min-height: 20px; }
+    .stack-tags { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 680px) {
+    .tech-hero { padding-inline: 1.25rem; background-size: 56px 56px, 56px 56px, auto, auto; }
+    .tech-shell, .show-working-inner, .stack-inner { padding-inline: 1.25rem; }
+    .source-cluster { grid-template-columns: repeat(2, 1fr); }
+    .source-card:last-child { grid-column: 1 / -1; }
+    .geek-grid { grid-template-columns: 1fr; }
+    .stack-tags { grid-template-columns: 1fr 1fr; }
+  }
+</style>
