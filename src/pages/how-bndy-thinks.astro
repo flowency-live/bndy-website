@@ -24,12 +24,13 @@ import { MAP_URL } from '../config';
   <section class="tech-shell" id="simple">
     <div class="tech-section-head reveal">
       <span class="mono">01 / THE SIMPLE VERSION</span>
-      <h2 class="tight">A gig can exist in five places at once.</h2>
+      <h2 class="tight">A gig can surface in all sorts of places.</h2>
     </div>
 
     <div class="simple-grid">
       <div class="simple-copy reveal-left">
-        <p>A local gig might appear on a venue website, a social post, a listings site, a poster or an artist's own page.</p>
+        <p>A local gig might appear on a venue website, a social post, a listings site, a poster, an artist's own page, or be sent directly to bndy by someone who knows it's happening.</p>
+        <p>That someone might be the artist, the venue, a gig-goer or a BNDY Curator who knows their local scene because they're part of it.</p>
         <p>Those sources can disagree. They can change. They can disappear.</p>
         <p>Most systems copy the latest thing they found into a database and quietly lose the story behind it.</p>
         <p class="tech-accent"><b>Backline keeps the evidence.</b></p>
@@ -38,11 +39,12 @@ import { MAP_URL } from '../config';
 
       <div class="backline-diagram reveal-scale" aria-label="Sources feed evidence and claims into BNDY Backline, which projects the best-supported current view into bndy">
         <div class="source-cluster">
+          <div class="source-card">SEND TO BNDY</div>
+          <div class="source-card">CURATORS</div>
           <div class="source-card">VENUE SITE</div>
           <div class="source-card">SOCIAL</div>
           <div class="source-card">LISTINGS</div>
           <div class="source-card">POSTER</div>
-          <div class="source-card">COMMUNITY</div>
         </div>
         <div class="diagram-arrow" aria-hidden="true">↓</div>
         <div class="backline-core">
@@ -107,6 +109,16 @@ import { MAP_URL } from '../config';
         <p>If two artists might be the same act, Backline can keep that uncertainty, gather more evidence and resolve it later instead of inventing certainty.</p>
       </div>
     </div>
+
+    <div class="row reveal-left stagger-1">
+      <div class="row-no">05</div>
+      <h3 class="tight">People are part of the intelligence</h3>
+      <div class="row-body">
+        <p>Automated discovery can search further and faster. It still doesn't know a local scene the way the people in it do.</p>
+        <p>A gig sent to bndy by a user, artist or venue matters. So does something found and added by a BNDY Curator who is actually out there going to gigs and helping their local scene get seen.</p>
+        <p><b>Technology gives BNDY scale. People give it local knowledge.</b></p>
+      </div>
+    </div>
   </section>
 
   <section class="statement reveal-scale tech-statement">
@@ -123,7 +135,7 @@ import { MAP_URL } from '../config';
     </div>
 
     <div class="architecture-flow reveal-fade" aria-label="BNDY Backline architecture flow">
-      <div class="flow-box"><span class="mono">01</span><strong>Acquire</strong><small>web · feeds · captures · posters</small></div>
+      <div class="flow-box"><span class="mono">01</span><strong>Acquire</strong><small>community · curators · web · feeds · captures · posters</small></div>
       <div class="flow-arrow" aria-hidden="true">→</div>
       <div class="flow-box"><span class="mono">02</span><strong>Evidence</strong><small>immutable source snapshots</small></div>
       <div class="flow-arrow" aria-hidden="true">→</div>
@@ -143,20 +155,27 @@ import { MAP_URL } from '../config';
       </article>
 
       <article class="geek-card reveal-right">
+        <span class="mono">HUMAN SIGNAL</span>
+        <h3 class="tight">People are sources too</h3>
+        <p>Backline is not designed around the assumption that automated discovery is inherently better evidence.</p>
+        <p>Community submissions, artists, venues and BNDY Curators can all contribute observations. Their provenance can travel with the fact just like a website, feed or captured poster.</p>
+      </article>
+
+      <article class="geek-card reveal-left">
         <span class="mono">AI-NATIVE</span>
         <h3 class="tight">Agents can investigate instead of guess</h3>
         <p>An AI agent can follow relationships, inspect observations, seek corroborating sources and leave an identity unresolved when the evidence is weak.</p>
         <p>The aim is agentic reasoning over durable knowledge, not an LLM writing directly into production tables.</p>
       </article>
 
-      <article class="geek-card reveal-left">
+      <article class="geek-card reveal-right">
         <span class="mono">PROJECTION</span>
         <h3 class="tight">Product data becomes a materialised view</h3>
         <p>The public Artist, Venue and Event records stay fast and simple for the app.</p>
         <p>Backline sits underneath them, preserving the richer evidence and reasoning needed to rebuild or revise that view safely.</p>
       </article>
 
-      <article class="geek-card reveal-right">
+      <article class="geek-card reveal-left">
         <span class="mono">GRAPH-RAG READY</span>
         <h3 class="tight">Relationships are ready for AI retrieval</h3>
         <p>Connected evidence is a better substrate for multi-step questions than flat text chunks alone.</p>
@@ -188,6 +207,7 @@ import { MAP_URL } from '../config';
       <div class="reveal-left">
         <p>Once artists, venues, gigs and sources are connected over time, BNDY can begin to see patterns that individual listings cannot show.</p>
         <p>Where live music is growing. Which venues are becoming more active. Where scenes connect. Where activity is disappearing. Which sources are reliable. Which parts of grassroots music are missing from conventional commercial datasets.</p>
+        <p>And some of that picture will come from the people who know these scenes because they are actually in them: artists, venues, gig-goers and BNDY Curators helping local music get found.</p>
       </div>
       <div class="value-callout reveal-right">
         <span class="mono">THE BIGGER IDEA</span>
@@ -253,7 +273,7 @@ import { MAP_URL } from '../config';
   .tech-accent { color: var(--orange) !important; font-size: 1.25rem; }
 
   .backline-diagram { border: 1px solid var(--rule); padding: 1.4rem; background: var(--surface); box-shadow: 10px 10px 0 var(--line); }
-  .source-cluster { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; }
+  .source-cluster { display: grid; grid-template-columns: repeat(6, 1fr); gap: .5rem; }
   .source-card { border: 1px solid var(--line); min-height: 62px; display: grid; place-items: center; text-align: center; padding: .6rem; font: 500 .68rem/1.2 'IBM Plex Mono', monospace; color: var(--muted); }
   .source-card:nth-child(odd) { border-top: 3px solid var(--cyan); }
   .source-card:nth-child(even) { border-top: 3px solid var(--orange); }
@@ -317,7 +337,6 @@ import { MAP_URL } from '../config';
     .tech-hero { padding-inline: 1.25rem; background-size: 56px 56px, 56px 56px, auto, auto; }
     .tech-shell, .show-working-inner, .stack-inner { padding-inline: 1.25rem; }
     .source-cluster { grid-template-columns: repeat(2, 1fr); }
-    .source-card:last-child { grid-column: 1 / -1; }
     .geek-grid { grid-template-columns: 1fr; }
     .stack-tags { grid-template-columns: 1fr 1fr; }
   }
