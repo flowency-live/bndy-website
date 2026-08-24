@@ -29,7 +29,7 @@ import { MAP_URL } from '../config';
 
     <div class="simple-grid">
       <div class="simple-copy reveal-left">
-        <p>A local gig might appear on a venue website, Facebook, Lemonrock, a poster or an artist's own page.</p>
+        <p>A local gig might appear on a venue website, a social post, a listings site, a poster or an artist's own page.</p>
         <p>Those sources can disagree. They can change. They can disappear.</p>
         <p>Most systems copy the latest thing they found into a database and quietly lose the story behind it.</p>
         <p class="tech-accent"><b>Backline keeps the evidence.</b></p>
@@ -39,8 +39,8 @@ import { MAP_URL } from '../config';
       <div class="backline-diagram reveal-scale" aria-label="Sources feed evidence and claims into BNDY Backline, which projects the best-supported current view into bndy">
         <div class="source-cluster">
           <div class="source-card">VENUE SITE</div>
-          <div class="source-card">FACEBOOK</div>
-          <div class="source-card">LEMONROCK</div>
+          <div class="source-card">SOCIAL</div>
+          <div class="source-card">LISTINGS</div>
           <div class="source-card">POSTER</div>
           <div class="source-card">COMMUNITY</div>
         </div>
@@ -170,10 +170,10 @@ import { MAP_URL } from '../config';
       <div>
         <div class="show-label mono">CURRENT BACKLINE STACK</div>
         <h2 class="tight">Serverless by design.</h2>
-        <p>Backline is built as a low-cost AWS runtime rather than an always-on crawler farm.</p>
+        <p>Backline is built as a low-cost serverless runtime rather than an always-on crawler farm.</p>
       </div>
       <div class="stack-tags" aria-label="Current BNDY Backline technology stack">
-        <span>TypeScript</span><span>Node.js 22</span><span>AWS CDK</span><span>Lambda</span><span>SQS</span><span>DynamoDB</span><span>S3</span><span>EventBridge</span><span>Canonical APIs</span><span>AI where useful</span>
+        <span>TypeScript</span><span>Node.js 22</span><span>Infrastructure as code</span><span>Serverless compute</span><span>Queues</span><span>Durable state</span><span>Object evidence</span><span>Scheduled events</span><span>Canonical APIs</span><span>AI where useful</span>
       </div>
       <p class="stack-note">The graph is currently a derived view over durable evidence and claims. A dedicated graph store may come later if it earns its place.</p>
     </div>
@@ -187,7 +187,7 @@ import { MAP_URL } from '../config';
     <div class="public-value-grid">
       <div class="reveal-left">
         <p>Once artists, venues, gigs and sources are connected over time, BNDY can begin to see patterns that individual listings cannot show.</p>
-        <p>Where live music is growing. Which venues are becoming more active. Where scenes connect. Where activity is disappearing. Which sources are reliable. Which parts of grassroots music are missing from commercial datasets.</p>
+        <p>Where live music is growing. Which venues are becoming more active. Where scenes connect. Where activity is disappearing. Which sources are reliable. Which parts of grassroots music are missing from conventional commercial datasets.</p>
       </div>
       <div class="value-callout reveal-right">
         <span class="mono">THE BIGGER IDEA</span>
