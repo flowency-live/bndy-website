@@ -1,0 +1,97 @@
+name: Add Join bndy workboard lane once
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: contains(github.event.head_commit.message, 'Add Join bndy workboard lane updater')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Add or refresh Join bndy lane
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = 'public/workboard.json';
+          const board = JSON.parse(fs.readFileSync(path, 'utf8'));
+          board.updatedAt = new Date().toISOString();
+          board.updatedBy = 'ChatGPT Join bndy delivery ownership';
+          board.lanes ||= [];
+          const lane = {
+            id: 'join-bndy',
+            title: 'Join bndy',
+            objective: 'Give artists and venue operators a beautiful, low-friction route to find or create their entity, authenticate, establish ownership and start managing it without creating duplicates.',
+            health: 'green',
+            deliveryState: 'building',
+            targetState: false,
+            repos: ['app', 'api', 'enrichment', 'website'],
+            done: [
+              {
+                title: 'Ownership and claim foundations identified',
+                detail: 'Existing auth, Artist memberships, claimable entity types, Claim Policy, canonical identity gates and user-created Artist Backline Claims provide the foundation rather than requiring a parallel ownership system.'
+              },
+              {
+                title: 'Implementation plan committed',
+                detail: 'The cross-repo delivery contract lives in bndy-app/JOIN-BNDY-IMPLEMENTATION-PLAN.md and covers new Artist/Venue onboarding, identity variants by location, auth resume, atomic ownership, Claim handoff, delegates and Backline provenance.',
+                evidence: ['https://github.com/flowency-live/bndy-app/blob/main/JOIN-BNDY-IMPLEMENTATION-PLAN.md']
+              }
+            ],
+            now: [
+              {
+                title: 'JOIN-01 — Join shell',
+                detail: 'Build /join as a dedicated mobile-first onboarding feature with Artist and Venue entry paths rather than reusing the current Add utility UI.'
+              },
+              {
+                title: 'JOIN-02 — identity before creation',
+                detail: 'Resolve existing Artists/Venues before create. Candidate cards must show canonical identity, known name variants and location so same/similar names are safely disambiguated.'
+              },
+              {
+                title: 'JOIN-03/04 — auth resume + owned Artist creation',
+                detail: 'Preserve Join state through existing bndy auth, then create a genuinely new Artist and its initial owner/admin relationship as one logical server-side operation with canonical duplicate gates rerun at commit.'
+              }
+            ],
+            next: [
+              {
+                title: 'JOIN-05 — owned Venue creation',
+                detail: 'Generalise the entity relationship model for Venues, use Google Place/physical identity gates and publish owner-supplied Venue facts into Backline.'
+              },
+              {
+                title: 'JOIN-07 — Claim verification',
+                detail: 'Persist Claim requests for existing entities and add verification/review without allowing claimants to overwrite canonical records before approval.'
+              },
+              {
+                title: 'JOIN-08 — delegates and ownership lifecycle',
+                detail: 'Allow owners to invite/revoke delegates/admins and later transfer or relinquish ownership, with role restrictions and audit history.'
+              },
+              {
+                title: 'JOIN-09/10 — owner authority and funnel hardening',
+                detail: 'Protect owner-entered facts in Backline policy, expose conflicts/provenance, instrument the funnel and complete duplicate-race, auth-resume, accessibility and production smoke tests.'
+              }
+            ]
+          };
+          const idx = board.lanes.findIndex(x => x.id === lane.id);
+          if (idx >= 0) board.lanes[idx] = lane; else {
+            const core = board.lanes.findIndex(x => x.id === 'core-discovery');
+            board.lanes.splice(core >= 0 ? core + 1 : 0, 0, lane);
+          }
+          fs.writeFileSync(path, JSON.stringify(board));
+          NODE
+          node -e "JSON.parse(require('fs').readFileSync('public/workboard.json','utf8')); console.log('workboard valid')"
+      - name: Commit workboard
+        run: |
+          git config user.name 'bndy-product-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/workboard.json
+          git commit -m 'Add Join bndy workboard lane'
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
