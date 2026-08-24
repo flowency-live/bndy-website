@@ -21,7 +21,7 @@ Copy sources: the `.md` files in `AllProjectsMD\bndy\10-Projects\bndy-website\`.
 
 ## Routes
 
-`/` home · `/why` manifesto · `/promise` eight promises · `/artists` · `/venues` · `/go` gig-goers · `/stage` bndy Stage · `404`.
+`/` home · `/why` manifesto · `/promise` eight promises · `/artists` · `/venues` · `/go` gig-goers · `/how-bndy-thinks` public Backline explainer · `/stage` bndy Stage · `404`.
 
 Outbound targets live in one place: `src/config.ts`. Explore gigs → `https://map.bndy.co.uk`. Stage login → `https://backstage.bndy.co.uk`.
 
