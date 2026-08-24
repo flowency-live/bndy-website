@@ -1,0 +1,62 @@
+name: Refresh Join bndy delivery
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: contains(github.event.head_commit.message, 'Run Join bndy delivery refresh')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refresh Join lane
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const p = 'public/workboard.json';
+          const board = JSON.parse(fs.readFileSync(p, 'utf8'));
+          const lane = (board.lanes || []).find((item) => item.id === 'join-bndy');
+          if (!lane) throw new Error('join-bndy lane not found');
+          lane.health = 'green';
+          lane.deliveryState = 'building';
+          lane.done = [
+            { title: 'JOIN-01 — Join shell', detail: '/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI.' },
+            { title: 'JOIN-02 — identity before creation', detail: 'Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation.' },
+            { title: 'JOIN-03 — auth + resume', detail: 'Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return.' },
+            { title: 'JOIN-04/05 — owned Artist and Venue creation', detail: 'Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships.' },
+            { title: 'JOIN-06 — Artist profile step', detail: 'Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy.' },
+            { title: 'JOIN-07 — Claim persistence and review', detail: 'Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification.' },
+            { title: 'JOIN-08 — management and delegation foundation', detail: '/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership.' },
+            { title: 'JOIN-09 — owner authority protection', detail: 'Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review.' }
+          ];
+          lane.now = [
+            { title: 'JOIN-10 — release hardening', detail: 'Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain.' },
+            { title: 'Venue profile polish', detail: 'Add the optional post-identity Venue music-specific profile fields without making the onboarding feel like an admin form.' }
+          ];
+          lane.next = [
+            { title: 'Authenticated production acceptance', detail: 'Exercise real signed-in new Artist, new Venue, existing-entity Claim, Godmode approval, delegate acceptance and ownership transfer against production.' },
+            { title: 'Claim verification automation', detail: 'Add stronger automatic evidence options over time while retaining curator/admin review as the safe fallback.' },
+            { title: 'Relinquish/disown UX', detail: 'Add an explicit, audited way to relinquish ownership without deleting the public entity. Do not allow accidental orphaning through ordinary membership controls.' }
+          ];
+          board.updatedAt = new Date().toISOString();
+          board.updatedBy = 'Join bndy autonomous delivery';
+          fs.writeFileSync(p, JSON.stringify(board));
+          JSON.parse(fs.readFileSync(p, 'utf8'));
+          NODE
+      - name: Commit workboard
+        run: |
+          git config user.name 'bndy-product-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/workboard.json
+          git commit -m 'Refresh Join bndy delivery status'
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
