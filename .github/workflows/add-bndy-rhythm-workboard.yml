@@ -1,0 +1,65 @@
+name: Add BNDY Rhythm workboard lane
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: contains(github.event.head_commit.message, 'Run BNDY Rhythm workboard update')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Add Rhythm lane
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const p = 'public/workboard.json';
+          const board = JSON.parse(fs.readFileSync(p, 'utf8'));
+          const lane = {
+            id: 'rhythm',
+            title: 'BNDY Rhythm / Curator rewards',
+            objective: 'Turn high-quality community contribution into durable provenance, trusted human verification and meaningful progression without making Beats a gameable currency.',
+            health: 'blue',
+            deliveryState: 'planned',
+            targetState: true,
+            repos: ['app', 'api', 'enrichment', 'backstage', 'website'],
+            done: [
+              { title: 'Detailed product and solution PRD committed', detail: 'BNDY Rhythm is specified as Beats + Trust + local authority + Backline Bounties, with an append-oriented contribution/reward ledger and explicit future gates for Credits, ownership and tokenisation.', evidence: ['https://github.com/flowency-live/bndy-website/blob/main/docs/BNDY-RHYTHM-CURATOR-REWARDS-PRD.md'] },
+              { title: 'Core product boundary decided', detail: 'Beats recognise accepted contribution; Trust controls Backline influence. Beats launch non-transferable, non-purchasable, non-cash and off-chain.' }
+            ],
+            now: [
+              { title: 'RHY-00 - architecture and policy contract', detail: 'Define contribution taxonomy, musical reward subunits, reward lifecycle, Trust dimensions, Scene Trust geography, owner/self rules, Backline Claim mapping, abuse policy and plain-English Beats terms before visible points UI.' }
+            ],
+            next: [
+              { title: 'RHY-01 - contribution ledger foundation', detail: 'Instrument eligible curator actions into durable Contribution and append-oriented Reward Ledger records with idempotency and auditable reward decisions.' },
+              { title: 'RHY-02/03 - Backline human claims and reward settlement', detail: 'Make curator assertions first-class Backline evidence/Claims, apply contextual authority and settle rewards only when contribution value is accepted/corroborated.' },
+              { title: 'RHY-04/05 - Trust, ranks and UX', detail: 'Build global/local Trust projections, capability gates, Listener-to-Scene-Keeper progression, musical totals and local recognition.' },
+              { title: 'RHY-06 - Backline Bounties', detail: 'Turn unresolved/conflicted Backline knowledge into targeted local human verification tasks with auditable Beat/Bar rewards.' },
+              { title: 'Future economic gates', detail: 'Keep commercial Credits, community ownership and any tokenisation as separate future decisions. Do not create a Beat-to-money or Beat-to-equity promise.' }
+            ]
+          };
+          board.lanes = (board.lanes || []).filter((item) => item.id !== lane.id);
+          const curatorIndex = board.lanes.findIndex((item) => item.id === 'curators');
+          board.lanes.splice(curatorIndex >= 0 ? curatorIndex + 1 : board.lanes.length, 0, lane);
+          board.updatedAt = new Date().toISOString();
+          board.updatedBy = 'BNDY Rhythm initiative';
+          fs.writeFileSync(p, JSON.stringify(board));
+          JSON.parse(fs.readFileSync(p, 'utf8'));
+          NODE
+      - name: Commit workboard
+        run: |
+          git config user.name 'bndy-product-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/workboard.json
+          git commit -m 'Add BNDY Rhythm workboard lane'
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
