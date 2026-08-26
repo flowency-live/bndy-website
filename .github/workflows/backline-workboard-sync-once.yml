@@ -1,0 +1,112 @@
+name: Synchronise Backline workboard once
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: contains(github.event.head_commit.message, 'Synchronise Backline workboard')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update Backline lanes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          path = Path('public/workboard.json')
+          data = json.loads(path.read_text())
+          data['updatedAt'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+          data['updatedBy'] = 'Backline source-status reconciliation'
+
+          lanes = {lane['id']: lane for lane in data['lanes']}
+          backline = lanes['intelligence']
+          automation = lanes['source-automation']
+
+          backline['health'] = 'amber'
+          backline['deliveryState'] = 'building'
+
+          def drop_titles(items, titles):
+              return [item for item in items if item.get('title') not in titles]
+
+          # Remove stale/duplicated source-status entries before adding the current source-of-truth set.
+          backline['now'] = drop_titles(backline.get('now', []), {
+              'On The Case shadow completion evidence',
+              'Backline source feed status',
+              'Lemonrock feed status',
+              'On The Case feed status',
+              'KLMA feed status',
+              'GigsNews feed status',
+              'Scenic Eye feed status',
+              'Insangel feed status',
+              'Norfolk Gig Guide feed status',
+              'Current Backline phase',
+          })
+
+          phase = {
+              'title': 'Current Backline phase',
+              'detail': 'We are still primarily in evidence hydration. Source feeds acquire pages/documents, preserve immutable evidence, turn facts into atomised Claims, and attach source-native Artist/Venue/Gig identities. The next major phase is intelligence: resolve which source identities represent the same real Artist/Venue/Event, classify unresolved/conflicted identities, corroborate and infer better-supported facts, then compare/project only high-confidence results through canonical BNDY APIs. Canonical writes remain disabled for the national source families while this evidence/resolution foundation is proven.'
+          }
+          feed_items = [
+              {
+                  'title': 'Lemonrock feed status',
+                  'detail': 'LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps are deployed. Artist/Venue directory crawling is off; profiles hydrate only when referenced by gigs. The low-cost steady state is correct, but the older national bootstrap/recovery corpus is not yet declared complete. Canonical writes remain disabled.',
+                  'evidence': ['https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json','https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json']
+              },
+              {
+                  'title': 'On The Case feed status',
+                  'detail': 'LIVE SHADOW ACTIVATION. Hourly /gigs discovery with bounded gig -> venue -> band hydration; no scheduled band/venue directory crawling. The first live hydration exposed a shared duplicate-Claim persistence bug, now fixed. A fresh production shadow reconciliation is running to prove clean venue/band hydration and completion lineage. Canonical writes remain disabled.',
+                  'evidence': ['https://github.com/flowency-live/bndy-enrichment/actions/workflows/onthecase-shadow-bootstrap.yml','https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-reconciliation-manifest.json']
+              },
+              {
+                  'title': 'KLMA feed status',
+                  'detail': 'PROVEN VERTICAL SLICE, NOT YET GENERIC STEADY STATE. Live KLMA acquisition has produced Observation/Claims and safely projected an additive sample with read-back. The remaining work is to complete its generic Source Runner cutover and retire the older Cowork-owned path.'
+              },
+              {
+                  'title': 'GigsNews feed status',
+                  'detail': 'ADAPTER READY, NOT LIVE SCHEDULED. Parser/adapter and stale-edition protection exist. Because it is a human-curated weekly aggregation, disappearance from a later page is not treated as cancellation evidence. Production cadence/cutover still needs completing.'
+              },
+              {
+                  'title': 'Scenic Eye feed status',
+                  'detail': 'IMPLEMENTED SHADOW/MANUAL. Weekly-edition ingestion, fixture coverage and stale-edition protection are merged. It is deliberately unscheduled until its source-specific operating cadence and production bootstrap are agreed/proven.'
+              },
+              {
+                  'title': 'Insangel feed status',
+                  'detail': 'RECONNAISSANCE ONLY. No production adapter. Implementation is fixture-gated because reliable acquisition has not yet been proven.'
+              },
+              {
+                  'title': 'Norfolk Gig Guide feed status',
+                  'detail': 'RECONNAISSANCE ONLY. Promising native identities, but implementation is gated on captured fixtures and proof that the source is reachable safely from AWS. No acquisition-evasion work.'
+              },
+          ]
+          backline['now'] = [phase, *feed_items, *backline['now']]
+
+          # Source Automation previously described On The Case as reconnaissance/future work. Remove those contradictions.
+          automation['done'] = drop_titles(automation.get('done', []), {'OnTheCase source registry seed exists'})
+          automation['now'] = drop_titles(automation.get('now', []), {'On The Case source reconnaissance'})
+          automation['next'] = drop_titles(automation.get('next', []), {'Build the On The Case source family in shadow'})
+          automation['done'].append({
+              'title': 'On The Case gig-led source family deployed to shadow',
+              'detail': 'The adapter is merged with native numeric identities, structural safety gates, hourly gig discovery, bounded gig -> venue -> band hydration, explicit unresolved open-mic/buskers handling and owned reconciliation controls. Live completion is still gated on the current post-fix shadow reconciliation.',
+              'evidence': ['https://github.com/flowency-live/bndy-enrichment/pull/25']
+          })
+          automation['now'].append({
+              'title': 'Prove On The Case shadow completion after Claim dedupe fix',
+              'detail': 'A shared duplicate deterministic Claim bug caused the first live venue hydration pass to fail. The shared knowledge builder now deduplicates claims before conditional persistence. Re-run the bounded production shadow reconciliation and require clean scoped completion evidence before calling the feed healthy or considering projection.'
+          })
+
+          path.write_text(json.dumps(data, indent=2) + '\n')
+          PY
+      - name: Commit workboard
+        run: |
+          git config user.name "bndy-workboard-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/workboard.json
+          git commit -m "Update Backline workboard source status" || exit 0
+          git push origin HEAD:main
