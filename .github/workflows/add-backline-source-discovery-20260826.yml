@@ -1,0 +1,79 @@
+name: Add Backline source discovery 2026-08-26
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: contains(github.event.head_commit.message, 'Add Backline source discovery 2026-08-26')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update workboard data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          path = Path('public/workboard.json')
+          data = json.loads(path.read_text())
+          data['updatedAt'] = datetime.now(timezone.utc).isoformat().replace('+00:00','Z')
+          data['updatedBy'] = 'Backline source discovery 2026-08-26'
+
+          lanes = {lane['id']: lane for lane in data['lanes']}
+          lane = lanes['source-automation']
+
+          titles = {
+            'New Backline sources found — 26 August 2026',
+            'Norfolk Gig Guide — selected',
+            'DGWGO Events — selected',
+            'Brighton Gigs — selected',
+            'Lancashire source gap',
+            'Rejected source candidates — 26 August 2026'
+          }
+          for key in ('now','next','done'):
+              lane[key] = [x for x in lane.get(key, []) if x.get('title') not in titles]
+
+          lane['now'].append({
+            'title': 'New Backline sources found — 26 August 2026',
+            'detail': 'Source discovery pass completed. Three sources selected for planned Backline onboarding, one regional coverage gap documented, and lower-value/blocked aggregator candidates rejected.'
+          })
+
+          lane['next'].extend([
+            {
+              'title': 'Norfolk Gig Guide — selected',
+              'detail': 'https://www.norfolkgigguide.com/ — Norfolk / Norwich (East Anglia). Plan committed, fixture-gated. ~2,600 acts, native numeric band IDs, no per-gig URLs. Origin 403s non-browser clients.'
+            },
+            {
+              'title': 'DGWGO Events — selected',
+              'detail': 'https://events.dgwgo.com/music-dumfries-galloway/ — Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy.'
+            },
+            {
+              'title': 'Brighton Gigs — selected',
+              'detail': 'https://brightongigs.uk/ — Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed.'
+            },
+            {
+              'title': 'Lancashire source gap',
+              'detail': 'Lancashire (Preston to coast): no dedicated grassroots gig guide exists. Coverage route: WP-16 venue Gig Sources (venue websites directly) plus Lemonrock national. CAMRA Blackpool pub guide (https://blackpool.camra.org.uk/pubguide) is useful for venue live-music flags only, no gigs.'
+            }
+          ])
+
+          lane['done'].append({
+            'title': 'Rejected source candidates — 26 August 2026',
+            'detail': 'yorkshiregigguide.co.uk — editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk — DNS dead. yorkshirecoastgigs.co.uk — content stale since 2016-2017. thebristolgigguide.com — reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk — active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) — 403, unreachable. gig-guide.co.uk — multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange — excluded aggregator class (GigXchange excluded by Jason).'
+          })
+
+          path.write_text(json.dumps(data, indent=2) + '\n')
+          PY
+      - name: Commit updated workboard
+        run: |
+          git config user.name "bndy-workboard-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/workboard.json
+          git commit -m "Record Backline source discovery 2026-08-26" || exit 0
+          git push origin HEAD:main
