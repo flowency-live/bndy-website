@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-26T22:36:24.031557Z",
+  "updatedAt": "2026-08-26T22:36:44.461691Z",
   "updatedBy": "Backline source-status reconciliation",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
@@ -797,6 +797,13 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/32972919883",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"
+          ]
+        },
+        {
+          "title": "On The Case gig-led source family deployed to shadow",
+          "detail": "The adapter is merged with native numeric identities, structural safety gates, hourly gig discovery, bounded gig -> venue -> band hydration, explicit unresolved open-mic/buskers handling and owned reconciliation controls. Live completion is still gated on the current post-fix shadow reconciliation.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/25"
           ]
         },
         {
