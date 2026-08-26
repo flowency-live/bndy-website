@@ -1,1 +1,1176 @@
-{"version":2,"updatedAt":"2026-08-26T18:48:00.000Z","updatedBy":"Backline source productionisation","title":"bndy workboard","description":"Single view of active bndy product, platform, ingestion, intelligence and growth work.","principles":["Canonical BNDY APIs remain the write authority.","Capture is transport and durable intake, not the intelligence engine.","Enrichment is the strategic resolution and intelligence runtime.","BNDY Backline is the capability/product name; bndy-enrichment remains the single strategic Backline runtime rather than creating a parallel repository.","All new ingestion paths should converge on Capture + Enrichment rather than inventing another write path.","The target state is evidence -> claims -> projection -> canonical BNDY, not source -> direct database write.","BNDY Backline is the durable intelligence substrate: immutable evidence plus observations and atomised claims feed policy and projection; the graph is a derived view, not the authority."],"activityRepos":["flowency-live/bndy-app","flowency-live/bndy-serverless-api","flowency-live/bndy-backstage","flowency-live/bndy-website","flowency-live/bndy-chatzone","flowency-live/bndy-capture","flowency-live/bndy-enrichment","flowency-live/bndy-MCP"],"repositories":[{"id":"app","repo":"flowency-live/bndy-app","serves":"https://bndy.live","role":"Core public gig discovery PWA: map, gigs, artists, venues, festivals, favourites and public add flows.","status":"production"},{"id":"api","repo":"flowency-live/bndy-serverless-api","serves":"Canonical BNDY backend","role":"Authoritative artists, venues, events, festivals, auth, curator policy, source inspection and edition-aware APIs.","status":"production"},{"id":"backstage","repo":"flowency-live/bndy-backstage","serves":"BNDY Backstage / Godmode","role":"Admin operations, curator policy management and traffic visibility.","status":"production"},{"id":"website","repo":"flowency-live/bndy-website","serves":"https://www.bndy.co.uk","role":"Public brand, proposition, policy and architecture pages. The workboard lives here.","status":"production"},{"id":"chatzone","repo":"flowency-live/bndy-chatzone","serves":"https://chat.bndy.live","role":"Public Dropzone UI for gig poster and text submission. Routes into Capture.","status":"production"},{"id":"capture","repo":"flowency-live/bndy-capture","serves":"https://capture.bndy.co.uk + Android APK","role":"Durable intake transport for Android Send to bndy and public web submissions. Stores evidence and queue state.","status":"production"},{"id":"enrichment","repo":"flowency-live/bndy-enrichment","serves":"AWS BNDY Backline runtime","role":"Strategic Backline runtime for source acquisition, immutable evidence, observations, atomised claims, identity resolution, authority, projection, Capture processing and enrichment.","status":"active"},{"id":"mcp","repo":"flowency-live/bndy-MCP","serves":"Agent/MCP adapter","role":"Thin agent-facing adapter around BNDY capabilities. Needs a current-role audit as Enrichment becomes the orchestration layer.","status":"support"},{"id":"signals","repo":"flowency-live/bndy-signals","serves":"Legacy signals runtime","role":"Older Signal -> interpretation -> claims implementation. Useful concepts should be absorbed then the runtime retired.","status":"legacy"},{"id":"frontstage","repo":"flowency-live/bndy-frontstage","serves":"Decommissioned","role":"Previous public application. Do not use for new work.","status":"decommissioned"},{"id":"types","repo":"flowency-live/bndy-types","serves":"Shared package","role":"Shared type definitions used by older/newer surfaces where applicable.","status":"support"},{"id":"ui","repo":"flowency-live/bndy-ui","serves":"Shared package","role":"Shared UI package from the earlier application generation. Audit before expanding usage.","status":"support"},{"id":"legacy-other","repo":"flowency-live/bndy.live, bndylivebeta, bndy-centrestage, bndy-portal, bndy-api, bndy-infrastructure","serves":"Legacy / audit required","role":"Older BNDY generations. Confirm no live dependency, then archive or label clearly to reduce agent confusion.","status":"audit"}],"lanes":[{"id":"core-discovery","title":"Core live discovery","objective":"Make bndy.live the best way to discover grassroots live music.","health":"green","deliveryState":"live","targetState":false,"repos":["app","api"],"done":[{"title":"bndy.live is the current public product","detail":"Map, gig list, artist and venue profiles are on the bndy-app + canonical API stack."},{"title":"Mobile gig-list UX heavily refined","detail":"Search-first layout, compact filters, favourites and venue/mobile presentation have been iterated."},{"title":"Ticketing surfaced at event and venue level","detail":"Recent work makes ticketed status explicit without treating unknown admission as a reason to hide a gig."}],"now":[{"title":"Keep all public CRUD on canonical APIs","detail":"New public add flows currently resolve data then write through the existing canonical backend."},{"title":"Separate product UX from evidence architecture","detail":"The UI can stay simple while the backend moves from direct creation to claims/projection."}],"next":[{"title":"Route assisted creation through shared evidence","detail":"Artist, venue and gig creation should emit evidence/claims before projection rather than each surface inventing its own logic."},{"title":"PWA install journey","detail":"Finish the explicit Add to Home Screen/install experience requested by users."}]},{"id":"join-bndy","title":"Join bndy","objective":"Give artists and venue operators a beautiful, low-friction route to find or create their entity, authenticate, establish ownership and start managing it without creating duplicates.","health":"green","deliveryState":"building","targetState":false,"repos":["app","api","enrichment","website"],"done":[{"title":"JOIN-01 \u2014 Join shell","detail":"/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI."},{"title":"JOIN-02 \u2014 identity before creation","detail":"Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation."},{"title":"JOIN-03 \u2014 auth + resume","detail":"Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return."},{"title":"JOIN-04/05 \u2014 owned Artist and Venue creation","detail":"Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships."},{"title":"JOIN-06 \u2014 Artist profile step","detail":"Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy."},{"title":"JOIN-07 \u2014 Claim persistence and review","detail":"Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification."},{"title":"JOIN-08 \u2014 management and delegation foundation","detail":"/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership."},{"title":"JOIN-09 \u2014 owner authority protection","detail":"Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."}],"now":[{"title":"JOIN-10 \u2014 release hardening","detail":"Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain."},{"title":"Venue profile polish","detail":"Add the optional post-identity Venue music-specific profile fields without making the onboarding feel like an admin form."}],"next":[{"title":"Authenticated production acceptance","detail":"Exercise real signed-in new Artist, new Venue, existing-entity Claim, Godmode approval, delegate acceptance and ownership transfer against production."},{"title":"Claim verification automation","detail":"Add stronger automatic evidence options over time while retaining curator/admin review as the safe fallback."},{"title":"Relinquish/disown UX","detail":"Add an explicit, audited way to relinquish ownership without deleting the public entity. Do not allow accidental orphaning through ordinary membership controls."}]},{"id":"festivals","title":"Festivals","objective":"Treat festivals as first-class discovery objects with child gigs/events.","health":"green","deliveryState":"live","targetState":false,"repos":["app","api"],"done":[{"title":"Festival lists and detail are live-capable","detail":"Festival APIs, public views and child event handling have been added."},{"title":"Publication-scope filtering added","detail":"Festival visibility participates in edition/publication filtering alongside artists, venues and events."}],"now":[{"title":"Curator festival parity","detail":"Festival routes need the same ownership/postcode policy confidence as normal entities."}],"next":[{"title":"Festival ingestion through Enrichment","detail":"Source-discovered festival data should become claims and project into canonical festivals/events."}]},{"id":"curators","title":"Curators & Godmode","objective":"Delegate local data stewardship safely without giving every curator global write access.","health":"green","deliveryState":"building","targetState":false,"repos":["app","api","backstage"],"done":[{"title":"Postcode-area restrictions","detail":"Curator access policies can be limited by configured postcode areas."},{"title":"Ownership restrictions","detail":"Curators can be restricted to records they created, while trusted curators can be broader."},{"title":"Godmode policy editor","detail":"Backstage has curator permission management and creator provenance is recorded by public wizards."}],"now":[{"title":"Production verification","detail":"Exercise postcode, own-only and trusted/global combinations against artists, venues, events and festivals."}],"next":[{"title":"Curator dashboard","detail":"Give curators a clear view of their area, records, outstanding quality issues and recent submissions."}]},{"id":"rhythm","title":"BNDY Rhythm / Curator rewards","objective":"Turn high-quality community contribution into durable provenance, trusted human verification and meaningful progression without making Beats a gameable currency.","health":"blue","deliveryState":"planned","targetState":true,"repos":["app","api","enrichment","backstage","website"],"done":[{"title":"Detailed product and solution PRD committed","detail":"BNDY Rhythm is specified as Beats + Trust + local authority + Backline Bounties, with an append-oriented contribution/reward ledger and explicit future gates for Credits, ownership and tokenisation.","evidence":["https://github.com/flowency-live/bndy-website/blob/main/docs/BNDY-RHYTHM-CURATOR-REWARDS-PRD.md"]},{"title":"Core product boundary decided","detail":"Beats recognise accepted contribution; Trust controls Backline influence. Beats launch non-transferable, non-purchasable, non-cash and off-chain."}],"now":[{"title":"RHY-00 - architecture and policy contract","detail":"Define contribution taxonomy, musical reward subunits, reward lifecycle, Trust dimensions, Scene Trust geography, owner/self rules, Backline Claim mapping, abuse policy and plain-English Beats terms before visible points UI."}],"next":[{"title":"RHY-01 - contribution ledger foundation","detail":"Instrument eligible curator actions into durable Contribution and append-oriented Reward Ledger records with idempotency and auditable reward decisions."},{"title":"RHY-02/03 - Backline human claims and reward settlement","detail":"Make curator assertions first-class Backline evidence/Claims, apply contextual authority and settle rewards only when contribution value is accepted/corroborated."},{"title":"RHY-04/05 - Trust, ranks and UX","detail":"Build global/local Trust projections, capability gates, Listener-to-Scene-Keeper progression, musical totals and local recognition."},{"title":"RHY-06 - Backline Bounties","detail":"Turn unresolved/conflicted Backline knowledge into targeted local human verification tasks with auditable Beat/Bar rewards."},{"title":"Future economic gates","detail":"Keep commercial Credits, community ownership and any tokenisation as separate future decisions. Do not create a Beat-to-money or Beat-to-equity promise."}]},{"id":"facebook-artist-assist","title":"Facebook artist assist","objective":"Paste a Facebook artist URL and let BNDY resolve enough trustworthy data to make creation effortless.","health":"amber","deliveryState":"building","targetState":false,"repos":["app","api"],"done":[{"title":"Facebook source inspector","detail":"Backend handles About data, mbasic/title fallbacks, profile wrappers and rejects Facebook login/error/system identities."},{"title":"Artist form prefill","detail":"Standalone Add Artist and Add Gig can prefill source-backed name/location/bio/website hints and persist them."},{"title":"Inspector route hardened","detail":"Recent deploy work keeps the companion source-inspector route present after normal API deployments."}],"now":[{"title":"Still a direct canonical creation path","detail":"The resolver helps the UI, but accepted data is still written directly through canonical creation rather than becoming durable claims first."}],"next":[{"title":"Converge with Enrichment evidence model","detail":"Reuse the same Observation/Extraction/Interpretation/Claim pipeline used by automated ingestion."},{"title":"Show evidence confidence in the form","detail":"Differentiate observed Facebook facts, inferred values and mere handle/name hints."}]},{"id":"chatzone","title":"chat.bndy.live public ingestion","objective":"Let anyone submit a gig poster or event text and get a useful, low-friction result.","health":"green","deliveryState":"live","targetState":false,"repos":["chatzone","capture","enrichment"],"done":[{"title":"Disconnected from bndy-signals","detail":"The public Dropzone no longer uses the old Signals/Textract/Haiku claims UI."},{"title":"Multimodal poster interpretation","detail":"Poster processing uses the actual image in the Capture/Enrichment path, avoiding OCR-only mistakes."},{"title":"Useful result response","detail":"Added/already-existing results show artist, venue, date/time and a direct bndy.live gig link."}],"now":[{"title":"Processing latency","detail":"Public submissions still rely on the periodic scanner before reaching SQS; this can add minutes of dead time."}],"next":[{"title":"Enqueue immediately on submission","detail":"Send the Capture message to the processing queue at create time and keep the scanner only as a recovery safety net."},{"title":"Richer live progress","detail":"Show resolving artist, matching venue, deduping event and final result rather than a generic spinner."}]},{"id":"capture","title":"Send to bndy / Capture transport","objective":"One durable intake layer for Android, web, WhatsApp, Messenger and future channels.","health":"green","deliveryState":"live","targetState":false,"repos":["capture","enrichment"],"done":[{"title":"Android share target","detail":"Send to bndy accepts shared URLs/text/images, writes locally first and syncs to capture.bndy.co.uk."},{"title":"Durable AWS backlog","detail":"Capture API, DynamoDB and S3 provide transport-independent evidence storage and processing state."},{"title":"Facebook event sharing proven","detail":"Opaque Facebook /share URLs are resolved to exact canonical event URLs, deduped and projected safely."},{"title":"Public Dropzone transport added","detail":"chat.bndy.live uses the same Capture intake instead of a parallel backend."}],"now":[{"title":"Capture is not the resolution engine","detail":"It is the transport/backlog. bndy-enrichment performs interpretation, matching and canonical projection."}],"next":[{"title":"Immediate queue dispatch","detail":"Remove the normal-path dependency on the five-minute scanner."},{"title":"Transport idempotency","detail":"Add stronger submission idempotency and lease recovery for unattended/high-volume use."}]},{"id":"intelligence","title":"BNDY Backline","objective":"Make sources produce evidence and atomised claims; let policy derive BNDY truth.","health":"amber","deliveryState":"building","targetState":true,"repos":["enrichment","api","signals"],"done":[{"title":"Target architecture defined","detail":"bndy-enrichment documents Observation, Extraction, Interpretation, Claim, EvidencePack, authority policy, tombstones and projection workers."},{"title":"Durable knowledge substrate exists","detail":"Immutable source evidence is stored in the existing S3 EvidenceBucket. Observation, Claim, Source Registry/State and Tombstone records live in the existing DynamoDB StateTable; WP-02 deliberately added no new DynamoDB table."},{"title":"Claims are atomised database records","detail":"A Claim is one subject-predicate-value assertion linked back to an Observation/evidence source. Claims are single-copy durable records with indexes by observation and subject, rather than duplicated whole Artist/Venue/Event documents."},{"title":"Graph is a derived view, not the authority","detail":"The KLMA vertical slice materialises graph.json and graph.html from claims and can add resolved canonical BNDY nodes. Future Neptune is explicitly allowed only as a projection/index; S3 evidence plus DynamoDB observations/claims remain authoritative."},{"title":"Strategic projection worker exists","detail":"The projection engine consumes durable Claims, applies predicate-specific authority, owner protection and tombstones, then writes through canonical BNDY APIs with read-back verification."},{"title":"KLMA dual-path vertical slice proven","detail":"A live KLMA source fetch has been proven through Observation + Claims + graph-shaped knowledge and additive canonical BNDY projection with production read-back verification.","evidence":["https://github.com/flowency-live/bndy-enrichment/commit/6fd66f4314fc35900dcb2bfbba263a8fb897eb4b"]},{"title":"Capture interpretation runs in Enrichment","detail":"Facebook events and posters already use the newer enrichment runtime for resolution."},{"title":"Canonical APIs remain the write boundary","detail":"Artist, venue and event uniqueness/dedupe is enforced centrally."},{"title":"Canonical BNDY baseline complete","detail":"The existing BNDY corpus is now represented in Backline in shadow mode: 15,288 logical entities and Observations, 518,131 Claims, 15,288 Resolutions and 15,288 immutable evidence objects, with zero recorded baseline errors.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json"]},{"title":"National Lemonrock evidence corpus operating in AWS","detail":"The national Lemonrock source family is producing immutable evidence, Observations and Claims in shadow mode. This is a substantial live corpus, but it is deliberately not marked complete until bootstrap recovery and a successful full national reconciliation pass the owned completion gates.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json","https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"Initial Backline Explorer deployed","detail":"The authenticated Godmode Explorer can inspect Lemonrock task progress, source observations and subject Claims. It is an operational inspector, not yet the planned entity-resolution and evidence graph.","evidence":["https://github.com/flowency-live/bndy-backstage/blob/master/client/src/pages/godmode/enrichment/BacklineExplorer.tsx","https://github.com/flowency-live/bndy-serverless-api/blob/master/source-runs-lambda/backline.js"]},{"title":"Reusable source-ingestion blueprint committed","detail":"The Lemonrock implementation, durable evidence/Claim model, AWS runtime, recovery controls, source definition of done and a concrete On The Case Music design are documented as the handover pattern for future sources.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"]},{"title":"Lemonrock low-cost steady state deployed","detail":"Hourly new-gig and cancellation sweeps are deployed. Artist and venue directory crawling is off; profiles hydrate only from gig-led discovery. SourceDispatcher is now hourly to reduce idle AWS invocations.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json"]},{"title":"On The Case gig-led adapter merged","detail":"On The Case now has source-native IDs, structural safety gates, bounded gig -> venue -> band fanout, unresolved open-mic/buskers handling, hourly gig scheduling, owned reconciliation lineage and completion controls. Canonical writes remain off.","evidence":["https://github.com/flowency-live/bndy-enrichment/pull/25"]},{"title":"GigsNews stale-edition protection","detail":"A stale rendered edition is downgraded from complete so it cannot generate destructive withdrawals."},{"title":"Scenic Eye adapter merged shadow/manual","detail":"Scenic Eye weekly-edition ingestion is implemented with derived identities and stale-edition protection. It remains unscheduled pending a source-specific cadence decision.","evidence":["https://github.com/flowency-live/bndy-enrichment/pull/27"]},{"title":"Insangel and Norfolk reconnaissance retained","detail":"Both sources are explicitly fixture/AWS-reachability gated. No blind adapters or acquisition-evasion work will proceed.","evidence":["https://github.com/flowency-live/bndy-enrichment/pull/26"]}],"now":[{"title":"Lemonrock is Backline's first national flagship source","detail":"The committed plan deliberately bootstraps the complete discoverable UK Lemonrock artist, venue and future-gig universe into source-native identities, immutable evidence and rich Claims before selective canonical projection.","evidence":["https://github.com/flowency-live/bndy-enrichment/commit/f51d3ba6f10860da6b47d2fcc06853761188bca6"]},{"title":"BNDY Backline is a logical layer, not another app","detail":"It lives inside the bndy-enrichment AWS runtime: Source Registry/Runner + S3 evidence + DynamoDB observations/claims + queues/workers + projection policy. The public BNDY database remains the canonical product projection, not the intelligence store."},{"title":"Dual-path operating rule","detail":"Building durable evidence/claims must not delay live gig publication. A trusted source can create claims and immediately project through canonical BNDY APIs while BNDY Backline keeps the evidence history for later reconciliation."},{"title":"Source authority is source-specific","detail":"KLMA is a controlled enduring community calendar and can support immediate additive projection. GigsNews is a human-curated weekly aggregation, so absence from a later page is not by itself cancellation evidence."},{"title":"Two generations of claims thinking exist","detail":"bndy-signals contains the older cognitive runtime; bndy-enrichment/BNDY Backline contains the strategic architecture."},{"title":"Complete national Lemonrock ingestion","detail":"Rate-safe recovery is draining the previously failed logical work. Do not declare completion until the final live manifest proves required branches, all inventory controls, terminal tasks and two stable zero readings for both queue and DLQ. Shadow mode remains on and canonical writes remain disabled.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md","https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json","https://github.com/flowency-live/bndy-enrichment/actions/runs/32944305034"]},{"title":"Persist Lemonrock identity resolution","detail":"Turn source-native Artist, Venue and Gig evidence into explicit resolved, unresolved or conflicted identity state. Evidence volume alone is not yet an operational graph.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"Build the real Godmode evidence graph","detail":"Extend the read-only API and Explorer from task/Claim inspection to bounded traversal across Sources, source identities, canonical entities, Claims, Observations, conflicts and projection decisions.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"Prepare shadow projection comparison","detail":"After completeness and resolution, derive explainable best-supported values and compare them with canonical BNDY without enabling mass writes.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"On The Case shadow completion evidence","detail":"Production shadow bootstrap/completion workflow is the current activation gate. Do not enable canonical writes; require clean reconciliation lineage plus empty queue/DLQ evidence."}],"next":[{"title":"Controlled Backline projection","detail":"Enable only a bounded high-confidence cohort through canonical APIs with read-back, owner protection, stop thresholds and recorded projection decisions.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"Converge BNDY-originated changes","detail":"Extend durable Backline provenance from the new user-created Artist path to Venue, Event, Festival, Capture and assisted-creation changes after parity gates.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"Migrate useful Signals concepts","detail":"Salvage source adapters, review semantics and useful ADRs from bndy-signals, then retire its runtime."},{"title":"Daily Backline discovery metrics","detail":"Publish a daily source-family view of discovered gigs, additions, withdrawals, unresolved identities, failures and coverage so Backline progress is visible without reconstructing logs."},{"title":"Generic entity enrichment worker","detail":"Continuously improve Artists and Venues BNDY actually holds using freshness/quality gaps and source evidence, instead of every source inventing recurring directory crawlers."}]},{"id":"source-automation","title":"Automated source acquisition","objective":"Continuously discover grassroots artists, venues and gigs without manual database entry.","health":"amber","deliveryState":"building","targetState":true,"repos":["enrichment","mcp","api"],"done":[{"title":"National Lemonrock implementation plan committed","detail":"The full national bootstrap, rich artist/venue hydration, source-native identity, legacy Cowork repair, change-detection, cancellation, reconciliation and Backline Explorer plan is now committed in bndy-enrichment as docs/LEMONROCK-NATIONAL-INGESTION.md.","evidence":["https://github.com/flowency-live/bndy-enrichment/commit/f51d3ba6f10860da6b47d2fcc06853761188bca6"]},{"title":"Source Registry, dispatcher and queues exist","detail":"A 15-minute EventBridge SourceDispatcher, due-source registry query, standard/browser queues and DLQs, generic Source Runner and ProjectionQueue/worker are already implemented in bndy-enrichment."},{"title":"KLMA live vertical slice proven","detail":"KLMA can fetch the live enduring Google Sheet, create immutable observations and claims, project a safe additive sample through canonical Artist/Venue/Event APIs, and verify the event by read-back. Most rows already exist in BNDY; the important recurring behaviour is detecting newly added gigs as the same sheet evolves.","evidence":["https://github.com/flowency-live/bndy-enrichment/commit/6fd66f4314fc35900dcb2bfbba263a8fb897eb4b"]},{"title":"GigsNews parser/adapter and parity harness ported","detail":"The recurring GigsNews HTML structure has been ported and parity/cutover tooling exists. This is not yet live scheduled ingestion into BNDY.","evidence":["https://github.com/flowency-live/bndy-enrichment/commit/e8a7c9ad78130320bce2d74e5938ae452328372b","https://github.com/flowency-live/bndy-enrichment/commit/ab8e0d4cef921ac9f525bbf8b360c5be19b9e919"]},{"title":"OnTheCase source registry seed exists","detail":"WP-03 seeds OnTheCase at 04:05 Europe/London, but disabled, shadowed and Cowork-owned. No later OnTheCase adapter/cutover commit was found in bndy-enrichment."},{"title":"Canonical duplicate gates proven","detail":"Artist, venue and event APIs safely reject duplicates while returning reusable canonical identity."},{"title":"Lemonrock national source family deployed in shadow mode","detail":"Artist, Venue and Gig discovery/hydration plus fast-change and cancellation sources run on the Backline serverless source runtime. National completeness remains an active gate, not a completed claim.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json","https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"Lemonrock rate-safe recovery deployed","detail":"Production now limits standard source concurrency to two, uses bounded retry/backoff and replays the existing DLQ at one message per second. The broken duplicate workflow_dispatch key in the final manifest workflow was removed so completion monitoring can run again.","evidence":["https://github.com/flowency-live/bndy-enrichment/commit/c9096093089b4ef6a006b2d4992a8f441d1ce927","https://github.com/flowency-live/bndy-enrichment/commit/1f3db3785a03bb6d95aa0662cc77047ef4236091"]},{"title":"Lemonrock low-cost gig-led operating model deployed","detail":"Production now checks the new-gig and explicit-cancellation feeds hourly, performs one bounded future-gig health check daily and one future-gig reconciliation monthly. Artist and Venue profiles are hydrated only when linked from a discovered gig; scheduled Artist, Venue and full-directory crawling is off. The verified scheduled root footprint is 1,471 runs per 30 days. Backline remains shadowed and canonical writes remain disabled.","evidence":["https://github.com/flowency-live/bndy-enrichment/pull/23","https://github.com/flowency-live/bndy-enrichment/actions/runs/32972919883","https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json","https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"]}],"now":[{"title":"Monitor Lemonrock bootstrap recovery to completion","detail":"Own the historical national-bootstrap recovery until it is proven complete from live AWS evidence. Check the standard queue and DLQ, in-flight/delayed counts, failed and non-terminal logical tasks, reconciliation root state, required branches, all Artist/Venue directory controls and the advertised-versus-discovered future-gig inventory. Publish a fresh sanitised manifest when state changes materially. Completion requires all discovered tasks terminal, no unresolved failures, every inventory control satisfied, and queue plus DLQ visible/in-flight/delayed counts at zero for two consecutive readings. On success, mark the bootstrap complete and stop the completion watch. Do not launch another national reconciliation, repeatedly crawl directories, enable canonical writes or project to canonical BNDY merely to make the gate pass. If progress stalls or failures recur, diagnose the exact task/error class and continue only the bounded recovery path.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json","https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json","https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md","https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"]},{"title":"Kill KLMA Cowork remains queued","detail":"The KLMA AWS cutover is still required, but Lemonrock is now the immediate build priority for the Mac demonstration."},{"title":"On The Case source reconnaissance","detail":"In parallel with the Lemonrock drain, capture fixtures for Gigs, Bands, Venues, gig details and Cancellations; prove standard HTTP versus browser acquisition; confirm native numeric IDs, pagination and completeness semantics. This is read-only discovery, not a production bootstrap.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md","https://onthecasemusic.co.uk/"]}],"next":[{"title":"Complete Lemonrock resolution and Explorer visibility","detail":"Classify every source-native identity as resolved, unresolved or conflicted and expose the real relationships and evidence through the Godmode graph.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"]},{"title":"Build the On The Case source family in shadow","detail":"Implement explicit band, venue, gig, cancellation and full-reconcile adapters using native numeric identities, durable logical tasks and source-specific inventory controls. Bootstrap only in shadow after fixtures and load limits pass; require a subsequent full reconcile plus stable-zero queues before resolution/projection.","evidence":["https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"]},{"title":"KLMA fast cutover","detail":"Package/wire KLMA into the generic SourceAdapter/Runner path, shadow parity, verify live projection, flip writer authority and retire Cowork."},{"title":"Build GigsNews production ingestion","detail":"Turn the ported parser/adapter into a scheduled AWS source: acquire the weekly HTML, snapshot it, identify new or changed listings, create claims/evidence and project safe additions through canonical APIs."}]},{"id":"venue-workers","title":"Venue listing workers","objective":"Keep high-value venue calendars fresh by revisiting known reliable venue websites on a predictable cadence.","health":"blue","deliveryState":"planned","targetState":true,"repos":["enrichment","api"],"done":[{"title":"Capability fits the Source Registry model","detail":"Known venue websites are sources. Their pages can be scheduled, observed, interpreted into event claims and deduped through the normal projection path."}],"now":[{"title":"Define the watched-venue registry","detail":"Identify venues with reliable, actively maintained listings and store source URL, parsing/acquisition strategy, cadence and last successful scan."}],"next":[{"title":"Weekly venue worker schedule","detail":"Run one source job per watched venue weekly, with retry/backoff and a faster cadence only where evidence justifies it."},{"title":"Delta new listings into Claims","detail":"Only new/changed gigs become claims. Existing gigs dedupe normally; removed listings are not treated as cancellations unless source semantics are explicit."},{"title":"Venue freshness dashboard","detail":"Show last checked, last changed, failures and new gigs found in Godmode so reliable sources can be expanded safely."}]},{"id":"meta-facebook","title":"Meta / Facebook presence","objective":"Give BNDY an official Meta identity and make Facebook a supported public intake channel without personal-account automation.","health":"amber","deliveryState":"building","targetState":false,"repos":["website","api","capture"],"done":[{"title":"BNDY Facebook Page created","detail":"The public Page exists and Meta developer setup has been started."},{"title":"Facebook URLs work without Graph dependency","detail":"Public source inspection and Capture can resolve useful Facebook evidence without making privileged Graph access a core dependency."}],"now":[{"title":"Meta app setup is not yet a finished product channel","detail":"Page/app configuration work exists, but Messenger intake and production permissions are not yet complete."}],"next":[{"title":"Messenger Send to bndy","detail":"Webhook BNDY Page messages into Capture using the same transport-neutral submission model."},{"title":"Complete Meta permissions/app review","detail":"Only request the permissions actually needed for messaging and public BNDY identity."}]},{"id":"whatsapp","title":"WhatsApp Send to bndy","objective":"Let anybody send a poster, link or event message to BNDY like messaging a friend.","health":"blue","deliveryState":"planned","targetState":true,"repos":["capture","enrichment"],"done":[{"title":"Architecture/spec decided","detail":"WhatsApp is a transport into Capture, not another ingestion brain. Message IDs provide dedupe; media is downloaded then stored as Capture evidence."}],"now":[{"title":"Not built yet","detail":"No production WhatsApp webhook/number intake has been completed."}],"next":[{"title":"Cloud API webhook","detail":"Verify Meta signature, acknowledge quickly, enqueue work and map text/media into Capture."},{"title":"Public BNDY number","detail":"Configure the BNDY WhatsApp Business number and simple acknowledgement/status replies."}]},{"id":"analytics","title":"Analytics & traffic","objective":"Understand usage across every BNDY surface without adding unnecessary cost or complexity.","health":"green","deliveryState":"building","targetState":false,"repos":["app","backstage","website","chatzone"],"done":[{"title":"Cloudflare Web Analytics added to bndy.live","detail":"The public app emits privacy-friendly web analytics."},{"title":"Godmode traffic panel","detail":"Backstage has a Cloudflare traffic dashboard/client."}],"now":[{"title":"Coverage is not yet estate-wide","detail":"www.bndy.co.uk, chat.bndy.live and other browser surfaces need an explicit analytics coverage check."}],"next":[{"title":"One analytics coverage matrix","detail":"Track visits, submissions, successful additions, searches, map interactions and PWA installs across all public surfaces."}]},{"id":"editions-brass","title":"Editions / Brass bands","objective":"Support scoped BNDY editions without duplicating the core platform or leaking edition-only records into the main public product.","health":"amber","deliveryState":"building","targetState":true,"repos":["api","website","app","enrichment"],"done":[{"title":"Publication-scope contract implemented","detail":"Artists, venues, events and festivals have edition-aware public filtering while legacy unscoped records stay live."},{"title":"Brass architecture explainer added","detail":"www.bndy.co.uk documents the brass-bands architecture and public-source approach."},{"title":"Atomic edition-scoped creation added","detail":"Canonical creation has explicit edition-scoping support."}],"now":[{"title":"Brass edition v2 UI","detail":"A current bndy-app branch/PR is rebuilding the brass edition on current main with Concerts, Bands, Festivals and dual-mode map.","evidence":["https://github.com/flowency-live/bndy-app/pull/16"]},{"title":"Evidence-first brass discovery","detail":"Edition-aware enrichment policy, 2026 band bootstrap, identity inference and no-write projection commands are under active build.","evidence":["https://github.com/flowency-live/bndy-enrichment/pull/17"]}],"next":[{"title":"Deploy isolated brass read path","detail":"Prove the brass read API/UI against edition-scoped data without any fallback to live records."},{"title":"Promote brass intelligence from no-write to controlled projection","detail":"Only after publication-scope guardrails, identity confidence and parity gates are production-proven."}]},{"id":"api-security","title":"API security & platform hardening","objective":"Keep the canonical backend auditable, least-privilege and safe for humans, public apps and agent integrations.","health":"amber","deliveryState":"building","targetState":false,"repos":["api"],"done":[{"title":"Machine-readable route security baseline","detail":"SEC-00 added trust-zone policy, route inventory generation and mutation/authorizer checks.","evidence":["https://github.com/flowency-live/bndy-serverless-api/pull/3"]},{"title":"Secrets and CI baseline remediated","detail":"Cognito credentials moved out of tracked config, SAM validation was hardened and backend test/audit baseline improved.","evidence":["https://github.com/flowency-live/bndy-serverless-api/pull/5"]},{"title":"Source inspector deployment drift hardened","detail":"Recent workflow changes reconcile the Facebook source-inspector route after normal API deployment."}],"now":[{"title":"Keep security policy aligned with new curator and edition routes","detail":"Every new mutation route should have an explicit trust-zone decision rather than inheriting access accidentally."}],"next":[{"title":"Explicit public route allowlist","detail":"Continue the SEC programme so unknown/new routes fail closed against the declared public surface."},{"title":"Finish SDK/dependency hardening","detail":"Plan remaining AWS SDK v2/transitive dependency migration without destabilising the production API."}]},{"id":"website-brand","title":"Public website & proposition","objective":"Explain what BNDY is, why it exists and how the ecosystem fits together.","health":"green","deliveryState":"live","targetState":false,"repos":["website"],"done":[{"title":"New public website","detail":"bndy-website is the current www.bndy.co.uk brand/proposition site."},{"title":"Audience-specific copy and policy","detail":"Gig-goer, artist, venue, promise, why and policy material has been built out."},{"title":"Workboard v1 live","detail":"The JSON-backed operating board is deployed on www.bndy.co.uk/workboard."}],"now":[{"title":"Workboard focus controls","detail":"Add collapsible swimlanes, independent column collapse, NOW-only focus and explicit target-state stamps."}],"next":[{"title":"Use workboard as the agent coordination surface","detail":"Agents update structured JSON in the repo and use the same stable stream IDs rather than inventing new parallel plans."}]},{"id":"repo-consolidation","title":"Repository consolidation","objective":"Make it obvious which repositories are live, supporting, legacy or safe to ignore.","health":"amber","deliveryState":"building","targetState":false,"repos":["signals","frontstage","mcp","types","ui","legacy-other"],"done":[{"title":"Frontstage explicitly decommissioned","detail":"Do not use bndy-frontstage for current product work."},{"title":"Chatzone removed from Signals","detail":"One major accidental duplicate runtime has been eliminated from the live public ingestion path."}],"now":[{"title":"Too many plausible-looking repositories remain","detail":"Older bndy.live/beta/centrestage/portal/api/infrastructure repos can still confuse humans and agents."}],"next":[{"title":"Archive or label legacy repos","detail":"Confirm live dependencies, then archive obsolete repos or add unmistakable README banners."},{"title":"Define repo ownership map","detail":"Each capability should name exactly one primary repo and one canonical backend path."}]}]}
+{
+  "version": 2,
+  "updatedAt": "2026-08-26T22:36:24.031557Z",
+  "updatedBy": "Backline source-status reconciliation",
+  "title": "bndy workboard",
+  "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
+  "principles": [
+    "Canonical BNDY APIs remain the write authority.",
+    "Capture is transport and durable intake, not the intelligence engine.",
+    "Enrichment is the strategic resolution and intelligence runtime.",
+    "BNDY Backline is the capability/product name; bndy-enrichment remains the single strategic Backline runtime rather than creating a parallel repository.",
+    "All new ingestion paths should converge on Capture + Enrichment rather than inventing another write path.",
+    "The target state is evidence -> claims -> projection -> canonical BNDY, not source -> direct database write.",
+    "BNDY Backline is the durable intelligence substrate: immutable evidence plus observations and atomised claims feed policy and projection; the graph is a derived view, not the authority."
+  ],
+  "activityRepos": [
+    "flowency-live/bndy-app",
+    "flowency-live/bndy-serverless-api",
+    "flowency-live/bndy-backstage",
+    "flowency-live/bndy-website",
+    "flowency-live/bndy-chatzone",
+    "flowency-live/bndy-capture",
+    "flowency-live/bndy-enrichment",
+    "flowency-live/bndy-MCP"
+  ],
+  "repositories": [
+    {
+      "id": "app",
+      "repo": "flowency-live/bndy-app",
+      "serves": "https://bndy.live",
+      "role": "Core public gig discovery PWA: map, gigs, artists, venues, festivals, favourites and public add flows.",
+      "status": "production"
+    },
+    {
+      "id": "api",
+      "repo": "flowency-live/bndy-serverless-api",
+      "serves": "Canonical BNDY backend",
+      "role": "Authoritative artists, venues, events, festivals, auth, curator policy, source inspection and edition-aware APIs.",
+      "status": "production"
+    },
+    {
+      "id": "backstage",
+      "repo": "flowency-live/bndy-backstage",
+      "serves": "BNDY Backstage / Godmode",
+      "role": "Admin operations, curator policy management and traffic visibility.",
+      "status": "production"
+    },
+    {
+      "id": "website",
+      "repo": "flowency-live/bndy-website",
+      "serves": "https://www.bndy.co.uk",
+      "role": "Public brand, proposition, policy and architecture pages. The workboard lives here.",
+      "status": "production"
+    },
+    {
+      "id": "chatzone",
+      "repo": "flowency-live/bndy-chatzone",
+      "serves": "https://chat.bndy.live",
+      "role": "Public Dropzone UI for gig poster and text submission. Routes into Capture.",
+      "status": "production"
+    },
+    {
+      "id": "capture",
+      "repo": "flowency-live/bndy-capture",
+      "serves": "https://capture.bndy.co.uk + Android APK",
+      "role": "Durable intake transport for Android Send to bndy and public web submissions. Stores evidence and queue state.",
+      "status": "production"
+    },
+    {
+      "id": "enrichment",
+      "repo": "flowency-live/bndy-enrichment",
+      "serves": "AWS BNDY Backline runtime",
+      "role": "Strategic Backline runtime for source acquisition, immutable evidence, observations, atomised claims, identity resolution, authority, projection, Capture processing and enrichment.",
+      "status": "active"
+    },
+    {
+      "id": "mcp",
+      "repo": "flowency-live/bndy-MCP",
+      "serves": "Agent/MCP adapter",
+      "role": "Thin agent-facing adapter around BNDY capabilities. Needs a current-role audit as Enrichment becomes the orchestration layer.",
+      "status": "support"
+    },
+    {
+      "id": "signals",
+      "repo": "flowency-live/bndy-signals",
+      "serves": "Legacy signals runtime",
+      "role": "Older Signal -> interpretation -> claims implementation. Useful concepts should be absorbed then the runtime retired.",
+      "status": "legacy"
+    },
+    {
+      "id": "frontstage",
+      "repo": "flowency-live/bndy-frontstage",
+      "serves": "Decommissioned",
+      "role": "Previous public application. Do not use for new work.",
+      "status": "decommissioned"
+    },
+    {
+      "id": "types",
+      "repo": "flowency-live/bndy-types",
+      "serves": "Shared package",
+      "role": "Shared type definitions used by older/newer surfaces where applicable.",
+      "status": "support"
+    },
+    {
+      "id": "ui",
+      "repo": "flowency-live/bndy-ui",
+      "serves": "Shared package",
+      "role": "Shared UI package from the earlier application generation. Audit before expanding usage.",
+      "status": "support"
+    },
+    {
+      "id": "legacy-other",
+      "repo": "flowency-live/bndy.live, bndylivebeta, bndy-centrestage, bndy-portal, bndy-api, bndy-infrastructure",
+      "serves": "Legacy / audit required",
+      "role": "Older BNDY generations. Confirm no live dependency, then archive or label clearly to reduce agent confusion.",
+      "status": "audit"
+    }
+  ],
+  "lanes": [
+    {
+      "id": "core-discovery",
+      "title": "Core live discovery",
+      "objective": "Make bndy.live the best way to discover grassroots live music.",
+      "health": "green",
+      "deliveryState": "live",
+      "targetState": false,
+      "repos": [
+        "app",
+        "api"
+      ],
+      "done": [
+        {
+          "title": "bndy.live is the current public product",
+          "detail": "Map, gig list, artist and venue profiles are on the bndy-app + canonical API stack."
+        },
+        {
+          "title": "Mobile gig-list UX heavily refined",
+          "detail": "Search-first layout, compact filters, favourites and venue/mobile presentation have been iterated."
+        },
+        {
+          "title": "Ticketing surfaced at event and venue level",
+          "detail": "Recent work makes ticketed status explicit without treating unknown admission as a reason to hide a gig."
+        }
+      ],
+      "now": [
+        {
+          "title": "Keep all public CRUD on canonical APIs",
+          "detail": "New public add flows currently resolve data then write through the existing canonical backend."
+        },
+        {
+          "title": "Separate product UX from evidence architecture",
+          "detail": "The UI can stay simple while the backend moves from direct creation to claims/projection."
+        }
+      ],
+      "next": [
+        {
+          "title": "Route assisted creation through shared evidence",
+          "detail": "Artist, venue and gig creation should emit evidence/claims before projection rather than each surface inventing its own logic."
+        },
+        {
+          "title": "PWA install journey",
+          "detail": "Finish the explicit Add to Home Screen/install experience requested by users."
+        }
+      ]
+    },
+    {
+      "id": "join-bndy",
+      "title": "Join bndy",
+      "objective": "Give artists and venue operators a beautiful, low-friction route to find or create their entity, authenticate, establish ownership and start managing it without creating duplicates.",
+      "health": "green",
+      "deliveryState": "building",
+      "targetState": false,
+      "repos": [
+        "app",
+        "api",
+        "enrichment",
+        "website"
+      ],
+      "done": [
+        {
+          "title": "JOIN-01 \u2014 Join shell",
+          "detail": "/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI."
+        },
+        {
+          "title": "JOIN-02 \u2014 identity before creation",
+          "detail": "Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation."
+        },
+        {
+          "title": "JOIN-03 \u2014 auth + resume",
+          "detail": "Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return."
+        },
+        {
+          "title": "JOIN-04/05 \u2014 owned Artist and Venue creation",
+          "detail": "Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships."
+        },
+        {
+          "title": "JOIN-06 \u2014 Artist profile step",
+          "detail": "Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy."
+        },
+        {
+          "title": "JOIN-07 \u2014 Claim persistence and review",
+          "detail": "Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification."
+        },
+        {
+          "title": "JOIN-08 \u2014 management and delegation foundation",
+          "detail": "/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership."
+        },
+        {
+          "title": "JOIN-09 \u2014 owner authority protection",
+          "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
+        }
+      ],
+      "now": [
+        {
+          "title": "JOIN-10 \u2014 release hardening",
+          "detail": "Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain."
+        },
+        {
+          "title": "Venue profile polish",
+          "detail": "Add the optional post-identity Venue music-specific profile fields without making the onboarding feel like an admin form."
+        }
+      ],
+      "next": [
+        {
+          "title": "Authenticated production acceptance",
+          "detail": "Exercise real signed-in new Artist, new Venue, existing-entity Claim, Godmode approval, delegate acceptance and ownership transfer against production."
+        },
+        {
+          "title": "Claim verification automation",
+          "detail": "Add stronger automatic evidence options over time while retaining curator/admin review as the safe fallback."
+        },
+        {
+          "title": "Relinquish/disown UX",
+          "detail": "Add an explicit, audited way to relinquish ownership without deleting the public entity. Do not allow accidental orphaning through ordinary membership controls."
+        }
+      ]
+    },
+    {
+      "id": "festivals",
+      "title": "Festivals",
+      "objective": "Treat festivals as first-class discovery objects with child gigs/events.",
+      "health": "green",
+      "deliveryState": "live",
+      "targetState": false,
+      "repos": [
+        "app",
+        "api"
+      ],
+      "done": [
+        {
+          "title": "Festival lists and detail are live-capable",
+          "detail": "Festival APIs, public views and child event handling have been added."
+        },
+        {
+          "title": "Publication-scope filtering added",
+          "detail": "Festival visibility participates in edition/publication filtering alongside artists, venues and events."
+        }
+      ],
+      "now": [
+        {
+          "title": "Curator festival parity",
+          "detail": "Festival routes need the same ownership/postcode policy confidence as normal entities."
+        }
+      ],
+      "next": [
+        {
+          "title": "Festival ingestion through Enrichment",
+          "detail": "Source-discovered festival data should become claims and project into canonical festivals/events."
+        }
+      ]
+    },
+    {
+      "id": "curators",
+      "title": "Curators & Godmode",
+      "objective": "Delegate local data stewardship safely without giving every curator global write access.",
+      "health": "green",
+      "deliveryState": "building",
+      "targetState": false,
+      "repos": [
+        "app",
+        "api",
+        "backstage"
+      ],
+      "done": [
+        {
+          "title": "Postcode-area restrictions",
+          "detail": "Curator access policies can be limited by configured postcode areas."
+        },
+        {
+          "title": "Ownership restrictions",
+          "detail": "Curators can be restricted to records they created, while trusted curators can be broader."
+        },
+        {
+          "title": "Godmode policy editor",
+          "detail": "Backstage has curator permission management and creator provenance is recorded by public wizards."
+        }
+      ],
+      "now": [
+        {
+          "title": "Production verification",
+          "detail": "Exercise postcode, own-only and trusted/global combinations against artists, venues, events and festivals."
+        }
+      ],
+      "next": [
+        {
+          "title": "Curator dashboard",
+          "detail": "Give curators a clear view of their area, records, outstanding quality issues and recent submissions."
+        }
+      ]
+    },
+    {
+      "id": "rhythm",
+      "title": "BNDY Rhythm / Curator rewards",
+      "objective": "Turn high-quality community contribution into durable provenance, trusted human verification and meaningful progression without making Beats a gameable currency.",
+      "health": "blue",
+      "deliveryState": "planned",
+      "targetState": true,
+      "repos": [
+        "app",
+        "api",
+        "enrichment",
+        "backstage",
+        "website"
+      ],
+      "done": [
+        {
+          "title": "Detailed product and solution PRD committed",
+          "detail": "BNDY Rhythm is specified as Beats + Trust + local authority + Backline Bounties, with an append-oriented contribution/reward ledger and explicit future gates for Credits, ownership and tokenisation.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-website/blob/main/docs/BNDY-RHYTHM-CURATOR-REWARDS-PRD.md"
+          ]
+        },
+        {
+          "title": "Core product boundary decided",
+          "detail": "Beats recognise accepted contribution; Trust controls Backline influence. Beats launch non-transferable, non-purchasable, non-cash and off-chain."
+        }
+      ],
+      "now": [
+        {
+          "title": "RHY-00 - architecture and policy contract",
+          "detail": "Define contribution taxonomy, musical reward subunits, reward lifecycle, Trust dimensions, Scene Trust geography, owner/self rules, Backline Claim mapping, abuse policy and plain-English Beats terms before visible points UI."
+        }
+      ],
+      "next": [
+        {
+          "title": "RHY-01 - contribution ledger foundation",
+          "detail": "Instrument eligible curator actions into durable Contribution and append-oriented Reward Ledger records with idempotency and auditable reward decisions."
+        },
+        {
+          "title": "RHY-02/03 - Backline human claims and reward settlement",
+          "detail": "Make curator assertions first-class Backline evidence/Claims, apply contextual authority and settle rewards only when contribution value is accepted/corroborated."
+        },
+        {
+          "title": "RHY-04/05 - Trust, ranks and UX",
+          "detail": "Build global/local Trust projections, capability gates, Listener-to-Scene-Keeper progression, musical totals and local recognition."
+        },
+        {
+          "title": "RHY-06 - Backline Bounties",
+          "detail": "Turn unresolved/conflicted Backline knowledge into targeted local human verification tasks with auditable Beat/Bar rewards."
+        },
+        {
+          "title": "Future economic gates",
+          "detail": "Keep commercial Credits, community ownership and any tokenisation as separate future decisions. Do not create a Beat-to-money or Beat-to-equity promise."
+        }
+      ]
+    },
+    {
+      "id": "facebook-artist-assist",
+      "title": "Facebook artist assist",
+      "objective": "Paste a Facebook artist URL and let BNDY resolve enough trustworthy data to make creation effortless.",
+      "health": "amber",
+      "deliveryState": "building",
+      "targetState": false,
+      "repos": [
+        "app",
+        "api"
+      ],
+      "done": [
+        {
+          "title": "Facebook source inspector",
+          "detail": "Backend handles About data, mbasic/title fallbacks, profile wrappers and rejects Facebook login/error/system identities."
+        },
+        {
+          "title": "Artist form prefill",
+          "detail": "Standalone Add Artist and Add Gig can prefill source-backed name/location/bio/website hints and persist them."
+        },
+        {
+          "title": "Inspector route hardened",
+          "detail": "Recent deploy work keeps the companion source-inspector route present after normal API deployments."
+        }
+      ],
+      "now": [
+        {
+          "title": "Still a direct canonical creation path",
+          "detail": "The resolver helps the UI, but accepted data is still written directly through canonical creation rather than becoming durable claims first."
+        }
+      ],
+      "next": [
+        {
+          "title": "Converge with Enrichment evidence model",
+          "detail": "Reuse the same Observation/Extraction/Interpretation/Claim pipeline used by automated ingestion."
+        },
+        {
+          "title": "Show evidence confidence in the form",
+          "detail": "Differentiate observed Facebook facts, inferred values and mere handle/name hints."
+        }
+      ]
+    },
+    {
+      "id": "chatzone",
+      "title": "chat.bndy.live public ingestion",
+      "objective": "Let anyone submit a gig poster or event text and get a useful, low-friction result.",
+      "health": "green",
+      "deliveryState": "live",
+      "targetState": false,
+      "repos": [
+        "chatzone",
+        "capture",
+        "enrichment"
+      ],
+      "done": [
+        {
+          "title": "Disconnected from bndy-signals",
+          "detail": "The public Dropzone no longer uses the old Signals/Textract/Haiku claims UI."
+        },
+        {
+          "title": "Multimodal poster interpretation",
+          "detail": "Poster processing uses the actual image in the Capture/Enrichment path, avoiding OCR-only mistakes."
+        },
+        {
+          "title": "Useful result response",
+          "detail": "Added/already-existing results show artist, venue, date/time and a direct bndy.live gig link."
+        }
+      ],
+      "now": [
+        {
+          "title": "Processing latency",
+          "detail": "Public submissions still rely on the periodic scanner before reaching SQS; this can add minutes of dead time."
+        }
+      ],
+      "next": [
+        {
+          "title": "Enqueue immediately on submission",
+          "detail": "Send the Capture message to the processing queue at create time and keep the scanner only as a recovery safety net."
+        },
+        {
+          "title": "Richer live progress",
+          "detail": "Show resolving artist, matching venue, deduping event and final result rather than a generic spinner."
+        }
+      ]
+    },
+    {
+      "id": "capture",
+      "title": "Send to bndy / Capture transport",
+      "objective": "One durable intake layer for Android, web, WhatsApp, Messenger and future channels.",
+      "health": "green",
+      "deliveryState": "live",
+      "targetState": false,
+      "repos": [
+        "capture",
+        "enrichment"
+      ],
+      "done": [
+        {
+          "title": "Android share target",
+          "detail": "Send to bndy accepts shared URLs/text/images, writes locally first and syncs to capture.bndy.co.uk."
+        },
+        {
+          "title": "Durable AWS backlog",
+          "detail": "Capture API, DynamoDB and S3 provide transport-independent evidence storage and processing state."
+        },
+        {
+          "title": "Facebook event sharing proven",
+          "detail": "Opaque Facebook /share URLs are resolved to exact canonical event URLs, deduped and projected safely."
+        },
+        {
+          "title": "Public Dropzone transport added",
+          "detail": "chat.bndy.live uses the same Capture intake instead of a parallel backend."
+        }
+      ],
+      "now": [
+        {
+          "title": "Capture is not the resolution engine",
+          "detail": "It is the transport/backlog. bndy-enrichment performs interpretation, matching and canonical projection."
+        }
+      ],
+      "next": [
+        {
+          "title": "Immediate queue dispatch",
+          "detail": "Remove the normal-path dependency on the five-minute scanner."
+        },
+        {
+          "title": "Transport idempotency",
+          "detail": "Add stronger submission idempotency and lease recovery for unattended/high-volume use."
+        }
+      ]
+    },
+    {
+      "id": "intelligence",
+      "title": "BNDY Backline",
+      "objective": "Make sources produce evidence and atomised claims; let policy derive BNDY truth.",
+      "health": "amber",
+      "deliveryState": "building",
+      "targetState": true,
+      "repos": [
+        "enrichment",
+        "api",
+        "signals"
+      ],
+      "done": [
+        {
+          "title": "Target architecture defined",
+          "detail": "bndy-enrichment documents Observation, Extraction, Interpretation, Claim, EvidencePack, authority policy, tombstones and projection workers."
+        },
+        {
+          "title": "Durable knowledge substrate exists",
+          "detail": "Immutable source evidence is stored in the existing S3 EvidenceBucket. Observation, Claim, Source Registry/State and Tombstone records live in the existing DynamoDB StateTable; WP-02 deliberately added no new DynamoDB table."
+        },
+        {
+          "title": "Claims are atomised database records",
+          "detail": "A Claim is one subject-predicate-value assertion linked back to an Observation/evidence source. Claims are single-copy durable records with indexes by observation and subject, rather than duplicated whole Artist/Venue/Event documents."
+        },
+        {
+          "title": "Graph is a derived view, not the authority",
+          "detail": "The KLMA vertical slice materialises graph.json and graph.html from claims and can add resolved canonical BNDY nodes. Future Neptune is explicitly allowed only as a projection/index; S3 evidence plus DynamoDB observations/claims remain authoritative."
+        },
+        {
+          "title": "Strategic projection worker exists",
+          "detail": "The projection engine consumes durable Claims, applies predicate-specific authority, owner protection and tombstones, then writes through canonical BNDY APIs with read-back verification."
+        },
+        {
+          "title": "KLMA dual-path vertical slice proven",
+          "detail": "A live KLMA source fetch has been proven through Observation + Claims + graph-shaped knowledge and additive canonical BNDY projection with production read-back verification.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/6fd66f4314fc35900dcb2bfbba263a8fb897eb4b"
+          ]
+        },
+        {
+          "title": "Capture interpretation runs in Enrichment",
+          "detail": "Facebook events and posters already use the newer enrichment runtime for resolution."
+        },
+        {
+          "title": "Canonical APIs remain the write boundary",
+          "detail": "Artist, venue and event uniqueness/dedupe is enforced centrally."
+        },
+        {
+          "title": "Canonical BNDY baseline complete",
+          "detail": "The existing BNDY corpus is now represented in Backline in shadow mode: 15,288 logical entities and Observations, 518,131 Claims, 15,288 Resolutions and 15,288 immutable evidence objects, with zero recorded baseline errors.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json"
+          ]
+        },
+        {
+          "title": "National Lemonrock evidence corpus operating in AWS",
+          "detail": "The national Lemonrock source family is producing immutable evidence, Observations and Claims in shadow mode. This is a substantial live corpus, but it is deliberately not marked complete until bootstrap recovery and a successful full national reconciliation pass the owned completion gates.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        },
+        {
+          "title": "Initial Backline Explorer deployed",
+          "detail": "The authenticated Godmode Explorer can inspect Lemonrock task progress, source observations and subject Claims. It is an operational inspector, not yet the planned entity-resolution and evidence graph.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-backstage/blob/master/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
+            "https://github.com/flowency-live/bndy-serverless-api/blob/master/source-runs-lambda/backline.js"
+          ]
+        },
+        {
+          "title": "Reusable source-ingestion blueprint committed",
+          "detail": "The Lemonrock implementation, durable evidence/Claim model, AWS runtime, recovery controls, source definition of done and a concrete On The Case Music design are documented as the handover pattern for future sources.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"
+          ]
+        },
+        {
+          "title": "Lemonrock low-cost steady state deployed",
+          "detail": "Hourly new-gig and cancellation sweeps are deployed. Artist and venue directory crawling is off; profiles hydrate only from gig-led discovery. SourceDispatcher is now hourly to reduce idle AWS invocations.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json"
+          ]
+        },
+        {
+          "title": "On The Case gig-led adapter merged",
+          "detail": "On The Case now has source-native IDs, structural safety gates, bounded gig -> venue -> band fanout, unresolved open-mic/buskers handling, hourly gig scheduling, owned reconciliation lineage and completion controls. Canonical writes remain off.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/25"
+          ]
+        },
+        {
+          "title": "GigsNews stale-edition protection",
+          "detail": "A stale rendered edition is downgraded from complete so it cannot generate destructive withdrawals."
+        },
+        {
+          "title": "Scenic Eye adapter merged shadow/manual",
+          "detail": "Scenic Eye weekly-edition ingestion is implemented with derived identities and stale-edition protection. It remains unscheduled pending a source-specific cadence decision.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/27"
+          ]
+        },
+        {
+          "title": "Insangel and Norfolk reconnaissance retained",
+          "detail": "Both sources are explicitly fixture/AWS-reachability gated. No blind adapters or acquisition-evasion work will proceed.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/26"
+          ]
+        }
+      ],
+      "now": [
+        {
+          "title": "Current Backline phase",
+          "detail": "We are still primarily in evidence hydration. Source feeds acquire pages/documents, preserve immutable evidence, turn facts into atomised Claims, and attach source-native Artist/Venue/Gig identities. The next major phase is intelligence: resolve which source identities represent the same real Artist/Venue/Event, classify unresolved/conflicted identities, corroborate and infer better-supported facts, then compare/project only high-confidence results through canonical BNDY APIs. Canonical writes remain disabled for the national source families while this evidence/resolution foundation is proven."
+        },
+        {
+          "title": "Lemonrock feed status",
+          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps are deployed. Artist/Venue directory crawling is off; profiles hydrate only when referenced by gigs. The low-cost steady state is correct, but the older national bootstrap/recovery corpus is not yet declared complete. Canonical writes remain disabled.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json"
+          ]
+        },
+        {
+          "title": "On The Case feed status",
+          "detail": "LIVE SHADOW ACTIVATION. Hourly /gigs discovery with bounded gig -> venue -> band hydration; no scheduled band/venue directory crawling. The first live hydration exposed a shared duplicate-Claim persistence bug, now fixed. A fresh production shadow reconciliation is running to prove clean venue/band hydration and completion lineage. Canonical writes remain disabled.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/actions/workflows/onthecase-shadow-bootstrap.yml",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-reconciliation-manifest.json"
+          ]
+        },
+        {
+          "title": "KLMA feed status",
+          "detail": "PROVEN VERTICAL SLICE, NOT YET GENERIC STEADY STATE. Live KLMA acquisition has produced Observation/Claims and safely projected an additive sample with read-back. The remaining work is to complete its generic Source Runner cutover and retire the older Cowork-owned path."
+        },
+        {
+          "title": "GigsNews feed status",
+          "detail": "ADAPTER READY, NOT LIVE SCHEDULED. Parser/adapter and stale-edition protection exist. Because it is a human-curated weekly aggregation, disappearance from a later page is not treated as cancellation evidence. Production cadence/cutover still needs completing."
+        },
+        {
+          "title": "Scenic Eye feed status",
+          "detail": "IMPLEMENTED SHADOW/MANUAL. Weekly-edition ingestion, fixture coverage and stale-edition protection are merged. It is deliberately unscheduled until its source-specific operating cadence and production bootstrap are agreed/proven."
+        },
+        {
+          "title": "Insangel feed status",
+          "detail": "RECONNAISSANCE ONLY. No production adapter. Implementation is fixture-gated because reliable acquisition has not yet been proven."
+        },
+        {
+          "title": "Norfolk Gig Guide feed status",
+          "detail": "RECONNAISSANCE ONLY. Promising native identities, but implementation is gated on captured fixtures and proof that the source is reachable safely from AWS. No acquisition-evasion work."
+        },
+        {
+          "title": "Lemonrock is Backline's first national flagship source",
+          "detail": "The committed plan deliberately bootstraps the complete discoverable UK Lemonrock artist, venue and future-gig universe into source-native identities, immutable evidence and rich Claims before selective canonical projection.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/f51d3ba6f10860da6b47d2fcc06853761188bca6"
+          ]
+        },
+        {
+          "title": "BNDY Backline is a logical layer, not another app",
+          "detail": "It lives inside the bndy-enrichment AWS runtime: Source Registry/Runner + S3 evidence + DynamoDB observations/claims + queues/workers + projection policy. The public BNDY database remains the canonical product projection, not the intelligence store."
+        },
+        {
+          "title": "Dual-path operating rule",
+          "detail": "Building durable evidence/claims must not delay live gig publication. A trusted source can create claims and immediately project through canonical BNDY APIs while BNDY Backline keeps the evidence history for later reconciliation."
+        },
+        {
+          "title": "Source authority is source-specific",
+          "detail": "KLMA is a controlled enduring community calendar and can support immediate additive projection. GigsNews is a human-curated weekly aggregation, so absence from a later page is not by itself cancellation evidence."
+        },
+        {
+          "title": "Two generations of claims thinking exist",
+          "detail": "bndy-signals contains the older cognitive runtime; bndy-enrichment/BNDY Backline contains the strategic architecture."
+        },
+        {
+          "title": "Complete national Lemonrock ingestion",
+          "detail": "Rate-safe recovery is draining the previously failed logical work. Do not declare completion until the final live manifest proves required branches, all inventory controls, terminal tasks and two stable zero readings for both queue and DLQ. Shadow mode remains on and canonical writes remain disabled.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/32944305034"
+          ]
+        },
+        {
+          "title": "Persist Lemonrock identity resolution",
+          "detail": "Turn source-native Artist, Venue and Gig evidence into explicit resolved, unresolved or conflicted identity state. Evidence volume alone is not yet an operational graph.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        },
+        {
+          "title": "Build the real Godmode evidence graph",
+          "detail": "Extend the read-only API and Explorer from task/Claim inspection to bounded traversal across Sources, source identities, canonical entities, Claims, Observations, conflicts and projection decisions.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        },
+        {
+          "title": "Prepare shadow projection comparison",
+          "detail": "After completeness and resolution, derive explainable best-supported values and compare them with canonical BNDY without enabling mass writes.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        }
+      ],
+      "next": [
+        {
+          "title": "Controlled Backline projection",
+          "detail": "Enable only a bounded high-confidence cohort through canonical APIs with read-back, owner protection, stop thresholds and recorded projection decisions.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        },
+        {
+          "title": "Converge BNDY-originated changes",
+          "detail": "Extend durable Backline provenance from the new user-created Artist path to Venue, Event, Festival, Capture and assisted-creation changes after parity gates.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        },
+        {
+          "title": "Migrate useful Signals concepts",
+          "detail": "Salvage source adapters, review semantics and useful ADRs from bndy-signals, then retire its runtime."
+        },
+        {
+          "title": "Daily Backline discovery metrics",
+          "detail": "Publish a daily source-family view of discovered gigs, additions, withdrawals, unresolved identities, failures and coverage so Backline progress is visible without reconstructing logs."
+        },
+        {
+          "title": "Generic entity enrichment worker",
+          "detail": "Continuously improve Artists and Venues BNDY actually holds using freshness/quality gaps and source evidence, instead of every source inventing recurring directory crawlers."
+        }
+      ]
+    },
+    {
+      "id": "source-automation",
+      "title": "Automated source acquisition",
+      "objective": "Continuously discover grassroots artists, venues and gigs without manual database entry.",
+      "health": "amber",
+      "deliveryState": "building",
+      "targetState": true,
+      "repos": [
+        "enrichment",
+        "mcp",
+        "api"
+      ],
+      "done": [
+        {
+          "title": "National Lemonrock implementation plan committed",
+          "detail": "The full national bootstrap, rich artist/venue hydration, source-native identity, legacy Cowork repair, change-detection, cancellation, reconciliation and Backline Explorer plan is now committed in bndy-enrichment as docs/LEMONROCK-NATIONAL-INGESTION.md.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/f51d3ba6f10860da6b47d2fcc06853761188bca6"
+          ]
+        },
+        {
+          "title": "Source Registry, dispatcher and queues exist",
+          "detail": "A 15-minute EventBridge SourceDispatcher, due-source registry query, standard/browser queues and DLQs, generic Source Runner and ProjectionQueue/worker are already implemented in bndy-enrichment."
+        },
+        {
+          "title": "KLMA live vertical slice proven",
+          "detail": "KLMA can fetch the live enduring Google Sheet, create immutable observations and claims, project a safe additive sample through canonical Artist/Venue/Event APIs, and verify the event by read-back. Most rows already exist in BNDY; the important recurring behaviour is detecting newly added gigs as the same sheet evolves.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/6fd66f4314fc35900dcb2bfbba263a8fb897eb4b"
+          ]
+        },
+        {
+          "title": "GigsNews parser/adapter and parity harness ported",
+          "detail": "The recurring GigsNews HTML structure has been ported and parity/cutover tooling exists. This is not yet live scheduled ingestion into BNDY.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/e8a7c9ad78130320bce2d74e5938ae452328372b",
+            "https://github.com/flowency-live/bndy-enrichment/commit/ab8e0d4cef921ac9f525bbf8b360c5be19b9e919"
+          ]
+        },
+        {
+          "title": "Canonical duplicate gates proven",
+          "detail": "Artist, venue and event APIs safely reject duplicates while returning reusable canonical identity."
+        },
+        {
+          "title": "Lemonrock national source family deployed in shadow mode",
+          "detail": "Artist, Venue and Gig discovery/hydration plus fast-change and cancellation sources run on the Backline serverless source runtime. National completeness remains an active gate, not a completed claim.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        },
+        {
+          "title": "Lemonrock rate-safe recovery deployed",
+          "detail": "Production now limits standard source concurrency to two, uses bounded retry/backoff and replays the existing DLQ at one message per second. The broken duplicate workflow_dispatch key in the final manifest workflow was removed so completion monitoring can run again.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/c9096093089b4ef6a006b2d4992a8f441d1ce927",
+            "https://github.com/flowency-live/bndy-enrichment/commit/1f3db3785a03bb6d95aa0662cc77047ef4236091"
+          ]
+        },
+        {
+          "title": "Lemonrock low-cost gig-led operating model deployed",
+          "detail": "Production now checks the new-gig and explicit-cancellation feeds hourly, performs one bounded future-gig health check daily and one future-gig reconciliation monthly. Artist and Venue profiles are hydrated only when linked from a discovered gig; scheduled Artist, Venue and full-directory crawling is off. The verified scheduled root footprint is 1,471 runs per 30 days. Backline remains shadowed and canonical writes remain disabled.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/23",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/32972919883",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"
+          ]
+        },
+        {
+          "title": "On The Case gig-led source family deployed to shadow",
+          "detail": "The adapter is merged with native numeric identities, structural safety gates, hourly gig discovery, bounded gig -> venue -> band hydration, explicit unresolved open-mic/buskers handling and owned reconciliation controls. Live completion is still gated on the current post-fix shadow reconciliation.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/25"
+          ]
+        }
+      ],
+      "now": [
+        {
+          "title": "Monitor Lemonrock bootstrap recovery to completion",
+          "detail": "Own the historical national-bootstrap recovery until it is proven complete from live AWS evidence. Check the standard queue and DLQ, in-flight/delayed counts, failed and non-terminal logical tasks, reconciliation root state, required branches, all Artist/Venue directory controls and the advertised-versus-discovered future-gig inventory. Publish a fresh sanitised manifest when state changes materially. Completion requires all discovered tasks terminal, no unresolved failures, every inventory control satisfied, and queue plus DLQ visible/in-flight/delayed counts at zero for two consecutive readings. On success, mark the bootstrap complete and stop the completion watch. Do not launch another national reconciliation, repeatedly crawl directories, enable canonical writes or project to canonical BNDY merely to make the gate pass. If progress stalls or failures recur, diagnose the exact task/error class and continue only the bounded recovery path.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"
+          ]
+        },
+        {
+          "title": "Kill KLMA Cowork remains queued",
+          "detail": "The KLMA AWS cutover is still required, but Lemonrock is now the immediate build priority for the Mac demonstration."
+        },
+        {
+          "title": "Prove On The Case shadow completion after Claim dedupe fix",
+          "detail": "A shared duplicate deterministic Claim bug caused the first live venue hydration pass to fail. The shared knowledge builder now deduplicates claims before conditional persistence. Re-run the bounded production shadow reconciliation and require clean scoped completion evidence before calling the feed healthy or considering projection."
+        }
+      ],
+      "next": [
+        {
+          "title": "Complete Lemonrock resolution and Explorer visibility",
+          "detail": "Classify every source-native identity as resolved, unresolved or conflicted and expose the real relationships and evidence through the Godmode graph.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+          ]
+        },
+        {
+          "title": "KLMA fast cutover",
+          "detail": "Package/wire KLMA into the generic SourceAdapter/Runner path, shadow parity, verify live projection, flip writer authority and retire Cowork."
+        },
+        {
+          "title": "Build GigsNews production ingestion",
+          "detail": "Turn the ported parser/adapter into a scheduled AWS source: acquire the weekly HTML, snapshot it, identify new or changed listings, create claims/evidence and project safe additions through canonical APIs."
+        }
+      ]
+    },
+    {
+      "id": "venue-workers",
+      "title": "Venue listing workers",
+      "objective": "Keep high-value venue calendars fresh by revisiting known reliable venue websites on a predictable cadence.",
+      "health": "blue",
+      "deliveryState": "planned",
+      "targetState": true,
+      "repos": [
+        "enrichment",
+        "api"
+      ],
+      "done": [
+        {
+          "title": "Capability fits the Source Registry model",
+          "detail": "Known venue websites are sources. Their pages can be scheduled, observed, interpreted into event claims and deduped through the normal projection path."
+        }
+      ],
+      "now": [
+        {
+          "title": "Define the watched-venue registry",
+          "detail": "Identify venues with reliable, actively maintained listings and store source URL, parsing/acquisition strategy, cadence and last successful scan."
+        }
+      ],
+      "next": [
+        {
+          "title": "Weekly venue worker schedule",
+          "detail": "Run one source job per watched venue weekly, with retry/backoff and a faster cadence only where evidence justifies it."
+        },
+        {
+          "title": "Delta new listings into Claims",
+          "detail": "Only new/changed gigs become claims. Existing gigs dedupe normally; removed listings are not treated as cancellations unless source semantics are explicit."
+        },
+        {
+          "title": "Venue freshness dashboard",
+          "detail": "Show last checked, last changed, failures and new gigs found in Godmode so reliable sources can be expanded safely."
+        }
+      ]
+    },
+    {
+      "id": "meta-facebook",
+      "title": "Meta / Facebook presence",
+      "objective": "Give BNDY an official Meta identity and make Facebook a supported public intake channel without personal-account automation.",
+      "health": "amber",
+      "deliveryState": "building",
+      "targetState": false,
+      "repos": [
+        "website",
+        "api",
+        "capture"
+      ],
+      "done": [
+        {
+          "title": "BNDY Facebook Page created",
+          "detail": "The public Page exists and Meta developer setup has been started."
+        },
+        {
+          "title": "Facebook URLs work without Graph dependency",
+          "detail": "Public source inspection and Capture can resolve useful Facebook evidence without making privileged Graph access a core dependency."
+        }
+      ],
+      "now": [
+        {
+          "title": "Meta app setup is not yet a finished product channel",
+          "detail": "Page/app configuration work exists, but Messenger intake and production permissions are not yet complete."
+        }
+      ],
+      "next": [
+        {
+          "title": "Messenger Send to bndy",
+          "detail": "Webhook BNDY Page messages into Capture using the same transport-neutral submission model."
+        },
+        {
+          "title": "Complete Meta permissions/app review",
+          "detail": "Only request the permissions actually needed for messaging and public BNDY identity."
+        }
+      ]
+    },
+    {
+      "id": "whatsapp",
+      "title": "WhatsApp Send to bndy",
+      "objective": "Let anybody send a poster, link or event message to BNDY like messaging a friend.",
+      "health": "blue",
+      "deliveryState": "planned",
+      "targetState": true,
+      "repos": [
+        "capture",
+        "enrichment"
+      ],
+      "done": [
+        {
+          "title": "Architecture/spec decided",
+          "detail": "WhatsApp is a transport into Capture, not another ingestion brain. Message IDs provide dedupe; media is downloaded then stored as Capture evidence."
+        }
+      ],
+      "now": [
+        {
+          "title": "Not built yet",
+          "detail": "No production WhatsApp webhook/number intake has been completed."
+        }
+      ],
+      "next": [
+        {
+          "title": "Cloud API webhook",
+          "detail": "Verify Meta signature, acknowledge quickly, enqueue work and map text/media into Capture."
+        },
+        {
+          "title": "Public BNDY number",
+          "detail": "Configure the BNDY WhatsApp Business number and simple acknowledgement/status replies."
+        }
+      ]
+    },
+    {
+      "id": "analytics",
+      "title": "Analytics & traffic",
+      "objective": "Understand usage across every BNDY surface without adding unnecessary cost or complexity.",
+      "health": "green",
+      "deliveryState": "building",
+      "targetState": false,
+      "repos": [
+        "app",
+        "backstage",
+        "website",
+        "chatzone"
+      ],
+      "done": [
+        {
+          "title": "Cloudflare Web Analytics added to bndy.live",
+          "detail": "The public app emits privacy-friendly web analytics."
+        },
+        {
+          "title": "Godmode traffic panel",
+          "detail": "Backstage has a Cloudflare traffic dashboard/client."
+        }
+      ],
+      "now": [
+        {
+          "title": "Coverage is not yet estate-wide",
+          "detail": "www.bndy.co.uk, chat.bndy.live and other browser surfaces need an explicit analytics coverage check."
+        }
+      ],
+      "next": [
+        {
+          "title": "One analytics coverage matrix",
+          "detail": "Track visits, submissions, successful additions, searches, map interactions and PWA installs across all public surfaces."
+        }
+      ]
+    },
+    {
+      "id": "editions-brass",
+      "title": "Editions / Brass bands",
+      "objective": "Support scoped BNDY editions without duplicating the core platform or leaking edition-only records into the main public product.",
+      "health": "amber",
+      "deliveryState": "building",
+      "targetState": true,
+      "repos": [
+        "api",
+        "website",
+        "app",
+        "enrichment"
+      ],
+      "done": [
+        {
+          "title": "Publication-scope contract implemented",
+          "detail": "Artists, venues, events and festivals have edition-aware public filtering while legacy unscoped records stay live."
+        },
+        {
+          "title": "Brass architecture explainer added",
+          "detail": "www.bndy.co.uk documents the brass-bands architecture and public-source approach."
+        },
+        {
+          "title": "Atomic edition-scoped creation added",
+          "detail": "Canonical creation has explicit edition-scoping support."
+        }
+      ],
+      "now": [
+        {
+          "title": "Brass edition v2 UI",
+          "detail": "A current bndy-app branch/PR is rebuilding the brass edition on current main with Concerts, Bands, Festivals and dual-mode map.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/pull/16"
+          ]
+        },
+        {
+          "title": "Evidence-first brass discovery",
+          "detail": "Edition-aware enrichment policy, 2026 band bootstrap, identity inference and no-write projection commands are under active build.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/17"
+          ]
+        }
+      ],
+      "next": [
+        {
+          "title": "Deploy isolated brass read path",
+          "detail": "Prove the brass read API/UI against edition-scoped data without any fallback to live records."
+        },
+        {
+          "title": "Promote brass intelligence from no-write to controlled projection",
+          "detail": "Only after publication-scope guardrails, identity confidence and parity gates are production-proven."
+        }
+      ]
+    },
+    {
+      "id": "api-security",
+      "title": "API security & platform hardening",
+      "objective": "Keep the canonical backend auditable, least-privilege and safe for humans, public apps and agent integrations.",
+      "health": "amber",
+      "deliveryState": "building",
+      "targetState": false,
+      "repos": [
+        "api"
+      ],
+      "done": [
+        {
+          "title": "Machine-readable route security baseline",
+          "detail": "SEC-00 added trust-zone policy, route inventory generation and mutation/authorizer checks.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-serverless-api/pull/3"
+          ]
+        },
+        {
+          "title": "Secrets and CI baseline remediated",
+          "detail": "Cognito credentials moved out of tracked config, SAM validation was hardened and backend test/audit baseline improved.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-serverless-api/pull/5"
+          ]
+        },
+        {
+          "title": "Source inspector deployment drift hardened",
+          "detail": "Recent workflow changes reconcile the Facebook source-inspector route after normal API deployment."
+        }
+      ],
+      "now": [
+        {
+          "title": "Keep security policy aligned with new curator and edition routes",
+          "detail": "Every new mutation route should have an explicit trust-zone decision rather than inheriting access accidentally."
+        }
+      ],
+      "next": [
+        {
+          "title": "Explicit public route allowlist",
+          "detail": "Continue the SEC programme so unknown/new routes fail closed against the declared public surface."
+        },
+        {
+          "title": "Finish SDK/dependency hardening",
+          "detail": "Plan remaining AWS SDK v2/transitive dependency migration without destabilising the production API."
+        }
+      ]
+    },
+    {
+      "id": "website-brand",
+      "title": "Public website & proposition",
+      "objective": "Explain what BNDY is, why it exists and how the ecosystem fits together.",
+      "health": "green",
+      "deliveryState": "live",
+      "targetState": false,
+      "repos": [
+        "website"
+      ],
+      "done": [
+        {
+          "title": "New public website",
+          "detail": "bndy-website is the current www.bndy.co.uk brand/proposition site."
+        },
+        {
+          "title": "Audience-specific copy and policy",
+          "detail": "Gig-goer, artist, venue, promise, why and policy material has been built out."
+        },
+        {
+          "title": "Workboard v1 live",
+          "detail": "The JSON-backed operating board is deployed on www.bndy.co.uk/workboard."
+        }
+      ],
+      "now": [
+        {
+          "title": "Workboard focus controls",
+          "detail": "Add collapsible swimlanes, independent column collapse, NOW-only focus and explicit target-state stamps."
+        }
+      ],
+      "next": [
+        {
+          "title": "Use workboard as the agent coordination surface",
+          "detail": "Agents update structured JSON in the repo and use the same stable stream IDs rather than inventing new parallel plans."
+        }
+      ]
+    },
+    {
+      "id": "repo-consolidation",
+      "title": "Repository consolidation",
+      "objective": "Make it obvious which repositories are live, supporting, legacy or safe to ignore.",
+      "health": "amber",
+      "deliveryState": "building",
+      "targetState": false,
+      "repos": [
+        "signals",
+        "frontstage",
+        "mcp",
+        "types",
+        "ui",
+        "legacy-other"
+      ],
+      "done": [
+        {
+          "title": "Frontstage explicitly decommissioned",
+          "detail": "Do not use bndy-frontstage for current product work."
+        },
+        {
+          "title": "Chatzone removed from Signals",
+          "detail": "One major accidental duplicate runtime has been eliminated from the live public ingestion path."
+        }
+      ],
+      "now": [
+        {
+          "title": "Too many plausible-looking repositories remain",
+          "detail": "Older bndy.live/beta/centrestage/portal/api/infrastructure repos can still confuse humans and agents."
+        }
+      ],
+      "next": [
+        {
+          "title": "Archive or label legacy repos",
+          "detail": "Confirm live dependencies, then archive obsolete repos or add unmistakable README banners."
+        },
+        {
+          "title": "Define repo ownership map",
+          "detail": "Each capability should name exactly one primary repo and one canonical backend path."
+        }
+      ]
+    }
+  ]
+}
