@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-26T22:36:44.461691Z",
-  "updatedBy": "Backline source-status reconciliation",
+  "updatedAt": "2026-08-26T22:58:22.153723Z",
+  "updatedBy": "Backline source discovery 2026-08-26",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -812,6 +812,10 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/25"
           ]
+        },
+        {
+          "title": "Rejected source candidates \u2014 26 August 2026",
+          "detail": "yorkshiregigguide.co.uk \u2014 editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk \u2014 DNS dead. yorkshirecoastgigs.co.uk \u2014 content stale since 2016-2017. thebristolgigguide.com \u2014 reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk \u2014 active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) \u2014 403, unreachable. gig-guide.co.uk \u2014 multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange \u2014 excluded aggregator class (GigXchange excluded by Jason)."
         }
       ],
       "now": [
@@ -832,6 +836,10 @@
         {
           "title": "Prove On The Case shadow completion after Claim dedupe fix",
           "detail": "A shared duplicate deterministic Claim bug caused the first live venue hydration pass to fail. The shared knowledge builder now deduplicates claims before conditional persistence. Re-run the bounded production shadow reconciliation and require clean scoped completion evidence before calling the feed healthy or considering projection."
+        },
+        {
+          "title": "New Backline sources found \u2014 26 August 2026",
+          "detail": "Source discovery pass completed. Three sources selected for planned Backline onboarding, one regional coverage gap documented, and lower-value/blocked aggregator candidates rejected."
         }
       ],
       "next": [
@@ -849,6 +857,22 @@
         {
           "title": "Build GigsNews production ingestion",
           "detail": "Turn the ported parser/adapter into a scheduled AWS source: acquire the weekly HTML, snapshot it, identify new or changed listings, create claims/evidence and project safe additions through canonical APIs."
+        },
+        {
+          "title": "Norfolk Gig Guide \u2014 selected",
+          "detail": "https://www.norfolkgigguide.com/ \u2014 Norfolk / Norwich (East Anglia). Plan committed, fixture-gated. ~2,600 acts, native numeric band IDs, no per-gig URLs. Origin 403s non-browser clients."
+        },
+        {
+          "title": "DGWGO Events \u2014 selected",
+          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ \u2014 Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
+        },
+        {
+          "title": "Brighton Gigs \u2014 selected",
+          "detail": "https://brightongigs.uk/ \u2014 Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
+        },
+        {
+          "title": "Lancashire source gap",
+          "detail": "Lancashire (Preston to coast): no dedicated grassroots gig guide exists. Coverage route: WP-16 venue Gig Sources (venue websites directly) plus Lemonrock national. CAMRA Blackpool pub guide (https://blackpool.camra.org.uk/pubguide) is useful for venue live-music flags only, no gigs."
         }
       ]
     },
