@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-27T14:54:45.000Z",
-  "updatedBy": "Backline KLMA cutover-safety checkpoint 2026-08-27",
+  "updatedAt": "2026-08-27T22:44:30.130Z",
+  "updatedBy": "Backline Lemonrock national bootstrap completion 2026-08-27",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -551,11 +551,13 @@
           ]
         },
         {
-          "title": "National Lemonrock evidence corpus operating in AWS",
-          "detail": "The national Lemonrock source family is producing immutable evidence, Observations and Claims in shadow mode. This is a substantial live corpus, but it is deliberately not marked complete until bootstrap recovery and a successful full national reconciliation pass the owned completion gates.",
+          "title": "National Lemonrock bootstrap completed in AWS",
+          "detail": "COMPLETE LIVE SHADOW. The single owned national reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 passed its terminal manifest at 22:44 UTC on 27 Aug. All 28,504 logical tasks completed with zero failures; active queue and DLQ are zero; directory and future-gig inventory controls pass. The corpus contains 7,787 discoverable future Gig identities, 2,220 Venue identities and 2,254 Artist identities. The 74-item gap against Lemonrock's earlier advertised count is covered by explicit terminal 410 evidence, not fabricated identities or inferred cancellations. Immutable evidence, Observations and Claims remain in shadow mode and canonical writes remain disabled.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33120136044",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33123589794"
           ]
         },
         {
@@ -575,9 +577,10 @@
         },
         {
           "title": "Lemonrock low-cost steady state deployed",
-          "detail": "Hourly new-gig and cancellation sweeps are deployed. Artist and venue directory crawling is off; profiles hydrate only from gig-led discovery. SourceDispatcher is now hourly to reduce idle AWS invocations.",
+          "detail": "VERIFIED BAU SHADOW. Hourly new-gig and explicit-cancellation sweeps, a daily bounded future-health check and monthly future reconciliation remain deployed. Artist and Venue directories are unscheduled; profiles hydrate only when referenced by gigs. Source worker concurrency remains capped at two, shadow mode remains on and canonical writes remain off.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json"
           ]
         },
         {
@@ -617,24 +620,24 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Evidence hydration is proven for Lemonrock and On The Case at meaningful scale. The active phase is to prove Lemonrock national completeness, qualify KLMA as the first bounded additive-only canonical canary, add daily discovery metrics, resolve source identities, enrich known canonical Artists and Venues under hard safety budgets, and expose the evidence graph in Godmode. Canonical writes remain disabled for national source families."
+          "detail": "Lemonrock national bootstrap is complete and operating in low-cost shadow BAU. The active Backline delivery phase is now KLMA quality parity and bounded additive-only cutover, followed by GigsNews production shadow, discovery-metrics deployment, identity resolution, qualified entity enrichment and the interactive Godmode evidence graph. Canonical writes remain disabled for national source families."
         },
         {
           "title": "Lemonrock feed status",
-          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps remain deployed. Artist/Venue directory crawling is off and profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies remain retained in non-consuming quarantine. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 is actively draining. The 14:09 UTC manifest reports 7,735 of 7,861 advertised future gigs discovered (98.4%), 9,346 tasks completed, 14,384 queued, one running, 14,364 queue messages visible, one in flight, one gig fetch failure in the active DLQ and both directory inventory gates passing. Gig-linked Venue hydration still reports zero in the running deployment. PR #51 fixes the missing gig-led Venue fanout and false cancellation parsing, passed CI and is merged, but is deliberately not deployed into the active audit. GitHub's hourly monitor cron has emitted no scheduled runs; the separate hourly condition watch continues to check progress, terminal completion, failures, stalls and manifest staleness. Canonical writes remain disabled.",
+          "detail": "COMPLETE / BAU LIVE SHADOW. Final 22:44 UTC manifest: 28,504 completed tasks, zero failed/queued/running, active queue zero, active DLQ zero, all discovered tasks terminal and inventory coverage passed. Coverage comprises 7,787 discoverable future Gig identities plus explicit terminal 410 evidence for the 74-item advertised gap; 756 gone index pages and nine gone Gig details are retained without inferring cancellation. Gig-led hydration produced 2,220 Venue and 2,254 Artist identities. All 6,047 superseded delivery copies are retained in non-consuming quarantine with no replay or purge. Hourly new-gig/cancellation, daily health and monthly future checks remain deployed; directories remain off. Shadow mode is on and canonical writes are off.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/32",
-            "https://github.com/flowency-live/bndy-enrichment/pull/41",
-            "https://github.com/flowency-live/bndy-enrichment/pull/43",
-            "https://github.com/flowency-live/bndy-enrichment/pull/44",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33063985322",
-            "https://github.com/flowency-live/bndy-enrichment/pull/50",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622",
-            "https://github.com/flowency-live/bndy-enrichment/pull/51"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33120136044",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33119366369",
+            "https://github.com/flowency-live/bndy-enrichment/pull/51",
+            "https://github.com/flowency-live/bndy-enrichment/pull/56",
+            "https://github.com/flowency-live/bndy-enrichment/pull/57",
+            "https://github.com/flowency-live/bndy-enrichment/pull/58",
+            "https://github.com/flowency-live/bndy-enrichment/pull/59",
+            "https://github.com/flowency-live/bndy-enrichment/pull/60",
+            "https://github.com/flowency-live/bndy-enrichment/pull/62"
           ]
         },
         {
@@ -683,23 +686,6 @@
         {
           "title": "Two generations of claims thinking exist",
           "detail": "bndy-signals contains the older cognitive runtime; bndy-enrichment/BNDY Backline contains the strategic architecture."
-        },
-        {
-          "title": "Complete national Lemonrock ingestion",
-          "detail": "The safe national verifier is deployed and the single fresh owned reconciliation is running. At 14:09 UTC, 126 advertised gigs remained undiscovered, 14,384 logical tasks remained queued, one gig fetch remained failed in the active DLQ, and gig-linked Venue hydration still reported zero. PR #51 fixes the missing Venue fanout and false cancellation parsing in code, with CI green, but is not deployed into the active audit. Completion still requires full current future-gig coverage, a deployed and proven Venue hydration branch, targeted recovery of the one failed logical task, all discovered tasks terminal, and stable-zero source queue/DLQ readings. Do not restart the national sweep, bulk-redrive historical work, enable canonical writes or treat directory counts alone as bootstrap completion. The repository's GitHub cron is not emitting schedule events, so terminal proof must come from the read-only wake-up path or the separate hourly condition watch.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/32",
-            "https://github.com/flowency-live/bndy-enrichment/pull/41",
-            "https://github.com/flowency-live/bndy-enrichment/pull/43",
-            "https://github.com/flowency-live/bndy-enrichment/pull/44",
-            "https://github.com/flowency-live/bndy-enrichment/pull/50",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622",
-            "https://github.com/flowency-live/bndy-enrichment/pull/51"
-          ]
         },
         {
           "title": "Daily Backline discovery metrics",
@@ -810,18 +796,20 @@
         },
         {
           "title": "Lemonrock national source family deployed in shadow mode",
-          "detail": "Artist, Venue and Gig discovery/hydration plus fast-change and cancellation sources run on the Backline serverless source runtime. National completeness remains an active gate, not a completed claim.",
+          "detail": "Artist, Venue and Gig discovery/hydration plus fast-change and cancellation sources run on the Backline serverless source runtime. National bootstrap completeness is now proven by the terminal 22:44 UTC manifest; the source remains deliberately shadowed with canonical writes disabled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/backline-live-audit.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json"
           ]
         },
         {
           "title": "Lemonrock rate-safe recovery deployed",
-          "detail": "Production now limits standard source concurrency to two, uses bounded retry/backoff and replays the existing DLQ at one message per second. The broken duplicate workflow_dispatch key in the final manifest workflow was removed so completion monitoring can run again.",
+          "detail": "Production caps source-worker concurrency at two and uses bounded retry/backoff. One same-run repair replayed the pre-fix Venue fanout gap, then a final bounded pass converted 756 retryable failures into terminal evidence with zero send failures. All 6,047 superseded DLQ delivery copies are retained outside the active queue with no automatic replay or destructive purge.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/commit/c9096093089b4ef6a006b2d4992a8f441d1ce927",
-            "https://github.com/flowency-live/bndy-enrichment/commit/1f3db3785a03bb6d95aa0662cc77047ef4236091"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33119366369",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-targeted-recovery-status.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json"
           ]
         },
         {
@@ -846,27 +834,19 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/31",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-reconciliation-manifest.json"
           ]
+        },
+        {
+          "title": "Lemonrock national bootstrap proven complete",
+          "detail": "The single owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 passed at 22:44 UTC: 28,504 completed tasks, zero failures, all tasks terminal, active queue and DLQ zero, both directory inventories covered, future coverage proven by 7,787 identities plus bounded terminal 410 evidence, and gig-led Venue hydration proven at 2,220 identities. Canonical writes remained disabled throughout.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33120136044",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33123589794"
+          ]
         }
       ],
       "now": [
-        {
-          "title": "Prove Lemonrock bootstrap with a fresh national verification",
-          "detail": "Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 remains the only national sweep. The 14:09 UTC AWS-backed manifest reports 7,735 of 7,861 advertised future gigs discovered, both directory inventory gates passing, 9,346 tasks completed, 14,384 queued, one running, one gig fetch failure in the active DLQ and zero gig-linked Venue hydrations. PR #51 fixes the missing Venue branch and false cancellation parsing, passed CI and is merged, but remains undeployed so the active sweep is untouched. Continue read-only reconciliation-scoped observation until gig coverage, deployed Venue hydration, targeted failure recovery, task terminality and stable-zero queue/DLQ gates all pass. GitHub's hourly cron is not firing; the separate hourly condition watch reports meaningful progress, completion, increasing failures, stalls or staleness. Do not launch a competing reconciliation, bulk redrive, enable canonical writes or hide failed work.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md",
-            "https://github.com/flowency-live/bndy-enrichment/pull/32",
-            "https://github.com/flowency-live/bndy-enrichment/pull/41",
-            "https://github.com/flowency-live/bndy-enrichment/pull/43",
-            "https://github.com/flowency-live/bndy-enrichment/pull/44",
-            "https://github.com/flowency-live/bndy-enrichment/pull/50",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622",
-            "https://github.com/flowency-live/bndy-enrichment/pull/51"
-          ]
-        },
         {
           "title": "KLMA generic cutover and Cowork retirement",
           "detail": "CUTOVER SAFETY MERGED, NOT DEPLOYED. PR #52 adds the live headerless-sheet path, exact raw-evidence preservation, reviewed Cowork rules, per-row parity fingerprints, duplicate/collision parking, bounded volume stops and additive-only projection enforced both before queue publication and before any BNDY API call. Live read-only audit: 410 rows, 306 unique accepted, 104 parked, zero ambiguous localities and zero identity collisions; 31 defaulted-time rows remain explicit review items. Historical Gate A still needs disposition for 20 ambiguous locality rows and four collision rows. The registry remains disabled, shadowed and Cowork-owned. Next: deploy without enabling after the Lemonrock audit, complete Gate A, run two manual AWS/Cowork parity checks on different days, pause Cowork, transfer writer authority, perform one bounded bootstrap with complete read-back, then require three clean daily runs before permanent Cowork retirement.",
