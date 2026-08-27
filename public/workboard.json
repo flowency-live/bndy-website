@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-27T08:56:07.109175Z",
-  "updatedBy": "On The Case shadow completion 2026-08-27",
+  "updatedAt": "2026-08-27T10:41:00Z",
+  "updatedBy": "Backline CTO national verification launch and priorities 2026-08-27",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -617,14 +617,18 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Evidence hydration is now proven for Lemonrock and On The Case source families at meaningful scale. Backline preserves source evidence, Observations, atomised Claims and source-native identities first. The next major capability is intelligence: resolve which source identities represent the same real Artist/Venue/Event, corroborate and rank Claims by authority, surface conflicts/inference, verify where needed, then project only high-confidence changes through canonical BNDY APIs. Canonical writes remain disabled for national source families while resolution policy is built."
+          "detail": "Evidence hydration is proven for Lemonrock and On The Case at meaningful scale. The active phase is to prove Lemonrock national completeness, add daily discovery metrics, resolve source identities, enrich known canonical Artists and Venues under hard safety budgets, and expose the evidence graph in Godmode. Controlled projection is deliberately deferred until more sources and their resolution behaviour are proven. Canonical writes remain disabled for national source families."
         },
         {
           "title": "Lemonrock feed status",
-          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps are deployed. Artist/Venue directory crawling is off; profiles hydrate only when referenced by gigs. The low-cost steady state is correct, but the older national bootstrap/recovery corpus is not yet declared complete. Canonical writes remain disabled.",
+          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps are deployed. Artist/Venue directory crawling is off; profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies are retained in a separate non-consuming quarantine: the active source queue and DLQ are both zero, with no replay or purge. A fresh owned national verification launched on 27 August under reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4. Canonical writes remain disabled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/32",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33063985322"
           ]
         },
         {
@@ -672,39 +676,46 @@
         },
         {
           "title": "Complete national Lemonrock ingestion",
-          "detail": "Rate-safe recovery is draining the previously failed logical work. Do not declare completion until the final live manifest proves required branches, all inventory controls, terminal tasks and two stable zero readings for both queue and DLQ. Shadow mode remains on and canonical writes remain disabled.",
+          "detail": "The safe national verifier is deployed and a fresh owned reconciliation is running. Historical delivery copies are retained outside the active DLQ, which is now zero. Completion requires all required branches, every current future gig, directory inventory controls, gig-linked Artist/Venue hydration, no unresolved failures, all tasks terminal and stable zero source queue and DLQ readings. The hourly read-only monitor must publish the fresh manifest until the run is terminal. Shadow mode remains on and canonical writes remain disabled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/32944305034"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/32"
           ]
+        },
+        {
+          "title": "Daily Backline discovery metrics",
+          "detail": "Publish one low-cost daily source-family summary from run state, not evidence-bucket scans: new/changed/withdrawn gigs, source-native identities, resolved/unresolved/conflicted counts, profile hydration, Claims, fanout, coverage, failures, queue health and bounded cost indicators. Godmode must show trends and permit drill-down to the exact run and evidence."
+        },
+        {
+          "title": "Safe entity enrichment worker",
+          "detail": "Build a shadow-first consumer for canonical Artists and Venues that prioritises entities attached to upcoming gigs and explicit data-quality gaps. Enrichment must create evidence, Observations and atomised Claims only; never mutate canonical records directly. Use strict daily budgets, source/API allow-lists, freshness rules, confidence and conflict checks, owner protection, before/after comparisons, sampled human sanity review and hard stops for failure, volume and cost anomalies."
         },
         {
           "title": "Persist Lemonrock identity resolution",
-          "detail": "Turn source-native Artist, Venue and Gig evidence into explicit resolved, unresolved or conflicted identity state. Evidence volume alone is not yet an operational graph.",
+          "detail": "Turn source-native Artist, Venue and Gig evidence into explicit resolved, unresolved or conflicted identity state. Prefer deterministic native links and high-confidence matching; keep the unresolved set small through active candidate generation and review, but never force ambiguous identities together.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
         },
         {
-          "title": "Build the real Godmode evidence graph",
-          "detail": "Extend the read-only API and Explorer from task/Claim inspection to bounded traversal across Sources, source identities, canonical entities, Claims, Observations, conflicts and projection decisions.",
+          "title": "Build the interactive Godmode evidence graph",
+          "detail": "Create an Obsidian-style bounded graph explorer across Sources, source identities, canonical entities, Claims, Observations, conflicts and projection decisions. It must search and expand from a selected node rather than render the entire corpus, show confidence/authority visually, and drill through to exact evidence and resolution history.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
         },
         {
-          "title": "Prepare shadow projection comparison",
-          "detail": "After completeness and resolution, derive explainable best-supported values and compare them with canonical BNDY without enabling mass writes.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
-          ]
+          "title": "Build the next priority sources",
+          "detail": "Complete the KLMA generic Source Runner cutover and Cowork retirement, bring GigsNews into scheduled production shadow ingestion, and prove a low-cost Scenic Eye cadence before widening Backline projection authority."
         }
       ],
       "next": [
         {
           "title": "Controlled Backline projection",
-          "detail": "Enable only a bounded high-confidence cohort through canonical APIs with read-back, owner protection, stop thresholds and recorded projection decisions.",
+          "detail": "Deferred until more source families and resolution behaviour are proven. Then enable only a bounded high-confidence cohort through canonical APIs with read-back, owner protection, stop thresholds and recorded projection decisions.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
@@ -719,14 +730,6 @@
         {
           "title": "Migrate useful Signals concepts",
           "detail": "Salvage source adapters, review semantics and useful ADRs from bndy-signals, then retire its runtime."
-        },
-        {
-          "title": "Daily Backline discovery metrics",
-          "detail": "Publish a daily source-family view of discovered gigs, additions, withdrawals, unresolved identities, failures and coverage so Backline progress is visible without reconstructing logs."
-        },
-        {
-          "title": "Generic entity enrichment worker",
-          "detail": "Continuously improve Artists and Venues BNDY actually holds using freshness/quality gaps and source evidence, instead of every source inventing recurring directory crawlers."
         }
       ]
     },
@@ -752,7 +755,7 @@
         },
         {
           "title": "Source Registry, dispatcher and queues exist",
-          "detail": "A 15-minute EventBridge SourceDispatcher, due-source registry query, standard/browser queues and DLQs, generic Source Runner and ProjectionQueue/worker are already implemented in bndy-enrichment."
+          "detail": "An hourly EventBridge SourceDispatcher, due-source registry query, standard/browser queues and DLQs, generic Source Runner and ProjectionQueue/worker are implemented in bndy-enrichment. Source-specific schedules can run less often where freshness permits."
         },
         {
           "title": "KLMA live vertical slice proven",
@@ -815,18 +818,24 @@
       ],
       "now": [
         {
-          "title": "Monitor Lemonrock bootstrap recovery to completion",
-          "detail": "Own the historical national-bootstrap recovery until it is proven complete from live AWS evidence. Check the standard queue and DLQ, in-flight/delayed counts, failed and non-terminal logical tasks, reconciliation root state, required branches, all Artist/Venue directory controls and the advertised-versus-discovered future-gig inventory. Publish a fresh sanitised manifest when state changes materially. Completion requires all discovered tasks terminal, no unresolved failures, every inventory control satisfied, and queue plus DLQ visible/in-flight/delayed counts at zero for two consecutive readings. On success, mark the bootstrap complete and stop the completion watch. Do not launch another national reconciliation, repeatedly crawl directories, enable canonical writes or project to canonical BNDY merely to make the gate pass. If progress stalls or failures recur, diagnose the exact task/error class and continue only the bounded recovery path.",
+          "title": "Prove Lemonrock bootstrap with a fresh national verification",
+          "detail": "Historical DLQ delivery copies are retained in a separate non-consuming quarantine and the active queue/DLQ preflight is clean. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 launched successfully on 27 August. Directory pages are completeness controls only; dormant member profiles are not hydrated. Monitor it hourly until required branches, advertised inventory, current future gigs, gig-linked profiles, task terminality and stable zero queue/DLQ gates all pass. If failures recur, diagnose and recover only the affected logical tasks under low-rate hard stops. Do not enable canonical writes or hide failed work to make the gate pass.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md"
+            "https://github.com/flowency-live/bndy-enrichment/pull/32"
           ]
         },
         {
-          "title": "Kill KLMA Cowork remains queued",
-          "detail": "The KLMA AWS cutover is still required, but Lemonrock is now the immediate build priority for the Mac demonstration."
+          "title": "KLMA generic cutover and Cowork retirement",
+          "detail": "Priority source work alongside Lemonrock verification. Package KLMA into the generic SourceAdapter/Runner path, prove shadow parity and controlled read-back, transfer recurring authority, then remove the older Cowork-owned runtime without running both writers."
+        },
+        {
+          "title": "GigsNews and Scenic Eye production shadow",
+          "detail": "Make GigsNews a scheduled weekly source with immutable snapshots and no cancellation inference from page absence. Select and prove a low-cost Scenic Eye cadence with stale-edition protection. Both remain shadowed until completeness and identity metrics are visible."
         },
         {
           "title": "New Backline sources found \u2014 26 August 2026",
@@ -844,14 +853,6 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
-        },
-        {
-          "title": "KLMA fast cutover",
-          "detail": "Package/wire KLMA into the generic SourceAdapter/Runner path, shadow parity, verify live projection, flip writer authority and retire Cowork."
-        },
-        {
-          "title": "Build GigsNews production ingestion",
-          "detail": "Turn the ported parser/adapter into a scheduled AWS source: acquire the weekly HTML, snapshot it, identify new or changed listings, create claims/evidence and project safe additions through canonical APIs."
         },
         {
           "title": "Norfolk Gig Guide \u2014 selected",
