@@ -1,0 +1,42 @@
+name: Finalise On The Case workboard once
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: contains(github.event.head_commit.message, 'Finalise On The Case workboard')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update workboard
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+          p=Path('public/workboard.json'); d=json.loads(p.read_text())
+          d['updatedAt']=datetime.now(timezone.utc).isoformat().replace('+00:00','Z')
+          d['updatedBy']='On The Case shadow completion 2026-08-27'
+          lanes={x['id']:x for x in d['lanes']}; b=lanes['intelligence']; a=lanes['source-automation']
+          def remove(items,titles): return [x for x in items if x.get('title') not in titles]
+          titles={'On The Case feed status','Current Backline phase','Prove On The Case shadow completion after Claim dedupe fix','On The Case gig-led source family deployed to shadow'}
+          for lane in (b,a):
+            for k in ('done','now','next'): lane[k]=remove(lane.get(k,[]),titles)
+          b['now'].insert(0,{'title':'Current Backline phase','detail':'Evidence hydration is now proven for Lemonrock and On The Case source families at meaningful scale. Backline preserves source evidence, Observations, atomised Claims and source-native identities first. The next major capability is intelligence: resolve which source identities represent the same real Artist/Venue/Event, corroborate and rank Claims by authority, surface conflicts/inference, verify where needed, then project only high-confidence changes through canonical BNDY APIs. Canonical writes remain disabled for national source families while resolution policy is built.'})
+          b['done'].append({'title':'On The Case feed status','detail':'HEALTHY LIVE SHADOW. Owned gig-led reconciliation on 27 Aug completed 145/145 scoped tasks with zero failures: 1 gig index, 29 gig-linked venue hydrations and 115 gig-linked band hydrations. Shared duplicate-Claim persistence and failed-task replay defects are fixed; explicit reconciliations now carry complete gig -> venue -> band lineage while BAU retains daily venue / weekly band dedupe. Directory roots remain manual audit/bootstrap paths. Canonical writes remain disabled.','evidence':['https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-reconciliation-manifest.json','https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-live-probe.json']})
+          a['done'].append({'title':'On The Case gig-led source family deployed to shadow','detail':'Production shadow path is proven end-to-end for evidence hydration. Hourly gig-led discovery fans only to referenced venues then referenced bands. A clean owned reconciliation completed 145/145 tasks with zero scoped failures. Manual directory/audit coverage has been restored in CI. Canonical projection remains off.','evidence':['https://github.com/flowency-live/bndy-enrichment/pull/30','https://github.com/flowency-live/bndy-enrichment/pull/31','https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-reconciliation-manifest.json']})
+          a['now'].append({'title':'On The Case BAU observation','detail':'Observe the live hourly gig root under normal low-cost operation. No recurring band or venue directory scans. Venue hydration is daily-deduped and band hydration weekly-deduped; explicit owned reconciliations are separately scoped so audit/recovery can prove full lineage without changing BAU cost.'})
+          p.write_text(json.dumps(d,indent=2)+'\n')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "bndy-workboard-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/workboard.json
+          git commit -m "Finalise On The Case shadow status" || exit 0
+          git push origin HEAD:main
