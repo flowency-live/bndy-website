@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-27T13:35:47.536Z",
-  "updatedBy": "Backline CTO live reconciliation checkpoint 2026-08-27",
+  "updatedAt": "2026-08-27T14:54:45.000Z",
+  "updatedBy": "Backline KLMA cutover-safety checkpoint 2026-08-27",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -617,11 +617,11 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Evidence hydration is proven for Lemonrock and On The Case at meaningful scale. The active phase is to prove Lemonrock national completeness, add daily discovery metrics, resolve source identities, enrich known canonical Artists and Venues under hard safety budgets, and expose the evidence graph in Godmode. Controlled projection is deliberately deferred until more sources and their resolution behaviour are proven. Canonical writes remain disabled for national source families."
+          "detail": "Evidence hydration is proven for Lemonrock and On The Case at meaningful scale. The active phase is to prove Lemonrock national completeness, qualify KLMA as the first bounded additive-only canonical canary, add daily discovery metrics, resolve source identities, enrich known canonical Artists and Venues under hard safety budgets, and expose the evidence graph in Godmode. Canonical writes remain disabled for national source families."
         },
         {
           "title": "Lemonrock feed status",
-          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps remain deployed. Artist/Venue directory crawling is off and profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies remain retained in non-consuming quarantine. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 is actively draining. The 13:05 UTC manifest reports 7,599 of 7,861 advertised future gigs discovered (96.7%), 6,913 tasks completed, 16,280 queued, one running, 16,233 queue messages visible, two in flight, one gig fetch failure in the active DLQ and both directory inventory gates passing. Gig-linked Venue hydration still reports zero and is a formal diagnosis/completion gate. GitHub's hourly monitor cron has emitted no scheduled runs; read-only PR #50 produced the current checkpoint, and a separate hourly condition watch now checks progress, terminal completion, failures, stalls and manifest staleness. Canonical writes remain disabled.",
+          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps remain deployed. Artist/Venue directory crawling is off and profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies remain retained in non-consuming quarantine. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 is actively draining. The 14:09 UTC manifest reports 7,735 of 7,861 advertised future gigs discovered (98.4%), 9,346 tasks completed, 14,384 queued, one running, 14,364 queue messages visible, one in flight, one gig fetch failure in the active DLQ and both directory inventory gates passing. Gig-linked Venue hydration still reports zero in the running deployment. PR #51 fixes the missing gig-led Venue fanout and false cancellation parsing, passed CI and is merged, but is deliberately not deployed into the active audit. GitHub's hourly monitor cron has emitted no scheduled runs; the separate hourly condition watch continues to check progress, terminal completion, failures, stalls and manifest staleness. Canonical writes remain disabled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
@@ -633,12 +633,17 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/44",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33063985322",
             "https://github.com/flowency-live/bndy-enrichment/pull/50",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622",
+            "https://github.com/flowency-live/bndy-enrichment/pull/51"
           ]
         },
         {
           "title": "KLMA feed status",
-          "detail": "PROVEN VERTICAL SLICE, NOT YET GENERIC STEADY STATE. Live KLMA acquisition has produced Observation/Claims and safely projected an additive sample with read-back. The remaining work is to complete its generic Source Runner cutover and retire the older Cowork-owned path."
+          "detail": "CUTOVER GUARD MERGED, NOT DEPLOYED OR CUT OVER. PR #52 adds live headerless-sheet parsing, reviewed Cowork date/time and Venue rules, exact parked-row parity fingerprints, bounded volume stops and a projection-engine-enforced additive-only mode. The 27 Aug read-only live snapshot contains 410 rows: 306 unique accepted gigs and 104 parked rows, with zero ambiguous Venue localities and zero identity collisions. Thirty-one accepted rows carry explicit defaulted-time warnings for row-level parity review. Historical Gate A remains pending on 20 ambiguous Venue-locality rows and four collision rows. The registry remains disabled, shadowed and Cowork-owned.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/52",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md"
+          ]
         },
         {
           "title": "GigsNews feed status",
@@ -681,7 +686,7 @@
         },
         {
           "title": "Complete national Lemonrock ingestion",
-          "detail": "The safe national verifier is deployed and the single fresh owned reconciliation is running. At 13:05 UTC, 262 advertised gigs remained undiscovered, 16,280 logical tasks remained queued, one gig fetch remained failed in the active DLQ, and gig-linked Venue hydration still reported zero. Completion requires full current future-gig coverage, a proven or corrected Venue hydration branch, targeted recovery of the one failed logical task, all discovered tasks terminal, and stable-zero source queue/DLQ readings. Do not restart the national sweep, bulk-redrive historical work, enable canonical writes or treat directory counts alone as bootstrap completion. The repository's GitHub cron is not emitting schedule events, so terminal proof must come from the read-only wake-up path or the separate hourly condition watch.",
+          "detail": "The safe national verifier is deployed and the single fresh owned reconciliation is running. At 14:09 UTC, 126 advertised gigs remained undiscovered, 14,384 logical tasks remained queued, one gig fetch remained failed in the active DLQ, and gig-linked Venue hydration still reported zero. PR #51 fixes the missing Venue fanout and false cancellation parsing in code, with CI green, but is not deployed into the active audit. Completion still requires full current future-gig coverage, a deployed and proven Venue hydration branch, targeted recovery of the one failed logical task, all discovered tasks terminal, and stable-zero source queue/DLQ readings. Do not restart the national sweep, bulk-redrive historical work, enable canonical writes or treat directory counts alone as bootstrap completion. The repository's GitHub cron is not emitting schedule events, so terminal proof must come from the read-only wake-up path or the separate hourly condition watch.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
@@ -692,7 +697,8 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/43",
             "https://github.com/flowency-live/bndy-enrichment/pull/44",
             "https://github.com/flowency-live/bndy-enrichment/pull/50",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622",
+            "https://github.com/flowency-live/bndy-enrichment/pull/51"
           ]
         },
         {
@@ -735,13 +741,13 @@
         },
         {
           "title": "Build the next priority sources",
-          "detail": "Complete the KLMA generic Source Runner cutover and Cowork retirement, bring GigsNews into scheduled production shadow ingestion, and prove a low-cost Scenic Eye cadence before widening Backline projection authority."
+          "detail": "Finish KLMA Gate A disposition and two live shadow parity runs, then pause Cowork and perform the bounded additive-only writer transfer. Afterward, bring GigsNews into scheduled production shadow ingestion and prove a low-cost Scenic Eye cadence before widening Backline projection authority."
         }
       ],
       "next": [
         {
           "title": "Controlled Backline projection",
-          "detail": "Deferred until more source families and resolution behaviour are proven. Then enable only a bounded high-confidence cohort through canonical APIs with read-back, owner protection, stop thresholds and recorded projection decisions.",
+          "detail": "KLMA is the first planned exception after its explicit cutover gates: bounded additive-only create-or-match through canonical APIs with read-back and no update, cancellation, hiding, restoration or owner-record mutation. Wider projection remains deferred until more source families and resolution behaviour are proven.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
@@ -845,7 +851,7 @@
       "now": [
         {
           "title": "Prove Lemonrock bootstrap with a fresh national verification",
-          "detail": "Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 remains the only national sweep. The 13:05 UTC AWS-backed manifest reports 7,599 of 7,861 advertised future gigs discovered, both directory inventory gates passing, 6,913 tasks completed, 16,280 queued, one running, one gig fetch failure in the active DLQ and zero gig-linked Venue hydrations. Continue read-only reconciliation-scoped observation until gig coverage, Venue hydration, targeted failure recovery, task terminality and stable-zero queue/DLQ gates all pass. GitHub's hourly cron is not firing; PR #50 safely woke the current manifest, while a separate hourly condition watch now reports meaningful progress, completion, increasing failures, stalls or staleness. Do not launch a competing reconciliation, bulk redrive, enable canonical writes or hide failed work.",
+          "detail": "Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 remains the only national sweep. The 14:09 UTC AWS-backed manifest reports 7,735 of 7,861 advertised future gigs discovered, both directory inventory gates passing, 9,346 tasks completed, 14,384 queued, one running, one gig fetch failure in the active DLQ and zero gig-linked Venue hydrations. PR #51 fixes the missing Venue branch and false cancellation parsing, passed CI and is merged, but remains undeployed so the active sweep is untouched. Continue read-only reconciliation-scoped observation until gig coverage, deployed Venue hydration, targeted failure recovery, task terminality and stable-zero queue/DLQ gates all pass. GitHub's hourly cron is not firing; the separate hourly condition watch reports meaningful progress, completion, increasing failures, stalls or staleness. Do not launch a competing reconciliation, bulk redrive, enable canonical writes or hide failed work.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
@@ -857,15 +863,17 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/43",
             "https://github.com/flowency-live/bndy-enrichment/pull/44",
             "https://github.com/flowency-live/bndy-enrichment/pull/50",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622",
+            "https://github.com/flowency-live/bndy-enrichment/pull/51"
           ]
         },
         {
           "title": "KLMA generic cutover and Cowork retirement",
-          "detail": "GENERIC ADAPTER MERGED, NOT DEPLOYED. KLMA now has SSRF-checked Google Sheets CSV acquisition with gviz fallback, structural Date/Artist/Venue gates, timezone-independent UK dates, deterministic gig/Artist/Venue identities, parked-row reasons and Artist/Venue Claims. The registry entry remains disabled, shadowed and Cowork-owned. Next: deploy without enabling, run manual AWS parity twice, inspect metrics/queues, disable Cowork first, then transfer writer authority and enable one daily AWS run.",
+          "detail": "CUTOVER SAFETY MERGED, NOT DEPLOYED. PR #52 adds the live headerless-sheet path, exact raw-evidence preservation, reviewed Cowork rules, per-row parity fingerprints, duplicate/collision parking, bounded volume stops and additive-only projection enforced both before queue publication and before any BNDY API call. Live read-only audit: 410 rows, 306 unique accepted, 104 parked, zero ambiguous localities and zero identity collisions; 31 defaulted-time rows remain explicit review items. Historical Gate A still needs disposition for 20 ambiguous locality rows and four collision rows. The registry remains disabled, shadowed and Cowork-owned. Next: deploy without enabling after the Lemonrock audit, complete Gate A, run two manual AWS/Cowork parity checks on different days, pause Cowork, transfer writer authority, perform one bounded bootstrap with complete read-back, then require three clean daily runs before permanent Cowork retirement.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/38",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/VERTICAL-SLICE-KLMA.md#generic-cutover-contract"
+            "https://github.com/flowency-live/bndy-enrichment/pull/52",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md"
           ]
         },
         {
