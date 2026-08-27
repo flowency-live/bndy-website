@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-27T11:21:02Z",
-  "updatedBy": "Backline CTO implementation checkpoint 2026-08-27",
+  "updatedAt": "2026-08-27T13:35:47.536Z",
+  "updatedBy": "Backline CTO live reconciliation checkpoint 2026-08-27",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -178,41 +178,41 @@
       ],
       "done": [
         {
-          "title": "JOIN-01 \u2014 Join shell",
+          "title": "JOIN-01 — Join shell",
           "detail": "/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI."
         },
         {
-          "title": "JOIN-02 \u2014 identity before creation",
+          "title": "JOIN-02 — identity before creation",
           "detail": "Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation."
         },
         {
-          "title": "JOIN-03 \u2014 auth + resume",
+          "title": "JOIN-03 — auth + resume",
           "detail": "Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return."
         },
         {
-          "title": "JOIN-04/05 \u2014 owned Artist and Venue creation",
+          "title": "JOIN-04/05 — owned Artist and Venue creation",
           "detail": "Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships."
         },
         {
-          "title": "JOIN-06 \u2014 Artist profile step",
+          "title": "JOIN-06 — Artist profile step",
           "detail": "Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy."
         },
         {
-          "title": "JOIN-07 \u2014 Claim persistence and review",
+          "title": "JOIN-07 — Claim persistence and review",
           "detail": "Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification."
         },
         {
-          "title": "JOIN-08 \u2014 management and delegation foundation",
+          "title": "JOIN-08 — management and delegation foundation",
           "detail": "/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership."
         },
         {
-          "title": "JOIN-09 \u2014 owner authority protection",
+          "title": "JOIN-09 — owner authority protection",
           "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
         }
       ],
       "now": [
         {
-          "title": "JOIN-10 \u2014 release hardening",
+          "title": "JOIN-10 — release hardening",
           "detail": "Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain."
         },
         {
@@ -621,7 +621,7 @@
         },
         {
           "title": "Lemonrock feed status",
-          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps are deployed. Artist/Venue directory crawling is off; profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies remain in non-consuming quarantine. Fresh owned national verification run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 is actively draining. At the 11:52 UTC manifest it had 5,901 unique gigs against 7,861 advertised, both Artist/Venue directory gates passing, 17,572 logical tasks queued, one fetch failure and zero DLQ messages. This is progress evidence, not completion. Canonical writes remain disabled.",
+          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps remain deployed. Artist/Venue directory crawling is off and profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies remain retained in non-consuming quarantine. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 is actively draining. The 13:05 UTC manifest reports 7,599 of 7,861 advertised future gigs discovered (96.7%), 6,913 tasks completed, 16,280 queued, one running, 16,233 queue messages visible, two in flight, one gig fetch failure in the active DLQ and both directory inventory gates passing. Gig-linked Venue hydration still reports zero and is a formal diagnosis/completion gate. GitHub's hourly monitor cron has emitted no scheduled runs; read-only PR #50 produced the current checkpoint, and a separate hourly condition watch now checks progress, terminal completion, failures, stalls and manifest staleness. Canonical writes remain disabled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
@@ -631,7 +631,9 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/41",
             "https://github.com/flowency-live/bndy-enrichment/pull/43",
             "https://github.com/flowency-live/bndy-enrichment/pull/44",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33063985322"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33063985322",
+            "https://github.com/flowency-live/bndy-enrichment/pull/50",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622"
           ]
         },
         {
@@ -679,7 +681,7 @@
         },
         {
           "title": "Complete national Lemonrock ingestion",
-          "detail": "The safe national verifier is deployed and a fresh owned reconciliation is running. Historical delivery copies are retained outside the active DLQ. Completion still requires every current future gig, gig-linked Artist/Venue hydration, no unresolved failures, all tasks terminal and stable-zero source queue/DLQ readings. Lemonrock's live A-Z plus numeric structure is now represented correctly as 27 inventory controls plus the separate root/all-members page task; both directory gates pass. Because this repository has emitted no GitHub schedule events, the monitor now also wakes after the national-verification workflow completes, and manifest concurrency prevents overlapping DynamoDB scans. The cron remains a fallback; if no further main change wakes it, an explicit read-only manifest wake-up is required for the terminal snapshot. Shadow mode remains on and canonical writes remain disabled.",
+          "detail": "The safe national verifier is deployed and the single fresh owned reconciliation is running. At 13:05 UTC, 262 advertised gigs remained undiscovered, 16,280 logical tasks remained queued, one gig fetch remained failed in the active DLQ, and gig-linked Venue hydration still reported zero. Completion requires full current future-gig coverage, a proven or corrected Venue hydration branch, targeted recovery of the one failed logical task, all discovered tasks terminal, and stable-zero source queue/DLQ readings. Do not restart the national sweep, bulk-redrive historical work, enable canonical writes or treat directory counts alone as bootstrap completion. The repository's GitHub cron is not emitting schedule events, so terminal proof must come from the read-only wake-up path or the separate hourly condition watch.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
@@ -688,7 +690,9 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/32",
             "https://github.com/flowency-live/bndy-enrichment/pull/41",
             "https://github.com/flowency-live/bndy-enrichment/pull/43",
-            "https://github.com/flowency-live/bndy-enrichment/pull/44"
+            "https://github.com/flowency-live/bndy-enrichment/pull/44",
+            "https://github.com/flowency-live/bndy-enrichment/pull/50",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622"
           ]
         },
         {
@@ -825,8 +829,8 @@
           ]
         },
         {
-          "title": "Rejected source candidates \u2014 26 August 2026",
-          "detail": "yorkshiregigguide.co.uk \u2014 editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk \u2014 DNS dead. yorkshirecoastgigs.co.uk \u2014 content stale since 2016-2017. thebristolgigguide.com \u2014 reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk \u2014 active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) \u2014 403, unreachable. gig-guide.co.uk \u2014 multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange \u2014 excluded aggregator class (GigXchange excluded by Jason)."
+          "title": "Rejected source candidates — 26 August 2026",
+          "detail": "yorkshiregigguide.co.uk — editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk — DNS dead. yorkshirecoastgigs.co.uk — content stale since 2016-2017. thebristolgigguide.com — reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk — active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) — 403, unreachable. gig-guide.co.uk — multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange — excluded aggregator class (GigXchange excluded by Jason)."
         },
         {
           "title": "On The Case gig-led source family deployed to shadow",
@@ -841,7 +845,7 @@
       "now": [
         {
           "title": "Prove Lemonrock bootstrap with a fresh national verification",
-          "detail": "Historical DLQ delivery copies are retained in a separate non-consuming quarantine and the active queue/DLQ preflight was clean. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 launched successfully on 27 August. Both A-Z plus numeric directory inventory controls now pass. Continue reconciliation-scoped manifests until advertised current future gigs, gig-linked profiles, task terminality and stable-zero queue/DLQ gates all pass. The monitor is event-driven with an hourly cron fallback, but GitHub has not emitted schedule events for this repository, so request an explicit read-only manifest if the run reaches terminal state without another main-branch wake-up. If failures recur, recover only affected logical tasks under low-rate hard stops. Do not enable canonical writes or hide failed work to make the gate pass.",
+          "detail": "Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 remains the only national sweep. The 13:05 UTC AWS-backed manifest reports 7,599 of 7,861 advertised future gigs discovered, both directory inventory gates passing, 6,913 tasks completed, 16,280 queued, one running, one gig fetch failure in the active DLQ and zero gig-linked Venue hydrations. Continue read-only reconciliation-scoped observation until gig coverage, Venue hydration, targeted failure recovery, task terminality and stable-zero queue/DLQ gates all pass. GitHub's hourly cron is not firing; PR #50 safely woke the current manifest, while a separate hourly condition watch now reports meaningful progress, completion, increasing failures, stalls or staleness. Do not launch a competing reconciliation, bulk redrive, enable canonical writes or hide failed work.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
@@ -851,7 +855,9 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/32",
             "https://github.com/flowency-live/bndy-enrichment/pull/41",
             "https://github.com/flowency-live/bndy-enrichment/pull/43",
-            "https://github.com/flowency-live/bndy-enrichment/pull/44"
+            "https://github.com/flowency-live/bndy-enrichment/pull/44",
+            "https://github.com/flowency-live/bndy-enrichment/pull/50",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33074851622"
           ]
         },
         {
@@ -867,7 +873,7 @@
           "detail": "Make GigsNews a scheduled weekly source with immutable snapshots and no cancellation inference from page absence. Select and prove a low-cost Scenic Eye cadence with stale-edition protection. Both remain shadowed until completeness and identity metrics are visible."
         },
         {
-          "title": "New Backline sources found \u2014 26 August 2026",
+          "title": "New Backline sources found — 26 August 2026",
           "detail": "Source discovery pass completed. Three sources selected for planned Backline onboarding, one regional coverage gap documented, and lower-value/blocked aggregator candidates rejected."
         },
         {
@@ -884,16 +890,16 @@
           ]
         },
         {
-          "title": "Norfolk Gig Guide \u2014 selected",
-          "detail": "https://www.norfolkgigguide.com/ \u2014 Norfolk / Norwich (East Anglia). Plan committed, fixture-gated. ~2,600 acts, native numeric band IDs, no per-gig URLs. Origin 403s non-browser clients."
+          "title": "Norfolk Gig Guide — selected",
+          "detail": "https://www.norfolkgigguide.com/ — Norfolk / Norwich (East Anglia). Plan committed, fixture-gated. ~2,600 acts, native numeric band IDs, no per-gig URLs. Origin 403s non-browser clients."
         },
         {
-          "title": "DGWGO Events \u2014 selected",
-          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ \u2014 Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
+          "title": "DGWGO Events — selected",
+          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ — Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
         },
         {
-          "title": "Brighton Gigs \u2014 selected",
-          "detail": "https://brightongigs.uk/ \u2014 Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
+          "title": "Brighton Gigs — selected",
+          "detail": "https://brightongigs.uk/ — Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
         },
         {
           "title": "Lancashire source gap",
