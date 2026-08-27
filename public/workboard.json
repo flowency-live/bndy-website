@@ -621,13 +621,16 @@
         },
         {
           "title": "Lemonrock feed status",
-          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps are deployed. Artist/Venue directory crawling is off; profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies are retained in a separate non-consuming quarantine: the active source queue and DLQ are both zero, with no replay or purge. A fresh owned national verification launched on 27 August under reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4. Canonical writes remain disabled.",
+          "detail": "LIVE SHADOW. Hourly new-gig and explicit-cancellation sweeps are deployed. Artist/Venue directory crawling is off; profiles hydrate only when referenced by gigs. The 5,153 historical DLQ delivery copies remain in non-consuming quarantine. Fresh owned national verification run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 is actively draining. At the 11:52 UTC manifest it had 5,901 unique gigs against 7,861 advertised, both Artist/Venue directory gates passing, 17,572 logical tasks queued, one fetch failure and zero DLQ messages. This is progress evidence, not completion. Canonical writes remain disabled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
             "https://github.com/flowency-live/bndy-enrichment/pull/32",
+            "https://github.com/flowency-live/bndy-enrichment/pull/41",
+            "https://github.com/flowency-live/bndy-enrichment/pull/43",
+            "https://github.com/flowency-live/bndy-enrichment/pull/44",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33063985322"
           ]
         },
@@ -676,13 +679,16 @@
         },
         {
           "title": "Complete national Lemonrock ingestion",
-          "detail": "The safe national verifier is deployed and a fresh owned reconciliation is running. Historical delivery copies are retained outside the active DLQ, which is now zero. Completion requires all required branches, every current future gig, directory inventory controls, gig-linked Artist/Venue hydration, no unresolved failures, all tasks terminal and stable zero source queue and DLQ readings. The hourly read-only monitor must publish the fresh manifest until the run is terminal. Shadow mode remains on and canonical writes remain disabled.",
+          "detail": "The safe national verifier is deployed and a fresh owned reconciliation is running. Historical delivery copies are retained outside the active DLQ. Completion still requires every current future gig, gig-linked Artist/Venue hydration, no unresolved failures, all tasks terminal and stable-zero source queue/DLQ readings. Lemonrock's live A-Z plus numeric structure is now represented correctly as 27 inventory controls plus the separate root/all-members page task; both directory gates pass. Because this repository has emitted no GitHub schedule events, the monitor now also wakes after the national-verification workflow completes, and manifest concurrency prevents overlapping DynamoDB scans. The cron remains a fallback; if no further main change wakes it, an explicit read-only manifest wake-up is required for the terminal snapshot. Shadow mode remains on and canonical writes remain disabled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-SOURCE-INGESTION-BLUEPRINT.md",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/32"
+            "https://github.com/flowency-live/bndy-enrichment/pull/32",
+            "https://github.com/flowency-live/bndy-enrichment/pull/41",
+            "https://github.com/flowency-live/bndy-enrichment/pull/43",
+            "https://github.com/flowency-live/bndy-enrichment/pull/44"
           ]
         },
         {
@@ -695,10 +701,11 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "SAFETY CORE MERGED, NO PROVIDER OR SCHEDULE. The evidence-only processor caps each item to one entity, three searches, six fetches, one cheap model call, 12k/2k tokens, estimated cost 0.03 and 60 seconds. It parks identity confidence below 0.98, blocks unsafe citations/values, flags owner-managed and conflicting facts, stores immutable Observations/Claims and has zero canonical writes by construction. Dynamo atomically reserves item idempotency plus daily provider counters, capped at 20 entities and estimated cost 0.60. Remaining: canonical indexed planner, qualified provider fixtures, sampled live sanity review, Lambda wiring and only then a disabled shadow deployment.",
+          "detail": "SAFETY CORE AND DAILY SELECTION POLICY MERGED, NO PROVIDER OR SCHEDULE. The evidence-only processor caps each item to one entity, three searches, six fetches, one cheap model call, 12k/2k tokens, estimated cost 0.03 and 60 seconds. It parks identity confidence below 0.98, blocks unsafe citations/values, flags owner-managed and conflicting facts, stores immutable Observations/Claims and has zero canonical writes by construction. Dynamo atomically reserves item idempotency plus daily provider counters, capped at 20 entities and estimated cost 0.60. The deterministic planner prioritises resolved entities attached to upcoming gigs, carries exact supported quality gaps, defaults to five Artists and five Venues per day, and applies a 30-day attempt cooldown. Remaining: the indexed due-set repository, qualified provider fixtures, sampled live sanity review, Lambda wiring and only then a disabled shadow deployment.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/39",
             "https://github.com/flowency-live/bndy-enrichment/pull/40",
+            "https://github.com/flowency-live/bndy-enrichment/pull/42",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-106-entity-enrichment-work-item.md"
           ]
         },
@@ -828,14 +835,17 @@
       "now": [
         {
           "title": "Prove Lemonrock bootstrap with a fresh national verification",
-          "detail": "Historical DLQ delivery copies are retained in a separate non-consuming quarantine and the active queue/DLQ preflight is clean. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 launched successfully on 27 August. Directory pages are completeness controls only; dormant member profiles are not hydrated. Monitor it hourly until required branches, advertised inventory, current future gigs, gig-linked profiles, task terminality and stable zero queue/DLQ gates all pass. If failures recur, diagnose and recover only the affected logical tasks under low-rate hard stops. Do not enable canonical writes or hide failed work to make the gate pass.",
+          "detail": "Historical DLQ delivery copies are retained in a separate non-consuming quarantine and the active queue/DLQ preflight was clean. Fresh owned reconciliation run-907eba4a-b7eb-4d41-95f5-06bbc91beef4 launched successfully on 27 August. Both A-Z plus numeric directory inventory controls now pass. Continue reconciliation-scoped manifests until advertised current future gigs, gig-linked profiles, task terminality and stable-zero queue/DLQ gates all pass. The monitor is event-driven with an hourly cron fallback, but GitHub has not emitted schedule events for this repository, so request an explicit read-only manifest if the run reaches terminal state without another main-branch wake-up. If failures recur, recover only affected logical tasks under low-rate hard stops. Do not enable canonical writes or hide failed work to make the gate pass.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-national-verification.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md",
-            "https://github.com/flowency-live/bndy-enrichment/pull/32"
+            "https://github.com/flowency-live/bndy-enrichment/pull/32",
+            "https://github.com/flowency-live/bndy-enrichment/pull/41",
+            "https://github.com/flowency-live/bndy-enrichment/pull/43",
+            "https://github.com/flowency-live/bndy-enrichment/pull/44"
           ]
         },
         {
