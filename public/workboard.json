@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-27T10:41:00Z",
-  "updatedBy": "Backline CTO national verification launch and priorities 2026-08-27",
+  "updatedAt": "2026-08-27T11:21:02Z",
+  "updatedBy": "Backline CTO implementation checkpoint 2026-08-27",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -687,11 +687,20 @@
         },
         {
           "title": "Daily Backline discovery metrics",
-          "detail": "Publish one low-cost daily source-family summary from run state, not evidence-bucket scans: new/changed/withdrawn gigs, source-native identities, resolved/unresolved/conflicted counts, profile hydration, Claims, fanout, coverage, failures, queue health and bounded cost indicators. Godmode must show trends and permit drill-down to the exact run and evidence."
+          "detail": "CORE MERGED, NOT YET DEPLOYED. Every generic source run now produces one 180-day drill-down metric and atomically updates one 400-day source-family daily roll-up from the in-memory run report, with DynamoDB TTL and no corpus/evidence scans. It records run health, items, gigs, profiles, Claims, diffs, fanout, warnings, errors, duration and the immutable report key. Remaining: deploy after the active Lemonrock audit, add resolved/unresolved/conflicted and queue/cost aggregates, then expose trends and run/evidence drill-down in Godmode.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/37",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/sources/runner/metrics.ts"
+          ]
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "Build a shadow-first consumer for canonical Artists and Venues that prioritises entities attached to upcoming gigs and explicit data-quality gaps. Enrichment must create evidence, Observations and atomised Claims only; never mutate canonical records directly. Use strict daily budgets, source/API allow-lists, freshness rules, confidence and conflict checks, owner protection, before/after comparisons, sampled human sanity review and hard stops for failure, volume and cost anomalies."
+          "detail": "SAFETY CORE MERGED, NO PROVIDER OR SCHEDULE. The evidence-only processor caps each item to one entity, three searches, six fetches, one cheap model call, 12k/2k tokens, estimated cost 0.03 and 60 seconds. It parks identity confidence below 0.98, blocks unsafe citations/values, flags owner-managed and conflicting facts, stores immutable Observations/Claims and has zero canonical writes by construction. Dynamo atomically reserves item idempotency plus daily provider counters, capped at 20 entities and estimated cost 0.60. Remaining: canonical indexed planner, qualified provider fixtures, sampled live sanity review, Lambda wiring and only then a disabled shadow deployment.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/39",
+            "https://github.com/flowency-live/bndy-enrichment/pull/40",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-106-entity-enrichment-work-item.md"
+          ]
         },
         {
           "title": "Persist Lemonrock identity resolution",
@@ -831,7 +840,11 @@
         },
         {
           "title": "KLMA generic cutover and Cowork retirement",
-          "detail": "Priority source work alongside Lemonrock verification. Package KLMA into the generic SourceAdapter/Runner path, prove shadow parity and controlled read-back, transfer recurring authority, then remove the older Cowork-owned runtime without running both writers."
+          "detail": "GENERIC ADAPTER MERGED, NOT DEPLOYED. KLMA now has SSRF-checked Google Sheets CSV acquisition with gviz fallback, structural Date/Artist/Venue gates, timezone-independent UK dates, deterministic gig/Artist/Venue identities, parked-row reasons and Artist/Venue Claims. The registry entry remains disabled, shadowed and Cowork-owned. Next: deploy without enabling, run manual AWS parity twice, inspect metrics/queues, disable Cowork first, then transfer writer authority and enable one daily AWS run.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/38",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/VERTICAL-SLICE-KLMA.md#generic-cutover-contract"
+          ]
         },
         {
           "title": "GigsNews and Scenic Eye production shadow",
