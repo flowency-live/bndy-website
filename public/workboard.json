@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T08:10:22.883116Z",
-  "updatedBy": "KLMA healthy live shadow BAU 2026-08-28",
+  "updatedAt": "2026-08-28T08:46:03.834Z",
+  "updatedBy": "Multi-source Backline visibility 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -561,12 +561,14 @@
           ]
         },
         {
-          "title": "Initial Backline Explorer deployed",
-          "detail": "The authenticated Godmode Explorer can inspect Lemonrock task progress, source observations and subject Claims. It is an operational inspector, not yet the planned entity-resolution and evidence graph.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-backstage/blob/master/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
-            "https://github.com/flowency-live/bndy-serverless-api/blob/master/source-runs-lambda/backline.js"
-          ]
+      "title": "Multi-source Backline Explorer deployed",
+      "detail": "The authenticated, read-only Godmode Explorer exposes Lemonrock, On The Case and KLMA live shadow BAU alongside the canonical baseline and inactive source families. It shows family health, generic source-run metrics, Lemonrock and On The Case task ledgers, source runtime state, Observations, Claims and exact evidence provenance. It is an operational inspector, not yet the planned interactive identity-resolution graph.",
+      "evidence": [
+        "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
+        "https://github.com/flowency-live/bndy-backstage/pull/3",
+        "https://github.com/flowency-live/bndy-serverless-api/blob/master/source-runs-lambda/backline.js",
+        "https://github.com/flowency-live/bndy-serverless-api/pull/56"
+      ]
         },
         {
           "title": "Reusable source-ingestion blueprint committed",
@@ -620,7 +622,7 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Lemonrock national bootstrap is complete in low-cost shadow BAU, On The Case is healthy live shadow BAU, and KLMA Stoke is now healthy live shadow BAU. The active Backline delivery phase is identity resolution/corroboration across these first source cohorts, followed by GigsNews production shadow, discovery metrics, qualified enrichment and the interactive Godmode evidence graph. Canonical projection remains off for these source families."
+      "detail": "Lemonrock national bootstrap is complete in low-cost shadow BAU, On The Case is healthy live shadow BAU, and KLMA Stoke is healthy live daily shadow BAU with Cowork retained as its writer. Godmode now exposes all three operationally, plus the canonical baseline and inactive source families. The active Backline delivery phase is identity resolution/corroboration across these first source cohorts, followed by GigsNews production shadow, qualified enrichment and the interactive Godmode evidence graph. Canonical projection remains off for these source families."
         },
         {
           "title": "Lemonrock feed status",
@@ -690,8 +692,8 @@
           "detail": "bndy-signals contains the older cognitive runtime; bndy-enrichment/BNDY Backline contains the strategic architecture."
         },
         {
-          "title": "Daily Backline discovery metrics",
-          "detail": "CORE MERGED, NOT YET DEPLOYED. Every generic source run now produces one 180-day drill-down metric and atomically updates one 400-day source-family daily roll-up from the in-memory run report, with DynamoDB TTL and no corpus/evidence scans. It records run health, items, gigs, profiles, Claims, diffs, fanout, warnings, errors, duration and the immutable report key. Remaining: deploy after the active Lemonrock audit, add resolved/unresolved/conflicted and queue/cost aggregates, then expose trends and run/evidence drill-down in Godmode.",
+      "title": "Daily Backline discovery metrics",
+      "detail": "DEPLOYED FOR GENERIC SOURCE RUNS. Each generic run produces one 180-day drill-down metric and atomically updates one 400-day source-family daily roll-up from the in-memory report, with DynamoDB TTL and no corpus/evidence scans. Godmode now exposes recent family runs and their item, event, profile, Claim, parked-row, warning, error and duration measures. Remaining: add resolved/unresolved/conflicted and queue/cost aggregates plus historical trend charts.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/37",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/src/sources/runner/metrics.ts"
