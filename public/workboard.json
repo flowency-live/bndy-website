@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T19:28:21Z",
-  "updatedBy": "Backline repaired enrichment recapture outcome 2026-08-28",
+  "updatedAt": "2026-08-28T19:46:38Z",
+  "updatedBy": "Backline repaired enrichment recapture visibility 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -576,11 +576,13 @@
         },
         {
           "title": "Multi-source Backline Explorer deployed",
-          "detail": "The authenticated, read-only Godmode Explorer exposes Lemonrock, On The Case, KLMA and GigsNews operations alongside the canonical baseline. Its deployed Trust Loop panel polls the read-only API and shows cohort status, resolved/unresolved/conflicted decisions, enrichment coverage, wrong-link incidents, zero-write state and the human review queue. It remains an operational inspector; the planned interactive identity/evidence graph is still a separate product step.",
+          "detail": "The authenticated, read-only Godmode Explorer exposes Lemonrock, On The Case, KLMA and GigsNews operations alongside the canonical baseline. Its deployed Trust Loop panel polls the read-only API and now shows all 20 grounded-enrichment qualification cases with source, identity confidence, abstention or capture-error outcome, accepted and quarantined fact counts, provider reasoning, measured cost and zero-write state. Operators can open both the raw artefact and human-readable review. It remains an operational inspector; the planned interactive identity/evidence graph is still a separate product step.",
           "evidence": [
             "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
             "https://github.com/flowency-live/bndy-backstage/pull/4",
+            "https://github.com/flowency-live/bndy-backstage/pull/9",
             "https://github.com/flowency-live/bndy-serverless-api/pull/58",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33205085332",
             "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
         },
