@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T17:10:40.597Z",
-  "updatedBy": "Backline grounded enrichment qualification outcome 2026-08-28",
+  "updatedAt": "2026-08-28T19:28:21Z",
+  "updatedBy": "Backline repaired enrichment recapture outcome 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -660,13 +660,15 @@
           ]
         },
         {
-          "title": "Grounded enrichment qualification failed closed",
-          "detail": "The approved 20-case Gemini grounded-search cohort ran once, committed public evidence and stopped safely at the qualification gate. The provider was not qualified: 17 cases failed exact citation capture, three abstained, zero facts were accepted and canonical writes stayed at zero. The citation-quarantine repair, durable Trust Loop status publisher, bounded API projection and Godmode panel are merged.",
+          "title": "Repaired grounded enrichment recapture failed closed",
+          "detail": "The approved repaired recapture of the same 20 public Artist and Venue cases completed in shadow. Nineteen cases captured, one Venue received a transient Gemini 503, 15 identities were high-confidence and four were safe abstentions. The strict evidence gate accepted zero facts and quarantined all 84 proposals because their fact citations were not present as exact captured provider evidence. Measured cost was $1.5707 and canonical writes stayed at zero. The provider remains unqualified and unscheduled.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33190620765",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-review.md",
             "https://github.com/flowency-live/bndy-enrichment/pull/77",
-            "https://github.com/flowency-live/bndy-enrichment/pull/78",
+            "https://github.com/flowency-live/bndy-enrichment/pull/80",
+            "https://github.com/flowency-live/bndy-enrichment/pull/81",
             "https://github.com/flowency-live/bndy-serverless-api/pull/59",
             "https://github.com/flowency-live/bndy-backstage/pull/6"
           ]
@@ -675,12 +677,13 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews are operating in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The approved 20-case Gemini grounded-enrichment qualification failed closed on 28 Aug: all cases were attempted, 3 were cleanly captured, 17 hit strict citation-capture errors, zero facts were accepted and canonical writes remained zero. The integration repair is merged and the failed gate is now visible in Godmode. A separately authorised bounded recapture plus human adjudication is required before provider qualification or any controlled canonical projection. East Anglia and Cumbria remain the next net-new geography pilots, while Cowork-authored canonical changes must enter Backline as non-projecting lineage evidence.",
+          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews are operating in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The approved repaired 20-case Gemini recapture is complete: 19 captures, one transient 503, 15 high-confidence identities, four safe abstentions, 84 quarantined facts, zero accepted facts, $1.5707 measured cost and zero canonical writes. The provider remains unqualified and unscheduled. Next is human review of the visible cohort and a separately authorised proof of the corrected citation path before any provider activation or controlled canonical projection. East Anglia and Cumbria remain the next net-new geography pilots, while Cowork-authored canonical changes must enter Backline as non-projecting lineage evidence.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33190620765",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/77",
-            "https://github.com/flowency-live/bndy-enrichment/pull/78",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-review.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/80",
+            "https://github.com/flowency-live/bndy-enrichment/pull/81",
             "https://github.com/flowency-live/bndy-serverless-api/pull/59",
             "https://github.com/flowency-live/bndy-backstage/pull/6"
           ]
@@ -770,35 +773,38 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "GROUNDED PROVIDER CAPTURE EXECUTED; QUALIFICATION FAILED CLOSED. The approved one-shot ran against 10 live Trust Loop Artists and 10 Venues using Gemini 3.6 Flash with Google Search grounding. All 20 provider calls completed and the evidence artefact was committed. Three responses were captured cleanly and correctly abstained; 17 were rejected because their model-returned citation URLs did not exactly match structured grounding evidence. Zero facts were accepted, no provider was qualified or scheduled, review remains unstarted and canonical writes are zero. The artefact records $0.171399 measured cost, explicitly marked partial because the old error path discarded usage for rejected cases. PR 77 now quarantines only the offending fact while retaining raw response, citations, usage and cost. A second paid cohort has not been run.",
+          "detail": "REPAIRED RECAPTURE EXECUTED; QUALIFICATION FAILED CLOSED. The approved recapture ran against the same 10 live Trust Loop Artists and 10 Venues using Gemini 3.6 Flash with Google Search grounding. Nineteen cases captured and one Venue received a transient provider 503. Fifteen identities were high-confidence and four responses safely abstained. The strict gate accepted zero facts and quarantined 84 proposed facts because their URLs did not have exact captured provider citation support. The artefact records $1.5707 measured partial-path cost. Canonical writes are zero, no provider is scheduled, and the rendered review now exposes every case, proposal, rejection reason and captured evidence URL.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33190620765",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-review.md",
             "https://github.com/flowency-live/bndy-enrichment/pull/74",
             "https://github.com/flowency-live/bndy-enrichment/pull/77",
-            "https://github.com/flowency-live/bndy-enrichment/pull/78"
+            "https://github.com/flowency-live/bndy-enrichment/pull/80",
+            "https://github.com/flowency-live/bndy-enrichment/pull/81"
           ]
         },
         {
           "title": "Priority 1: Backline Trust Loop v1",
-          "detail": "LIVE SHADOW, PROVIDER QUALIFICATION FAILED CLOSED. The deployed runtime still classifies the bounded 40-candidate Trust Loop cohort with no silent drops, no wrong links and zero canonical writes. Its 20-case grounded enrichment qualification has now run and is visible in the latest Trust Loop record: 3 clean captures, 17 capture errors, zero accepted facts and human review not started. Trust Loop v1 therefore remains unaccepted. The next controlled step is one repaired bounded recapture, then at least 20 human-reviewed known answers and the verified enrichment gate.",
+          "detail": "LIVE SHADOW, PROVIDER QUALIFICATION FAILED CLOSED. The deployed runtime still classifies the bounded 40-candidate Trust Loop cohort with no silent drops, no wrong links and zero canonical writes. The repaired 20-case enrichment recapture produced 19 captures, one transient error, 15 high-confidence identities, four safe abstentions and 84 quarantined facts, with zero accepted facts. Trust Loop v1 therefore remains unaccepted. The next controlled step is human review of these 20 known answers and a separately authorised bounded proof that the corrected citation mapping produces exact provider evidence before activation.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33190620765",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/pull/77",
-            "https://github.com/flowency-live/bndy-enrichment/pull/78",
+            "https://github.com/flowency-live/bndy-enrichment/pull/80",
+            "https://github.com/flowency-live/bndy-enrichment/pull/81",
             "https://github.com/flowency-live/bndy-serverless-api/pull/59",
             "https://github.com/flowency-live/bndy-backstage/pull/6"
           ]
         },
         {
           "title": "Hard gate: healthy artist enrichment",
-          "detail": "FAILED CLOSED; REMEDIATION MERGED. The approved 20-case provider cohort did not prove healthy enrichment. It produced zero accepted facts because the strict citation boundary rejected 17 incomplete captures and the three clean responses abstained. No wrong-artist URL entered Backline and no canonical write occurred. The technical repair now preserves the complete reviewable response and usage while quarantining each ungrounded fact. The next gate is a separately authorised bounded recapture of the same cohort, followed by human adjudication of every identity and fact. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes, and sampled live review before any provider activation.",
+          "detail": "FAILED CLOSED AFTER REPAIRED RECAPTURE. The provider proposed useful-looking Artist classifications, genres, addresses and official links, but all 84 facts remain quarantined because exact captured citation support was absent. Four ambiguous identities correctly abstained and one Venue hit a transient 503. No wrong-artist URL entered accepted Backline evidence and no canonical write occurred. The adapter now resolves only Google grounding redirects whose destination is already present in captured provider annotations; arbitrary URLs remain quarantined. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes, human review and a separately authorised live proof before provider activation.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33190620765",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
             "https://github.com/flowency-live/bndy-enrichment/pull/77",
+            "https://github.com/flowency-live/bndy-enrichment/pull/81",
             "https://github.com/flowency-live/bndy-backstage/pull/6",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/ENRICHMENT-PROVIDER-QUALIFICATION.md"
           ]
