@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T11:41:44.874Z",
-  "updatedBy": "Backline geography pilots and Cowork change capture 2026-08-28",
+  "updatedAt": "2026-08-28T11:58:26.860Z",
+  "updatedBy": "Cowork run evidence and healthy enrichment gates 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -11,7 +11,8 @@
     "BNDY Backline is the capability/product name; bndy-enrichment remains the single strategic Backline runtime rather than creating a parallel repository.",
     "All new ingestion paths should converge on Capture + Enrichment rather than inventing another write path.",
     "The target state is evidence -> claims -> projection -> canonical BNDY, not source -> direct database write.",
-    "BNDY Backline is the durable intelligence substrate: immutable evidence plus observations and atomised claims feed policy and projection; the graph is a derived view, not the authority."
+    "BNDY Backline is the durable intelligence substrate: immutable evidence plus observations and atomised claims feed policy and projection; the graph is a derived view, not the authority.",
+    "Healthy source delivery requires both ingestion health and evidence-backed enrichment health; blank or explicitly unknown is safer than an invented classification or a wrong identity link."
   ],
   "activityRepos": [
     "flowency-live/bndy-app",
@@ -21,7 +22,8 @@
     "flowency-live/bndy-chatzone",
     "flowency-live/bndy-capture",
     "flowency-live/bndy-enrichment",
-    "flowency-live/bndy-MCP"
+    "flowency-live/bndy-MCP",
+    "flowency-live/bndy-ops"
   ],
   "repositories": [
     {
@@ -72,6 +74,13 @@
       "serves": "AWS BNDY Backline runtime",
       "role": "Strategic Backline runtime for source acquisition, immutable evidence, observations, atomised claims, identity resolution, authority, projection, Capture processing and enrichment.",
       "status": "active"
+    },
+    {
+      "id": "ops",
+      "repo": "flowency-live/bndy-ops",
+      "serves": "Cowork operational evidence",
+      "role": "Live Cowork task definitions, source snapshots, cursors, state, machine run ledgers and human run reports. It is an operational evidence source for Backline, not a second strategic runtime or canonical authority.",
+      "status": "support"
     },
     {
       "id": "mcp",
@@ -509,6 +518,7 @@
         "app",
         "capture",
         "mcp",
+        "ops",
         "signals"
       ],
       "done": [
@@ -584,6 +594,15 @@
           ]
         },
         {
+          "title": "Cowork operational repository connected",
+          "detail": "flowency-live/bndy-ops is now the versioned operational evidence source for still-running Cowork writers. Its task definitions, captures, cursors and current state are useful supporting evidence, but mutable snapshots alone do not prove canonical activity. The shared run contract now requires append-only JSON per run, a human report, CTO inbox entry and canonical API read-back.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-ops",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json"
+          ]
+        },
+        {
           "title": "Reusable source-ingestion blueprint committed",
           "detail": "The Lemonrock implementation, durable evidence/Claim model, AWS runtime, recovery controls, source definition of done and a concrete On The Case Music design are documented as the handover pattern for future sources.",
           "evidence": [
@@ -635,7 +654,7 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "The ingestion foundation is proven: Lemonrock, On The Case and KLMA are live shadow BAU, the canonical baseline is represented in Claims, and Godmode exposes multi-source operations. Priority 1 remains Backline Trust Loop v1, with GigsNews added as a weekly corroboration source. In parallel, Backline will prove net-new regional coverage in East Anglia and Cumbria and capture ongoing Cowork-authored canonical changes as non-projecting Backline evidence. Canonical projection remains off until the Trust Loop cohort passes and receives separate human approval."
+          "detail": "The ingestion foundation is proven: Lemonrock, On The Case and KLMA are live shadow BAU, the canonical baseline is represented in Claims, and Godmode exposes multi-source operations. Priority 1 remains Backline Trust Loop v1, with GigsNews added as a weekly corroboration source. In parallel, Backline will prove net-new regional coverage plus healthy enrichment in East Anglia and Cumbria, and capture ongoing Cowork-authored canonical changes as non-projecting Backline evidence. Canonical projection remains off until identity and enrichment gates pass and receive separate human approval."
         },
         {
           "title": "Lemonrock feed status",
@@ -737,6 +756,15 @@
           ]
         },
         {
+          "title": "Hard gate: healthy artist enrichment",
+          "detail": "Every regional pilot and source cohort must report enrichment health as well as ingestion health. For each eligible Artist, classify canonical artistType and actType, acoustic as a separate boolean, and only evidence-backed canonical genres; park fields that cannot be supported. Facebook is optional, but every stored Facebook, website, Instagram, Bandcamp, Spotify or other official URL must be identity-proven against the same act using exact gig footprint, first-party cross-linking or equivalent evidence. Name similarity alone is insufficient and one wrong-artist URL fails the cohort. Record attempted-no-official-presence instead of penalising artists who avoid social platforms. Regional gig footprint is evidence, not automatic artist location. An owner-managed BNDY profile is the highest first-party authority. Godmode must show classification coverage, evidence-backed genre coverage, confirmed official-link coverage, attempted-no-presence, parked/conflicted items and wrong-link incidents.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/ENRICHMENT-PROVIDER-QUALIFICATION.md"
+          ]
+        },
+        {
           "title": "Embed and operationalise the evidence graph",
           "detail": "Integrate the existing bounded graph reader into Godmode and populate it with source identities, canonical candidates, resolution/conflict state and projection decisions. Operators must be able to search and expand from one node, see confidence and authority, and drill through to exact evidence and decision history without rendering or scanning the whole corpus.",
           "evidence": [
@@ -750,7 +778,12 @@
         },
         {
           "title": "Capture ongoing Cowork canonical activity",
-          "detail": "Treat the still-running Claude Cowork schedules as an explicit external writer until each is safely replaced. Version their task definitions and run reports as operational evidence, reconcile every reported action against canonical API read-back, and create BNDY-origin Observations and Claims tagged with Cowork writer lineage. These records must be projection-suppressed so Backline cannot feed its own canonical output back into BNDY. Unknown legacy provenance remains explicit rather than guessed."
+          "detail": "Treat the still-running Claude Cowork schedules as explicit external writers until each is safely replaced. The 28 Aug bndy-ops state proves recent discovery-crawler activity, including six canonical Events, four new Artists, one Artist backfill and three deduped Venues, while current GigsNews, KLMA and On The Case captures and Scenic Eye's stale-edition no-op show source activity. The same commit did not add a run report or CTO inbox entry, so it does not yet provide a complete per-run write ledger. Require the new append-only JSON contract, reconcile every successful action against canonical API read-back, and create BNDY-origin Observations and Claims tagged with Cowork writer lineage. Keep these records projection-suppressed to prevent a canonical feedback loop, and leave unknown provenance explicit rather than guessed.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-ops/commit/33d1a03",
+            "https://github.com/flowency-live/bndy-ops/blob/main/discovery-crawl-state.json",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md"
+          ]
         }
       ],
       "next": [
@@ -788,7 +821,8 @@
       "repos": [
         "enrichment",
         "mcp",
-        "api"
+        "api",
+        "ops"
       ],
       "done": [
         {
@@ -871,6 +905,15 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33120136044",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33123589794"
           ]
+        },
+        {
+          "title": "Cowork source operations audited",
+          "detail": "bndy-ops confirms current source captures for GigsNews, KLMA, On The Case and Scenic Eye plus active direct canonical discovery-crawler history. It also exposes an evidence gap: the latest 28 Aug state/snapshot commit has no corresponding per-run report or CTO inbox entry, and run-reports currently stop in July. A shared v2 output contract now requires append-only machine ledgers, per-record identity and enrichment evidence, exact canonical actions and API read-back.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-ops",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json"
+          ]
         }
       ],
       "now": [
@@ -890,7 +933,7 @@
         },
         {
           "title": "East Anglia and Cumbria Backline-only pilots",
-          "detail": "Build two bounded regional services where new coverage is attributable to Backline rather than the existing Cowork schedules. East Anglia starts with Norfolk Gig Guide. Cumbria starts with a Nowt On acquisition, music-only and source-independence audit, with direct venue calendars as the fallback. Establish a pre-pilot canonical baseline, run both in production shadow, expose net-new gig, Venue and Artist coverage in Godmode, and require the normal Trust Loop and human approval gates before any canonical projection.",
+          "detail": "Build two bounded regional services where new coverage is attributable to Backline rather than the existing Cowork schedules. East Anglia starts with Norfolk Gig Guide. Cumbria starts with a Nowt On acquisition, music-only and source-independence audit, with direct venue calendars as the fallback. Establish a pre-pilot canonical baseline, run both in production shadow, and expose net-new gig, Venue and Artist coverage plus enrichment health in Godmode. Acceptance requires evidence-backed artist type, act type, acoustic capability and genres where knowable; confirmed official links or an explicit attempted-no-official-presence result; zero wrong-artist links; and normal Trust Loop and human approval gates before canonical projection.",
           "evidence": [
             "https://www.norfolkgigguide.com/",
             "https://www.nowton.events/"
@@ -898,7 +941,11 @@
         },
         {
           "title": "Cowork canonical change capture",
-          "detail": "Inventory every active Cowork schedule and ingest its versioned run reports as supporting evidence. Correlate create, update and cancellation actions to canonical entity IDs and API read-back, record writerAuthority=cowork and suppress projection. This closes the gap between the one-time canonical baseline and live canonical changes while existing tasks continue to run."
+          "detail": "Inventory every active Cowork schedule and bind its live prompt to RUN-CONTRACT v2. Ingest each append-only JSON ledger as supporting evidence, correlate create, update and cancellation actions to canonical entity IDs and API read-back, record writerAuthority=cowork and suppress projection. The ledger must include per-Artist enrichment outcomes and identity evidence. This closes the gap between the one-time canonical baseline and live canonical changes while existing tasks continue to run; current mutable snapshots are not accepted as a write ledger.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json"
+          ]
         },
         {
           "title": "New Backline sources found \u2014 26 August 2026",
