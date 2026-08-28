@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T08:46:03.834Z",
-  "updatedBy": "Multi-source Backline visibility 2026-08-28",
+  "updatedAt": "2026-08-28T11:23:30.020Z",
+  "updatedBy": "Backline CTO regroup and trust-loop priority 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -505,6 +505,10 @@
       "repos": [
         "enrichment",
         "api",
+        "backstage",
+        "app",
+        "capture",
+        "mcp",
         "signals"
       ],
       "done": [
@@ -571,6 +575,15 @@
       ]
         },
         {
+          "title": "Bounded evidence graph reader v1 shipped",
+          "detail": "Backline already has an indexed, read-only one-hop graph reader, admin API and static operator view spanning Sources, Observations, Claims, candidate identities, Resolutions and canonical entities. The remaining product work is to populate source-resolution/conflict state consistently and embed this capability in Godmode, not to invent another graph store.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/knowledge/graph-read.ts",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/handlers/backline-admin-api.ts",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/explorer/backline-explorer.html"
+          ]
+        },
+        {
           "title": "Reusable source-ingestion blueprint committed",
           "detail": "The Lemonrock implementation, durable evidence/Claim model, AWS runtime, recovery controls, source definition of done and a concrete On The Case Music design are documented as the handover pattern for future sources.",
           "evidence": [
@@ -622,7 +635,7 @@
       "now": [
         {
           "title": "Current Backline phase",
-      "detail": "Lemonrock national bootstrap is complete in low-cost shadow BAU, On The Case is healthy live shadow BAU, and KLMA Stoke is healthy live daily shadow BAU with Cowork retained as its writer. Godmode now exposes all three operationally, plus the canonical baseline and inactive source families. The active Backline delivery phase is identity resolution/corroboration across these first source cohorts, followed by GigsNews production shadow, qualified enrichment and the interactive Godmode evidence graph. Canonical projection remains off for these source families."
+          "detail": "The ingestion foundation is proven: Lemonrock, On The Case and KLMA are live shadow BAU, the canonical baseline is represented in Claims, and Godmode exposes multi-source operations. Priority 1 is now Backline Trust Loop v1: persist explainable resolved, unresolved and conflicted identity state across the first cohorts, add GigsNews as a weekly shadow corroboration source, expose evidence and decisions in Godmode, then produce a reviewed shadow would-write report. Canonical projection remains off until that cohort passes and receives separate human approval."
         },
         {
           "title": "Lemonrock feed status",
@@ -716,42 +729,48 @@
           ]
         },
         {
-          "title": "Persist Lemonrock identity resolution",
-          "detail": "Turn source-native Artist, Venue and Gig evidence into explicit resolved, unresolved or conflicted identity state. Prefer deterministic native links and high-confidence matching; keep the unresolved set small through active candidate generation and review, but never force ambiguous identities together.",
+          "title": "Priority 1: Backline Trust Loop v1",
+          "detail": "Classify a bounded Artist, Venue and Event cohort across canonical BNDY, Lemonrock, On The Case, KLMA and GigsNews as resolved, unresolved or conflicted. Port useful deterministic resolver logic from bndy-signals into bndy-enrichment, retain every candidate and reason as durable evidence, and never force an ambiguous merge. Acceptance requires 100 percent cohort classification with no silent drops, zero confident false matches in the reviewed known-answer set, and every decision traceable to exact Claims and source evidence.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/TARGET-BNDY-ENRICHMENT-ARCHITECTURE.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md"
           ]
         },
         {
-          "title": "Build the interactive Godmode evidence graph",
-          "detail": "Create an Obsidian-style bounded graph explorer across Sources, source identities, canonical entities, Claims, Observations, conflicts and projection decisions. It must search and expand from a selected node rather than render the entire corpus, show confidence/authority visually, and drill through to exact evidence and resolution history.",
+          "title": "Embed and operationalise the evidence graph",
+          "detail": "Integrate the existing bounded graph reader into Godmode and populate it with source identities, canonical candidates, resolution/conflict state and projection decisions. Operators must be able to search and expand from one node, see confidence and authority, and drill through to exact evidence and decision history without rendering or scanning the whole corpus.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/knowledge/graph-read.ts",
+            "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx"
           ]
         },
         {
-          "title": "Build the next priority sources",
-          "detail": "With Lemonrock, On The Case and KLMA now proven in shadow BAU, start the first identity-resolution/corroboration cohort across those sources and existing canonical BNDY. In parallel, bring GigsNews into scheduled production shadow and then qualify the next selected regional source. Projection/cutover authority remains a later milestone."
+          "title": "GigsNews weekly shadow as the fourth source",
+          "detail": "Complete a fresh Gate A donor replay, then activate GigsNews on a weekly production-shadow cadence. Store immutable evidence, Observations and Claims, publish source health and completeness metrics, keep queue and DLQ stable, and never infer cancellation from disappearance between weekly editions. Its Manchester and East Cheshire overlap with Lemonrock and KLMA makes it part of the Trust Loop corroboration cohort, not a competing ingestion project."
         }
       ],
       "next": [
         {
           "title": "Controlled Backline projection",
-          "detail": "Deferred until resolution/intelligence is proven. KLMA remains a strong future candidate for the first bounded additive-only projection because its existing Stoke corpus provides a useful known-answer cohort, but today it stays shadow-only with Cowork retained.",
+          "detail": "After Trust Loop v1 passes, generate a complete shadow would-write report and review every proposed canonical action. KLMA is the first bounded additive-only candidate because its Stoke corpus is a useful known-answer cohort. The pilot must prohibit destructive changes, retain owner protection and stop thresholds, and requires separate human approval before any canonical write or Cowork writer transfer.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
         },
         {
-          "title": "Converge BNDY-originated changes",
-          "detail": "Extend durable Backline provenance from the new user-created Artist path to Venue, Event, Festival, Capture and assisted-creation changes after parity gates.",
+          "title": "Bounded network discovery",
+          "detail": "Only after identity quality is proven, add budgeted graph expansion from resolved Artists, Venues and Events. Enforce maximum depth, entities, fetches, model calls, time and cost; fully enrich selected nodes but expand edges selectively. Keep DynamoDB evidence and Claims authoritative and defer Neptune until measured graph workloads justify it."
+        },
+        {
+          "title": "Converge community and agent evidence",
+          "detail": "Route Venue, Event, Festival, Capture, curator and MCP-assisted changes through durable Observations, Claims and projection policy after parity gates. Human and agent contributions should strengthen provenance and exception handling rather than bypass the Backline trust model.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
         },
         {
           "title": "Migrate useful Signals concepts",
-          "detail": "Salvage source adapters, review semantics and useful ADRs from bndy-signals, then retire its runtime."
+          "detail": "Port useful deterministic resolvers, review semantics and intelligence concepts from bndy-signals into bndy-enrichment, prove parity, then retire the legacy runtime instead of operating two intelligence systems."
         }
       ]
     },
@@ -852,7 +871,7 @@
       ],
       "now": [
         {
-          "title": "KLMA generic cutover and Cowork retirement",
+          "title": "KLMA shadow BAU complete; writer cutover deferred",
           "detail": "KLMA shadow BAU proven; canonical cutover deferred. Backline now hydrates KLMA daily into immutable evidence, Observations and Claims while remaining shadowed and Cowork-owned. The existing Cowork publication path stays in place until the resolution/intelligence layer is proven and we separately authorise canonical projection. Future writer transfer/cutover gates remain documented but are not part of the current hydration milestone.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/38",
@@ -862,8 +881,8 @@
           ]
         },
         {
-          "title": "GigsNews and Scenic Eye production shadow",
-          "detail": "Make GigsNews a scheduled weekly source with immutable snapshots and no cancellation inference from page absence. Select and prove a low-cost Scenic Eye cadence with stale-edition protection. Both remain shadowed until completeness and identity metrics are visible."
+          "title": "GigsNews is the next production-shadow source",
+          "detail": "Complete fresh donor parity, then activate GigsNews weekly with immutable snapshots, source health metrics and no cancellation inference from page absence. Use its regional overlap as Trust Loop corroboration. Scenic Eye follows after GigsNews reaches stable shadow BAU; neither receives canonical write authority in this phase."
         },
         {
           "title": "New Backline sources found \u2014 26 August 2026",
@@ -876,11 +895,8 @@
       ],
       "next": [
         {
-          "title": "Complete Lemonrock resolution and Explorer visibility",
-          "detail": "Classify every source-native identity as resolved, unresolved or conflicted and expose the real relationships and evidence through the Godmode graph.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
-          ]
+          "title": "Source sequence after GigsNews",
+          "detail": "Prove Scenic Eye on a low-cost weekly shadow cadence, then pilot one watched-Venue website source to close a real regional gap. Norfolk Gig Guide, DGWGO Events and Brighton Gigs remain selected behind their explicit fixture, reachability and source-independence gates."
         },
         {
           "title": "Norfolk Gig Guide \u2014 selected",
