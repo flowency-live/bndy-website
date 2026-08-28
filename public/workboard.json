@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T11:58:26.860Z",
-  "updatedBy": "Cowork run evidence and healthy enrichment gates 2026-08-28",
+  "updatedAt": "2026-08-28T14:34:00.000Z",
+  "updatedBy": "Backline Trust Loop v1 live quality gate 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -187,41 +187,41 @@
       ],
       "done": [
         {
-          "title": "JOIN-01 \u2014 Join shell",
+          "title": "JOIN-01 — Join shell",
           "detail": "/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI."
         },
         {
-          "title": "JOIN-02 \u2014 identity before creation",
+          "title": "JOIN-02 — identity before creation",
           "detail": "Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation."
         },
         {
-          "title": "JOIN-03 \u2014 auth + resume",
+          "title": "JOIN-03 — auth + resume",
           "detail": "Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return."
         },
         {
-          "title": "JOIN-04/05 \u2014 owned Artist and Venue creation",
+          "title": "JOIN-04/05 — owned Artist and Venue creation",
           "detail": "Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships."
         },
         {
-          "title": "JOIN-06 \u2014 Artist profile step",
+          "title": "JOIN-06 — Artist profile step",
           "detail": "Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy."
         },
         {
-          "title": "JOIN-07 \u2014 Claim persistence and review",
+          "title": "JOIN-07 — Claim persistence and review",
           "detail": "Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification."
         },
         {
-          "title": "JOIN-08 \u2014 management and delegation foundation",
+          "title": "JOIN-08 — management and delegation foundation",
           "detail": "/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership."
         },
         {
-          "title": "JOIN-09 \u2014 owner authority protection",
+          "title": "JOIN-09 — owner authority protection",
           "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
         }
       ],
       "now": [
         {
-          "title": "JOIN-10 \u2014 release hardening",
+          "title": "JOIN-10 — release hardening",
           "detail": "Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain."
         },
         {
@@ -575,14 +575,14 @@
           ]
         },
         {
-      "title": "Multi-source Backline Explorer deployed",
-      "detail": "The authenticated, read-only Godmode Explorer exposes Lemonrock, On The Case and KLMA live shadow BAU alongside the canonical baseline and inactive source families. It shows family health, generic source-run metrics, Lemonrock and On The Case task ledgers, source runtime state, Observations, Claims and exact evidence provenance. It is an operational inspector, not yet the planned interactive identity-resolution graph.",
-      "evidence": [
-        "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
-        "https://github.com/flowency-live/bndy-backstage/pull/3",
-        "https://github.com/flowency-live/bndy-serverless-api/blob/master/source-runs-lambda/backline.js",
-        "https://github.com/flowency-live/bndy-serverless-api/pull/56"
-      ]
+          "title": "Multi-source Backline Explorer deployed",
+          "detail": "The authenticated, read-only Godmode Explorer exposes Lemonrock, On The Case, KLMA and GigsNews operations alongside the canonical baseline. Its deployed Trust Loop panel polls the read-only API and shows cohort status, resolved/unresolved/conflicted decisions, enrichment coverage, wrong-link incidents, zero-write state and the human review queue. It remains an operational inspector; the planned interactive identity/evidence graph is still a separate product step.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
+            "https://github.com/flowency-live/bndy-backstage/pull/4",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/58",
+            "https://backstage.bndy.co.uk/godmode/enrichment"
+          ]
         },
         {
           "title": "Bounded evidence graph reader v1 shipped",
@@ -649,12 +649,21 @@
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-reconciliation-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/onthecase-live-probe.json"
           ]
+        },
+        {
+          "title": "GigsNews weekly shadow activated",
+          "detail": "GigsNews is deployed as the fourth live Backline shadow source on a weekly standard-runtime cadence. Production evidence is immutable, the source is incremental and append-only, Cowork retains writer authority, disappearance is not cancellation evidence, and canonical writes remain disabled. The live quality-proof cohort contains current GigsNews Artists, Venues and Events with no booking/contact footer artefacts.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33180195595",
+            "https://github.com/flowency-live/bndy-enrichment/pull/73"
+          ]
         }
       ],
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "The ingestion foundation is proven: Lemonrock, On The Case and KLMA are live shadow BAU, the canonical baseline is represented in Claims, and Godmode exposes multi-source operations. Priority 1 remains Backline Trust Loop v1, with GigsNews added as a weekly corroboration source. In parallel, Backline will prove net-new regional coverage plus healthy enrichment in East Anglia and Cumbria, and capture ongoing Cowork-authored canonical changes as non-projecting Backline evidence. Canonical projection remains off until identity and enrichment gates pass and receive separate human approval."
+          "detail": "Backline Trust Loop v1 is now the live priority. Lemonrock, On The Case, KLMA and GigsNews are operating in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The 28 Aug live cohort classified all 40 candidates with no silent drops, no wrong links and zero canonical writes. Its remaining gate is now explicit: independently verify healthy Artist enrichment and pass at least 20 human-reviewed known answers before any controlled canonical projection. East Anglia and Cumbria remain the next net-new geography pilots, while Cowork-authored canonical changes must enter Backline as non-projecting lineage evidence."
         },
         {
           "title": "Lemonrock feed status",
@@ -686,7 +695,15 @@
         },
         {
           "title": "GigsNews feed status",
-          "detail": "ADAPTER READY, NOT LIVE SCHEDULED. Parser/adapter and stale-edition protection exist. Because it is a human-curated weekly aggregation, disappearance from a later page is not treated as cancellation evidence. Production cadence/cutover still needs completing."
+          "detail": "HEALTHY LIVE WEEKLY SHADOW. GigsNews now runs through bounded standard HTTP against the server-rendered page, stores immutable evidence, Observations and Claims, and remains incremental/append-only under Cowork writer authority. The 28 Aug quality-proof run removed all booking/contact footer artefacts from the live 40-case cohort. Disappearance between editions is never cancellation evidence. Shadow mode is on, canonical writes are off, and the superseded browser delivery copy remains retained outside the active DLQ.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-browser-quarantine.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33180195595",
+            "https://github.com/flowency-live/bndy-enrichment/pull/71",
+            "https://github.com/flowency-live/bndy-enrichment/pull/72",
+            "https://github.com/flowency-live/bndy-enrichment/pull/73"
+          ]
         },
         {
           "title": "Scenic Eye feed status",
@@ -724,8 +741,8 @@
           "detail": "bndy-signals contains the older cognitive runtime; bndy-enrichment/BNDY Backline contains the strategic architecture."
         },
         {
-      "title": "Daily Backline discovery metrics",
-      "detail": "DEPLOYED FOR GENERIC SOURCE RUNS. Each generic run produces one 180-day drill-down metric and atomically updates one 400-day source-family daily roll-up from the in-memory report, with DynamoDB TTL and no corpus/evidence scans. Godmode now exposes recent family runs and their item, event, profile, Claim, parked-row, warning, error and duration measures. Remaining: add resolved/unresolved/conflicted and queue/cost aggregates plus historical trend charts.",
+          "title": "Daily Backline discovery metrics",
+          "detail": "DEPLOYED FOR GENERIC SOURCE RUNS. Each generic run produces one 180-day drill-down metric and atomically updates one 400-day source-family daily roll-up from the in-memory report, with DynamoDB TTL and no corpus/evidence scans. Godmode now exposes recent family runs and their item, event, profile, Claim, parked-row, warning, error and duration measures. Remaining: add resolved/unresolved/conflicted and queue/cost aggregates plus historical trend charts.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/37",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/src/sources/runner/metrics.ts"
@@ -749,18 +766,22 @@
         },
         {
           "title": "Priority 1: Backline Trust Loop v1",
-          "detail": "Classify a bounded Artist, Venue and Event cohort across canonical BNDY, Lemonrock, On The Case, KLMA and GigsNews as resolved, unresolved or conflicted. Port useful deterministic resolver logic from bndy-signals into bndy-enrichment, retain every candidate and reason as durable evidence, and never force an ambiguous merge. Acceptance requires 100 percent cohort classification with no silent drops, zero confident false matches in the reviewed known-answer set, and every decision traceable to exact Claims and source evidence.",
+          "detail": "LIVE SHADOW, HUMAN ACCEPTANCE PENDING. The deployed runtime indexes canonical and source candidates, classifies each as resolved, unresolved or conflicted, persists traceable decisions, and never forces a name-only merge. The latest quality-proof cohort contains 40/40 classified candidates: 16 Artists, 12 Venues and 12 Events across Lemonrock profile hydration, On The Case, KLMA and GigsNews. All are safely unresolved, with zero silent drops, zero wrong-link incidents and zero canonical writes. GigsNews footer artefacts are gone. Technical acceptance is complete; final Trust Loop v1 acceptance still requires at least 20 human-reviewed known answers and the verified enrichment gate.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/TARGET-BNDY-ENRICHMENT-ARCHITECTURE.md",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33180195595",
+            "https://github.com/flowency-live/bndy-enrichment/pull/65",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/58",
+            "https://github.com/flowency-live/bndy-backstage/pull/4"
           ]
         },
         {
           "title": "Hard gate: healthy artist enrichment",
-          "detail": "Every regional pilot and source cohort must report enrichment health as well as ingestion health. For each eligible Artist, classify canonical artistType and actType, acoustic as a separate boolean, and only evidence-backed canonical genres; park fields that cannot be supported. Facebook is optional, but every stored Facebook, website, Instagram, Bandcamp, Spotify or other official URL must be identity-proven against the same act using exact gig footprint, first-party cross-linking or equivalent evidence. Name similarity alone is insufficient and one wrong-artist URL fails the cohort. Record attempted-no-official-presence instead of penalising artists who avoid social platforms. Regional gig footprint is evidence, not automatic artist location. An owner-managed BNDY profile is the highest first-party authority. Godmode must show classification coverage, evidence-backed genre coverage, confirmed official-link coverage, attempted-no-presence, parked/conflicted items and wrong-link incidents.",
+          "detail": "LIVE MEASUREMENT, NOT YET HEALTHY. The 28 Aug cohort assessed 16 Artists. Four Lemonrock profiles carry candidate-only Artist-type evidence and four On The Case profiles carry candidate-only genre evidence, with zero wrong-link incidents. Verified classification, genre and official-link coverage remain 0%, and no attempted-no-official-presence results exist yet. This is now the active technical gate: run the bounded provider/corroboration path, preserve exact citations, classify artistType, actType, acoustic and evidence-backed genres, and either identity-confirm official links or record an explicit no-presence attempt. One wrong-artist URL still fails the cohort.",
           "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/73",
             "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
-            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/ENRICHMENT-PROVIDER-QUALIFICATION.md"
           ]
         },
@@ -773,16 +794,12 @@
           ]
         },
         {
-          "title": "GigsNews weekly shadow as the fourth source",
-          "detail": "Complete a fresh Gate A donor replay, then activate GigsNews on a weekly production-shadow cadence. Store immutable evidence, Observations and Claims, publish source health and completeness metrics, keep queue and DLQ stable, and never infer cancellation from disappearance between weekly editions. Its Manchester and East Cheshire overlap with Lemonrock and KLMA makes it part of the Trust Loop corroboration cohort, not a competing ingestion project."
-        },
-        {
           "title": "Capture ongoing Cowork canonical activity",
-          "detail": "Treat the still-running Claude Cowork schedules as explicit external writers until each is safely replaced. The 28 Aug bndy-ops state proves recent discovery-crawler activity, including six canonical Events, four new Artists, one Artist backfill and three deduped Venues, while current GigsNews, KLMA and On The Case captures and Scenic Eye's stale-edition no-op show source activity. The same commit did not add a run report or CTO inbox entry, so it does not yet provide a complete per-run write ledger. Require the new append-only JSON contract, reconcile every successful action against canonical API read-back, and create BNDY-origin Observations and Claims tagged with Cowork writer lineage. Keep these records projection-suppressed to prevent a canonical feedback loop, and leave unknown provenance explicit rather than guessed.",
+          "detail": "CONTRACT LIVE, LEDGER INGESTION WAITING FOR FIRST RECORDS. Claude Cowork schedules remain explicit external canonical writers until replaced. bndy-ops now requires an append-only JSON ledger, human report, CTO inbox entry and canonical API read-back for every run, including no-change or failure. As at 14:34 UTC on 28 Aug the remote repository contains the v2 contract and schema but no run-ledger records, so Backline cannot yet hydrate current Cowork activity honestly. Once records arrive, ingest them as BNDY-origin Observations and Claims tagged with Cowork writer lineage and projection-suppressed to prevent a canonical feedback loop.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-ops/commit/33d1a03",
-            "https://github.com/flowency-live/bndy-ops/blob/main/discovery-crawl-state.json",
-            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md"
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
+            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json",
+            "https://github.com/flowency-live/bndy-ops"
           ]
         }
       ],
@@ -884,8 +901,8 @@
           ]
         },
         {
-          "title": "Rejected source candidates \u2014 26 August 2026",
-          "detail": "yorkshiregigguide.co.uk \u2014 editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk \u2014 DNS dead. yorkshirecoastgigs.co.uk \u2014 content stale since 2016-2017. thebristolgigguide.com \u2014 reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk \u2014 active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) \u2014 403, unreachable. gig-guide.co.uk \u2014 multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange \u2014 excluded aggregator class (GigXchange excluded by Jason)."
+          "title": "Rejected source candidates — 26 August 2026",
+          "detail": "yorkshiregigguide.co.uk — editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk — DNS dead. yorkshirecoastgigs.co.uk — content stale since 2016-2017. thebristolgigguide.com — reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk — active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) — 403, unreachable. gig-guide.co.uk — multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange — excluded aggregator class (GigXchange excluded by Jason)."
         },
         {
           "title": "On The Case gig-led source family deployed to shadow",
@@ -948,7 +965,7 @@
           ]
         },
         {
-          "title": "New Backline sources found \u2014 26 August 2026",
+          "title": "New Backline sources found — 26 August 2026",
           "detail": "Source discovery pass completed. Three sources selected for planned Backline onboarding, one regional coverage gap documented, and lower-value/blocked aggregator candidates rejected."
         },
         {
@@ -970,12 +987,12 @@
           "detail": "https://www.nowton.events/ is an active local events service covering Kendal, Windermere, Ambleside, Keswick, Penrith and wider Cumbria, including small pub gigs and open sessions. First prove stable acquisition, music-only classification, source independence and native identity. If those gates fail, use direct calendars from a bounded Cumbria watched-Venue cohort rather than a national ticket aggregator."
         },
         {
-          "title": "DGWGO Events \u2014 selected",
-          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ \u2014 Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
+          "title": "DGWGO Events — selected",
+          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ — Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
         },
         {
-          "title": "Brighton Gigs \u2014 selected",
-          "detail": "https://brightongigs.uk/ \u2014 Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
+          "title": "Brighton Gigs — selected",
+          "detail": "https://brightongigs.uk/ — Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
         },
         {
           "title": "Lancashire source gap",
