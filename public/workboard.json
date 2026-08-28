@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-27T22:44:30.130Z",
-  "updatedBy": "Backline Lemonrock national bootstrap completion 2026-08-27",
+  "updatedAt": "2026-08-28T08:10:22.883116Z",
+  "updatedBy": "KLMA healthy live shadow BAU 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -178,41 +178,41 @@
       ],
       "done": [
         {
-          "title": "JOIN-01 — Join shell",
+          "title": "JOIN-01 \u2014 Join shell",
           "detail": "/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI."
         },
         {
-          "title": "JOIN-02 — identity before creation",
+          "title": "JOIN-02 \u2014 identity before creation",
           "detail": "Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation."
         },
         {
-          "title": "JOIN-03 — auth + resume",
+          "title": "JOIN-03 \u2014 auth + resume",
           "detail": "Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return."
         },
         {
-          "title": "JOIN-04/05 — owned Artist and Venue creation",
+          "title": "JOIN-04/05 \u2014 owned Artist and Venue creation",
           "detail": "Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships."
         },
         {
-          "title": "JOIN-06 — Artist profile step",
+          "title": "JOIN-06 \u2014 Artist profile step",
           "detail": "Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy."
         },
         {
-          "title": "JOIN-07 — Claim persistence and review",
+          "title": "JOIN-07 \u2014 Claim persistence and review",
           "detail": "Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification."
         },
         {
-          "title": "JOIN-08 — management and delegation foundation",
+          "title": "JOIN-08 \u2014 management and delegation foundation",
           "detail": "/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership."
         },
         {
-          "title": "JOIN-09 — owner authority protection",
+          "title": "JOIN-09 \u2014 owner authority protection",
           "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
         }
       ],
       "now": [
         {
-          "title": "JOIN-10 — release hardening",
+          "title": "JOIN-10 \u2014 release hardening",
           "detail": "Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain."
         },
         {
@@ -620,7 +620,7 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Lemonrock national bootstrap is complete and operating in low-cost shadow BAU. The active Backline delivery phase is now KLMA quality parity and bounded additive-only cutover, followed by GigsNews production shadow, discovery-metrics deployment, identity resolution, qualified entity enrichment and the interactive Godmode evidence graph. Canonical writes remain disabled for national source families."
+          "detail": "Lemonrock national bootstrap is complete in low-cost shadow BAU, On The Case is healthy live shadow BAU, and KLMA Stoke is now healthy live shadow BAU. The active Backline delivery phase is identity resolution/corroboration across these first source cohorts, followed by GigsNews production shadow, discovery metrics, qualified enrichment and the interactive Godmode evidence graph. Canonical projection remains off for these source families."
         },
         {
           "title": "Lemonrock feed status",
@@ -642,10 +642,12 @@
         },
         {
           "title": "KLMA feed status",
-          "detail": "CUTOVER GUARD MERGED, NOT DEPLOYED OR CUT OVER. PR #52 adds live headerless-sheet parsing, reviewed Cowork date/time and Venue rules, exact parked-row parity fingerprints, bounded volume stops and a projection-engine-enforced additive-only mode. The 27 Aug read-only live snapshot contains 410 rows: 306 unique accepted gigs and 104 parked rows, with zero ambiguous Venue localities and zero identity collisions. Thirty-one accepted rows carry explicit defaulted-time warnings for row-level parity review. Historical Gate A remains pending on 20 ambiguous Venue-locality rows and four collision rows. The registry remains disabled, shadowed and Cowork-owned.",
+          "detail": "HEALTHY LIVE SHADOW BAU. On 28 Aug Backline deployed with the deploy role, seeded only KLMA as enabled daily standard-runtime ingestion, triggered a real live source run and verified the persisted raw CSV evidence, Observation and 2,771 Claims. Live source config is enabled=true, shadow=true, cadence=daily, writerAuthority=cowork. Canonical writes are disabled and the existing Cowork task remains untouched. Observation obs-bfcbd2f7-3944-4f8a-a41b-47c2ac38e43b is the activation proof. Historical ambiguous-locality and identity-collision rows remain safely parked rather than guessed.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/52",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/klma-shadow-bau-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/63"
           ]
         },
         {
@@ -727,13 +729,13 @@
         },
         {
           "title": "Build the next priority sources",
-          "detail": "Finish KLMA Gate A disposition and two live shadow parity runs, then pause Cowork and perform the bounded additive-only writer transfer. Afterward, bring GigsNews into scheduled production shadow ingestion and prove a low-cost Scenic Eye cadence before widening Backline projection authority."
+          "detail": "With Lemonrock, On The Case and KLMA now proven in shadow BAU, start the first identity-resolution/corroboration cohort across those sources and existing canonical BNDY. In parallel, bring GigsNews into scheduled production shadow and then qualify the next selected regional source. Projection/cutover authority remains a later milestone."
         }
       ],
       "next": [
         {
           "title": "Controlled Backline projection",
-          "detail": "KLMA is the first planned exception after its explicit cutover gates: bounded additive-only create-or-match through canonical APIs with read-back and no update, cancellation, hiding, restoration or owner-record mutation. Wider projection remains deferred until more source families and resolution behaviour are proven.",
+          "detail": "Deferred until resolution/intelligence is proven. KLMA remains a strong future candidate for the first bounded additive-only projection because its existing Stoke corpus provides a useful known-answer cohort, but today it stays shadow-only with Cowork retained.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
           ]
@@ -823,8 +825,8 @@
           ]
         },
         {
-          "title": "Rejected source candidates — 26 August 2026",
-          "detail": "yorkshiregigguide.co.uk — editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk — DNS dead. yorkshirecoastgigs.co.uk — content stale since 2016-2017. thebristolgigguide.com — reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk — active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) — 403, unreachable. gig-guide.co.uk — multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange — excluded aggregator class (GigXchange excluded by Jason)."
+          "title": "Rejected source candidates \u2014 26 August 2026",
+          "detail": "yorkshiregigguide.co.uk \u2014 editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk \u2014 DNS dead. yorkshirecoastgigs.co.uk \u2014 content stale since 2016-2017. thebristolgigguide.com \u2014 reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk \u2014 active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) \u2014 403, unreachable. gig-guide.co.uk \u2014 multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange \u2014 excluded aggregator class (GigXchange excluded by Jason)."
         },
         {
           "title": "On The Case gig-led source family deployed to shadow",
@@ -849,11 +851,12 @@
       "now": [
         {
           "title": "KLMA generic cutover and Cowork retirement",
-          "detail": "CUTOVER SAFETY MERGED, NOT DEPLOYED. PR #52 adds the live headerless-sheet path, exact raw-evidence preservation, reviewed Cowork rules, per-row parity fingerprints, duplicate/collision parking, bounded volume stops and additive-only projection enforced both before queue publication and before any BNDY API call. Live read-only audit: 410 rows, 306 unique accepted, 104 parked, zero ambiguous localities and zero identity collisions; 31 defaulted-time rows remain explicit review items. Historical Gate A still needs disposition for 20 ambiguous locality rows and four collision rows. The registry remains disabled, shadowed and Cowork-owned. Next: deploy without enabling after the Lemonrock audit, complete Gate A, run two manual AWS/Cowork parity checks on different days, pause Cowork, transfer writer authority, perform one bounded bootstrap with complete read-back, then require three clean daily runs before permanent Cowork retirement.",
+          "detail": "KLMA shadow BAU proven; canonical cutover deferred. Backline now hydrates KLMA daily into immutable evidence, Observations and Claims while remaining shadowed and Cowork-owned. The existing Cowork publication path stays in place until the resolution/intelligence layer is proven and we separately authorise canonical projection. Future writer transfer/cutover gates remain documented but are not part of the current hydration milestone.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/38",
             "https://github.com/flowency-live/bndy-enrichment/pull/52",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/klma-shadow-bau-manifest.json"
           ]
         },
         {
@@ -861,7 +864,7 @@
           "detail": "Make GigsNews a scheduled weekly source with immutable snapshots and no cancellation inference from page absence. Select and prove a low-cost Scenic Eye cadence with stale-edition protection. Both remain shadowed until completeness and identity metrics are visible."
         },
         {
-          "title": "New Backline sources found — 26 August 2026",
+          "title": "New Backline sources found \u2014 26 August 2026",
           "detail": "Source discovery pass completed. Three sources selected for planned Backline onboarding, one regional coverage gap documented, and lower-value/blocked aggregator candidates rejected."
         },
         {
@@ -878,16 +881,16 @@
           ]
         },
         {
-          "title": "Norfolk Gig Guide — selected",
-          "detail": "https://www.norfolkgigguide.com/ — Norfolk / Norwich (East Anglia). Plan committed, fixture-gated. ~2,600 acts, native numeric band IDs, no per-gig URLs. Origin 403s non-browser clients."
+          "title": "Norfolk Gig Guide \u2014 selected",
+          "detail": "https://www.norfolkgigguide.com/ \u2014 Norfolk / Norwich (East Anglia). Plan committed, fixture-gated. ~2,600 acts, native numeric band IDs, no per-gig URLs. Origin 403s non-browser clients."
         },
         {
-          "title": "DGWGO Events — selected",
-          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ — Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
+          "title": "DGWGO Events \u2014 selected",
+          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ \u2014 Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
         },
         {
-          "title": "Brighton Gigs — selected",
-          "detail": "https://brightongigs.uk/ — Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
+          "title": "Brighton Gigs \u2014 selected",
+          "detail": "https://brightongigs.uk/ \u2014 Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
         },
         {
           "title": "Lancashire source gap",
