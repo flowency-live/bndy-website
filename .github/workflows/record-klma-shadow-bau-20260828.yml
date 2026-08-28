@@ -1,0 +1,72 @@
+name: Record KLMA healthy live shadow BAU
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-workboard:
+    if: contains(github.event.head_commit.message, 'Record KLMA healthy live shadow BAU')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update Backline workboard
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          path = Path('public/workboard.json')
+          data = json.loads(path.read_text())
+          data['updatedAt'] = datetime.now(timezone.utc).isoformat().replace('+00:00','Z')
+          data['updatedBy'] = 'KLMA healthy live shadow BAU 2026-08-28'
+
+          replacements = {
+            'Current Backline phase': 'Lemonrock national bootstrap is complete in low-cost shadow BAU, On The Case is healthy live shadow BAU, and KLMA Stoke is now healthy live shadow BAU. The active Backline delivery phase is identity resolution/corroboration across these first source cohorts, followed by GigsNews production shadow, discovery metrics, qualified enrichment and the interactive Godmode evidence graph. Canonical projection remains off for these source families.',
+            'KLMA feed status': 'HEALTHY LIVE SHADOW BAU. On 28 Aug Backline deployed with the deploy role, seeded only KLMA as enabled daily standard-runtime ingestion, triggered a real live source run and verified the persisted raw CSV evidence, Observation and 2,771 Claims. Live source config is enabled=true, shadow=true, cadence=daily, writerAuthority=cowork. Canonical writes are disabled and the existing Cowork task remains untouched. Observation obs-bfcbd2f7-3944-4f8a-a41b-47c2ac38e43b is the activation proof. Historical ambiguous-locality and identity-collision rows remain safely parked rather than guessed.',
+            'Build the next priority sources': 'With Lemonrock, On The Case and KLMA now proven in shadow BAU, start the first identity-resolution/corroboration cohort across those sources and existing canonical BNDY. In parallel, bring GigsNews into scheduled production shadow and then qualify the next selected regional source. Projection/cutover authority remains a later milestone.',
+            'KLMA generic cutover and Cowork retirement': 'KLMA shadow BAU proven; canonical cutover deferred. Backline now hydrates KLMA daily into immutable evidence, Observations and Claims while remaining shadowed and Cowork-owned. The existing Cowork publication path stays in place until the resolution/intelligence layer is proven and we separately authorise canonical projection. Future writer transfer/cutover gates remain documented but are not part of the current hydration milestone.',
+            'Controlled Backline projection': 'Deferred until resolution/intelligence is proven. KLMA remains a strong future candidate for the first bounded additive-only projection because its existing Stoke corpus provides a useful known-answer cohort, but today it stays shadow-only with Cowork retained.'
+          }
+
+          evidence_add = {
+            'KLMA feed status': [
+              'https://github.com/flowency-live/bndy-enrichment/blob/main/ops/klma-shadow-bau-manifest.json',
+              'https://github.com/flowency-live/bndy-enrichment/pull/63'
+            ],
+            'KLMA generic cutover and Cowork retirement': [
+              'https://github.com/flowency-live/bndy-enrichment/blob/main/ops/klma-shadow-bau-manifest.json'
+            ]
+          }
+
+          def walk(node):
+            if isinstance(node, dict):
+              title = node.get('title')
+              if title in replacements:
+                node['detail'] = replacements[title]
+                if title in evidence_add:
+                  current = node.get('evidence', [])
+                  for e in evidence_add[title]:
+                    if e not in current:
+                      current.append(e)
+                  node['evidence'] = current
+              for v in node.values():
+                walk(v)
+            elif isinstance(node, list):
+              for v in node:
+                walk(v)
+
+          walk(data)
+          path.write_text(json.dumps(data, indent=2) + '\n')
+          PY
+      - name: Commit workboard
+        run: |
+          git config user.name "bndy-workboard-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/workboard.json
+          git commit -m "Update workboard for KLMA shadow BAU" || exit 0
+          git push origin HEAD:main
