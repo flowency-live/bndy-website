@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T11:23:30.020Z",
-  "updatedBy": "Backline CTO regroup and trust-loop priority 2026-08-28",
+  "updatedAt": "2026-08-28T11:41:44.874Z",
+  "updatedBy": "Backline geography pilots and Cowork change capture 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -635,7 +635,7 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "The ingestion foundation is proven: Lemonrock, On The Case and KLMA are live shadow BAU, the canonical baseline is represented in Claims, and Godmode exposes multi-source operations. Priority 1 is now Backline Trust Loop v1: persist explainable resolved, unresolved and conflicted identity state across the first cohorts, add GigsNews as a weekly shadow corroboration source, expose evidence and decisions in Godmode, then produce a reviewed shadow would-write report. Canonical projection remains off until that cohort passes and receives separate human approval."
+          "detail": "The ingestion foundation is proven: Lemonrock, On The Case and KLMA are live shadow BAU, the canonical baseline is represented in Claims, and Godmode exposes multi-source operations. Priority 1 remains Backline Trust Loop v1, with GigsNews added as a weekly corroboration source. In parallel, Backline will prove net-new regional coverage in East Anglia and Cumbria and capture ongoing Cowork-authored canonical changes as non-projecting Backline evidence. Canonical projection remains off until the Trust Loop cohort passes and receives separate human approval."
         },
         {
           "title": "Lemonrock feed status",
@@ -747,6 +747,10 @@
         {
           "title": "GigsNews weekly shadow as the fourth source",
           "detail": "Complete a fresh Gate A donor replay, then activate GigsNews on a weekly production-shadow cadence. Store immutable evidence, Observations and Claims, publish source health and completeness metrics, keep queue and DLQ stable, and never infer cancellation from disappearance between weekly editions. Its Manchester and East Cheshire overlap with Lemonrock and KLMA makes it part of the Trust Loop corroboration cohort, not a competing ingestion project."
+        },
+        {
+          "title": "Capture ongoing Cowork canonical activity",
+          "detail": "Treat the still-running Claude Cowork schedules as an explicit external writer until each is safely replaced. Version their task definitions and run reports as operational evidence, reconcile every reported action against canonical API read-back, and create BNDY-origin Observations and Claims tagged with Cowork writer lineage. These records must be projection-suppressed so Backline cannot feed its own canonical output back into BNDY. Unknown legacy provenance remains explicit rather than guessed."
         }
       ],
       "next": [
@@ -885,6 +889,18 @@
           "detail": "Complete fresh donor parity, then activate GigsNews weekly with immutable snapshots, source health metrics and no cancellation inference from page absence. Use its regional overlap as Trust Loop corroboration. Scenic Eye follows after GigsNews reaches stable shadow BAU; neither receives canonical write authority in this phase."
         },
         {
+          "title": "East Anglia and Cumbria Backline-only pilots",
+          "detail": "Build two bounded regional services where new coverage is attributable to Backline rather than the existing Cowork schedules. East Anglia starts with Norfolk Gig Guide. Cumbria starts with a Nowt On acquisition, music-only and source-independence audit, with direct venue calendars as the fallback. Establish a pre-pilot canonical baseline, run both in production shadow, expose net-new gig, Venue and Artist coverage in Godmode, and require the normal Trust Loop and human approval gates before any canonical projection.",
+          "evidence": [
+            "https://www.norfolkgigguide.com/",
+            "https://www.nowton.events/"
+          ]
+        },
+        {
+          "title": "Cowork canonical change capture",
+          "detail": "Inventory every active Cowork schedule and ingest its versioned run reports as supporting evidence. Correlate create, update and cancellation actions to canonical entity IDs and API read-back, record writerAuthority=cowork and suppress projection. This closes the gap between the one-time canonical baseline and live canonical changes while existing tasks continue to run."
+        },
+        {
           "title": "New Backline sources found \u2014 26 August 2026",
           "detail": "Source discovery pass completed. Three sources selected for planned Backline onboarding, one regional coverage gap documented, and lower-value/blocked aggregator candidates rejected."
         },
@@ -895,12 +911,16 @@
       ],
       "next": [
         {
-          "title": "Source sequence after GigsNews",
-          "detail": "Prove Scenic Eye on a low-cost weekly shadow cadence, then pilot one watched-Venue website source to close a real regional gap. Norfolk Gig Guide, DGWGO Events and Brighton Gigs remain selected behind their explicit fixture, reachability and source-independence gates."
+          "title": "Source sequence after the geography pilots",
+          "detail": "After GigsNews, East Anglia and Cumbria reach stable shadow BAU, prove Scenic Eye on a low-cost weekly cadence and expand the watched-Venue registry using the successful Cumbria fallback pattern. DGWGO Events and Brighton Gigs remain selected behind their fixture, reachability and source-independence gates."
         },
         {
-          "title": "Norfolk Gig Guide \u2014 selected",
-          "detail": "https://www.norfolkgigguide.com/ \u2014 Norfolk / Norwich (East Anglia). Plan committed, fixture-gated. ~2,600 acts, native numeric band IDs, no per-gig URLs. Origin 403s non-browser clients."
+          "title": "East Anglia pilot: Norfolk Gig Guide",
+          "detail": "https://www.norfolkgigguide.com/ covers Norfolk and Norwich grassroots gigs, Venues and acts with useful native numeric band identities. Capture reviewed fixtures, prove a compliant production acquisition path despite non-browser 403 responses, and measure net-new regional coverage against the canonical baseline. No acquisition-evasion work and no canonical writes during shadow proof."
+        },
+        {
+          "title": "Cumbria pilot: Nowt On plus Venue sources",
+          "detail": "https://www.nowton.events/ is an active local events service covering Kendal, Windermere, Ambleside, Keswick, Penrith and wider Cumbria, including small pub gigs and open sessions. First prove stable acquisition, music-only classification, source independence and native identity. If those gates fail, use direct calendars from a bounded Cumbria watched-Venue cohort rather than a national ticket aggregator."
         },
         {
           "title": "DGWGO Events \u2014 selected",
