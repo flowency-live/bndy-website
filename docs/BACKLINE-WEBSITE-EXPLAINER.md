@@ -1,6 +1,37 @@
-# BNDY Backline — website explainer draft
+# BNDY Backline website explainer
 
-## Most gig platforms store listings. BNDY is building a continuously learning model of grassroots live music.
+## Public messaging architecture
+
+Backline has three public lenses. They should reinforce each other without trying to say everything on one page.
+
+### 1. Community / why it matters
+
+Primary page: `/backline`
+
+The emotional and strategic story.
+
+Core articulation:
+
+> **Backline is the living memory behind bndy. It keeps the evidence, connects what the scene tells us and gets smarter over time.**
+
+The page should explain that a gig listing normally disappears, while the relationships and history underneath it can become part of a durable picture of grassroots live music.
+
+This is where we talk about:
+
+- the scene leaving a trace rather than listings disappearing;
+- artists, venues, places and relationships accumulating over time;
+- local knowledge becoming useful evidence;
+- the community flywheel;
+- future questions Backline is being built to answer;
+- technology serving the scene rather than owning it.
+
+Do not lead with graph terminology here.
+
+### 2. Simple / how BNDY knows
+
+Primary page: `/how-bndy-thinks`, simple section.
+
+Most gig platforms store listings. BNDY is building a continuously learning model of grassroots live music.
 
 A local gig might appear on a venue website, Facebook, Lemonrock, a poster or an artist's own page. Those sources can disagree, change or disappear.
 
@@ -23,20 +54,38 @@ The result shown on BNDY is therefore not just the last thing a scraper copied. 
 
 AI helps BNDY interpret messy information, discover relationships and investigate uncertainty. But the AI itself is not treated as truth. The original evidence remains underneath every decision.
 
-Over time this means BNDY can understand much more than a list of gigs. It can learn how artists, venues, scenes and places connect, where grassroots music is growing, and which parts of live music are being missed by conventional commercial datasets.
+### 3. Technical / how Backline works
 
-### In one sentence
+Primary page: `/how-bndy-thinks`, geek section.
 
-> **BNDY Backline is an AI-native evidence graph for grassroots live music: it continuously observes public and community sources, keeps the evidence behind each assertion, reconciles conflicting information and projects the best-supported current view into BNDY.**
+Technical articulation:
 
----
+> **BNDY Backline is an AI-native evidence and resolution layer for grassroots live music. It preserves source evidence, creates attributable claims, resolves identities and conflicts, and projects the best-supported current view into canonical BNDY.**
 
-## Optional shorter version
+This is where evidence graphs, provenance, claims, authority, resolution, projection, serverless architecture and future graph retrieval belong.
 
-**How does BNDY know what's on?**
+## One-sentence options
 
-BNDY does not simply scrape listings and hope they are right. Backline keeps the evidence behind what it finds, compares different sources and remembers where every claim came from. When information changes or sources disagree, BNDY can update its view without losing the history behind it.
+Community:
 
-AI helps interpret messy information and investigate uncertainty, but AI is not treated as the source of truth. The evidence is.
+> **Backline is the living memory behind bndy: a community-powered picture of grassroots live music that can become richer and more useful over time.**
 
-**Most gig platforms store listings. BNDY is building a continuously learning model of grassroots live music.**
+Simple:
+
+> **Backline keeps the evidence behind what BNDY finds, compares different sources and helps BNDY build the best-supported current view.**
+
+Technical:
+
+> **BNDY Backline is an AI-native evidence and resolution layer for grassroots live music, preserving source evidence and attributable claims before controlled projection into canonical BNDY.**
+
+## Guardrail
+
+The ambition should be visible without pretending unfinished intelligence is already live.
+
+For identity resolution, scene intelligence, recommendations, automated corroboration, historical analysis and community reward, use language such as `is being built to`, `can`, `will allow` and `over time` until those capabilities are proven in production.
+
+Current live claims can confidently describe the evidence foundation, observations, claims, source identities and shadow ingestion architecture.
+
+## Strategic source
+
+The fuller internal intent, product implications, intelligence doctrine, community flywheel and north star live in `docs/BNDY-BACKLINE-STRATEGY.md`.

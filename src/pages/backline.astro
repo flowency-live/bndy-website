@@ -1,0 +1,249 @@
+---
+import Base from '../layouts/Base.astro';
+import Doors from '../components/Doors.astro';
+import Logo from '../components/Logo.astro';
+import { MAP_URL } from '../config';
+---
+<Base
+  title="BNDY Backline · The living memory of grassroots live music"
+  description="BNDY Backline is the living memory behind bndy: evidence, local knowledge and intelligence that can build a richer picture of grassroots live music over time."
+  path="/backline"
+>
+  <header class="backline-hero">
+    <div class="backline-hero-inner">
+      <div class="kicker mono">BNDY BACKLINE</div>
+      <h1 class="tight">A gig listing disappears.<br /><span>The scene shouldn't.</span></h1>
+      <p class="hero-lead">Backline is the living memory behind <Logo class="inline-logo" label="bndy" />.</p>
+      <p class="hero-copy">It is being built to connect gigs, artists, venues, places and the people who know them, while keeping the evidence behind what BNDY believes.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#why">Why it matters</a>
+        <a class="btn btn-secondary" href="/how-bndy-thinks">How it works</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="backline-shell" id="why">
+    <div class="section-head reveal">
+      <span class="mono">01 / MORE THAN A LISTING</span>
+      <h2 class="tight">Saturday night becomes part of the story.</h2>
+    </div>
+
+    <div class="memory-grid">
+      <div class="memory-copy reveal-left">
+        <p>A normal gig listing is useful until the gig is over.</p>
+        <p>Then the Facebook post drops down the feed, the poster comes off the wall and the event page eventually disappears.</p>
+        <p>But something happened.</p>
+        <p>An artist played. A venue put music on. People turned up. A relationship between a band, a room and a place became real.</p>
+        <p class="accent"><b>Backline is being built to remember that.</b></p>
+      </div>
+
+      <div class="memory-card reveal-right">
+        <span class="mono">ONE GIG CAN BECOME EVIDENCE OF</span>
+        <div class="memory-items">
+          <div><strong>an artist</strong><small>active here, at this time</small></div>
+          <div><strong>a venue</strong><small>supporting live music</small></div>
+          <div><strong>a relationship</strong><small>artist ↔ venue ↔ place</small></div>
+          <div><strong>a scene</strong><small>one more signal of local activity</small></div>
+          <div><strong>a history</strong><small>something that does not have to vanish</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene-section">
+    <div class="backline-shell">
+      <div class="section-head reveal">
+        <span class="mono">02 / THE PICTURE GETS CLEARER</span>
+        <h2 class="tight">Every useful piece of evidence can make the scene easier to understand.</h2>
+      </div>
+
+      <div class="scene-grid">
+        <article class="scene-card reveal-left">
+          <span class="mono">VENUES</span>
+          <h3 class="tight">Which rooms really keep music alive?</h3>
+          <p>Over time, activity can reveal the pubs, clubs, back rooms and independent venues consistently putting musicians in front of people, not only the venues visible to the ticketing industry.</p>
+        </article>
+
+        <article class="scene-card reveal-right">
+          <span class="mono">ARTISTS</span>
+          <h3 class="tight">Where is an artist actually building a circuit?</h3>
+          <p>Repeated gigs can begin to show where an artist plays, which rooms welcome them, which towns connect and how their live footprint changes over time.</p>
+        </article>
+
+        <article class="scene-card reveal-left">
+          <span class="mono">PLACES</span>
+          <h3 class="tight">Where is live music growing, or disappearing?</h3>
+          <p>A single listing cannot show a trend. A connected history can begin to expose places becoming more active, scenes joining up and areas where regular live music is quietly being lost.</p>
+        </article>
+
+        <article class="scene-card reveal-right">
+          <span class="mono">OPPORTUNITY</span>
+          <h3 class="tight">What might help somebody play their next gig?</h3>
+          <p>Once the relationships are understood, BNDY can eventually help artists discover plausible venues and help venues discover artists through real grassroots activity rather than follower counts alone.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="community-section">
+    <div class="community-inner reveal-scale">
+      <div class="community-kicker mono">THE HUMAN PART IS NOT A FALLBACK</div>
+      <h2 class="tight">The people in a scene know things the internet doesn't.</h2>
+      <p>Automated discovery can search further and faster. It cannot replace the artist who knows a venue changed its name, the regular who knows a gig was cancelled, the venue owner correcting a start time, or the Curator who understands that two names refer to the same local act.</p>
+      <p><b>Backline is designed so that local knowledge can become evidence too.</b></p>
+    </div>
+  </section>
+
+  <section class="backline-shell">
+    <div class="section-head reveal">
+      <span class="mono">03 / A COMMUNITY FLYWHEEL</span>
+      <h2 class="tight">Backline should get smarter because the scene participates.</h2>
+      <p>And the scene should become more powerful because Backline gets smarter.</p>
+    </div>
+
+    <div class="flywheel reveal-fade" aria-label="Community knowledge feeds Backline, which creates better understanding and discovery, which supports stronger scenes and further contribution">
+      <div class="fly-step"><span>01</span><strong>People + sources</strong><small>artists · venues · curators · gig-goers · web</small></div>
+      <div class="fly-arrow">→</div>
+      <div class="fly-step"><span>02</span><strong>Evidence</strong><small>keep what was actually seen or contributed</small></div>
+      <div class="fly-arrow">→</div>
+      <div class="fly-step"><span>03</span><strong>Understanding</strong><small>connect identities, claims, history and context</small></div>
+      <div class="fly-arrow">→</div>
+      <div class="fly-step"><span>04</span><strong>Better support</strong><small>discovery · visibility · opportunity · recognition</small></div>
+      <div class="fly-arrow">↺</div>
+    </div>
+  </section>
+
+  <section class="possibility-section">
+    <div class="backline-shell">
+      <div class="section-head reveal">
+        <span class="mono">04 / QUESTIONS WE WANT BNDY TO ANSWER</span>
+        <h2 class="tight">Not just “what's on?”</h2>
+      </div>
+
+      <div class="question-list reveal">
+        <p>Which local venue has quietly become one of the most important rooms in this town?</p>
+        <p>Which artists are starting to appear across several neighbouring scenes?</p>
+        <p>Where has regular live music disappeared in the last year?</p>
+        <p>Which venues genuinely support new original artists?</p>
+        <p>Which towns are part of the same real music circuit, even if a map boundary says otherwise?</p>
+        <p>Who consistently contributes useful knowledge that helps everybody else understand the scene?</p>
+      </div>
+
+      <p class="possibility-note reveal">Those are not promises that Backline can answer every one of these questions today. They are the reason we are building the evidence and intelligence underneath BNDY properly now.</p>
+    </div>
+  </section>
+
+  <section class="statement reveal-scale">
+    <h2 class="tight">THE SCENE'S OWN PICTURE OF ITSELF.</h2>
+    <p>Made easier to see. Harder to lose. Better connected over time.</p>
+    <p><b>The technology should serve the scene. Not the other way around.</b></p>
+  </section>
+
+  <section class="backline-shell current-future">
+    <div class="section-head reveal">
+      <span class="mono">05 / BUILT IN THE OPEN</span>
+      <h2 class="tight">Ambitious, without pretending it's finished.</h2>
+    </div>
+
+    <div class="status-grid">
+      <div class="status-card reveal-left">
+        <span class="mono">WHAT EXISTS NOW</span>
+        <h3 class="tight">The evidence foundation</h3>
+        <p>Backline already has the architecture to acquire source material, preserve evidence and turn observations into attributable claims while new source feeds run in shadow.</p>
+      </div>
+      <div class="status-card reveal-right">
+        <span class="mono">WHAT COMES NEXT</span>
+        <h3 class="tight">The intelligence</h3>
+        <p>Identity resolution, corroboration, authority, conflict handling and human verification are what turn collected evidence into a trustworthy connected view of the scene.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="close-section reveal">
+    <p class="tight close-title">A map today. A living picture of grassroots music tomorrow.</p>
+    <p>Want the evidence graphs, claims, resolution model and technical architecture?</p>
+    <div class="close-actions">
+      <a class="btn btn-primary" href="/how-bndy-thinks">How bndy thinks</a>
+      <a class="btn btn-secondary" href={MAP_URL}>Open the map</a>
+    </div>
+  </section>
+
+  <Doors />
+</Base>
+
+<style>
+  .backline-hero {
+    border-bottom: 1px solid var(--line);
+    padding: clamp(5.5rem, 11vw, 9rem) 2rem clamp(4.5rem, 9vw, 7rem);
+    background:
+      radial-gradient(circle at 25% 30%, var(--beam-a), transparent 28%),
+      radial-gradient(circle at 75% 65%, var(--beam-b), transparent 25%),
+      var(--bg);
+  }
+  .backline-hero-inner { max-width: 1080px; margin: 0 auto; }
+  .kicker, .section-head > span, .community-kicker { color: var(--cyan); font-size: .74rem; letter-spacing: .18em; }
+  .backline-hero h1 { margin-top: 1.1rem; font-size: clamp(3.4rem, 9vw, 7.7rem); line-height: .9; letter-spacing: -.055em; max-width: 1050px; }
+  .backline-hero h1 span { color: var(--orange); }
+  .hero-lead { margin-top: 2rem; font-size: clamp(1.4rem, 2.6vw, 2.1rem); font-weight: 700; }
+  .hero-copy { max-width: 760px; margin-top: 1rem; color: var(--muted); font-size: 1.12rem; line-height: 1.65; }
+  .hero-actions { margin-top: 2.2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .backline-shell { max-width: 1180px; margin: 0 auto; padding: clamp(4.5rem, 8vw, 7rem) 2rem; }
+  .section-head { border-bottom: 3px solid var(--rule); padding-bottom: 1.5rem; margin-bottom: 3rem; }
+  .section-head h2 { margin-top: .7rem; max-width: 980px; font-size: clamp(2.3rem, 5.7vw, 4.8rem); line-height: .98; letter-spacing: -.045em; }
+  .section-head > p { margin-top: 1rem; color: var(--muted); font-size: 1.08rem; }
+
+  .memory-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2.5rem, 7vw, 7rem); align-items: start; }
+  .memory-copy { color: var(--muted); font-size: 1.12rem; line-height: 1.65; }
+  .memory-copy p + p { margin-top: 1rem; }
+  .memory-copy .accent { color: var(--orange); font-size: 1.25rem; }
+  .memory-card { border: 1px solid var(--rule); background: var(--surface); padding: clamp(1.5rem, 4vw, 2.5rem); box-shadow: 10px 10px 0 var(--line); }
+  .memory-card > span { color: var(--cyan); font-size: .7rem; letter-spacing: .14em; }
+  .memory-items { margin-top: 1.3rem; display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .memory-items div { background: var(--bg); padding: 1rem 1.1rem; display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+  .memory-items strong { font-family: 'Inter Tight', sans-serif; font-size: 1.2rem; }
+  .memory-items small { color: var(--muted); text-align: right; }
+
+  .scene-section { background: var(--surface); border-block: 1px solid var(--line); }
+  .scene-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .scene-card { background: var(--bg); padding: clamp(1.8rem, 4vw, 3rem); }
+  .scene-card > span, .status-card > span { color: var(--cyan); font-size: .68rem; letter-spacing: .15em; }
+  .scene-card h3, .status-card h3 { margin-top: .8rem; font-size: clamp(1.6rem, 3.3vw, 2.4rem); line-height: 1.05; }
+  .scene-card p, .status-card p { margin-top: 1rem; color: var(--muted); line-height: 1.6; }
+
+  .community-section { background: var(--stub-bg); color: #F1F5F9; border-block: 1px solid var(--line); }
+  .community-inner { max-width: 1000px; margin: 0 auto; padding: clamp(5rem, 10vw, 8rem) 2rem; }
+  .community-inner h2 { margin-top: 1rem; font-size: clamp(2.7rem, 7vw, 6.2rem); line-height: .95; letter-spacing: -.045em; }
+  .community-inner p { max-width: 850px; margin-top: 1.4rem; color: #A9B4C9; font-size: 1.15rem; line-height: 1.65; }
+  .community-inner b { color: #F1F5F9; }
+
+  .flywheel { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto; gap: .6rem; align-items: stretch; }
+  .fly-step { border: 1px solid var(--rule); padding: 1.3rem; display: grid; gap: .4rem; }
+  .fly-step span { color: var(--cyan); font: 500 .7rem/1 'IBM Plex Mono', monospace; }
+  .fly-step strong { font-family: 'Inter Tight', sans-serif; font-size: 1.3rem; }
+  .fly-step small { color: var(--muted); line-height: 1.4; }
+  .fly-arrow { display: grid; place-items: center; color: var(--orange); font-size: 1.5rem; }
+
+  .possibility-section { border-block: 1px solid var(--line); }
+  .question-list { max-width: 960px; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .question-list p { padding: 1.25rem 0; border-bottom: 1px solid var(--rule); font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(1.25rem, 2.7vw, 2rem); line-height: 1.15; }
+  .question-list p::before { content: '→'; color: var(--orange); margin-right: 1rem; }
+  .possibility-note { max-width: 850px; margin-top: 2rem; color: var(--muted); line-height: 1.6; }
+
+  .statement h2 { font-size: clamp(2.8rem, 7vw, 6rem); }
+  .status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .status-card { background: var(--bg); padding: clamp(1.8rem, 4vw, 3rem); }
+  .close-title { font-size: clamp(1.8rem, 4.5vw, 3.2rem); font-weight: 800; max-width: 850px; }
+
+  @media (max-width: 900px) {
+    .memory-grid, .scene-grid, .status-grid { grid-template-columns: 1fr; }
+    .flywheel { grid-template-columns: 1fr; }
+    .fly-arrow { transform: rotate(90deg); min-height: 22px; }
+  }
+
+  @media (max-width: 680px) {
+    .backline-hero, .backline-shell, .community-inner { padding-inline: 1.25rem; }
+    .memory-items div { display: grid; }
+    .memory-items small { text-align: left; }
+  }
+</style>
