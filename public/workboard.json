@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T20:11:13.581Z",
-  "updatedBy": "Backline complete enrichment recapture and non-daily HITL model 2026-08-28",
+  "updatedAt": "2026-08-28T20:21:21.729Z",
+  "updatedBy": "Backline Gemini inline citation repair 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -688,12 +688,21 @@
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/ENRICHMENT-PROVIDER-QUALIFICATION.md",
             "https://github.com/flowency-live/bndy-enrichment/pull/86"
           ]
+        },
+        {
+          "title": "Gemini inline grounding citation repair merged",
+          "detail": "The 20-case proof showed that Gemini Search completed reliably but structured-output mode omitted the inline url_citation annotations required by Backline. The repaired adapter now keeps one model call, requests ordinary grounded output shaped as JSON, preserves official inline citation URLs and cited text, ignores empty search queries in usage accounting, validates the response with the strict schema, and continues to quarantine arbitrary or uncaptured URLs. All 303 tests and the TypeScript build pass. No provider call or canonical write was made by the repair.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/88",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876",
+            "https://ai.google.dev/gemini-api/docs/google-search"
+          ]
         }
       ],
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The approved repaired Gemini qualification capture is now complete at 20/20 cases, with zero provider errors, 17 high-confidence identities, three safe abstentions, 99 quarantined facts, zero accepted facts, $1.8712 measured cost and zero canonical writes. Capture reliability is proven, but exact citation evidence is still missing, so the provider remains unqualified and unscheduled. The current gate is one bounded commissioning review, followed by repair or replacement of the evidence contract. BAU human review is exception-based, not daily. East Anglia and Cumbria remain the next net-new geography pilots, and Cowork-authored canonical changes must enter Backline as non-projecting lineage evidence.",
+          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The complete Gemini qualification capture returned 20/20 cases with zero provider errors, 17 high-confidence identities, three safe abstentions, 99 quarantined facts, zero accepted facts, $1.8712 measured cost and zero canonical writes. The live status remains awaiting-human-review and the provider remains unqualified and unscheduled. The root evidence-contract repair is now merged and CI-green: it captures Gemini inline url_citation annotations without structured-output mode while retaining strict JSON validation and fail-closed citation matching. One further separately authorised bounded live proof is required before provider activation. BAU human review is exception-based, not daily.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -707,7 +716,9 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/84",
             "https://github.com/flowency-live/bndy-enrichment/pull/86",
             "https://github.com/flowency-live/bndy-enrichment/pull/87",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206574422"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206574422",
+            "https://github.com/flowency-live/bndy-enrichment/pull/88",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876"
           ]
         },
         {
@@ -795,7 +806,7 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "COMPLETE RECAPTURE, EVIDENCE GATE STILL CLOSED. The one-shot Gemini 3.6 Flash capture returned all 10 Artists and 10 Venues with no provider errors. Seventeen identities were high-confidence and three safely abstained. All 99 proposed facts remain quarantined because exact provider-captured citation support is absent; zero facts are accepted. The result is published to the live Trust Loop summary as awaiting-human-review, with $1.8712 measured cost, zero canonical writes and no provider schedule. Human review cannot convert missing citations into evidence.",
+          "detail": "COMPLETE RECAPTURE FAILED CLOSED; CITATION REPAIR MERGED. The live 20-case capture is published to Godmode with 20 captures, zero errors, 17 high-confidence identities, three abstentions, 99 quarantined facts, zero accepted facts, $1.8712 cost and zero canonical writes. The adapter repair now requests grounded text shaped as JSON so Gemini can emit official url_citation annotations, preserves cited segments, enforces strict schema parsing and retains the arbitrary-URL quarantine. Code is CI-green but has not made another provider call. The provider remains unscheduled and unqualified pending one bounded live proof.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -807,12 +818,14 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206067020",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206997692",
             "https://github.com/flowency-live/bndy-enrichment/pull/84",
-            "https://github.com/flowency-live/bndy-enrichment/pull/87"
+            "https://github.com/flowency-live/bndy-enrichment/pull/87",
+            "https://github.com/flowency-live/bndy-enrichment/pull/88",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876"
           ]
         },
         {
           "title": "Priority 1: Backline Trust Loop v1",
-          "detail": "LIVE SHADOW, PROVIDER QUALIFICATION AWAITING BOUNDED COMMISSIONING REVIEW. The deployed runtime classifies the bounded Trust Loop cohort with no silent drops, no accepted wrong links and zero canonical writes. The repaired 20-case enrichment capture is complete and error-free, but all 99 proposed facts failed the exact citation gate. The next technical priority is to review the known-answer cohort once, then repair or replace the provider evidence contract before activation. BAU will accept only policy-passing evidence automatically and park exceptions without requiring daily Product Owner adjudication.",
+          "detail": "LIVE SHADOW, PROVIDER QUALIFICATION AWAITING ONE BOUNDED PROOF. The complete prior capture failed closed because structured Gemini output omitted captured citation annotations. The one-call inline-citation repair is merged and fully tested without invoking the provider. The next commissioning step is a separately authorised, cost-capped shadow proof using the same known-answer cohort. If exact evidence and quality thresholds pass, activate shadow BAU with automatic acceptance for policy-passing facts and automatic parking for exceptions. The Product Owner will not be a daily reviewer.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
@@ -824,12 +837,14 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206067020",
             "https://github.com/flowency-live/bndy-enrichment/pull/84",
             "https://github.com/flowency-live/bndy-enrichment/pull/86",
-            "https://github.com/flowency-live/bndy-enrichment/pull/87"
+            "https://github.com/flowency-live/bndy-enrichment/pull/87",
+            "https://github.com/flowency-live/bndy-enrichment/pull/88",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876"
           ]
         },
         {
           "title": "Hard gate: healthy artist enrichment",
-          "detail": "FAILED CLOSED ON EVIDENCE, NOT CAPTURE. All 20 cases returned, including the previously failing Venue. The provider proposed useful-looking Artist classifications, genres, addresses and official links, but all 99 facts remain quarantined because their URLs lack exact captured provider citation support. Three ambiguous identities correctly abstained. No wrong-artist URL entered accepted Backline evidence and no canonical write occurred. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes and one bounded commissioning review. After qualification, BAU review is limited to conflicts, suspicious official links, policy-sensitive changes and a small drift sample.",
+          "detail": "FAILED CLOSED IN THE LATEST LIVE ARTEFACT; REPAIR READY FOR PROOF. All 20 cases returned, but all 99 facts remained quarantined because structured-output mode omitted exact captured citation annotations. The merged adapter now uses normal grounded output, preserves official inline citations and cited text, validates JSON strictly and keeps arbitrary URLs quarantined. Acceptance still requires a new bounded proof with zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes and costs inside policy. After qualification, human review is limited to conflicts, suspicious official links, policy-sensitive changes and a small drift sample.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -840,7 +855,9 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206067020",
             "https://github.com/flowency-live/bndy-enrichment/pull/84",
             "https://github.com/flowency-live/bndy-enrichment/pull/86",
-            "https://github.com/flowency-live/bndy-enrichment/pull/87"
+            "https://github.com/flowency-live/bndy-enrichment/pull/87",
+            "https://github.com/flowency-live/bndy-enrichment/pull/88",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876"
           ]
         },
         {
