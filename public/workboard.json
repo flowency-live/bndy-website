@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-28T14:34:00.000Z",
-  "updatedBy": "Backline Trust Loop v1 live quality gate 2026-08-28",
+  "updatedAt": "2026-08-28T14:58:57.432Z",
+  "updatedBy": "Backline grounded enrichment qualification gate 2026-08-28",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -750,7 +750,7 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "SAFETY CORE, DAILY PLANNER, INDEXED DUE SET, BOUNDED PROVIDER SEAM AND REPRODUCIBLE QUALIFICATION GATE MERGED, NO CONCRETE PROVIDER OR SCHEDULE. The evidence-only processor caps each item to one entity, three searches, six fetches, one cheap model call, 12k/2k tokens, estimated cost 0.03 and 60 seconds. It parks identity confidence below 0.98, blocks unsafe citations/values, flags owner-managed and conflicting facts, stores immutable Observations/Claims and has zero canonical writes by construction. Dynamo atomically reserves item idempotency plus daily provider counters, capped at 20 entities and estimated cost 0.60. The planner prioritises resolved entities attached to upcoming gigs, carries exact supported quality gaps, defaults to five Artists and five Venues per day, and applies a 30-day attempt cooldown. Its due set uses an exact primary-key time-range query, examines at most 200 candidates and never scans. The inactive provider seam permits at most two identity-and-location searches and one cheap reasoning call, accepts only requested predicates and captured HTTPS citations, and records full evidence and usage. Qualification requires at least 20 reviewed cases including five Artists, five Venues, two ambiguous Artists and two ambiguous Venues. Any confident false match or unnecessary park fails, as do unsafe facts, budget breaches, mixed providers, duplicate cases, missing usage or less than 80 percent gap coverage on expected matches. No provider is qualified yet. Remaining: capture and adjudicate one real provider cohort, pass the command-line gate, conduct sampled live sanity review, then add disabled Lambda wiring.",
+          "detail": "GROUNDED PROVIDER CAPTURE READY, EXTERNAL-PROVIDER APPROVAL BLOCKED. The evidence-only processor, daily planner, indexed due set, provider seam and qualification gate remain merged and shadow-only. PR 74 adds a concrete Gemini grounded-evidence adapter plus an inert one-shot capture for 10 live Trust Loop Artists and 10 Venues, including ambiguous hard negatives. It requests artist type, act type, acoustic status, evidence-backed genres and identity-proven Facebook, website, Instagram, Bandcamp, Spotify or other official presence; every fact must cite HTTPS evidence actually captured by search. All 297 tests and CI pass. No cohort data has been sent to Gemini/Google Search, no provider is qualified or scheduled and canonical writes remain zero. A human must explicitly approve disclosure of the 20 entity identifiers and source context to that external provider. After approval: run the capture, adjudicate every identity and fact, require zero false matches and at least 80 percent requested-predicate coverage, then conduct sampled live review before any disabled Lambda wiring is considered.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/39",
             "https://github.com/flowency-live/bndy-enrichment/pull/40",
@@ -761,7 +761,9 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/48",
             "https://github.com/flowency-live/bndy-enrichment/pull/49",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/ENRICHMENT-PROVIDER-QUALIFICATION.md",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-106-entity-enrichment-work-item.md"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-106-entity-enrichment-work-item.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/74",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33182603673"
           ]
         },
         {
@@ -772,7 +774,8 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33180195595",
             "https://github.com/flowency-live/bndy-enrichment/pull/65",
             "https://github.com/flowency-live/bndy-serverless-api/pull/58",
-            "https://github.com/flowency-live/bndy-backstage/pull/4"
+            "https://github.com/flowency-live/bndy-backstage/pull/4",
+            "https://github.com/flowency-live/bndy-backstage/pull/5"
           ]
         },
         {
