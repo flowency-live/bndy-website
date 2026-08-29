@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T18:28:00.000Z",
-  "updatedBy": "Backline Interactions evidence-first citation proof 2026-08-29",
+  "updatedAt": "2026-08-29T19:59:48.000Z",
+  "updatedBy": "CTO session (Claude) - Backline audit and qualification approval",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -231,35 +231,35 @@
       ],
       "done": [
         {
-          "title": "JOIN-01 — Join shell",
+          "title": "JOIN-01 \u2014 Join shell",
           "detail": "/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI."
         },
         {
-          "title": "JOIN-02 — identity before creation",
+          "title": "JOIN-02 \u2014 identity before creation",
           "detail": "Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation."
         },
         {
-          "title": "JOIN-03 — auth + resume",
+          "title": "JOIN-03 \u2014 auth + resume",
           "detail": "Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return."
         },
         {
-          "title": "JOIN-04/05 — owned Artist and Venue creation",
+          "title": "JOIN-04/05 \u2014 owned Artist and Venue creation",
           "detail": "Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships."
         },
         {
-          "title": "JOIN-06 — Artist profile step",
+          "title": "JOIN-06 \u2014 Artist profile step",
           "detail": "Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy."
         },
         {
-          "title": "JOIN-07 — Claim persistence and review",
+          "title": "JOIN-07 \u2014 Claim persistence and review",
           "detail": "Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification."
         },
         {
-          "title": "JOIN-08 — management and delegation foundation",
+          "title": "JOIN-08 \u2014 management and delegation foundation",
           "detail": "/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership."
         },
         {
-          "title": "JOIN-09 — owner authority protection",
+          "title": "JOIN-09 \u2014 owner authority protection",
           "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
         },
         {
@@ -274,7 +274,7 @@
       ],
       "now": [
         {
-          "title": "JOIN-10 — release hardening",
+          "title": "JOIN-10 \u2014 release hardening",
           "detail": "Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain."
         },
         {
@@ -573,7 +573,7 @@
       "id": "intelligence",
       "title": "BNDY Backline",
       "objective": "Make sources produce evidence and atomised claims; let policy derive BNDY truth.",
-      "health": "amber",
+      "health": "green",
       "deliveryState": "building",
       "targetState": true,
       "repos": [
@@ -840,9 +840,40 @@
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
             "https://github.com/flowency-live/bndy-enrichment/pull/116"
           ]
+        },
+        {
+          "title": "Lemonrock national bootstrap complete and gate-passed",
+          "detail": "run-907eba4a: 28,504/28,504 tasks terminal, 0 failed, queues and DLQ empty. Artists 10,587 vs 10,533 advertised; venues 8,341 vs 8,287; future gigs covered with the residual 74 closed as terminal-gone evidence. Low-cost BAU deployed: hourly new-gig/cancellation sweeps, daily health, monthly reconciliation, gig-led hydration.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json"
+          ]
+        },
+        {
+          "title": "Evidence-first citation transport proven and hardened",
+          "detail": "Whittles Oldham one-case proof: 5 admitted facts from 6 provider citations at $0.0296, zero writes. PR 116 merged 2026-08-29: citations bind to the FACT line containing their end offset, preventing backwards evidence leakage. Safe redirect-destination resolution (SSRF-guarded, fail-closed) added for grounding URLs.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/116",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/enrichment/citation-destination.ts"
+          ]
+        },
+        {
+          "title": "CTO audit passed: technical excellence and low running cost",
+          "detail": "29 Aug CTO audit: architecture matches the documented model, 340 tests green, fail-closed discipline throughout. AWS steady state ~$8-20/month; enrichment hard-capped $0.60/day. Open operational risks: no CloudWatch alarms, legacy discovery worker write grants, no integration tests.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-ops/blob/main/cto/BACKLINE-CTO-AUDIT-2026-08-29.md"
+          ]
         }
       ],
       "now": [
+        {
+          "title": "Approved 20-case evidence-first qualification capture",
+          "detail": "Jason approved 2026-08-29: 20 cases, one model call each, 1-2 searches, $1.50 reserved, zero canonical writes. Contract, budget-controlled runner and approval artefact are on main; the dispatch-gated workflow awaits a token workflow-scope grant, then capture -> human adjudication -> qualified/failed verdict.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/INTERACTIONS-EVIDENCE-FIRST-QUALIFICATION-CONTRACT.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/backline-interactions-evidence-first-20-case-approval-2026-08-29.txt"
+          ]
+        },
         {
           "title": "Current Backline phase",
           "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The previous 20-case JSON proof quarantined all 67 uncited proposals. A new inactive Interactions evidence-first plain-text adapter has now passed the first Whittles Oldham citation proof: one call, two searches, six provider citations, five admitted venue facts and $0.02963275 measured cost. The remaining immediate boundary is to merge the cumulative citation-range hardening in PR 116, then obtain separate authority for a full 10 Artist plus 10 Venue qualification and human adjudication. The provider remains unqualified, unscheduled and unable to write canonically.",
@@ -1190,8 +1221,8 @@
           ]
         },
         {
-          "title": "Rejected source candidates — 26 August 2026",
-          "detail": "yorkshiregigguide.co.uk — editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk — DNS dead. yorkshirecoastgigs.co.uk — content stale since 2016-2017. thebristolgigguide.com — reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk — active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) — 403, unreachable. gig-guide.co.uk — multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange — excluded aggregator class (GigXchange excluded by Jason)."
+          "title": "Rejected source candidates \u2014 26 August 2026",
+          "detail": "yorkshiregigguide.co.uk \u2014 editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk \u2014 DNS dead. yorkshirecoastgigs.co.uk \u2014 content stale since 2016-2017. thebristolgigguide.com \u2014 reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk \u2014 active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) \u2014 403, unreachable. gig-guide.co.uk \u2014 multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange \u2014 excluded aggregator class (GigXchange excluded by Jason)."
         },
         {
           "title": "On The Case gig-led source family deployed to shadow",
@@ -1276,12 +1307,12 @@
           "detail": "https://www.nowton.events/ is an active local events service covering Kendal, Windermere, Ambleside, Keswick, Penrith and wider Cumbria, including small pub gigs and open sessions. First prove stable acquisition, music-only classification, source independence and native identity. If those gates fail, use direct calendars from a bounded Cumbria watched-Venue cohort rather than a national ticket aggregator."
         },
         {
-          "title": "DGWGO Events — selected",
-          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ — Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
+          "title": "DGWGO Events \u2014 selected",
+          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ \u2014 Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
         },
         {
-          "title": "Brighton Gigs — selected",
-          "detail": "https://brightongigs.uk/ — Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
+          "title": "Brighton Gigs \u2014 selected",
+          "detail": "https://brightongigs.uk/ \u2014 Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
         },
         {
           "title": "Lancashire source gap",
