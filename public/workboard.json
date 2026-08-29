@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T10:58:35.162Z",
-  "updatedBy": "Saved gigs and Going scope correction 2026-08-29",
+  "updatedAt": "2026-08-29T11:29:33.000Z",
+  "updatedBy": "Send to bndy ranked feature approval 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -134,29 +134,36 @@
       "detail": "Once an artist owns their BNDY record, give them an exceptionally quick way to add, edit and remove available dates and external media links from the same management surface. Published availability and media are visible on the public artist profile through a slick, clean UI, giving venues and bookers an immediate view of when they can play and what they are like live. Past availability expires automatically. Media remains URL-based external content rather than direct BNDY video uploads. This is high-priority work."
     },
     {
-      "id": "scene-view",
+      "id": "send-to-bndy",
       "rank": 2,
+      "laneId": "capture",
+      "title": "Send to bndy: reliable web and WhatsApp intake",
+      "detail": "Turn chat.bndy.live into a polished, mobile-first Send to bndy experience and launch a memorable WhatsApp Business number people can save. Both channels accept posters, screenshots, images, links and event text through the same Capture and Backline pipeline. Harden interpretation consistency, identity resolution, deduplication, retries and uncertain-result handling. Provide immediate acknowledgement, clear progress and a useful final result. WhatsApp remains an intake channel, not a separate chatbot or intelligence engine."
+    },
+    {
+      "id": "scene-view",
+      "rank": 3,
       "laneId": "core-discovery",
       "title": "Poster-led Scene view for local discovery",
       "detail": "Add a future third public discovery mode alongside Map and List. Scene is a finite, location- and date-bounded visual view of canonical gigs, led by authentic posters where available and deterministic BNDY event cards otherwise. It is not a general user-post, comment or infinite-scroll social feed. Delivery is approved but deliberately unscheduled."
     },
     {
       "id": "saved-gigs-going",
-      "rank": 3,
+      "rank": 4,
       "laneId": "core-discovery",
       "title": "Saved gigs and Going",
       "detail": "Allow signed-in people to save a specific gig privately and separately mark themselves as Going. This slice records only those two account-backed intent states. Their eventual use will be decided later. Do not expose attendee lists or attendance counts, add curator recommendations, use either signal in Scene or Ask bndy ranking, or introduce posts, comments or follower mechanics."
     },
     {
       "id": "ask-bndy",
-      "rank": 4,
+      "rank": 5,
       "laneId": "core-discovery",
       "title": "Ask bndy natural-language discovery",
       "detail": "Add a highly polished natural-language layer to the existing discovery search. It converts intent into visible, editable deterministic filters and returns only canonical BNDY gigs through the existing Map and List experiences. It must not present as a chat interface or chatbot persona, and it must never invent gigs or unsupported attributes. Delivery depends on sufficiently rich and reliable genre, act-type, admission, date and location data. Ship only when the interaction is fast, slick and materially better than using the filters directly, never as an AI novelty."
     },
     {
       "id": "hear-the-bill",
-      "rank": 5,
+      "rank": 6,
       "laneId": "core-discovery",
       "title": "Hear the bill line-up playback",
       "detail": "A much-later gig-page experience that assembles the external media already supplied through owned artist profiles into a playable Hear the bill line-up. Do not create a duplicate media-entry flow. Use third-party embeds only, with no BNDY-hosted uploads in the first version, and do not prioritise until enough active artists are supplying usable media links for the experience to feel complete."
@@ -456,7 +463,7 @@
       "id": "chatzone",
       "title": "chat.bndy.live public ingestion",
       "objective": "Let anyone submit a gig poster or event text and get a useful, low-friction result.",
-      "health": "green",
+      "health": "amber",
       "deliveryState": "live",
       "targetState": false,
       "repos": [
@@ -480,11 +487,23 @@
       ],
       "now": [
         {
+          "title": "Makeover and interpretation hardening",
+          "detail": "The underlying multimodal path exists, but chat.bndy.live is not yet a polished Send to bndy product and interpretation results remain too variable for the experience to be considered solid."
+        },
+        {
           "title": "Processing latency",
           "detail": "Public submissions still rely on the periodic scanner before reaching SQS; this can add minutes of dead time."
         }
       ],
       "next": [
+        {
+          "title": "Send to bndy web makeover",
+          "detail": "Rework chat.bndy.live into a simple, mobile-first intake experience with a clear submit journey, immediate acknowledgement, visible processing progress and a useful final result."
+        },
+        {
+          "title": "Representative reliability qualification",
+          "detail": "Build a repeatable poster, screenshot, link and event-text cohort that measures extraction, identity resolution, deduplication and uncertain-result handling before the feature is treated as production-solid."
+        },
         {
           "title": "Enqueue immediately on submission",
           "detail": "Send the Capture message to the processing queue at create time and keep the scanner only as a recovery safety net."
