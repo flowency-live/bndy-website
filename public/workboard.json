@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T10:52:48.000Z",
-  "updatedBy": "Saved gigs and Going ranked backlog approval 2026-08-29",
+  "updatedAt": "2026-08-29T10:58:35.162Z",
+  "updatedBy": "Saved gigs and Going scope correction 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -145,7 +145,7 @@
       "rank": 3,
       "laneId": "core-discovery",
       "title": "Saved gigs and Going",
-      "detail": "Allow signed-in people to save a specific gig privately and mark it as Going. Provide a simple personal view or filter so both choices are useful later. Do not add public attendee lists, public attendance counts, posts, comments, follower mechanics or curator picks in this slice. Build on the existing account-backed favourites plumbing without changing artist and venue favourites."
+      "detail": "Allow signed-in people to save a specific gig privately and separately mark themselves as Going. This slice records only those two account-backed intent states. Their eventual use will be decided later. Do not expose attendee lists or attendance counts, add curator recommendations, use either signal in Scene or Ask bndy ranking, or introduce posts, comments or follower mechanics."
     },
     {
       "id": "ask-bndy",
