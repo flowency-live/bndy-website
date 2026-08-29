@@ -62,7 +62,7 @@ import Base from '../layouts/Base.astro';
           <div class="wb-legend" aria-label="Workstream state legend">
             <span class="wb-stamp wb-state-live">LIVE</span><span class="wb-legend-copy">working today</span>
             <span class="wb-stamp wb-state-building">BUILDING</span><span class="wb-legend-copy">active change</span>
-            <span class="wb-stamp wb-state-planned">PLANNED</span><span class="wb-legend-copy">backlog</span>
+            <span class="wb-stamp wb-state-planned">PLANNED</span><span class="wb-legend-copy">planned workstream</span>
             <span class="wb-stamp wb-stamp-target">TARGET STATE</span><span class="wb-legend-copy">future architecture/capability</span>
           </div>
         </div>
@@ -82,7 +82,7 @@ import Base from '../layouts/Base.astro';
         <div class="wb-viewbar-group">
           <span>Columns</span>
           <button class="wb-view-btn wb-col-global" data-column="now" type="button">NOW</button>
-          <button class="wb-view-btn wb-col-global" data-column="next" type="button">TODO</button>
+          <button class="wb-view-btn wb-col-global" data-column="next" type="button">NEXT</button>
           <button class="wb-view-btn wb-col-global" data-column="done" type="button">DONE</button>
           <button id="wbResetView" class="wb-view-btn" type="button">Reset view</button>
         </div>
@@ -91,6 +91,20 @@ import Base from '../layouts/Base.astro';
       <div id="wbBoard" class="wb-board">
         <div class="wb-loading">Loading workboard…</div>
       </div>
+    </section>
+
+    <section class="wb-section">
+      <div class="wb-section-head">
+        <div>
+          <div class="wb-kicker">RANKED TODO</div>
+          <h2>Backlog</h2>
+          <p class="wb-muted">Approved, unscheduled work. Rank 1 is highest within this backlog, not a commitment to build it next.</p>
+        </div>
+        <span id="wbBacklogCount" class="wb-backlog-count" aria-live="polite">-</span>
+      </div>
+      <ol id="wbBacklog" class="wb-backlog">
+        <li class="wb-loading">Loading backlog…</li>
+      </ol>
     </section>
 
     <section class="wb-section">
@@ -108,7 +122,7 @@ import Base from '../layouts/Base.astro';
         <div>
           <div class="wb-kicker">LIVE GITHUB SIGNAL</div>
           <h2>Recent commits & open PRs</h2>
-          <p class="wb-muted">Pulled directly from public GitHub when you open this page. The backlog itself remains the structured JSON above.</p>
+          <p class="wb-muted">Pulled directly from public GitHub when you open this page. The ranked backlog and delivery board remain the structured JSON above.</p>
         </div>
         <button id="wbRefreshActivity" class="wb-btn wb-btn-small" type="button">Refresh GitHub</button>
       </div>
@@ -127,6 +141,8 @@ import Base from '../layouts/Base.astro';
 
   <script>
     const boardEl = document.getElementById('wbBoard');
+    const backlogEl = document.getElementById('wbBacklog');
+    const backlogCountEl = document.getElementById('wbBacklogCount');
     const reposEl = document.getElementById('wbRepos');
     const searchEl = document.getElementById('wbSearch');
     const clearEl = document.getElementById('wbClear');
@@ -301,7 +317,7 @@ import Base from '../layouts/Base.astro';
         identity.appendChild(chips);
 
         const counts = el('div', 'wb-lane-counts');
-        counts.append(el('span', 'wb-count-now', `NOW ${lane.now.length}`), el('span', '', `TODO ${lane.next.length}`), el('span', '', `DONE ${lane.done.length}`));
+        counts.append(el('span', 'wb-count-now', `NOW ${lane.now.length}`), el('span', '', `NEXT ${lane.next.length}`), el('span', '', `DONE ${lane.done.length}`));
 
         const actions = el('div', 'wb-lane-actions');
         const solo = el('button', 'wb-mini-btn', 'SOLO');
@@ -317,7 +333,7 @@ import Base from '../layouts/Base.astro';
           const body = el('div', 'wb-lane-body');
           const columns = ['now', 'next', 'done'];
           body.style.gridTemplateColumns = columns.map(c => prefs.columns[c] ? '48px' : 'minmax(240px, 1fr)').join(' ');
-          body.append(taskColumn(lane, 'now', 'NOW'), taskColumn(lane, 'next', 'TODO / NEXT'), taskColumn(lane, 'done', 'DONE'));
+          body.append(taskColumn(lane, 'now', 'NOW'), taskColumn(lane, 'next', 'NEXT'), taskColumn(lane, 'done', 'DONE'));
           row.appendChild(body);
         }
         boardEl.appendChild(row);
@@ -325,6 +341,44 @@ import Base from '../layouts/Base.astro';
 
       if (!filtered.length) boardEl.appendChild(el('div', 'wb-loading', 'No workstreams match that filter.'));
       updateGlobalColumnButtons();
+    }
+
+    function renderBacklog(data, query = '') {
+      const laneMap = new Map(data.lanes.map(lane => [lane.id, lane.title]));
+      const q = query.trim().toLowerCase();
+      const items = [...(data.backlog || [])].sort((a, b) => a.rank - b.rank);
+      const filtered = items.filter(item => {
+        if (!q) return true;
+        return [item.title, item.detail, item.laneId, laneMap.get(item.laneId) || ''].join(' ').toLowerCase().includes(q);
+      });
+
+      backlogEl.replaceChildren();
+      backlogCountEl.textContent = q ? `${filtered.length} of ${items.length}` : `${items.length} ${items.length === 1 ? 'item' : 'items'}`;
+
+      filtered.forEach(item => {
+        const row = el('li', 'wb-backlog-item');
+        const rank = el('div', 'wb-backlog-rank', String(item.rank).padStart(2, '0'));
+        rank.setAttribute('aria-label', `Rank ${item.rank}`);
+        const body = el('div', 'wb-backlog-body');
+        const meta = el('div', 'wb-backlog-meta');
+        meta.append(el('span', 'wb-stamp wb-backlog-status', 'APPROVED TODO'), el('span', 'wb-backlog-lane', laneMap.get(item.laneId) || item.laneId));
+        body.append(meta, el('h3', '', item.title), el('p', '', item.detail));
+        if (Array.isArray(item.evidence) && item.evidence.length) {
+          const evidence = el('div', 'wb-evidence');
+          item.evidence.forEach((href, idx) => {
+            const a = el('a', '', `evidence ${idx + 1}`);
+            a.href = href;
+            a.target = '_blank';
+            a.rel = 'noreferrer';
+            evidence.appendChild(a);
+          });
+          body.appendChild(evidence);
+        }
+        row.append(rank, body);
+        backlogEl.appendChild(row);
+      });
+
+      if (!filtered.length) backlogEl.appendChild(el('li', 'wb-loading', q ? 'No backlog items match that filter.' : 'No approved TODO work is waiting.'));
     }
 
     function setAllLanes(expanded) {
@@ -393,10 +447,12 @@ import Base from '../layouts/Base.astro';
         loadPrefs();
         renderSummary(workboard);
         renderBoard(workboard);
+        renderBacklog(workboard);
         renderRepos(workboard);
         loadGithubActivity(false);
       } catch (error) {
         boardEl.replaceChildren(el('div', 'wb-error', 'Could not load workboard.json.'));
+        backlogEl.replaceChildren(el('li', 'wb-error', 'Could not load the ranked backlog.'));
         console.error(error);
       }
     }
@@ -462,7 +518,7 @@ import Base from '../layouts/Base.astro';
         try { sessionStorage.setItem(cacheKey, JSON.stringify({ savedAt: Date.now(), commits, prs })); } catch (_) {}
       } catch (error) {
         commitsEl.replaceChildren(el('div', 'wb-error', 'GitHub activity is temporarily unavailable or rate-limited.'));
-        prsEl.replaceChildren(el('div', 'wb-error', 'The structured backlog above is unaffected.'));
+        prsEl.replaceChildren(el('div', 'wb-error', 'The structured workboard above is unaffected.'));
         console.error(error);
       } finally {
         refreshActivityEl.disabled = false;
@@ -479,8 +535,18 @@ import Base from '../layouts/Base.astro';
       prs.forEach(pr => prsEl.appendChild(activityRow({ title: pr.title, subtitle: `${pr.repo} · PR #${pr.number}`, href: pr.href, meta: relativeTime(pr.updated) })));
     }
 
-    searchEl?.addEventListener('input', () => workboard && renderBoard(workboard, searchEl.value));
-    clearEl?.addEventListener('click', () => { if (searchEl) { searchEl.value = ''; renderBoard(workboard); searchEl.focus(); } });
+    searchEl?.addEventListener('input', () => {
+      if (!workboard) return;
+      renderBoard(workboard, searchEl.value);
+      renderBacklog(workboard, searchEl.value);
+    });
+    clearEl?.addEventListener('click', () => {
+      if (!searchEl) return;
+      searchEl.value = '';
+      renderBoard(workboard);
+      renderBacklog(workboard);
+      searchEl.focus();
+    });
     document.getElementById('wbExpandLanes')?.addEventListener('click', () => setAllLanes(true));
     document.getElementById('wbCollapseLanes')?.addEventListener('click', () => setAllLanes(false));
     document.getElementById('wbFocusNow')?.addEventListener('click', focusNow);
@@ -592,6 +658,16 @@ import Base from '../layouts/Base.astro';
     .wb-evidence a { color:var(--wb-cyan); font:500 .62rem 'IBM Plex Mono',monospace; }
     .wb-empty,.wb-loading,.wb-error { color:var(--wb-muted); font:400 .75rem 'IBM Plex Mono',monospace; padding:1rem; }
     .wb-error { color:var(--wb-red); }
+    .wb-backlog-count { color:var(--wb-muted); border:1px solid var(--wb-border); border-radius:4px; padding:.45rem .65rem; font:600 .68rem 'IBM Plex Mono',monospace; }
+    .wb-backlog { display:flex; flex-direction:column; gap:.65rem; margin:0; padding:0; list-style:none; }
+    .wb-backlog-item { display:grid; grid-template-columns:76px minmax(0,1fr); border:1px solid var(--wb-border); border-left:4px solid var(--wb-cyan); border-radius:7px; background:var(--wb-panel); overflow:hidden; }
+    .wb-backlog-rank { display:grid; place-items:center; border-right:1px solid var(--wb-border); background:var(--wb-panel-2); color:var(--wb-cyan); font:800 1.65rem 'Inter Tight',sans-serif; letter-spacing:-.03em; }
+    .wb-backlog-body { padding:1rem 1.1rem; }
+    .wb-backlog-body h3 { margin:.5rem 0 .3rem; font:800 1rem 'Inter Tight',sans-serif; }
+    .wb-backlog-body p { max-width:1100px; margin:0; color:var(--wb-muted); font-size:.76rem; line-height:1.5; }
+    .wb-backlog-meta { display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; }
+    .wb-backlog-status { color:var(--wb-cyan); background:rgba(70,215,232,.07); }
+    .wb-backlog-lane { color:var(--wb-muted); font:500 .62rem 'IBM Plex Mono',monospace; }
     .wb-repos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; }
     .wb-repo-card { border:1px solid var(--wb-border); background:var(--wb-panel); padding:1rem; border-radius:6px; }
     .wb-repo-card[tabindex] { cursor:pointer; }
@@ -617,6 +693,7 @@ import Base from '../layouts/Base.astro';
     @media (max-width:760px) {
       .wb-shell { padding:3rem .8rem 5rem; }.wb-hero { display:block; }.wb-hero-actions { margin-top:1.3rem; }.wb-summary { grid-template-columns:1fr 1fr; }.wb-summary-card { border-bottom:1px solid var(--wb-border); }.wb-summary-card:nth-child(2) { border-right:0; }.wb-summary-card:nth-child(3),.wb-summary-card:nth-child(4) { border-bottom:0; }
       .wb-section-head { align-items:flex-start; flex-direction:column; }.wb-tools { width:100%; }.wb-search { min-width:0; flex:1; }.wb-viewbar { align-items:flex-start; flex-direction:column; }.wb-repos,.wb-activity-grid { grid-template-columns:1fr; }.wb-alert { flex-direction:column; }.wb-title-line { align-items:flex-start; }
+      .wb-backlog-item { grid-template-columns:54px minmax(0,1fr); }.wb-backlog-rank { font-size:1.25rem; }.wb-backlog-body { padding:.85rem; }
     }
   </style>
 </Base>
