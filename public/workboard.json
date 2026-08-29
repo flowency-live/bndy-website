@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T16:56:20.000Z",
+  "updatedAt": "2026-08-29T17:07:52.000Z",
   "updatedBy": "Date-aware Artist booking request approved for later 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
@@ -641,7 +641,7 @@
         },
         {
           "title": "Multi-source Backline Explorer deployed",
-          "detail": "The deployed Backstage Godmode is a read-only operational inspector for Lemonrock, On The Case, KLMA, GigsNews and the Trust Loop. Its latest operational Trust Loop record is the split-provider qualification run: 20 attempted, 20 Google capture errors, zero Gemini reasoning calls, zero accepted facts, cost unavailable and zero canonical writes. The workflow published this capture-failed status successfully before its final qualification gate stopped. Backstage commit b6ae0efe remains live and renders unavailable cost honestly. The interactive identity and evidence graph remains a separate product step.",
+          "detail": "The deployed Backstage Godmode is a read-only operational inspector for Lemonrock, On The Case, KLMA, GigsNews and the Trust Loop. Its latest qualification record is the explicit-contract Gemini 3.6 Flash cohort: 20 completed responses across 10 Artists and 10 Venues, 15 high-confidence identities, 5 safe abstentions, zero admitted facts, 67 uncited facts quarantined, $0.66234 measured cost and zero canonical writes. The read-only publication succeeded and the provider remains unqualified and unscheduled.",
           "evidence": [
             "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
             "https://github.com/flowency-live/bndy-backstage/pull/4",
@@ -662,7 +662,14 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/97",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33246356714",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/108",
+            "https://github.com/flowency-live/bndy-enrichment/pull/110",
+            "https://github.com/flowency-live/bndy-enrichment/pull/111",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514"
           ]
         },
         {
@@ -809,12 +816,26 @@
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-review.md",
             "https://developers.google.com/custom-search/v1/overview"
           ]
+        },
+        {
+          "title": "Explicit-contract Gemini qualification failed closed",
+          "detail": "The approved one-shot cohort ran exactly 20 Gemini 3.6 Flash calls over the existing 10 Artist and 10 Venue cases. All responses completed and passed the JSON contract. Google grounding executed 43 searches, with Neovenator using 3 and The Humbuckers 4 despite the two-search request. Measured cost was $0.66234 against the $0.60 reservation. Gemini proposed 67 facts but supplied zero provider url_citation annotations, so Backline quarantined every fact and admitted none. Five ambiguous identities safely abstained. The public artefact and review are committed, the exact status is live read-only in Godmode, canonical writes remain zero and the provider remains unqualified and unscheduled.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/108",
+            "https://github.com/flowency-live/bndy-enrichment/pull/110",
+            "https://github.com/flowency-live/bndy-enrichment/pull/111",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
+            "https://backstage.bndy.co.uk/godmode/enrichment"
+          ]
         }
       ],
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The approved split-provider proof is now complete and failed closed: Google rejected all 20 first-search requests because Custom Search JSON API access is closed to new customers, so Gemini was never called, no facts were accepted, cost remained unavailable, and canonical writes stayed zero. The capture-failed result is committed and live in Godmode. The next gate is to select a supported explicit evidence-search provider, adapt the existing fixed-evidence contract, and separately approve one new cost-capped proof. The provider remains unqualified and unscheduled. BAU human review remains exception-based, not daily.",
+          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The approved Gemini 3.6 Flash Google-grounded 20-case proof completed all calls and demonstrated useful identity discrimination, but the Interactions API attached no provider url_citation annotations to any JSON output. Backline correctly quarantined all 67 proposed facts and admitted zero. Two cases exceeded the requested two-search limit, total searches were 43, and measured cost was $0.66234 against a $0.60 reservation. The provider remains unqualified, unscheduled and unable to write canonically. The next gate is a Google-backed evidence-capture design that returns authoritative machine-readable citations, followed by a separately approved bounded proof.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -840,7 +861,15 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/99",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
-            "https://developers.google.com/custom-search/v1/overview"
+            "https://developers.google.com/custom-search/v1/overview",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/108",
+            "https://github.com/flowency-live/bndy-enrichment/pull/110",
+            "https://github.com/flowency-live/bndy-enrichment/pull/111",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
+            "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
         },
         {
@@ -928,7 +957,7 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "LATEST LIVE PROOF FAILED CLOSED AT GOOGLE ACCESS. The split adapter attempted the authorised 20-case shadow cohort, but all first-search calls returned 403 because Custom Search JSON API is closed to new customers. Gemini therefore made zero reasoning calls, accepted facts were zero, no schedule or provider activation occurred and canonical writes remained zero. The committed failure artefact and Godmode record preserve the unavailable cost honestly. The provider remains unscheduled and unqualified pending selection of a supported explicit evidence-search provider and separate approval for any new live proof.",
+          "detail": "LATEST LIVE PROOF FAILED CLOSED AT CITATION ADMISSION. The explicit-contract Gemini 3.6 Flash qualification completed 20 grounded responses with zero schema or provider errors. It identified 15 cases at high confidence and safely abstained on 5, but emitted no provider url_citation annotations. Backline therefore quarantined all 67 proposed facts and accepted zero. The provider made 43 searches, including two cases above the requested limit, and measured cost was $0.66234 against the $0.60 reservation. No schedule or provider activation occurred and canonical writes remained zero. The provider remains unqualified pending a Google-backed evidence contract with authoritative machine-readable citations.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -951,7 +980,15 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/99",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
-            "https://developers.google.com/custom-search/v1/overview"
+            "https://developers.google.com/custom-search/v1/overview",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/108",
+            "https://github.com/flowency-live/bndy-enrichment/pull/110",
+            "https://github.com/flowency-live/bndy-enrichment/pull/111",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
+            "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
         },
         {
@@ -983,7 +1020,7 @@
         },
         {
           "title": "Hard gate: healthy artist enrichment",
-          "detail": "FAILED CLOSED BEFORE QUALIFICATION REVIEW. The split-provider proof produced 20 Google access errors and zero accepted facts; the structured reasoner was never called. The deterministic extraction contract over a fixed captured evidence allow-list remains valid, but requires a supported search provider before it can assess identity, genres, artist type, act type, acoustic evidence and official links. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes and complete measured costs inside policy. After qualification, human review remains limited to conflicts, suspicious official links, policy-sensitive changes and a small drift sample.",
+          "detail": "FAILED CLOSED AT CITATION ADMISSION. The 20-case explicit-contract proof completed all Gemini calls and produced plausible identity and enrichment candidates, but none of the JSON model outputs carried provider url_citation annotations. All 67 proposed facts were quarantined, so coverage is zero and the provider cannot pass the healthy-enrichment gate. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes, authoritative evidence mappings and complete cost control. No provider activation or canonical projection is permitted.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -1004,7 +1041,15 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/98",
             "https://github.com/flowency-live/bndy-enrichment/pull/99",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/108",
+            "https://github.com/flowency-live/bndy-enrichment/pull/110",
+            "https://github.com/flowency-live/bndy-enrichment/pull/111",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
+            "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
         },
         {
