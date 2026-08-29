@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T11:29:33.000Z",
-  "updatedBy": "Send to bndy ranked feature approval 2026-08-29",
+  "updatedAt": "2026-08-29T13:53:29.000Z",
+  "updatedBy": "Artist profile media and availability delivered 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -127,43 +127,36 @@
   ],
   "backlog": [
     {
-      "id": "artist-availability",
-      "rank": 1,
-      "laneId": "join-bndy",
-      "title": "Artist availability and owned profile media",
-      "detail": "Once an artist owns their BNDY record, give them an exceptionally quick way to add, edit and remove available dates and external media links from the same management surface. Published availability and media are visible on the public artist profile through a slick, clean UI, giving venues and bookers an immediate view of when they can play and what they are like live. Past availability expires automatically. Media remains URL-based external content rather than direct BNDY video uploads. This is high-priority work."
-    },
-    {
       "id": "send-to-bndy",
-      "rank": 2,
+      "rank": 1,
       "laneId": "capture",
       "title": "Send to bndy: reliable web and WhatsApp intake",
       "detail": "Turn chat.bndy.live into a polished, mobile-first Send to bndy experience and launch a memorable WhatsApp Business number people can save. Both channels accept posters, screenshots, images, links and event text through the same Capture and Backline pipeline. Harden interpretation consistency, identity resolution, deduplication, retries and uncertain-result handling. Provide immediate acknowledgement, clear progress and a useful final result. WhatsApp remains an intake channel, not a separate chatbot or intelligence engine."
     },
     {
       "id": "scene-view",
-      "rank": 3,
+      "rank": 2,
       "laneId": "core-discovery",
       "title": "Poster-led Scene view for local discovery",
       "detail": "Add a future third public discovery mode alongside Map and List. Scene is a finite, location- and date-bounded visual view of canonical gigs, led by authentic posters where available and deterministic BNDY event cards otherwise. It is not a general user-post, comment or infinite-scroll social feed. Delivery is approved but deliberately unscheduled."
     },
     {
       "id": "saved-gigs-going",
-      "rank": 4,
+      "rank": 3,
       "laneId": "core-discovery",
       "title": "Saved gigs and Going",
       "detail": "Allow signed-in people to save a specific gig privately and separately mark themselves as Going. This slice records only those two account-backed intent states. Their eventual use will be decided later. Do not expose attendee lists or attendance counts, add curator recommendations, use either signal in Scene or Ask bndy ranking, or introduce posts, comments or follower mechanics."
     },
     {
       "id": "ask-bndy",
-      "rank": 5,
+      "rank": 4,
       "laneId": "core-discovery",
       "title": "Ask bndy natural-language discovery",
       "detail": "Add a highly polished natural-language layer to the existing discovery search. It converts intent into visible, editable deterministic filters and returns only canonical BNDY gigs through the existing Map and List experiences. It must not present as a chat interface or chatbot persona, and it must never invent gigs or unsupported attributes. Delivery depends on sufficiently rich and reliable genre, act-type, admission, date and location data. Ship only when the interaction is fast, slick and materially better than using the filters directly, never as an AI novelty."
     },
     {
       "id": "hear-the-bill",
-      "rank": 6,
+      "rank": 5,
       "laneId": "core-discovery",
       "title": "Hear the bill line-up playback",
       "detail": "A much-later gig-page experience that assembles the external media already supplied through owned artist profiles into a playable Hear the bill line-up. Do not create a duplicate media-entry flow. Use third-party embeds only, with no BNDY-hosted uploads in the first version, and do not prioritise until enough active artists are supplying usable media links for the experience to feel complete."
@@ -261,6 +254,15 @@
         {
           "title": "JOIN-09 — owner authority protection",
           "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
+        },
+        {
+          "title": "Artist profile media and lightweight availability",
+          "detail": "Owners and admins can edit YouTube, Spotify, SoundCloud and Bandcamp links and manage bookable dates directly from the lightweight public Artist profile. Public media uses mobile-first, tap-to-load embeds with no autoplay. Availability reuses the canonical model to publish exact dates or free weekends, protects real gig dates and presents a clean booking contact action. The owner routes consume active Artist memberships and do not alter Claim creation, evidence or review.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/pull/26",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/61",
+            "https://github.com/flowency-live/bndy-serverless-api/actions/runs/33255391148"
+          ]
         }
       ],
       "now": [
