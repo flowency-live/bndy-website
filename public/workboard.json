@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T20:25:34.000Z",
-  "updatedBy": "Claim Journey Owner - ownership, multi-entity and Claim V2 status review",
+  "updatedAt": "2026-08-29T20:47:27.000Z",
+  "updatedBy": "Artist profile live acceptance and gig-history map delivery 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -193,6 +193,13 @@
         {
           "title": "Ticketing surfaced at event and venue level",
           "detail": "Recent work makes ticketed status explicit without treating unknown admission as a reason to hide a gig."
+        },
+        {
+          "title": "Artist profile map includes recorded gig history",
+          "detail": "The Artist Map view now combines upcoming public gigs with all recorded non-cancelled public history. Upcoming gigs remain solid orange, past gigs use muted markers, and repeat appearances at the same Venue aggregate into one counted marker. Initial framing favours upcoming gigs, while By Date and By Distance remain future-only. The result has been reviewed and approved in production.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/pull/33"
+          ]
         }
       ],
       "now": [
@@ -282,11 +289,12 @@
         },
         {
           "title": "Artist profile media and lightweight availability",
-          "detail": "Owners and admins can edit YouTube, Spotify, SoundCloud and Bandcamp links and manage bookable dates directly from the lightweight public Artist profile. Public media uses mobile-first, tap-to-load embeds with no autoplay. Availability reuses the canonical model to publish exact dates or free weekends, protects real gig dates and presents a clean booking contact action. The owner routes consume active Artist memberships and do not alter Claim creation, evidence or review.",
+          "detail": "Staff, owners and admins can edit YouTube, Spotify, SoundCloud and Bandcamp links and manage bookable dates directly from the lightweight public Artist profile. Public media uses mobile-first, tap-to-load embeds with no autoplay. The approved public availability tab covers twelve months in compact three-month windows, supports an Artist booking message, and clearly distinguishes Available, Public gig and Private booking dates while leaving unlisted dates open to enquiry. Public gigs and private Backstage bookings protect those dates without exposing member-unavailability noise. The work reuses the canonical availability model and does not alter Claim creation, evidence or review.",
           "evidence": [
             "https://github.com/flowency-live/bndy-app/pull/26",
             "https://github.com/flowency-live/bndy-serverless-api/pull/61",
-            "https://github.com/flowency-live/bndy-serverless-api/actions/runs/33255391148"
+            "https://github.com/flowency-live/bndy-app/pull/32",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/67"
           ]
         }
       ],
