@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T19:59:48.000Z",
-  "updatedBy": "CTO session (Claude) - Backline audit and qualification approval",
+  "updatedAt": "2026-08-29T20:25:34.000Z",
+  "updatedBy": "Claim Journey Owner - ownership, multi-entity and Claim V2 status review",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -218,14 +218,15 @@
     },
     {
       "id": "join-bndy",
-      "title": "Join bndy",
-      "objective": "Give artists and venue operators a beautiful, low-friction route to find or create their entity, authenticate, establish ownership and start managing it without creating duplicates.",
-      "health": "green",
+      "title": "Add, Claim & Ownership",
+      "objective": "Let one person find, add, claim and manage multiple Artists and Venues through clear relationship and ownership roles without creating duplicates or displacing an established owner.",
+      "health": "amber",
       "deliveryState": "building",
       "targetState": false,
       "repos": [
         "app",
         "api",
+        "backstage",
         "enrichment",
         "website"
       ],
@@ -252,7 +253,15 @@
         },
         {
           "title": "JOIN-07 \u2014 Claim persistence and review",
-          "detail": "Existing-entity claims persist, appear to the claimant, and are reviewable/approvable in Godmode without overwriting the entity before verification."
+          "detail": "CLAIM V2 LIVE. Existing-entity Claims capture relationship, requested role, explanation, official email and public supporting URL. They persist, appear to the claimant, and are reviewable in Godmode without overwriting the entity before verification. Godmode can approve, reject or request more evidence; the reviewer note and evidence follow-up loop are live in Manage.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/pull/25",
+            "https://github.com/flowency-live/bndy-app/pull/27",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/60",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/63",
+            "https://github.com/flowency-live/bndy-backstage/pull/13",
+            "https://github.com/flowency-live/bndy-backstage/pull/14"
+          ]
         },
         {
           "title": "JOIN-08 \u2014 management and delegation foundation",
@@ -261,6 +270,15 @@
         {
           "title": "JOIN-09 \u2014 owner authority protection",
           "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
+        },
+        {
+          "title": "JOIN-10 - multi-entity and ownership foundation",
+          "detail": "One account can already hold multiple active Artist and Venue relationships. Artist roles are owner/admin/member; Venue roles are owner/admin. New safe creation establishes the initial owner, existing entities enter Claim, and established ownership cannot be replaced silently. Venue delegation, ownership transfer and explicit Artist/Venue relinquish preserve the public entity.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/commit/3c2deeb",
+            "https://github.com/flowency-live/bndy-serverless-api/commit/7128e3d",
+            "https://github.com/flowency-live/bndy-serverless-api/commit/904372b"
+          ]
         },
         {
           "title": "Artist profile media and lightweight availability",
@@ -274,26 +292,38 @@
       ],
       "now": [
         {
-          "title": "JOIN-10 \u2014 release hardening",
-          "detail": "Funnel analytics is instrumented across entry, Artist/Venue identity and creation, Claim, delegate invitation/acceptance/revoke and ownership transfer. Final production deployment/smoke and end-to-end authenticated acceptance remain."
+          "title": "JOIN-11 - Add, Claim and multi-entity UX correction",
+          "detail": "The signed-in experience currently says Join when the person is adding another entity. Reframe the account menu and Manage actions as Add artist or venue, reframe /join as Find an artist or venue, add a safe back action and make multiple relationships the explicit normal model. The single product scope is documented in docs/JOIN-OWNERSHIP-AND-MULTI-ENTITY-SCOPE-2026-08-29.md."
         },
         {
-          "title": "Venue profile polish",
-          "detail": "Add the optional post-identity Venue music-specific profile fields without making the onboarding feel like an admin form."
+          "title": "JOIN-12 - same-name/different-location correction",
+          "detail": "BLOCKED USER JOURNEY. Exact normalised name currently wins even when the chosen location differs, and the UI loops back to the existing Artist because it never invokes the available confirmNew decision. Add an explicit Different artist in [location] branch, retain stronger identity and same-region uniqueness blocks, and recheck before creation."
+        },
+        {
+          "title": "JOIN-13 - truthful Facebook verification exposure",
+          "detail": "Facebook Login is live with public_profile and email, but Facebook Page-control verification is not implemented and the Claim API rejects facebook_page. Remove the disabled internal Meta-access message from public UI. Re-expose Verify with Facebook only after reviewed Page permissions, server-side managed-Page selection, entity reconciliation and production acceptance are complete."
+        },
+        {
+          "title": "JOIN-14 - Join visual and navigation defects",
+          "detail": "The Artist location suggestion menu uses undefined CSS variable --bg and renders transparently in the Flyer skin. Replace it with an opaque theme surface and verify all skins. Add the missing /join back control and update child-flow back labels."
+        },
+        {
+          "title": "JOIN-15 - release hardening and authenticated acceptance",
+          "detail": "Claim V2 application, review UI and API are live and the latest API deployment passed. Funnel analytics is instrumented. Complete the signed-in multi-entity acceptance across new Artist, new Venue, existing-entity Claim, request-more-evidence, approval, conflict, delegate acceptance, ownership transfer and relinquish."
         }
       ],
       "next": [
         {
-          "title": "Authenticated production acceptance",
-          "detail": "Exercise real signed-in new Artist, new Venue, existing-entity Claim, Godmode approval, delegate acceptance and ownership transfer against production."
+          "title": "Facebook Page-control verification",
+          "detail": "Treat Page control as separate from Facebook Login. Obtain and prove the required Page permissions, fetch Pages managed by the signed-in person, reconcile a stable Page identity to the BNDY entity and issue verification evidence server-side before exposing the option."
         },
         {
-          "title": "Claim verification automation",
-          "detail": "Add stronger automatic evidence options over time while retaining curator/admin review as the safe fallback."
+          "title": "Claim authority projection acceptance",
+          "detail": "The privacy-safe Claim stream and Backline consumer are deployed and CI-proven, but production synthetic acceptance did not prove the final authority record. Run a fresh bounded proof without making Backline transport a dependency of Claim success or enabling canonical writes."
         },
         {
-          "title": "Relinquish/disown UX",
-          "detail": "Add an explicit, audited way to relinquish ownership without deleting the public entity. Do not allow accidental orphaning through ordinary membership controls."
+          "title": "Venue profile polish",
+          "detail": "Add optional post-identity Venue music-specific profile fields after the core Add, Claim and ownership journey is coherent and accepted."
         }
       ]
     },
