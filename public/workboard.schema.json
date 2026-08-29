@@ -3,9 +3,9 @@
   "$id": "https://www.bndy.co.uk/workboard.schema.json",
   "title": "BNDY workboard",
   "type": "object",
-  "required": ["version", "updatedAt", "repositories", "lanes"],
+  "required": ["version", "updatedAt", "repositories", "backlog", "lanes"],
   "properties": {
-    "version": {"type": "integer", "minimum": 2},
+    "version": {"type": "integer", "minimum": 3},
     "updatedAt": {"type": "string", "format": "date-time"},
     "updatedBy": {"type": "string"},
     "title": {"type": "string"},
@@ -27,6 +27,7 @@
         "additionalProperties": true
       }
     },
+    "backlog": {"$ref": "#/$defs/backlogItems"},
     "lanes": {
       "type": "array",
       "items": {
@@ -49,6 +50,24 @@
     }
   },
   "$defs": {
+    "backlogItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "rank", "laneId", "title", "detail"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "rank": {"type": "integer", "minimum": 1},
+          "laneId": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "title": {"type": "string"},
+          "detail": {"type": "string"},
+          "owner": {"type": "string"},
+          "evidence": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": true
+      },
+      "uniqueItems": true
+    },
     "cards": {
       "type": "array",
       "items": {

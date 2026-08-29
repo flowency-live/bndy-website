@@ -1,7 +1,7 @@
 {
-  "version": 2,
-  "updatedAt": "2026-08-29T10:05:00.000Z",
-  "updatedBy": "Backline split qualification architecture 2026-08-29",
+  "version": 3,
+  "updatedAt": "2026-08-29T10:12:10.000Z",
+  "updatedBy": "Ranked backlog model and Scene direction 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -123,6 +123,15 @@
       "serves": "Legacy / audit required",
       "role": "Older BNDY generations. Confirm no live dependency, then archive or label clearly to reduce agent confusion.",
       "status": "audit"
+    }
+  ],
+  "backlog": [
+    {
+      "id": "scene-view",
+      "rank": 1,
+      "laneId": "core-discovery",
+      "title": "Poster-led Scene view for local discovery",
+      "detail": "Add a future third public discovery mode alongside Map and List. Scene is a finite, location- and date-bounded visual view of canonical gigs, led by authentic posters where available and deterministic BNDY event cards otherwise. It is not a general user-post, comment or infinite-scroll social feed. Delivery is approved but deliberately unscheduled."
     }
   ],
   "lanes": [
