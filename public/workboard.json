@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T13:53:29.000Z",
-  "updatedBy": "Artist profile media and availability delivered 2026-08-29",
+  "updatedAt": "2026-08-29T16:56:20.000Z",
+  "updatedBy": "Date-aware Artist booking request approved for later 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -160,6 +160,13 @@
       "laneId": "core-discovery",
       "title": "Hear the bill line-up playback",
       "detail": "A much-later gig-page experience that assembles the external media already supplied through owned artist profiles into a playable Hear the bill line-up. Do not create a duplicate media-entry flow. Use third-party embeds only, with no BNDY-hosted uploads in the first version, and do not prioritise until enough active artists are supplying usable media links for the experience to feel complete."
+    },
+    {
+      "id": "artist-booking-requests",
+      "rank": 6,
+      "laneId": "core-discovery",
+      "title": "Date-aware Artist booking requests",
+      "detail": "Later, let a person choose an available or unlisted date on an Artist profile and send a private booking request through BNDY. BNDY should deliver it to the claimed Artist, provide in-app and explicitly opted-in notifications, and keep request status and replies inside the account experience. Decide consent, spam controls, privacy, response flow and any WhatsApp, email or text fallback before delivery. Do not expand the current availability-calendar work into messaging now. This is dependent on claimed Artist adoption and reliable notifications."
     }
   ],
   "lanes": [
