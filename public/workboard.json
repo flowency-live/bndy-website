@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T21:16:06.000Z",
-  "updatedBy": "Claim Journey Owner - Add, Claim and multi-entity UX delivery",
+  "updatedAt": "2026-08-29T21:45:58.000Z",
+  "updatedBy": "Claim Journey Owner - current delivery and Meta Live-mode checkpoint",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -331,13 +331,13 @@
       "now": [
         {
           "title": "JOIN-15 - production smoke and authenticated acceptance",
-          "detail": "The Add, Find and same-name correction is merged to bndy-app main with PR CI and rendered-copy checks green. Confirm the live deployment, then complete signed-in multi-entity acceptance across new Artist, new Venue, existing-entity Claim, request-more-evidence, approval, conflict, delegate acceptance, ownership transfer and relinquish."
+          "detail": "The Add, Find and same-name correction is merged to bndy-app main in PR #34, remains in current main and passed PR CI plus rendered-copy checks. Production deployment has not yet been independently confirmed. Confirm the live build, then complete signed-in multi-entity acceptance across new Artist, new Venue, existing-entity Claim, request-more-evidence, approval, conflict, delegate acceptance, ownership transfer and relinquish."
         }
       ],
       "next": [
         {
           "title": "Facebook Page-control verification",
-          "detail": "Treat Page control as separate from Facebook Login. Obtain and prove the required Page permissions, fetch Pages managed by the signed-in person, reconcile a stable Page identity to the BNDY entity and issue verification evidence server-side before exposing the option."
+          "detail": "The Meta app is approved and in Live mode. Treat Page control as separate from Facebook Login: confirm the exact granted Page permissions and token scopes, prove managed-Page retrieval for a live user, reconcile a stable Page identity to the BNDY entity and issue verification evidence server-side before exposing the option."
         },
         {
           "title": "Claim authority projection acceptance",
@@ -1430,22 +1430,22 @@
         {
           "title": "Facebook URLs work without Graph dependency",
           "detail": "Public source inspection and Capture can resolve useful Facebook evidence without making privileged Graph access a core dependency."
+        },
+        {
+          "title": "Meta app approved and in Live mode",
+          "detail": "The Meta app has completed approval and is now in Live mode. This is the platform checkpoint, not proof that managed Facebook Page retrieval or Page-control Claim verification works end to end."
         }
       ],
       "now": [
         {
-          "title": "Meta app setup is not yet a finished product channel",
-          "detail": "Page/app configuration work exists, but Messenger intake and production permissions are not yet complete."
+          "title": "Confirm approved Meta permission inventory",
+          "detail": "Inspect the Live app's approved permissions, features and access levels, then prove which Page and messaging operations work with a real production user token. Record the exact scopes and API responses before wiring Claim verification or Messenger intake."
         }
       ],
       "next": [
         {
           "title": "Messenger Send to bndy",
           "detail": "Webhook BNDY Page messages into Capture using the same transport-neutral submission model."
-        },
-        {
-          "title": "Complete Meta permissions/app review",
-          "detail": "Only request the permissions actually needed for messaging and public BNDY identity."
         }
       ]
     },
