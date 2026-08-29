@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T10:27:46.000Z",
-  "updatedBy": "Hear the bill long-term backlog approval 2026-08-29",
+  "updatedAt": "2026-08-29T10:34:57.000Z",
+  "updatedBy": "Ask bndy ranked backlog approval 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -134,8 +134,15 @@
       "detail": "Add a future third public discovery mode alongside Map and List. Scene is a finite, location- and date-bounded visual view of canonical gigs, led by authentic posters where available and deterministic BNDY event cards otherwise. It is not a general user-post, comment or infinite-scroll social feed. Delivery is approved but deliberately unscheduled."
     },
     {
-      "id": "hear-the-bill",
+      "id": "ask-bndy",
       "rank": 2,
+      "laneId": "core-discovery",
+      "title": "Ask bndy natural-language discovery",
+      "detail": "Add a highly polished natural-language layer to the existing discovery search. It converts intent into visible, editable deterministic filters and returns only canonical BNDY gigs through the existing Map and List experiences. It must not present as a chat interface or chatbot persona, and it must never invent gigs or unsupported attributes. Delivery depends on sufficiently rich and reliable genre, act-type, admission, date and location data. Ship only when the interaction is fast, slick and materially better than using the filters directly, never as an AI novelty."
+    },
+    {
+      "id": "hear-the-bill",
+      "rank": 3,
       "laneId": "core-discovery",
       "title": "Artist video links and Hear the bill",
       "detail": "A much-later media layer for artist and gig pages: allow artists or curators to attach verified external video links, then surface them on artist profiles and as a playable Hear the bill line-up. Use third-party embeds only, with no BNDY-hosted uploads in the first version. Do not prioritise until enough active artists are already supplying usable video links for the experience to feel complete."
