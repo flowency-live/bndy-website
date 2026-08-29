@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T21:45:58.000Z",
-  "updatedBy": "Claim Journey Owner - current delivery and Meta Live-mode checkpoint",
+  "updatedAt": "2026-08-29T21:53:00.000Z",
+  "updatedBy": "Send to bndy delivery with current Claim and Meta checkpoints preserved",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -127,43 +127,36 @@
   ],
   "backlog": [
     {
-      "id": "send-to-bndy",
-      "rank": 1,
-      "laneId": "capture",
-      "title": "Send to bndy: reliable web and WhatsApp intake",
-      "detail": "Turn chat.bndy.live into a polished, mobile-first Send to bndy experience and launch a memorable WhatsApp Business number people can save. Both channels accept posters, screenshots, images, links and event text through the same Capture and Backline pipeline. Harden interpretation consistency, identity resolution, deduplication, retries and uncertain-result handling. Provide immediate acknowledgement, clear progress and a useful final result. WhatsApp remains an intake channel, not a separate chatbot or intelligence engine."
-    },
-    {
       "id": "scene-view",
-      "rank": 2,
+      "rank": 1,
       "laneId": "core-discovery",
       "title": "Poster-led Scene view for local discovery",
       "detail": "Add a future third public discovery mode alongside Map and List. Scene is a finite, location- and date-bounded visual view of canonical gigs, led by authentic posters where available and deterministic BNDY event cards otherwise. It is not a general user-post, comment or infinite-scroll social feed. Delivery is approved but deliberately unscheduled."
     },
     {
       "id": "saved-gigs-going",
-      "rank": 3,
+      "rank": 2,
       "laneId": "core-discovery",
       "title": "Saved gigs and Going",
       "detail": "Allow signed-in people to save a specific gig privately and separately mark themselves as Going. This slice records only those two account-backed intent states. Their eventual use will be decided later. Do not expose attendee lists or attendance counts, add curator recommendations, use either signal in Scene or Ask bndy ranking, or introduce posts, comments or follower mechanics."
     },
     {
       "id": "ask-bndy",
-      "rank": 4,
+      "rank": 3,
       "laneId": "core-discovery",
       "title": "Ask bndy natural-language discovery",
       "detail": "Add a highly polished natural-language layer to the existing discovery search. It converts intent into visible, editable deterministic filters and returns only canonical BNDY gigs through the existing Map and List experiences. It must not present as a chat interface or chatbot persona, and it must never invent gigs or unsupported attributes. Delivery depends on sufficiently rich and reliable genre, act-type, admission, date and location data. Ship only when the interaction is fast, slick and materially better than using the filters directly, never as an AI novelty."
     },
     {
       "id": "hear-the-bill",
-      "rank": 5,
+      "rank": 4,
       "laneId": "core-discovery",
       "title": "Hear the bill line-up playback",
       "detail": "A much-later gig-page experience that assembles the external media already supplied through owned artist profiles into a playable Hear the bill line-up. Do not create a duplicate media-entry flow. Use third-party embeds only, with no BNDY-hosted uploads in the first version, and do not prioritise until enough active artists are supplying usable media links for the experience to feel complete."
     },
     {
       "id": "artist-booking-requests",
-      "rank": 6,
+      "rank": 5,
       "laneId": "core-discovery",
       "title": "Date-aware Artist booking requests",
       "detail": "Later, let a person choose an available or unlisted date on an Artist profile and send a private booking request through BNDY. BNDY should deliver it to the claimed Artist, provide in-app and explicitly opted-in notifications, and keep request status and replies inside the account experience. Decide consent, spam controls, privacy, response flow and any WhatsApp, email or text fallback before delivery. Do not expand the current availability-calendar work into messaging now. This is dependent on claimed Artist adoption and reliable notifications."
@@ -548,8 +541,8 @@
       ],
       "now": [
         {
-          "title": "Makeover and interpretation hardening",
-          "detail": "The underlying multimodal path exists, but chat.bndy.live is not yet a polished Send to bndy product and interpretation results remain too variable for the experience to be considered solid."
+          "title": "Send to bndy web delivery active",
+          "detail": "Rebuild chat.bndy.live as a polished, mobile-first intake for posters, screenshots, links and event messages. Support an image plus useful context, truthful processing status, recovery after interruption and a clear final result through the existing Capture and Backline path."
         },
         {
           "title": "Processing latency",
@@ -557,10 +550,6 @@
         }
       ],
       "next": [
-        {
-          "title": "Send to bndy web makeover",
-          "detail": "Rework chat.bndy.live into a simple, mobile-first intake experience with a clear submit journey, immediate acknowledgement, visible processing progress and a useful final result."
-        },
         {
           "title": "Representative reliability qualification",
           "detail": "Build a repeatable poster, screenshot, link and event-text cohort that measures extraction, identity resolution, deduplication and uncertain-result handling before the feature is treated as production-solid."
@@ -608,6 +597,14 @@
         {
           "title": "Capture is not the resolution engine",
           "detail": "It is the transport/backlog. bndy-enrichment performs interpretation, matching and canonical projection."
+        },
+        {
+          "title": "Shared Send to bndy contract in active delivery",
+          "detail": "Add transport idempotency, structured public outcomes and WhatsApp intake while preserving existing Android and web clients. Delivery plan and implementation are tracked in flowency-live/bndy-capture PR #3.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-capture/pull/3",
+            "https://github.com/flowency-live/bndy-capture/blob/feat/send-to-bndy-whatsapp/docs/SEND-TO-BNDY-DELIVERY-PLAN.md"
+          ]
         }
       ],
       "next": [
@@ -1454,7 +1451,7 @@
       "title": "WhatsApp Send to bndy",
       "objective": "Let anybody send a poster, link or event message to BNDY like messaging a friend.",
       "health": "blue",
-      "deliveryState": "planned",
+      "deliveryState": "building",
       "targetState": true,
       "repos": [
         "capture",
@@ -1468,18 +1465,18 @@
       ],
       "now": [
         {
-          "title": "Not built yet",
-          "detail": "No production WhatsApp webhook/number intake has been completed."
+          "title": "Cloud API transport in active delivery",
+          "detail": "Build verified webhooks, media retrieval, message-ID deduplication and bounded acknowledgement and result replies through Capture. Production activation still requires a dedicated BNDY number and Meta credentials."
         }
       ],
       "next": [
         {
-          "title": "Cloud API webhook",
-          "detail": "Verify Meta signature, acknowledge quickly, enqueue work and map text/media into Capture."
+          "title": "Production Meta activation",
+          "detail": "Connect a dedicated public BNDY number, WhatsApp Business Account, phone ID, app secret, access token and webhook subscription after the transport passes local qualification."
         },
         {
-          "title": "Public BNDY number",
-          "detail": "Configure the BNDY WhatsApp Business number and simple acknowledgement/status replies."
+          "title": "Bounded WhatsApp acceptance",
+          "detail": "Qualify text, links, posters, screenshots, duplicate delivery, transient failure and final-result replies before publishing the number."
         }
       ]
     },
