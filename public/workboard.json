@@ -613,7 +613,7 @@
         },
         {
           "title": "Multi-source Backline Explorer deployed",
-          "detail": "The deployed Backstage Godmode is a read-only operational inspector for Lemonrock, On The Case, KLMA, GigsNews and the Trust Loop. The operational Trust Loop record contains the latest failed inline-citation proof: 20 attempted, zero captured, 20 schema errors, zero accepted facts, cost unavailable and zero canonical writes. Backstage commit b6ae0efe is live through Amplify job 811, so the UI now renders unavailable rather than a false $0.00. The release was verified by source-aware run 33246356714, which started no duplicate job. The interactive identity and evidence graph remains a separate product step.",
+          "detail": "The deployed Backstage Godmode is a read-only operational inspector for Lemonrock, On The Case, KLMA, GigsNews and the Trust Loop. Its latest operational Trust Loop record is the split-provider qualification run: 20 attempted, 20 Google capture errors, zero Gemini reasoning calls, zero accepted facts, cost unavailable and zero canonical writes. The workflow published this capture-failed status successfully before its final qualification gate stopped. Backstage commit b6ae0efe remains live and renders unavailable cost honestly. The interactive identity and evidence graph remains a separate product step.",
           "evidence": [
             "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
             "https://github.com/flowency-live/bndy-backstage/pull/4",
@@ -632,7 +632,9 @@
             "https://github.com/flowency-live/bndy-backstage/commit/b6ae0efeb03c59cf0db7b66e1e5ea230b039dd55",
             "https://github.com/flowency-live/bndy-enrichment/pull/96",
             "https://github.com/flowency-live/bndy-enrichment/pull/97",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33246356714"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33246356714",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json"
           ]
         },
         {
@@ -768,12 +770,23 @@
             "https://github.com/flowency-live/bndy-enrichment/blob/main/src/enrichment/providers/google-programmable-search.ts",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/src/enrichment/providers/gemini-structured-reasoner.ts"
           ]
+        },
+        {
+          "title": "Google Programmable Search qualification failed closed",
+          "detail": "The separately approved one-shot split-provider qualification attempted the existing 10 Artist and 10 Venue cohort in production shadow. Every case stopped on its first Google request with 403 PERMISSION_DENIED because the project does not have access to the Custom Search JSON API. Google now documents the API as closed to new customers. No Gemini reasoning call ran, no facts were accepted, no schedule or provider activation occurred, estimated spend was unavailable with no measured usage, and canonical writes remained zero. The public failure artefact and review were committed and the capture-failed result was published read-only to Godmode. The provider remains unqualified and unscheduled; another run requires a supported evidence-search provider and separate approval.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/99",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-review.md",
+            "https://developers.google.com/custom-search/v1/overview"
+          ]
         }
       ],
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The integrated-grounding proof failed closed and is visible honestly in Backstage. PR 98 has now merged the inactive replacement: at most two explicit Google result captures followed by one stateless Gemini structured reasoning call over the exact evidence allow-list. No provider call, schedule or canonical write was added. The next gate is to provision a Google Programmable Search Engine ID/API credential and separately approve one cost-capped rerun of the same 20 cases. The provider remains unqualified and unscheduled until that reviewed proof passes. BAU human review remains exception-based, not daily.",
+          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The approved split-provider proof is now complete and failed closed: Google rejected all 20 first-search requests because Custom Search JSON API access is closed to new customers, so Gemini was never called, no facts were accepted, cost remained unavailable, and canonical writes stayed zero. The capture-failed result is committed and live in Godmode. The next gate is to select a supported explicit evidence-search provider, adapt the existing fixed-evidence contract, and separately approve one new cost-capped proof. The provider remains unqualified and unscheduled. BAU human review remains exception-based, not daily.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -795,7 +808,11 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/90",
             "https://github.com/flowency-live/bndy-backstage/pull/12",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33246356714",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98"
+            "https://github.com/flowency-live/bndy-enrichment/pull/98",
+            "https://github.com/flowency-live/bndy-enrichment/pull/99",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
+            "https://developers.google.com/custom-search/v1/overview"
           ]
         },
         {
@@ -883,7 +900,7 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "LATEST LIVE PROOF FAILED CLOSED; REPLACEMENT ADAPTER READY BUT INACTIVE. All 20 integrated-grounding Gemini responses violated the strict schema, so captured cases and accepted facts were zero, no schedule was activated and canonical writes remained zero. Backstage commit b6ae0efe displays the unavailable legacy cost honestly. PR 98 now separates two explicit Google result captures from one schema-constrained Gemini reasoning call over an exact evidence allow-list, with complete error-path usage and cost evidence. The provider remains unscheduled and unqualified until a newly approved 20-case rerun passes.",
+          "detail": "LATEST LIVE PROOF FAILED CLOSED AT GOOGLE ACCESS. The split adapter attempted the authorised 20-case shadow cohort, but all first-search calls returned 403 because Custom Search JSON API is closed to new customers. Gemini therefore made zero reasoning calls, accepted facts were zero, no schedule or provider activation occurred and canonical writes remained zero. The committed failure artefact and Godmode record preserve the unavailable cost honestly. The provider remains unscheduled and unqualified pending selection of a supported explicit evidence-search provider and separate approval for any new live proof.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -902,12 +919,16 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
             "https://github.com/flowency-live/bndy-enrichment/pull/90",
             "https://github.com/flowency-live/bndy-backstage/pull/12",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98"
+            "https://github.com/flowency-live/bndy-enrichment/pull/98",
+            "https://github.com/flowency-live/bndy-enrichment/pull/99",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
+            "https://developers.google.com/custom-search/v1/overview"
           ]
         },
         {
           "title": "Priority 1: Backline Trust Loop v1",
-          "detail": "LIVE SHADOW, REPLACEMENT QUALIFICATION PATH READY. The authorised integrated-grounding proof failed every case at strict response-schema validation, with zero accepted facts, zero schedules and zero canonical writes. Diagnostics and the failed gate are live in Godmode. The revised evidence-plus-extraction contract is merged in PR 98 but remains inactive. The next action is a fresh bounded 20-case proof after Google Programmable Search credentials and external-call authority are available. The Product Owner will not be a daily reviewer; uncertainty remains automatically parked.",
+          "detail": "LIVE SHADOW, EVIDENCE-SEARCH PROVIDER BLOCKED. The authorised split-provider proof failed every case at Google evidence capture with 403 PERMISSION_DENIED because Custom Search JSON API is closed to new customers. No Gemini call ran, no facts were accepted, no schedule was activated and canonical writes remained zero. The failure artefact and gate are live in Godmode. The next action is to choose a supported explicit search provider, preserve the fixed-evidence and exact-citation contract, then seek separate authority for a new bounded proof. The Product Owner will not be a daily reviewer; uncertainty remains automatically parked.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
@@ -926,12 +947,15 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
             "https://github.com/flowency-live/bndy-enrichment/pull/90",
             "https://github.com/flowency-live/bndy-backstage/pull/12",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98"
+            "https://github.com/flowency-live/bndy-enrichment/pull/98",
+            "https://github.com/flowency-live/bndy-enrichment/pull/99",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json"
           ]
         },
         {
           "title": "Hard gate: healthy artist enrichment",
-          "detail": "FAILED CLOSED IN THE LATEST LIVE ARTEFACT; REVISED CONTRACT READY. The integrated-grounding proof produced 20 schema errors and zero accepted facts. PR 98 now provides deterministic structured extraction over a fixed captured evidence allow-list so the next proof can assess identity, genres, artist type, act type, acoustic evidence and official links without relying on one response to supply both citations and schema. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes and measured costs inside policy. After qualification, human review is limited to conflicts, suspicious official links, policy-sensitive changes and a small drift sample.",
+          "detail": "FAILED CLOSED BEFORE QUALIFICATION REVIEW. The split-provider proof produced 20 Google access errors and zero accepted facts; the structured reasoner was never called. The deterministic extraction contract over a fixed captured evidence allow-list remains valid, but requires a supported search provider before it can assess identity, genres, artist type, act type, acoustic evidence and official links. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes and complete measured costs inside policy. After qualification, human review remains limited to conflicts, suspicious official links, policy-sensitive changes and a small drift sample.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -949,7 +973,10 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
             "https://github.com/flowency-live/bndy-enrichment/pull/90",
             "https://github.com/flowency-live/bndy-backstage/pull/12",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98"
+            "https://github.com/flowency-live/bndy-enrichment/pull/98",
+            "https://github.com/flowency-live/bndy-enrichment/pull/99",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json"
           ]
         },
         {
