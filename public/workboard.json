@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T17:07:52.000Z",
-  "updatedBy": "Date-aware Artist booking request approved for later 2026-08-29",
+  "updatedAt": "2026-08-29T18:28:00.000Z",
+  "updatedBy": "Backline Interactions evidence-first citation proof 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -830,12 +830,22 @@
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
             "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
+        },
+        {
+          "title": "Interactions evidence-first citation proof passed on Whittles Oldham",
+          "detail": "The new inactive Gemini Interactions evidence-first adapter uses one deterministic tab-delimited IDENTITY line plus zero or more FACT lines and admits a fact only from provider url_citation metadata bound to that fact segment. The approved Whittles Oldham shadow proof made one Gemini 3.6 Flash call and two Google searches, returned six provider citations and admitted five venue facts at a measured $0.02963275 within the $0.05 reservation. The full provider response is public. Canonical writes were zero, no schedule was created and the provider remains inactive. The response also exposed cumulative citation ranges starting at offset zero; PR 116 tightens binding to the FACT line containing each citation end offset and is green but awaiting explicit merge approval. This is a one-venue transport/evidence-contract proof, not provider qualification.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/114",
+            "https://github.com/flowency-live/bndy-enrichment/commit/937db16e1da5231ab76755cd824eca18a6b209ab",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/116"
+          ]
         }
       ],
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The approved Gemini 3.6 Flash Google-grounded 20-case proof completed all calls and demonstrated useful identity discrimination, but the Interactions API attached no provider url_citation annotations to any JSON output. Backline correctly quarantined all 67 proposed facts and admitted zero. Two cases exceeded the requested two-search limit, total searches were 43, and measured cost was $0.66234 against a $0.60 reservation. The provider remains unqualified, unscheduled and unable to write canonically. The next gate is a Google-backed evidence-capture design that returns authoritative machine-readable citations, followed by a separately approved bounded proof.",
+          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The previous 20-case JSON proof quarantined all 67 uncited proposals. A new inactive Interactions evidence-first plain-text adapter has now passed the first Whittles Oldham citation proof: one call, two searches, six provider citations, five admitted venue facts and $0.02963275 measured cost. The remaining immediate boundary is to merge the cumulative citation-range hardening in PR 116, then obtain separate authority for a full 10 Artist plus 10 Venue qualification and human adjudication. The provider remains unqualified, unscheduled and unable to write canonically.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -869,6 +879,9 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/110",
             "https://github.com/flowency-live/bndy-enrichment/pull/111",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
+            "https://github.com/flowency-live/bndy-enrichment/pull/114",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/116",
             "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
         },
@@ -957,7 +970,7 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "LATEST LIVE PROOF FAILED CLOSED AT CITATION ADMISSION. The explicit-contract Gemini 3.6 Flash qualification completed 20 grounded responses with zero schema or provider errors. It identified 15 cases at high confidence and safely abstained on 5, but emitted no provider url_citation annotations. Backline therefore quarantined all 67 proposed facts and accepted zero. The provider made 43 searches, including two cases above the requested limit, and measured cost was $0.66234 against the $0.60 reservation. No schedule or provider activation occurred and canonical writes remained zero. The provider remains unqualified pending a Google-backed evidence contract with authoritative machine-readable citations.",
+          "detail": "EVIDENCE CONTRACT PROVEN ON ONE VENUE, PROVIDER STILL UNQUALIFIED. The inactive Interactions evidence-first adapter requests one or two Google searches, one model call and deterministic fact lines, then derives evidence URLs only from provider url_citation annotations bound to exact output segments. Whittles Oldham produced two searches, six citations and five admitted facts for $0.02963275. The raw response showed cumulative citation ranges, so the production-safe binding must use the citation end offset rather than generic overlap; that hardening is green in PR 116 and awaits explicit merge approval. No schedule or provider activation occurred and canonical writes remain zero. A fresh balanced 20-case proof and adjudication are required before qualification.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -988,12 +1001,15 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/110",
             "https://github.com/flowency-live/bndy-enrichment/pull/111",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
+            "https://github.com/flowency-live/bndy-enrichment/pull/114",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/116",
             "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
         },
         {
           "title": "Priority 1: Backline Trust Loop v1",
-          "detail": "LIVE SHADOW, EVIDENCE-SEARCH PROVIDER BLOCKED. The authorised split-provider proof failed every case at Google evidence capture with 403 PERMISSION_DENIED because Custom Search JSON API is closed to new customers. No Gemini call ran, no facts were accepted, no schedule was activated and canonical writes remained zero. The failure artefact and gate are live in Godmode. The next action is to choose a supported explicit search provider, preserve the fixed-evidence and exact-citation contract, then seek separate authority for a new bounded proof. The Product Owner will not be a daily reviewer; uncertainty remains automatically parked.",
+          "detail": "LIVE SHADOW, SINGLE-CASE CITATION GATE PASSED. Google Programmable Search remains unavailable, but Gemini Interactions with Google Search grounding has now returned machine-readable url_citation annotations when driven by the deterministic evidence-first plain-text contract. Whittles Oldham passed the transport and citation-admission proof with five facts and zero writes. This does not qualify the provider. Immediate work is PR 116 citation-range hardening, redirect-destination preservation, then a separately approved 10 Artist plus 10 Venue cohort with known-answer review, coverage, false-match and cost gates. The Product Owner will not be a daily reviewer; uncertainty remains automatically parked.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
@@ -1015,12 +1031,15 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/98",
             "https://github.com/flowency-live/bndy-enrichment/pull/99",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/114",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/116"
           ]
         },
         {
           "title": "Hard gate: healthy artist enrichment",
-          "detail": "FAILED CLOSED AT CITATION ADMISSION. The 20-case explicit-contract proof completed all Gemini calls and produced plausible identity and enrichment candidates, but none of the JSON model outputs carried provider url_citation annotations. All 67 proposed facts were quarantined, so coverage is zero and the provider cannot pass the healthy-enrichment gate. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes, authoritative evidence mappings and complete cost control. No provider activation or canonical projection is permitted.",
+          "detail": "NOT YET PASSED. The evidence-first plain-text contract has produced authoritative provider citations for one Venue case, removing the previous zero-citation transport blocker. It has not yet tested an Artist and has not established cohort-wide identity accuracy or requested-predicate coverage. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes, authoritative evidence mappings, stable citation destinations and complete cost control across the balanced 20-case cohort. No provider activation or canonical projection is permitted.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -1049,6 +1068,9 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/110",
             "https://github.com/flowency-live/bndy-enrichment/pull/111",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
+            "https://github.com/flowency-live/bndy-enrichment/pull/114",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
+            "https://github.com/flowency-live/bndy-enrichment/pull/116",
             "https://backstage.bndy.co.uk/godmode/enrichment"
           ]
         },
