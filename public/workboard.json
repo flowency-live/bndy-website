@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-29T09:30:00.000Z",
-  "updatedBy": "Backline failed qualification status publication 2026-08-29",
+  "updatedAt": "2026-08-29T09:50:00.000Z",
+  "updatedBy": "Backstage qualification visibility release 2026-08-29",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -576,7 +576,7 @@
         },
         {
           "title": "Multi-source Backline Explorer deployed",
-          "detail": "The deployed Backstage Godmode is a read-only operational inspector for Lemonrock, On The Case, KLMA, GigsNews and the Trust Loop. The operational Trust Loop record now contains the latest failed inline-citation proof: 20 attempted, zero captured, 20 schema errors, zero accepted facts, cost unavailable and zero canonical writes. Backstage PR 12 is merged so the UI renders unavailable rather than a false $0.00, but that source commit still requires a separately approved Amplify release before the corrected presentation is live. The interactive identity and evidence graph remains a separate product step.",
+          "detail": "The deployed Backstage Godmode is a read-only operational inspector for Lemonrock, On The Case, KLMA, GigsNews and the Trust Loop. The operational Trust Loop record contains the latest failed inline-citation proof: 20 attempted, zero captured, 20 schema errors, zero accepted facts, cost unavailable and zero canonical writes. Backstage commit b6ae0efe is live through Amplify job 811, so the UI now renders unavailable rather than a false $0.00. The release was verified by source-aware run 33246356714, which started no duplicate job. The interactive identity and evidence graph remains a separate product step.",
           "evidence": [
             "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx",
             "https://github.com/flowency-live/bndy-backstage/pull/4",
@@ -591,7 +591,11 @@
             "https://github.com/flowency-live/bndy-backstage/pull/12",
             "https://github.com/flowency-live/bndy-enrichment/pull/92",
             "https://github.com/flowency-live/bndy-enrichment/pull/93",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33245560046"
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33245560046",
+            "https://github.com/flowency-live/bndy-backstage/commit/b6ae0efeb03c59cf0db7b66e1e5ea230b039dd55",
+            "https://github.com/flowency-live/bndy-enrichment/pull/96",
+            "https://github.com/flowency-live/bndy-enrichment/pull/97",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33246356714"
           ]
         },
         {
@@ -722,7 +726,7 @@
       "now": [
         {
           "title": "Current Backline phase",
-          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The authorised inline-citation proof has run and failed closed: all 20 provider responses violated the strict Backline schema, so zero facts were accepted, no schedule was activated and canonical writes remained zero. Run 33245560046 has published this exact capture-failed state to the operational Trust Loop record. The legacy attempt's cost remains unavailable rather than $0. PR 90 preserves evidence, usage and measured cost on future schema failures; Backstage PR 12 renders the state honestly once released. The provider remains unqualified and unscheduled. The next qualification design must separate grounded evidence capture from deterministic structured extraction, or prove an equally strict one-call contract, under a newly approved bounded budget. BAU human review remains exception-based, not daily.",
+          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The authorised inline-citation proof ran and failed closed: all 20 provider responses violated the strict Backline schema, so zero facts were accepted, no schedule was activated and canonical writes remained zero. Run 33245560046 published this exact capture-failed state to the operational Trust Loop record. The legacy attempt's cost remains unavailable rather than $0. PR 90 preserves evidence, usage and measured cost on future schema failures. Backstage commit b6ae0efe is now live through Amplify job 811 and displays unavailable honestly. The provider remains unqualified and unscheduled. The next qualification design must separate grounded evidence capture from deterministic structured extraction, or prove an equally strict one-call contract, under a newly approved bounded budget. BAU human review remains exception-based, not daily.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
@@ -742,7 +746,8 @@
             "https://github.com/flowency-live/bndy-enrichment/pull/89",
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
             "https://github.com/flowency-live/bndy-enrichment/pull/90",
-            "https://github.com/flowency-live/bndy-backstage/pull/12"
+            "https://github.com/flowency-live/bndy-backstage/pull/12",
+            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33246356714"
           ]
         },
         {
@@ -830,7 +835,7 @@
         },
         {
           "title": "Safe entity enrichment worker",
-          "detail": "LATEST INLINE-CITATION PROOF FAILED CLOSED. All 20 Gemini responses reached Backline, but every response violated the strict schema, so captured cases and accepted facts are both zero. No provider schedule was activated and canonical writes remain zero. The attempt proved that ordinary grounded output can expose citations but cannot yet be trusted to obey the fact contract. Its legacy error path lost usage, so cost is unavailable rather than $0. PR 90 preserves future failure evidence and cost; Backstage PR 12 displays the unavailable measurement honestly. The provider remains unscheduled and unqualified.",
+          "detail": "LATEST INLINE-CITATION PROOF FAILED CLOSED. All 20 Gemini responses reached Backline, but every response violated the strict schema, so captured cases and accepted facts are both zero. No provider schedule was activated and canonical writes remain zero. The attempt proved that ordinary grounded output can expose citations but cannot yet be trusted to obey the fact contract. Its legacy error path lost usage, so cost is unavailable rather than $0. PR 90 preserves future failure evidence and cost. Backstage commit b6ae0efe is live through Amplify job 811 and displays the unavailable measurement honestly. The provider remains unscheduled and unqualified.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
             "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
