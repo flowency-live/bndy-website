@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-29T21:53:00.000Z",
-  "updatedBy": "Send to bndy delivery with current Claim and Meta checkpoints preserved",
+  "updatedAt": "2026-08-30T14:34:08.963Z",
+  "updatedBy": "Serverless API incident recovery and authentication alias closure",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -232,27 +232,27 @@
       ],
       "done": [
         {
-          "title": "JOIN-01 \u2014 Join shell",
+          "title": "JOIN-01 — Join shell",
           "detail": "/join, /join/artist and /join/venue are live product routes with a dedicated mobile-first onboarding feature rather than the Add utility UI."
         },
         {
-          "title": "JOIN-02 \u2014 identity before creation",
+          "title": "JOIN-02 — identity before creation",
           "detail": "Artist canonical/variant/location resolution and Venue Google Place identity run before creation. Existing identities branch safely to Claim rather than duplicate creation."
         },
         {
-          "title": "JOIN-03 \u2014 auth + resume",
+          "title": "JOIN-03 — auth + resume",
           "detail": "Existing bndy auth is reused, Join state survives auth redirects, and Venue Google Place details are rehydrated on return."
         },
         {
-          "title": "JOIN-04/05 \u2014 owned Artist and Venue creation",
+          "title": "JOIN-04/05 — owned Artist and Venue creation",
           "detail": "Authenticated Join endpoints recheck identity at commit and create the entity plus initial owner relationship as one logical operation. Artist uses legacy artist memberships; Venue uses generic entity memberships."
         },
         {
-          "title": "JOIN-06 \u2014 Artist profile step",
+          "title": "JOIN-06 — Artist profile step",
           "detail": "Artist type, canonical act types, acoustic capability and canonical genres are captured in the lightweight Join step using the shared taxonomy."
         },
         {
-          "title": "JOIN-07 \u2014 Claim persistence and review",
+          "title": "JOIN-07 — Claim persistence and review",
           "detail": "CLAIM V2 LIVE. Existing-entity Claims capture relationship, requested role, explanation, official email and public supporting URL. They persist, appear to the claimant, and are reviewable in Godmode without overwriting the entity before verification. Godmode can approve, reject or request more evidence; the reviewer note and evidence follow-up loop are live in Manage.",
           "evidence": [
             "https://github.com/flowency-live/bndy-app/pull/25",
@@ -264,11 +264,11 @@
           ]
         },
         {
-          "title": "JOIN-08 \u2014 management and delegation foundation",
+          "title": "JOIN-08 — management and delegation foundation",
           "detail": "/manage lists Artists, Venues and Claims. Venue delegates use expiring email-bound invite links and their own accounts; owners can revoke delegates and safely transfer Venue ownership."
         },
         {
-          "title": "JOIN-09 \u2014 owner authority protection",
+          "title": "JOIN-09 — owner authority protection",
           "detail": "Backline authority policy now blocks lower-authority automated mutations/destructive changes on owner-managed projections while retaining external evidence for conflict/review."
         },
         {
@@ -1270,8 +1270,8 @@
           ]
         },
         {
-          "title": "Rejected source candidates \u2014 26 August 2026",
-          "detail": "yorkshiregigguide.co.uk \u2014 editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk \u2014 DNS dead. yorkshirecoastgigs.co.uk \u2014 content stale since 2016-2017. thebristolgigguide.com \u2014 reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk \u2014 active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) \u2014 403, unreachable. gig-guide.co.uk \u2014 multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange \u2014 excluded aggregator class (GigXchange excluded by Jason)."
+          "title": "Rejected source candidates — 26 August 2026",
+          "detail": "yorkshiregigguide.co.uk — editorial magazine + Facebook group, no structured listing. yorkshiregigs.co.uk — DNS dead. yorkshirecoastgigs.co.uk — content stale since 2016-2017. thebristolgigguide.com — reviews blog, stale since March 2025. the-south-yorkshire-entertainer.co.uk — active and grassroots, but client-side data behind a WAF; revisit later. gig-guide.uk (Wales) — 403, unreachable. gig-guide.co.uk — multi-city platform, client-side, mixed ticketed content; weak fallback. Skiddle, allevents, Bandsintown, GigXchange — excluded aggregator class (GigXchange excluded by Jason)."
         },
         {
           "title": "On The Case gig-led source family deployed to shadow",
@@ -1356,12 +1356,12 @@
           "detail": "https://www.nowton.events/ is an active local events service covering Kendal, Windermere, Ambleside, Keswick, Penrith and wider Cumbria, including small pub gigs and open sessions. First prove stable acquisition, music-only classification, source independence and native identity. If those gates fail, use direct calendars from a bounded Cumbria watched-Venue cohort rather than a national ticket aggregator."
         },
         {
-          "title": "DGWGO Events \u2014 selected",
-          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ \u2014 Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
+          "title": "DGWGO Events — selected",
+          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ — Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
         },
         {
-          "title": "Brighton Gigs \u2014 selected",
-          "detail": "https://brightongigs.uk/ \u2014 Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
+          "title": "Brighton Gigs — selected",
+          "detail": "https://brightongigs.uk/ — Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
         },
         {
           "title": "Lancashire source gap",
@@ -1598,6 +1598,15 @@
         {
           "title": "Source inspector deployment drift hardened",
           "detail": "Recent workflow changes reconcile the Facebook source-inspector route after normal API deployment."
+        },
+        {
+          "title": "Production serverless incident recovered and deployment gated",
+          "detail": "The 29 August incomplete-template deployment removed five Claim and ownership Lambdas and detached four retained DynamoDB tables. The tables were imported back into CloudFormation, the missing functions and 22 routes were restored through reviewed surgical change sets, and five frontend authentication aliases were separately deployed. The stack is UPDATE_COMPLETE with 270 routes, all four tables IN_SYNC, unchanged outputs and successful 401 Lambda smoke responses. Automatic serverless deployment and the cross-repository Capture acceptance job remain disabled pending infrastructure ownership hardening.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-website/blob/main/docs/SERVERLESS-API-INCIDENT-RECOVERY-2026-08-30.md",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/68",
+            "https://github.com/flowency-live/bndy-serverless-api/commit/ca641b99ea0c2941daacccc9172c6a0cfc14df3b"
+          ]
         }
       ],
       "now": [
