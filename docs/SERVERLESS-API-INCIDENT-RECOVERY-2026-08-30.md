@@ -222,6 +222,16 @@ Deployment requires all three conditions:
 
 The cross-repository Capture acceptance deployment is explicitly disabled pending redesign. Merging application or validation work cannot trigger it.
 
+## Post-recovery hardening completed
+
+The following repository changes were completed after stack recovery. None of them performed a broad AWS deployment:
+
+- [API PR #69](https://github.com/flowency-live/bndy-serverless-api/pull/69) reconciled the SEC-01 baseline with all restored Claim, Join, membership, invite, ownership and same-origin authentication alias mutation routes. It explicitly classifies Join analytics as bounded anonymous telemetry.
+- [Enrichment PR #123](https://github.com/flowency-live/bndy-enrichment/pull/123) made Enrichment and combined Capture deployment manual-only, required exact confirmation text and repository enable flags, changed the credential boundary from the audit role to a dedicated deploy role, and removed routine CDK bootstrap. Superseded combined deployment [PR #122](https://github.com/flowency-live/bndy-enrichment/pull/122) was closed unmerged.
+- [API PR #70](https://github.com/flowency-live/bndy-serverless-api/pull/70) removed the interactive full-ledger task aggregation responsible for `SourceRunsFunc` 30-second timeouts. [Backstage PR #16](https://github.com/flowency-live/bndy-backstage/pull/16) presents exact recent-run metrics and keeps full task history on the separate paginated browser. Both are merged and CI-passed, but the one-function production code update and authenticated smoke test remain pending.
+
+The repository and stack are therefore safe to continue from. No reset or Claim V2 rebuild is required. Future infrastructure work must continue through bounded change sets or the newly explicit manual deployment gates.
+
 ## Remaining actions
 
 ### Product acceptance
@@ -277,3 +287,4 @@ GitHub evidence:
 
 - [bndy-serverless-api PR #68](https://github.com/flowency-live/bndy-serverless-api/pull/68)
 - [merge commit ca641b9](https://github.com/flowency-live/bndy-serverless-api/commit/ca641b99ea0c2941daacccc9172c6a0cfc14df3b)
+03a52405cfbe825887c5c24bab0661e09166515b
