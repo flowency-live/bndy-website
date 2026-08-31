@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T20:36:55Z",
-  "updatedBy": "Product Owner: add Artist performance variants and consolidation",
+  "updatedAt": "2026-08-31T21:30:44Z",
+  "updatedBy": "Product Owner: add Curator activity audit and accountable editing",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -148,15 +148,22 @@
       "detail": "Make venue-hosted open mics, jam nights and folk sessions first-class recurring discovery objects rather than copying dozens of dated gigs. Store one canonical series with Venue, recurrence, optional host Artist, session type, admission, participation details and source provenance; expand only a bounded future window for public discovery. Support excluded dates and occurrence-specific cancellation, time or host overrides. Give sessions clear filters and presentation so they do not masquerade as ordinary gigs. Complete recurrence support through canonical public reads and creation, then ingest and re-verify suitable sources through Backline. Every series must carry lastVerifiedAt and a freshness/expiry policy so an abandoned weekly listing never repeats indefinitely."
     },
     {
-      "id": "artist-booking-requests",
+      "id": "curator-activity-audit",
       "rank": 4,
+      "laneId": "curators",
+      "title": "Curator activity audit and accountable editing",
+      "detail": "Keep trusted Curators productive in bndy-app while making every meaningful mutation reviewable. Curators may directly edit safe whitelisted Artist, Venue, Festival and Event fields within their assigned access; identity and linkage fields remain protected, and hide or cancel actions require a reason. Complete the existing bndy-activity-log foundation into a reliable immutable mutation trail covering create, edit, hide, restore, cancel, role, access and ownership actions with actor, role, entity, timestamp, changed fields, reason and request correlation, excluding secrets and unnecessary private data. Add one bounded Godmode review screen with pagination, drill-through and filters for Curator, action/activity type, entity type, entity and date. Prove coverage across mutation routes and alert on audit-write failure; do not turn this into indiscriminate read or HTTP request logging."
+    },
+    {
+      "id": "artist-booking-requests",
+      "rank": 5,
       "laneId": "core-discovery",
       "title": "Date-aware Artist booking requests",
       "detail": "Later, let a person choose an available or unlisted date on an Artist profile and send a private booking request through BNDY. BNDY should deliver it to the claimed Artist, provide in-app and explicitly opted-in notifications, and keep request status and replies inside the account experience. Decide consent, spam controls, privacy, response flow and any WhatsApp, email or text fallback before delivery. Do not expand the current availability-calendar work into messaging now. This is dependent on claimed Artist adoption and reliable notifications."
     },
     {
       "id": "replace-static-aws-root-credentials",
-      "rank": 5,
+      "rank": 6,
       "laneId": "api-security",
       "title": "Replace static AWS root credentials with scoped OIDC roles",
       "detail": "Audit every remaining GitHub Actions reference to static AWS access-key secrets and establish which paths still resolve to the root credentials identified during recovery. Move legitimate deployment and diagnostic paths to least-privilege GitHub OIDC roles, then revoke the root access keys and verify closure through IAM and CloudTrail last-used evidence. Map dependencies before revocation to avoid an accidental outage. This is a separate platform-security task and does not block normal Backline, Claims or product backlog development.",
@@ -167,42 +174,42 @@
     },
     {
       "id": "discovery-image-capture-claim-confirmation",
-      "rank": 6,
+      "rank": 7,
       "laneId": "join-bndy",
       "title": "Discovery image capture and Claim confirmation",
       "detail": "Keep useful discovery-sourced Artist and Venue images visible before Claim while removing the live runtime dependency on Meta. Prefer Facebook where available; when no Facebook image exists but an Instagram URL does, make one bounded attempt to resolve normally accessible public profile metadata without login bypass, aggressive scraping or repeated retries. Download permitted results into BNDY-controlled S3 storage and retain platform, original URL, capture time, image hash and evidence lineage with status discovery_unconfirmed. During Claim, show the current image and require the claimant to confirm continued use, upload a replacement or remove it. Owner-supplied images have highest authority. Support immediate takedown and never discard the original provenance URL."
     },
     {
       "id": "social-identity-instagram",
-      "rank": 7,
+      "rank": 8,
       "laneId": "intelligence",
       "title": "Instagram as first-class Artist identity evidence",
       "detail": "Normalise and retain Instagram handles as strong Artist identity evidence without making them unconditional canonical uniqueness keys. Store source, observed date and handle history. An exact handle may resolve automatically only when the Artist name is compatible with no location conflict, the account is verified through the Claim journey, or independent official evidence corroborates the identity; otherwise route to review. Backfill existing Instagram URLs through a dry-run and controlled evidence path first. Recycled, personal or shared handles must never bypass ADR-014 location safeguards or the zero-wrong-artist-link rule."
     },
     {
       "id": "artist-performance-variants",
-      "rank": 8,
+      "rank": 9,
       "laneId": "intelligence",
       "title": "Artist performance variants and duplicate consolidation",
       "detail": "Represent recurring billing formats such as Full Band, Acoustic Duo and Party Band beneath one canonical Artist without collapsing genuinely separate acts. Add owned performance variants with stable IDs, and store both performanceVariantId and an immutable billed-name snapshot on each Event so public listings retain what was actually advertised while the canonical Artist profile aggregates all appearances. Search and Backline resolution may use supported name variants, location and identity evidence, but ambiguous side-projects or unrelated similarly named acts must route to review. Audit duplicate Artist records that are really performance variants, merge only with evidence, reassign Events safely and preserve aliases, provenance and redirects. This completes the partial ADR-023/name-variant foundation rather than introducing a competing Artist identity model."
     },
     {
       "id": "favourite-feed",
-      "rank": 9,
+      "rank": 10,
       "laneId": "core-discovery",
       "title": "Favourite feed",
       "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
     },
     {
       "id": "festival-pre-event-monitoring",
-      "rank": 10,
+      "rank": 11,
       "laneId": "festivals",
       "title": "Adaptive Festival programme monitoring",
       "detail": "Add Festival-aware monitoring to Backline BAU so canonical programmes stay current as organisers change line-ups, stages, venues, dates, times and cancellations in the weeks before and during a Festival. Register each authoritative Festival and Venue programme source, capture immutable snapshots, increase checking cadence as the start date approaches, and emit only evidence-backed deltas into normal Claims and projection policy. Treat late additions and explicit cancellations as urgent; never infer cancellation solely because an item disappears from an incomplete or rolling listing. Record source freshness, last meaningful change and unresolved conflicts in Godmode, then taper and close monitoring after the Festival ends."
     },
     {
       "id": "fizgig-backline-onboarding",
-      "rank": 11,
+      "rank": 12,
       "laneId": "source-automation",
       "title": "Fizgig Backline source onboarding",
       "detail": "Fizgig's Lincolnshire and East Midlands gig data has already been ingested into canonical BNDY. First recover and record the import lineage, hydrate the corresponding canonical Artists, Venues and Events into Backline without recreating them, then capture a current source snapshot and resolve its source identities against that baseline. After fixture and snapshot-semantics checks, introduce one shadow BAU acquisition path for additions, changes and explicit removals, with ambiguity parked and canonical projection disabled until separately approved.",
@@ -212,7 +219,7 @@
     },
     {
       "id": "livebandphotos-backline-onboarding",
-      "rank": 12,
+      "rank": 13,
       "laneId": "source-automation",
       "title": "Live Band Photos Backline source onboarding",
       "detail": "Live Band Photos data has already been ingested into canonical BNDY. Recover the canonical import lineage and hydrate those records into Backline first, then reconcile them against immutable evidence from the current gig listing, county Venue indexes and band directory. Delivery remains fixture-gated until query-string detail pages and complete-versus-rolling snapshot behaviour are proven. The provisional shadow BAU shape is a daily gig listing, weekly county and band indexes and monthly reconciliation, with no duplicate canonical creation, no inferred cancellation from an incomplete window and no canonical projection without separate approval.",
@@ -222,7 +229,7 @@
     },
     {
       "id": "festival-add-claim-management",
-      "rank": 13,
+      "rank": 14,
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
