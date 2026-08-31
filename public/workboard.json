@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T15:36:43Z",
-  "updatedBy": "Backline relaunch reconciliation",
+  "updatedAt": "2026-08-31T15:48:53Z",
+  "updatedBy": "Product Owner: close core Festivals and add adaptive Festival monitoring",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -187,8 +187,15 @@
       "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
     },
     {
-      "id": "fizgig-backline-onboarding",
+      "id": "festival-pre-event-monitoring",
       "rank": 9,
+      "laneId": "festivals",
+      "title": "Adaptive Festival programme monitoring",
+      "detail": "Add Festival-aware monitoring to Backline BAU so canonical programmes stay current as organisers change line-ups, stages, venues, dates, times and cancellations in the weeks before and during a Festival. Register each authoritative Festival and Venue programme source, capture immutable snapshots, increase checking cadence as the start date approaches, and emit only evidence-backed deltas into normal Claims and projection policy. Treat late additions and explicit cancellations as urgent; never infer cancellation solely because an item disappears from an incomplete or rolling listing. Record source freshness, last meaningful change and unresolved conflicts in Godmode, then taper and close monitoring after the Festival ends."
+    },
+    {
+      "id": "fizgig-backline-onboarding",
+      "rank": 10,
       "laneId": "source-automation",
       "title": "Fizgig Backline source onboarding",
       "detail": "Fizgig's Lincolnshire and East Midlands gig data has already been ingested into canonical BNDY. First recover and record the import lineage, hydrate the corresponding canonical Artists, Venues and Events into Backline without recreating them, then capture a current source snapshot and resolve its source identities against that baseline. After fixture and snapshot-semantics checks, introduce one shadow BAU acquisition path for additions, changes and explicit removals, with ambiguity parked and canonical projection disabled until separately approved.",
@@ -198,7 +205,7 @@
     },
     {
       "id": "livebandphotos-backline-onboarding",
-      "rank": 10,
+      "rank": 11,
       "laneId": "source-automation",
       "title": "Live Band Photos Backline source onboarding",
       "detail": "Live Band Photos data has already been ingested into canonical BNDY. Recover the canonical import lineage and hydrate those records into Backline first, then reconcile them against immutable evidence from the current gig listing, county Venue indexes and band directory. Delivery remains fixture-gated until query-string detail pages and complete-versus-rolling snapshot behaviour are proven. The provisional shadow BAU shape is a daily gig listing, weekly county and band indexes and monthly reconciliation, with no duplicate canonical creation, no inferred cancellation from an incomplete window and no canonical projection without separate approval.",
@@ -208,7 +215,7 @@
     },
     {
       "id": "festival-add-claim-management",
-      "rank": 11,
+      "rank": 12,
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
@@ -435,8 +442,13 @@
       ],
       "done": [
         {
-          "title": "Festival lists and detail are live-capable",
-          "detail": "Festival APIs, public views and child event handling have been added."
+          "title": "Core Festival support",
+          "detail": "Festivals are implemented as first-class parent programmes over ordinary canonical gigs. The current app supports single-venue and town-wide multi-venue Festivals, multi-day schedules, dedicated discovery and detail pages, Schedule/Map/Info views, and curator creation and management. The older FS-11 core proposal is complete; public Add, Claim and collaborator parity remains separately ranked.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/blob/main/FESTIVALS-V1-SPEC.md",
+            "https://github.com/flowency-live/bndy-app/tree/main/src/features/festivals",
+            "https://github.com/flowency-live/bndy-serverless-api/tree/main/festivals-lambda"
+          ]
         },
         {
           "title": "Publication-scope filtering added",
@@ -452,7 +464,7 @@
       "next": [
         {
           "title": "Festival ingestion through Enrichment",
-          "detail": "Source-discovered festival data should become claims and project into canonical festivals/events."
+          "detail": "Source-discovered Festival data should become evidence and claims, project into canonical Festivals and gigs under normal policy, then enter adaptive pre-event monitoring so programmes remain current through the event date."
         }
       ]
     },
