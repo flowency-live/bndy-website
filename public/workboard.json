@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T23:24:06Z",
-  "updatedBy": "Product Owner: refresh Chatzone production qualification and latency work",
+  "updatedAt": "2026-08-31T23:25:38Z",
+  "updatedBy": "Product Owner: separate completed Capture contract from active review loop",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -728,19 +728,25 @@
         {
           "title": "Public Dropzone transport added",
           "detail": "chat.bndy.live uses the same Capture intake instead of a parallel backend."
+        },
+        {
+          "title": "Capture transport and resolution boundary established",
+          "detail": "It is the transport/backlog. bndy-enrichment performs interpretation, matching and canonical projection."
+        },
+        {
+          "title": "Shared Send to bndy intake contract implemented",
+          "detail": "Capture now has stable transport idempotency, structured sanitised public outcomes including needs_review, compatible web and Android contracts, and a verified disabled-by-default WhatsApp transport boundary. WhatsApp production activation remains separately controlled.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-capture/pull/4"
+          ]
         }
       ],
       "now": [
         {
-          "title": "Capture is not the resolution engine",
-          "detail": "It is the transport/backlog. bndy-enrichment performs interpretation, matching and canonical projection."
-        },
-        {
-          "title": "Shared Send to bndy contract in active delivery",
-          "detail": "Add transport idempotency, structured public outcomes and WhatsApp intake while preserving existing Android and web clients. Delivery plan and implementation are tracked in flowency-live/bndy-capture PR #3.",
+          "title": "Capture review and follow-up contract",
+          "detail": "Complete the controlled review-loop delivery in PR #5: persist retry-safe immediate dispatch in source, retain human-review context, store optional per-submission follow-up contact separately with expiry, and expose bounded internal review and notification contracts. Keep WhatsApp disabled. Close only after a reviewed Capture change set deploys without resource deletion or replacement and the Chatzone follow-up journey passes end to end.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-capture/pull/3",
-            "https://github.com/flowency-live/bndy-capture/blob/feat/send-to-bndy-whatsapp/docs/SEND-TO-BNDY-DELIVERY-PLAN.md"
+            "https://github.com/flowency-live/bndy-capture/pull/5"
           ]
         }
       ],
