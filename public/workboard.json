@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T13:32:19Z",
-  "updatedBy": "Festival Claim and management backlog addition",
+  "updatedAt": "2026-08-31T14:47:52Z",
+  "updatedBy": "Product Owner backlog reconciliation: map closure and live Saved/Going",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -134,36 +134,29 @@
       "detail": "Add a future third public discovery mode alongside Map and List. Scene is a finite, location- and date-bounded visual view of canonical gigs, led by authentic posters where available and deterministic BNDY event cards otherwise. It is not a general user-post, comment or infinite-scroll social feed. Delivery is approved but deliberately unscheduled."
     },
     {
-      "id": "saved-gigs-going",
-      "rank": 2,
-      "laneId": "core-discovery",
-      "title": "Saved gigs and Going",
-      "detail": "Allow signed-in people to save a specific gig privately and separately mark themselves as Going. This slice records only those two account-backed intent states. Their eventual use will be decided later. Do not expose attendee lists or attendance counts, add curator recommendations, use either signal in Scene or Ask bndy ranking, or introduce posts, comments or follower mechanics."
-    },
-    {
       "id": "ask-bndy",
-      "rank": 3,
+      "rank": 2,
       "laneId": "core-discovery",
       "title": "Ask bndy natural-language discovery",
       "detail": "Add a highly polished natural-language layer to the existing discovery search. It converts intent into visible, editable deterministic filters and returns only canonical BNDY gigs through the existing Map and List experiences. It must not present as a chat interface or chatbot persona, and it must never invent gigs or unsupported attributes. Delivery depends on sufficiently rich and reliable genre, act-type, admission, date and location data. Ship only when the interaction is fast, slick and materially better than using the filters directly, never as an AI novelty."
     },
     {
       "id": "hear-the-bill",
-      "rank": 4,
+      "rank": 3,
       "laneId": "core-discovery",
       "title": "Hear the bill line-up playback",
       "detail": "A much-later gig-page experience that assembles the external media already supplied through owned artist profiles into a playable Hear the bill line-up. Do not create a duplicate media-entry flow. Use third-party embeds only, with no BNDY-hosted uploads in the first version, and do not prioritise until enough active artists are supplying usable media links for the experience to feel complete."
     },
     {
       "id": "artist-booking-requests",
-      "rank": 5,
+      "rank": 4,
       "laneId": "core-discovery",
       "title": "Date-aware Artist booking requests",
       "detail": "Later, let a person choose an available or unlisted date on an Artist profile and send a private booking request through BNDY. BNDY should deliver it to the claimed Artist, provide in-app and explicitly opted-in notifications, and keep request status and replies inside the account experience. Decide consent, spam controls, privacy, response flow and any WhatsApp, email or text fallback before delivery. Do not expand the current availability-calendar work into messaging now. This is dependent on claimed Artist adoption and reliable notifications."
     },
     {
       "id": "replace-static-aws-root-credentials",
-      "rank": 6,
+      "rank": 5,
       "laneId": "api-security",
       "title": "Replace static AWS root credentials with scoped OIDC roles",
       "detail": "Audit every remaining GitHub Actions reference to static AWS access-key secrets and establish which paths still resolve to the root credentials identified during recovery. Move legitimate deployment and diagnostic paths to least-privilege GitHub OIDC roles, then revoke the root access keys and verify closure through IAM and CloudTrail last-used evidence. Map dependencies before revocation to avoid an accidental outage. This is a separate platform-security task and does not block normal Backline, Claims or product backlog development.",
@@ -174,14 +167,14 @@
     },
     {
       "id": "favourite-feed",
-      "rank": 7,
+      "rank": 6,
       "laneId": "core-discovery",
       "title": "Favourite feed",
       "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
     },
     {
       "id": "fizgig-backline-onboarding",
-      "rank": 8,
+      "rank": 7,
       "laneId": "source-automation",
       "title": "Fizgig Backline source onboarding",
       "detail": "Fizgig's Lincolnshire and East Midlands gig data has already been ingested into canonical BNDY. First recover and record the import lineage, hydrate the corresponding canonical Artists, Venues and Events into Backline without recreating them, then capture a current source snapshot and resolve its source identities against that baseline. After fixture and snapshot-semantics checks, introduce one shadow BAU acquisition path for additions, changes and explicit removals, with ambiguity parked and canonical projection disabled until separately approved.",
@@ -191,7 +184,7 @@
     },
     {
       "id": "livebandphotos-backline-onboarding",
-      "rank": 9,
+      "rank": 8,
       "laneId": "source-automation",
       "title": "Live Band Photos Backline source onboarding",
       "detail": "Live Band Photos data has already been ingested into canonical BNDY. Recover the canonical import lineage and hydrate those records into Backline first, then reconcile them against immutable evidence from the current gig listing, county Venue indexes and band directory. Delivery remains fixture-gated until query-string detail pages and complete-versus-rolling snapshot behaviour are proven. The provisional shadow BAU shape is a daily gig listing, weekly county and band indexes and monthly reconciliation, with no duplicate canonical creation, no inferred cancellation from an incomplete window and no canonical projection without separate approval.",
@@ -201,7 +194,7 @@
     },
     {
       "id": "festival-add-claim-management",
-      "rank": 10,
+      "rank": 9,
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
@@ -238,6 +231,14 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-app/pull/33"
           ]
+        },
+        {
+          "title": "Saved gigs and Going",
+          "detail": "Signed-in people can privately save a gig and separately mark themselves as Going. Both account-backed intent states are live and remain private. They do not expose attendee lists or attendance counts, add curator recommendations, affect Scene or Ask bndy ranking, or introduce posts, comments or follower mechanics."
+        },
+        {
+          "title": "Map refactor complete",
+          "detail": "The historical map-refactor plan is closed. The current production map experience is working and accepted, so no migration work remains scheduled from that document. Any future map work must be driven by a specific product outcome or defect."
         }
       ],
       "now": [
