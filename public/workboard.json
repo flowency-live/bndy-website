@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T15:30:48Z",
-  "updatedBy": "Product Owner: unify Editions, Builder, partner subdomains and Powered by bndy",
+  "updatedAt": "2026-08-31T15:32:32Z",
+  "updatedBy": "Product Owner: reconcile completed public gig wizard",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -253,6 +253,14 @@
         {
           "title": "Map refactor complete",
           "detail": "The historical map-refactor plan is closed. The current production map experience is working and accepted, so no migration work remains scheduled from that document. Any future map work must be driven by a specific product outcome or defect."
+        },
+        {
+          "title": "Public gig wizard and Add entry",
+          "detail": "The current bndy-app provides the public /add gig wizard and standalone /list-a-gig form, with a visible Add navigation entry, Artist and Venue profile prefills, calendar and busy-date context, session persistence, multi-act billing support and canonical community-event creation. The older FS-07 proposal is therefore complete rather than backlog work.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/commit/9ea563db1eb8f68db443755f522eba4e6ef1f2a0",
+            "https://github.com/flowency-live/bndy-app/commit/108b3290d865c889178cd4407ecf88db34978c6a"
+          ]
         }
       ],
       "now": [
