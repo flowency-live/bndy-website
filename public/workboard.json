@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T21:30:44Z",
-  "updatedBy": "Product Owner: add Curator activity audit and accountable editing",
+  "updatedAt": "2026-08-31T22:42:59Z",
+  "updatedBy": "Product Owner: add low-priority Builder approval and contribution analytics",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -233,6 +233,20 @@
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
+    },
+    {
+      "id": "builder-curator-applications",
+      "laneId": "rhythm",
+      "title": "BNDY Builder applications and Curator approval",
+      "detail": "Later, when the contributor community is large enough to need it, let people apply or be nominated as BNDY Builders and give platform administrators a simple approve, reject and access-scope journey. BNDY Builder is the user-facing contributor identity; Curator remains the trusted permission role. Rhythm history and verified contributions may inform a decision but must never grant write authority automatically. Reuse the existing Curator role, own-only, postcode and trusted/global access controls rather than creating another permission model.",
+      "rank": 15
+    },
+    {
+      "id": "builder-contribution-analytics",
+      "laneId": "rhythm",
+      "title": "BNDY Builder contribution analytics",
+      "detail": "Later, provide useful contribution metrics for BNDY Builders and Curators, such as accepted gigs added, meaningful corrections, source freshness work, duplicate prevention and sustained local coverage. Metrics must reward verified quality rather than raw volume, expose enough evidence for accountability, resist gaming and feed Rhythm only after the scoring policy is agreed. Edition visits, embed views and click analytics remain part of Editions/traffic analytics and are not duplicated here.",
+      "rank": 16
     }
   ],
   "lanes": [
