@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T22:56:05Z",
-  "updatedBy": "Product Owner: add low-priority multi-Artist event indexing",
+  "updatedAt": "2026-08-31T23:17:58Z",
+  "updatedBy": "Product Owner: move Core Discovery architectural guardrails to done",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -319,18 +319,17 @@
             "https://github.com/flowency-live/bndy-app/commit/0b735b5ea0501155421ed6158034ec929ac3a453",
             "https://github.com/flowency-live/bndy-app/commit/81e9fcf7bcfb101b1b6b5d28fe26f4dc72a03760"
           ]
-        }
-      ],
-      "now": [
+        },
         {
-          "title": "Keep all public CRUD on canonical APIs",
+          "title": "Canonical public CRUD uses canonical APIs",
           "detail": "New public add flows currently resolve data then write through the existing canonical backend."
         },
         {
-          "title": "Separate product UX from evidence architecture",
+          "title": "Product UX is separated from evidence architecture",
           "detail": "The UI can stay simple while the backend moves from direct creation to claims/projection."
         }
       ],
+      "now": [],
       "next": [
         {
           "title": "Route assisted creation through shared evidence",
