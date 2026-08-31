@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-30T14:34:08.963Z",
-  "updatedBy": "Serverless API incident recovery and authentication alias closure",
+  "updatedAt": "2026-08-31T10:21:49Z",
+  "updatedBy": "Backline recovery credential security backlog update",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -160,6 +160,17 @@
       "laneId": "core-discovery",
       "title": "Date-aware Artist booking requests",
       "detail": "Later, let a person choose an available or unlisted date on an Artist profile and send a private booking request through BNDY. BNDY should deliver it to the claimed Artist, provide in-app and explicitly opted-in notifications, and keep request status and replies inside the account experience. Decide consent, spam controls, privacy, response flow and any WhatsApp, email or text fallback before delivery. Do not expand the current availability-calendar work into messaging now. This is dependent on claimed Artist adoption and reliable notifications."
+    },
+    {
+      "id": "replace-static-aws-root-credentials",
+      "rank": 6,
+      "laneId": "api-security",
+      "title": "Replace static AWS root credentials with scoped OIDC roles",
+      "detail": "Audit every remaining GitHub Actions reference to static AWS access-key secrets and establish which paths still resolve to the root credentials identified during recovery. Move legitimate deployment and diagnostic paths to least-privilege GitHub OIDC roles, then revoke the root access keys and verify closure through IAM and CloudTrail last-used evidence. Map dependencies before revocation to avoid an accidental outage. This is a separate platform-security task and does not block normal Backline, Claims or product backlog development.",
+      "evidence": [
+        "https://github.com/flowency-live/bndy-serverless-api/pull/71",
+        "https://github.com/flowency-live/bndy-ops/blob/main/cto/BACKLINE-POST-RECOVERY-LIVE-AUDIT-2026-08-30.md"
+      ]
     }
   ],
   "lanes": [
