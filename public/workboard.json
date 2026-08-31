@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T15:14:07Z",
+  "updatedAt": "2026-08-31T15:36:43Z",
   "updatedBy": "Backline relaunch reconciliation",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
@@ -253,6 +253,23 @@
         {
           "title": "Map refactor complete",
           "detail": "The historical map-refactor plan is closed. The current production map experience is working and accepted, so no migration work remains scheduled from that document. Any future map work must be driven by a specific product outcome or defect."
+        },
+        {
+          "title": "Public gig wizard and Add entry",
+          "detail": "The current bndy-app provides the public /add gig wizard and standalone /list-a-gig form, with a visible Add navigation entry, Artist and Venue profile prefills, calendar and busy-date context, session persistence, multi-act billing support and canonical community-event creation. The older FS-07 proposal is therefore complete rather than backlog work.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/commit/9ea563db1eb8f68db443755f522eba4e6ef1f2a0",
+            "https://github.com/flowency-live/bndy-app/commit/108b3290d865c889178cd4407ecf88db34978c6a"
+          ]
+        },
+        {
+          "title": "Accounts, favourites and saved gig filters",
+          "detail": "Signed-in accounts, Artist and Venue favourites, favourite filtering across gigs and the map, and reusable saved gig-filter presets are implemented in the current bndy-app. The older FS-08 proposal is therefore complete rather than backlog work. This does not complete the separately ranked Favourite feed, which remains a future canonical activity experience.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/commit/200a4505cc2c824f025dfc932bc3f16d3b7f2c88",
+            "https://github.com/flowency-live/bndy-app/commit/0b735b5ea0501155421ed6158034ec929ac3a453",
+            "https://github.com/flowency-live/bndy-app/commit/81e9fcf7bcfb101b1b6b5d28fe26f4dc72a03760"
+          ]
         }
       ],
       "now": [
@@ -1390,8 +1407,8 @@
     },
     {
       "id": "editions-brass",
-      "title": "Editions / Brass bands",
-      "objective": "Support scoped BNDY editions without duplicating the core platform or leaking edition-only records into the main public product.",
+      "title": "Editions & partner views",
+      "objective": "Support scoped, branded BNDY experiences on subdomains and embeds without forking the platform, duplicating canonical data or leaking edition-only records into another public view.",
       "health": "amber",
       "deliveryState": "building",
       "targetState": true,
@@ -1399,7 +1416,8 @@
         "api",
         "website",
         "app",
-        "enrichment"
+        "enrichment",
+        "backstage"
       ],
       "done": [
         {
@@ -1429,6 +1447,10 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/17"
           ]
+        },
+        {
+          "title": "Reconcile Editions and the existing Builder foundation",
+          "detail": "The generic Builder foundation is genuinely half-built: bndy-serverless-api contains a Builder Lambda for subdomain lookup, themes, postcode/radius coverage and explicit Venue collections, while bndy-backstage contains Builder branding, theme, coverage and Venue-management screens. The current SAM template does not wire the Builder function or routes, and bndy-app resolves only the compile-time Brass edition. Consolidate these foundations into one current Edition model rather than reviving or deploying the older Builder architecture unchanged."
         }
       ],
       "next": [
@@ -1439,6 +1461,18 @@
         {
           "title": "Promote brass intelligence from no-write to controlled projection",
           "detail": "Only after publication-scope guardrails, identity confidence and parity gates are production-proven."
+        },
+        {
+          "title": "Generic Edition definition and runtime",
+          "detail": "Define one Edition configuration containing slug, branding, terminology/navigation, inclusion policy and enabled rendering surfaces. Inclusion must support publication scope for domain editions such as Brass, postcode/radius for regional partners such as OnTheCase, and explicit canonical Venue collections for organisations such as brewery estates. Resolve the incoming subdomain at runtime while keeping one application and one canonical data authority."
+        },
+        {
+          "title": "OnTheCase and Robinsons partner proofs",
+          "detail": "Use OnTheCase as the regional Edition proof with its existing skin and bounded postcode/radius coverage. Use robinsons.bndy.live as the organisation proof, limited to an explicit Robinsons Venue collection with Robinsons branding. Both consume canonical public BNDY records and must not fork or copy the database."
+        },
+        {
+          "title": "Powered by bndy embeds",
+          "detail": "Render the same Edition configuration as a lightweight embeddable gig list for partner websites. Use canonical public gigs, Edition inclusion rules, suitable BNDY and partner branding, links back to BNDY entity pages, caching, rate limits and basic view/click analytics. Do not create a separate editing system or data store."
         }
       ]
     },
