@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T22:42:59Z",
-  "updatedBy": "Product Owner: add low-priority Builder approval and contribution analytics",
+  "updatedAt": "2026-08-31T22:53:07Z",
+  "updatedBy": "Product Owner: add canonical Artist lifecycle and discovery visibility",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -194,22 +194,29 @@
       "detail": "Represent recurring billing formats such as Full Band, Acoustic Duo and Party Band beneath one canonical Artist without collapsing genuinely separate acts. Add owned performance variants with stable IDs, and store both performanceVariantId and an immutable billed-name snapshot on each Event so public listings retain what was actually advertised while the canonical Artist profile aggregates all appearances. Search and Backline resolution may use supported name variants, location and identity evidence, but ambiguous side-projects or unrelated similarly named acts must route to review. Audit duplicate Artist records that are really performance variants, merge only with evidence, reassign Events safely and preserve aliases, provenance and redirects. This completes the partial ADR-023/name-variant foundation rather than introducing a competing Artist identity model."
     },
     {
-      "id": "favourite-feed",
+      "id": "canonical-artist-lifecycle",
       "rank": 10,
+      "laneId": "intelligence",
+      "title": "Canonical Artist lifecycle and discovery visibility",
+      "detail": "Keep evidence-backed Artist identities canonical even when they have no upcoming gigs, while separating canonical existence from default public discovery. Classify Artists as active, historical, dormant or retired/duplicate/invalid. Active Artists have an upcoming public gig or a claimed published profile and appear normally; historical Artists retain their profile and past-event history but are excluded from default active browsing; dormant unclaimed Artists remain stable Claim, matching, deduplication and Backline-monitoring targets but are suppressed from normal discovery. A legitimate future Event or approved Claim reactivates a dormant Artist automatically. Merge or hide only evidence-backed duplicates, invalid identities and retired records, preserving provenance, redirects and audit history. Apply the existing gigging-only API capability consistently across bndy-app discovery surfaces instead of deleting useful canonical records."
+    },
+    {
+      "id": "favourite-feed",
+      "rank": 11,
       "laneId": "core-discovery",
       "title": "Favourite feed",
       "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
     },
     {
       "id": "festival-pre-event-monitoring",
-      "rank": 11,
+      "rank": 12,
       "laneId": "festivals",
       "title": "Adaptive Festival programme monitoring",
       "detail": "Add Festival-aware monitoring to Backline BAU so canonical programmes stay current as organisers change line-ups, stages, venues, dates, times and cancellations in the weeks before and during a Festival. Register each authoritative Festival and Venue programme source, capture immutable snapshots, increase checking cadence as the start date approaches, and emit only evidence-backed deltas into normal Claims and projection policy. Treat late additions and explicit cancellations as urgent; never infer cancellation solely because an item disappears from an incomplete or rolling listing. Record source freshness, last meaningful change and unresolved conflicts in Godmode, then taper and close monitoring after the Festival ends."
     },
     {
       "id": "fizgig-backline-onboarding",
-      "rank": 12,
+      "rank": 13,
       "laneId": "source-automation",
       "title": "Fizgig Backline source onboarding",
       "detail": "Fizgig's Lincolnshire and East Midlands gig data has already been ingested into canonical BNDY. First recover and record the import lineage, hydrate the corresponding canonical Artists, Venues and Events into Backline without recreating them, then capture a current source snapshot and resolve its source identities against that baseline. After fixture and snapshot-semantics checks, introduce one shadow BAU acquisition path for additions, changes and explicit removals, with ambiguity parked and canonical projection disabled until separately approved.",
@@ -219,7 +226,7 @@
     },
     {
       "id": "livebandphotos-backline-onboarding",
-      "rank": 13,
+      "rank": 14,
       "laneId": "source-automation",
       "title": "Live Band Photos Backline source onboarding",
       "detail": "Live Band Photos data has already been ingested into canonical BNDY. Recover the canonical import lineage and hydrate those records into Backline first, then reconcile them against immutable evidence from the current gig listing, county Venue indexes and band directory. Delivery remains fixture-gated until query-string detail pages and complete-versus-rolling snapshot behaviour are proven. The provisional shadow BAU shape is a daily gig listing, weekly county and band indexes and monthly reconciliation, with no duplicate canonical creation, no inferred cancellation from an incomplete window and no canonical projection without separate approval.",
@@ -229,7 +236,7 @@
     },
     {
       "id": "festival-add-claim-management",
-      "rank": 14,
+      "rank": 15,
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
@@ -239,14 +246,14 @@
       "laneId": "rhythm",
       "title": "BNDY Builder applications and Curator approval",
       "detail": "Later, when the contributor community is large enough to need it, let people apply or be nominated as BNDY Builders and give platform administrators a simple approve, reject and access-scope journey. BNDY Builder is the user-facing contributor identity; Curator remains the trusted permission role. Rhythm history and verified contributions may inform a decision but must never grant write authority automatically. Reuse the existing Curator role, own-only, postcode and trusted/global access controls rather than creating another permission model.",
-      "rank": 15
+      "rank": 16
     },
     {
       "id": "builder-contribution-analytics",
       "laneId": "rhythm",
       "title": "BNDY Builder contribution analytics",
       "detail": "Later, provide useful contribution metrics for BNDY Builders and Curators, such as accepted gigs added, meaningful corrections, source freshness work, duplicate prevention and sustained local coverage. Metrics must reward verified quality rather than raw volume, expose enough evidence for accountability, resist gaming and feed Rhythm only after the scoring policy is agreed. Edition visits, embed views and click analytics remain part of Editions/traffic analytics and are not duplicated here.",
-      "rank": 16
+      "rank": 17
     }
   ],
   "lanes": [
