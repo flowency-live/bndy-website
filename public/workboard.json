@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T14:57:13Z",
-  "updatedBy": "Product Owner: Instagram identity evidence backlog addition",
+  "updatedAt": "2026-08-31T15:06:15Z",
+  "updatedBy": "Product Owner: discovery image capture and Claim confirmation backlog addition",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -166,22 +166,29 @@
       ]
     },
     {
-      "id": "social-identity-instagram",
+      "id": "discovery-image-capture-claim-confirmation",
       "rank": 6,
+      "laneId": "join-bndy",
+      "title": "Discovery image capture and Claim confirmation",
+      "detail": "Keep useful discovery-sourced Artist and Venue images visible before Claim while removing the live runtime dependency on Meta. Prefer Facebook where available; when no Facebook image exists but an Instagram URL does, make one bounded attempt to resolve normally accessible public profile metadata without login bypass, aggressive scraping or repeated retries. Download permitted results into BNDY-controlled S3 storage and retain platform, original URL, capture time, image hash and evidence lineage with status discovery_unconfirmed. During Claim, show the current image and require the claimant to confirm continued use, upload a replacement or remove it. Owner-supplied images have highest authority. Support immediate takedown and never discard the original provenance URL."
+    },
+    {
+      "id": "social-identity-instagram",
+      "rank": 7,
       "laneId": "intelligence",
       "title": "Instagram as first-class Artist identity evidence",
       "detail": "Normalise and retain Instagram handles as strong Artist identity evidence without making them unconditional canonical uniqueness keys. Store source, observed date and handle history. An exact handle may resolve automatically only when the Artist name is compatible with no location conflict, the account is verified through the Claim journey, or independent official evidence corroborates the identity; otherwise route to review. Backfill existing Instagram URLs through a dry-run and controlled evidence path first. Recycled, personal or shared handles must never bypass ADR-014 location safeguards or the zero-wrong-artist-link rule."
     },
     {
       "id": "favourite-feed",
-      "rank": 7,
+      "rank": 8,
       "laneId": "core-discovery",
       "title": "Favourite feed",
       "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
     },
     {
       "id": "fizgig-backline-onboarding",
-      "rank": 8,
+      "rank": 9,
       "laneId": "source-automation",
       "title": "Fizgig Backline source onboarding",
       "detail": "Fizgig's Lincolnshire and East Midlands gig data has already been ingested into canonical BNDY. First recover and record the import lineage, hydrate the corresponding canonical Artists, Venues and Events into Backline without recreating them, then capture a current source snapshot and resolve its source identities against that baseline. After fixture and snapshot-semantics checks, introduce one shadow BAU acquisition path for additions, changes and explicit removals, with ambiguity parked and canonical projection disabled until separately approved.",
@@ -191,7 +198,7 @@
     },
     {
       "id": "livebandphotos-backline-onboarding",
-      "rank": 9,
+      "rank": 10,
       "laneId": "source-automation",
       "title": "Live Band Photos Backline source onboarding",
       "detail": "Live Band Photos data has already been ingested into canonical BNDY. Recover the canonical import lineage and hydrate those records into Backline first, then reconcile them against immutable evidence from the current gig listing, county Venue indexes and band directory. Delivery remains fixture-gated until query-string detail pages and complete-versus-rolling snapshot behaviour are proven. The provisional shadow BAU shape is a daily gig listing, weekly county and band indexes and monthly reconciliation, with no duplicate canonical creation, no inferred cancellation from an incomplete window and no canonical projection without separate approval.",
@@ -201,7 +208,7 @@
     },
     {
       "id": "festival-add-claim-management",
-      "rank": 10,
+      "rank": 11,
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
