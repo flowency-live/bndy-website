@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T23:22:12Z",
-  "updatedBy": "Product Owner: mark Facebook Artist Assist live and defer evidence convergence",
+  "updatedAt": "2026-08-31T23:24:06Z",
+  "updatedBy": "Product Owner: refresh Chatzone production qualification and latency work",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -668,12 +668,22 @@
       ],
       "now": [
         {
-          "title": "Send to bndy web delivery active",
-          "detail": "Rebuild chat.bndy.live as a polished, mobile-first intake for posters, screenshots, links and event messages. Support an image plus useful context, truthful processing status, recovery after interruption and a clear final result through the existing Capture and Backline path."
+          "title": "Send to bndy production qualification",
+          "detail": "The mobile-first poster, screenshot, link and event-text intake is merged and under live production testing. Confirm truthful processing and recovery across real poster and text submissions, including partial matches, human-review outcomes, canonical additions, duplicates and final Artist, Venue, date and time findings. Close only when the UI consistently returns the outcome Capture actually produced.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-chatzone/pull/3",
+            "https://github.com/flowency-live/bndy-chatzone/pull/4",
+            "https://github.com/flowency-live/bndy-chatzone/pull/6",
+            "https://github.com/flowency-live/bndy-chatzone/pull/7",
+            "https://github.com/flowency-live/bndy-chatzone/pull/8"
+          ]
         },
         {
-          "title": "Processing latency",
-          "detail": "Public submissions still rely on the periodic scanner before reaching SQS; this can add minutes of dead time."
+          "title": "Immediate Capture dispatch and retry-safe processing",
+          "detail": "PR #134 reconciles the immediate Capture dispatch already observed in production with source-controlled retry safety, preserved review context and canonical start-time defaults. Keep this active until the controlled Capture Processor and Capture Scanner deployment is complete and live text and poster submissions prove prompt dispatch without duplicate processing.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/134"
+          ]
         }
       ],
       "next": [
