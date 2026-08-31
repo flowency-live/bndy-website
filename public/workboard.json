@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T13:00:21Z",
-  "updatedBy": "Backline source backlog update",
+  "updatedAt": "2026-08-31T13:32:19Z",
+  "updatedBy": "Festival Claim and management backlog addition",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -198,6 +198,13 @@
       "evidence": [
         "https://www.livebandphotos.co.uk/"
       ]
+    },
+    {
+      "id": "festival-add-claim-management",
+      "rank": 10,
+      "laneId": "festivals",
+      "title": "Festival Add, Claim and management parity",
+      "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
     }
   ],
   "lanes": [
