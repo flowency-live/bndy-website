@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T12:48:13Z",
-  "updatedBy": "Favourite feed backlog addition",
+  "updatedAt": "2026-08-31T13:00:21Z",
+  "updatedBy": "Backline source backlog update",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -178,6 +178,26 @@
       "laneId": "core-discovery",
       "title": "Favourite feed",
       "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
+    },
+    {
+      "id": "fizgig-backline-onboarding",
+      "rank": 8,
+      "laneId": "source-automation",
+      "title": "Fizgig Backline source onboarding",
+      "detail": "Fizgig's Lincolnshire and East Midlands gig data has already been ingested into canonical BNDY. First recover and record the import lineage, hydrate the corresponding canonical Artists, Venues and Events into Backline without recreating them, then capture a current source snapshot and resolve its source identities against that baseline. After fixture and snapshot-semantics checks, introduce one shadow BAU acquisition path for additions, changes and explicit removals, with ambiguity parked and canonical projection disabled until separately approved.",
+      "evidence": [
+        "http://www.fizgig.epizy.com/fizgig-gigs.htm"
+      ]
+    },
+    {
+      "id": "livebandphotos-backline-onboarding",
+      "rank": 9,
+      "laneId": "source-automation",
+      "title": "Live Band Photos Backline source onboarding",
+      "detail": "Live Band Photos data has already been ingested into canonical BNDY. Recover the canonical import lineage and hydrate those records into Backline first, then reconcile them against immutable evidence from the current gig listing, county Venue indexes and band directory. Delivery remains fixture-gated until query-string detail pages and complete-versus-rolling snapshot behaviour are proven. The provisional shadow BAU shape is a daily gig listing, weekly county and band indexes and monthly reconciliation, with no duplicate canonical creation, no inferred cancellation from an incomplete window and no canonical projection without separate approval.",
+      "evidence": [
+        "https://www.livebandphotos.co.uk/"
+      ]
     }
   ],
   "lanes": [
