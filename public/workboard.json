@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T23:20:05Z",
-  "updatedBy": "Product Owner: consolidate Festival curator parity into production verification",
+  "updatedAt": "2026-08-31T23:22:12Z",
+  "updatedBy": "Product Owner: mark Facebook Artist Assist live and defer evidence convergence",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -603,8 +603,8 @@
       "id": "facebook-artist-assist",
       "title": "Facebook artist assist",
       "objective": "Paste a Facebook artist URL and let BNDY resolve enough trustworthy data to make creation effortless.",
-      "health": "amber",
-      "deliveryState": "building",
+      "health": "green",
+      "deliveryState": "live",
       "targetState": false,
       "repos": [
         "app",
@@ -624,13 +624,12 @@
           "detail": "Recent deploy work keeps the companion source-inspector route present after normal API deployments."
         }
       ],
-      "now": [
-        {
-          "title": "Still a direct canonical creation path",
-          "detail": "The resolver helps the UI, but accepted data is still written directly through canonical creation rather than becoming durable claims first."
-        }
-      ],
+      "now": [],
       "next": [
+        {
+          "title": "Converge Facebook-assisted creation with evidence projection",
+          "detail": "The resolver helps the UI, but accepted data is still written directly through canonical creation rather than becoming durable claims first. Preserve the working human Add journey until the Backline Observation, Claim and projection path is production-ready, then migrate without adding visible friction or risking lost submissions."
+        },
         {
           "title": "Converge with Enrichment evidence model",
           "detail": "Reuse the same Observation/Extraction/Interpretation/Claim pipeline used by automated ingestion."
