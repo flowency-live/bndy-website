@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T23:30:05Z",
-  "updatedBy": "Product Owner: move Venue website monitoring into ranked backlog",
+  "updatedAt": "2026-08-31T23:32:55Z",
+  "updatedBy": "Product Owner: add BNDY Facebook Page and event sharing",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -242,8 +242,22 @@
       "detail": "Establish a Backline source family for known canonical Venues whose own websites publish reliable gig listings. Maintain a reviewed registry containing canonical Venue ID, authoritative listing URL, acquisition strategy, cadence, freshness and last successful scan. Capture immutable snapshots, resolve listings to the registered Venue, and emit only evidence-backed new or changed Event Claims through the normal Backline policy and projection path. Never infer cancellation solely because an item disappears unless the source semantics prove a complete programme or explicit cancellation. Track failures, meaningful deltas and useful discoveries in Godmode. Begin after the core Backline control plane and current named-source relaunch gates are healthy."
     },
     {
-      "id": "festival-add-claim-management",
+      "id": "facebook-page-event-sharing",
       "rank": 16,
+      "laneId": "meta-facebook",
+      "title": "BNDY Facebook Page and event sharing",
+      "detail": "Build the public BNDY Facebook Page into a credible front door for the product: complete branding, username, About copy, verified bndy.live and chat.bndy.live links, appropriate Page roles and security, action button, Messenger greeting, pinned Send to bndy explainer, initial content plan, moderation rules and basic Page-to-BNDY analytics. Make canonical BNDY Event pages share cleanly out to Facebook using strong Open Graph metadata, the normal web/native share journey and an optional Facebook Share Dialog; sharing publishes the BNDY link and never grants BNDY permission to post on a person’s behalf. For inbound contribution, let people send a Facebook Event URL, BNDY link, poster, screenshot or text to the BNDY Page through Messenger, verify the webhook, route it into Capture with idempotency and provenance, and return bounded acknowledgement and final outcomes. Do not describe the Meta developer app as a user-facing destination, and do not ingest visitor posts, comments or mentions until permissions, moderation, privacy and review requirements justify a later controlled extension.",
+      "evidence": [
+        "https://developers.facebook.com/documentation/sharing/overview.md/",
+        "https://developers.facebook.com/documentation/sharing/reference/share-dialog.md/",
+        "https://developers.facebook.com/documentation/business-messaging/messenger-platform/get-started.md/",
+        "https://developers.facebook.com/documentation/business-messaging/messenger-platform/webhooks.md/",
+        "https://developers.facebook.com/documentation/business-messaging/messenger-platform/app-review.md/"
+      ]
+    },
+    {
+      "id": "festival-add-claim-management",
+      "rank": 17,
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
@@ -253,18 +267,18 @@
       "laneId": "rhythm",
       "title": "BNDY Builder applications and Curator approval",
       "detail": "Later, when the contributor community is large enough to need it, let people apply or be nominated as BNDY Builders and give platform administrators a simple approve, reject and access-scope journey. BNDY Builder is the user-facing contributor identity; Curator remains the trusted permission role. Rhythm history and verified contributions may inform a decision but must never grant write authority automatically. Reuse the existing Curator role, own-only, postcode and trusted/global access controls rather than creating another permission model.",
-      "rank": 17
+      "rank": 18
     },
     {
       "id": "builder-contribution-analytics",
       "laneId": "rhythm",
       "title": "BNDY Builder contribution analytics",
       "detail": "Later, provide useful contribution metrics for BNDY Builders and Curators, such as accepted gigs added, meaningful corrections, source freshness work, duplicate prevention and sustained local coverage. Metrics must reward verified quality rather than raw volume, expose enough evidence for accountability, resist gaming and feed Rhythm only after the scoring policy is agreed. Edition visits, embed views and click analytics remain part of Editions/traffic analytics and are not duplicated here.",
-      "rank": 18
+      "rank": 19
     },
     {
       "id": "multi-artist-event-indexing",
-      "rank": 19,
+      "rank": 20,
       "laneId": "core-discovery",
       "title": "Multi-Artist event indexing and complete Artist gig history",
       "detail": "Low priority. Make every canonical Event discoverable from every participating Artist, not only its primary artist_id. Define and retain each Artist's billing role, maintain a reverse Artist-to-Event edge or equivalent queryable index across Event create, edit and delete, and backfill existing multi-Artist Events safely. Artist profiles, event counts, deletion guards and historical views must include headline, support and collaborating appearances without full-table scans. Select the smallest reliable DynamoDB implementation after measuring current access patterns; a separate join table is an option, not a pre-decided product requirement."
@@ -1362,7 +1376,7 @@
       "title": "Meta / Facebook presence",
       "objective": "Give BNDY an official Meta identity and make Facebook a supported public intake channel without personal-account automation.",
       "health": "amber",
-      "deliveryState": "building",
+      "deliveryState": "live",
       "targetState": false,
       "repos": [
         "website",
@@ -1387,16 +1401,11 @@
           "detail": "Facebook Login public_profile and email access are active. The Page Claim design now requests only pages_show_list; pages_read_engagement is not required. Graph Explorer proved the test token carried the requested Page scopes, while /me/accounts still returned an empty list despite the correct personal user, app Administrator role and full Page control. That inconsistency remains a Meta test/review issue rather than proof of a working production journey."
         }
       ],
-      "now": [
-        {
-          "title": "Complete pages_show_list review with the real Claim journey",
-          "detail": "The production-safe claimant UI is merged but capability-gated off. Publish and deploy the server-side code exchange and signed receipt boundary, add the exact callback URI, prove a managed Page is returned in the real BNDY flow, record the truthful screencast and submit the existing pages_show_list App Review request. Do not expose internal permission status or fabricate a successful Page result."
-        }
-      ],
+      "now": [],
       "next": [
         {
           "title": "Messenger Send to bndy",
-          "detail": "Webhook BNDY Page messages into Capture using the same transport-neutral submission model."
+          "detail": "Let people send a Facebook Event URL, BNDY link, poster, screenshot or event message to the public BNDY Page in Messenger. Receive verified Page message webhooks into Capture, preserve transport idempotency and evidence, return bounded acknowledgement and final outcomes, and keep Page/App permissions and review truthful. The Meta developer app is infrastructure, not a user-facing sharing destination."
         }
       ]
     },
