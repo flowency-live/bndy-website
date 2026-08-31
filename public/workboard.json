@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T15:06:15Z",
-  "updatedBy": "Product Owner: discovery image capture and Claim confirmation backlog addition",
+  "updatedAt": "2026-08-31T15:14:07Z",
+  "updatedBy": "Backline relaunch reconciliation",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -685,7 +685,7 @@
       "id": "intelligence",
       "title": "BNDY Backline",
       "objective": "Make sources produce evidence and atomised claims; let policy derive BNDY truth.",
-      "health": "green",
+      "health": "amber",
       "deliveryState": "building",
       "targetState": true,
       "repos": [
@@ -979,284 +979,85 @@
       ],
       "now": [
         {
-          "title": "Approved 20-case evidence-first qualification capture",
-          "detail": "Jason approved 2026-08-29: 20 cases, one model call each, 1-2 searches, $1.50 reserved, zero canonical writes. Contract, budget-controlled runner and approval artefact are on main; the dispatch-gated workflow awaits a token workflow-scope grant, then capture -> human adjudication -> qualified/failed verdict.",
+          "title": "Repository recovery and safety controls complete",
+          "detail": "Backline survived the recovery and is moving forward from bndy-enrichment main. The global projection gate is default-off and fail-closed, daily source policy and freshness controls are implemented, canonical change ingestion is opt-in, reliability controls have been rebuilt, obsolete enrichment deploy paths are contained and the serverless Capture hot-deploy bypasses were removed. These are repository facts, not proof of current AWS state.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/INTERACTIONS-EVIDENCE-FIRST-QUALIFICATION-CONTRACT.md",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/backline-interactions-evidence-first-20-case-approval-2026-08-29.txt"
+            "https://github.com/flowency-live/bndy-enrichment/pull/124",
+            "https://github.com/flowency-live/bndy-enrichment/pull/125",
+            "https://github.com/flowency-live/bndy-enrichment/pull/126",
+            "https://github.com/flowency-live/bndy-enrichment/pull/127",
+            "https://github.com/flowency-live/bndy-enrichment/pull/128",
+            "https://github.com/flowency-live/bndy-enrichment/pull/129",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/71"
           ]
         },
         {
-          "title": "Current Backline phase",
-          "detail": "Backline Trust Loop v1 remains the live priority. Lemonrock, On The Case, KLMA and GigsNews operate in shadow, the canonical baseline is indexed, and Godmode exposes the Trust Loop. The previous 20-case JSON proof quarantined all 67 uncited proposals. A new inactive Interactions evidence-first plain-text adapter has now passed the first Whittles Oldham citation proof: one call, two searches, six provider citations, five admitted venue facts and $0.02963275 measured cost. The remaining immediate boundary is to merge the cumulative citation-range hardening in PR 116, then obtain separate authority for a full 10 Artist plus 10 Venue qualification and human adjudication. The provider remains unqualified, unscheduled and unable to write canonically.",
+          "title": "Live production state remains unverified",
+          "detail": "The last committed live audit predates the recovered Backline releases. Current Lambda hashes, gate state, source schedules, alarms, streams, queues, drift and deployed ownership have not been reconciled. Backline stays amber until the designated infrastructure agent returns the read-only audit, bounded diff and one-owner schedule map. No Backline infrastructure action is authorised from this board.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-review.md",
-            "https://github.com/flowency-live/bndy-enrichment/pull/80",
-            "https://github.com/flowency-live/bndy-enrichment/pull/81",
-            "https://github.com/flowency-live/bndy-serverless-api/pull/59",
-            "https://github.com/flowency-live/bndy-backstage/pull/6",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206067020",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206997692",
-            "https://github.com/flowency-live/bndy-enrichment/pull/84",
-            "https://github.com/flowency-live/bndy-enrichment/pull/86",
-            "https://github.com/flowency-live/bndy-enrichment/pull/87",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206574422",
-            "https://github.com/flowency-live/bndy-enrichment/pull/88",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876",
-            "https://github.com/flowency-live/bndy-enrichment/pull/89",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
-            "https://github.com/flowency-live/bndy-enrichment/pull/90",
-            "https://github.com/flowency-live/bndy-backstage/pull/12",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33246356714",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98",
-            "https://github.com/flowency-live/bndy-enrichment/pull/99",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
-            "https://developers.google.com/custom-search/v1/overview",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
-            "https://github.com/flowency-live/bndy-enrichment/pull/108",
-            "https://github.com/flowency-live/bndy-enrichment/pull/110",
-            "https://github.com/flowency-live/bndy-enrichment/pull/111",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
-            "https://github.com/flowency-live/bndy-enrichment/pull/114",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/116",
-            "https://backstage.bndy.co.uk/godmode/enrichment"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/POST-RECOVERY-LIVE-AUDIT-REQUEST.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BOUNDED-CDK-DIFF-REQUEST.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/INFRASTRUCTURE-OWNERSHIP-HANDOFF.md"
           ]
         },
         {
-          "title": "Lemonrock feed status",
-          "detail": "COMPLETE / BAU LIVE SHADOW. Final 22:44 UTC manifest: 28,504 completed tasks, zero failed/queued/running, active queue zero, active DLQ zero, all discovered tasks terminal and inventory coverage passed. Coverage comprises 7,787 discoverable future Gig identities plus explicit terminal 410 evidence for the 74-item advertised gap; 756 gone index pages and nine gone Gig details are retained without inferring cancellation. Gig-led hydration produced 2,220 Venue and 2,254 Artist identities. All 6,047 superseded delivery copies are retained in non-consuming quarantine with no replay or purge. Hourly new-gig/cancellation, daily health and monthly future checks remain deployed; directories remain off. Shadow mode is on and canonical writes are off.",
+          "title": "Canonical catch-up hydration required",
+          "detail": "The complete Backline baseline is bndy-baseline-2026-08-24-v1 and is stale relative to current canonical BNDY. The correct recovery is a reviewed read-only delta plan, one exact shadow-only delta hydration, then gap-free continuous canonical change ingestion after table, stream and SSM ownership is settled. This is not a new full baseline and it does not authorise canonical writes.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-reconciliation-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-historical-failure-quarantine.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/lemonrock-low-cost-operating-status.json",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33120136044",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33119366369",
-            "https://github.com/flowency-live/bndy-enrichment/pull/51",
-            "https://github.com/flowency-live/bndy-enrichment/pull/56",
-            "https://github.com/flowency-live/bndy-enrichment/pull/57",
-            "https://github.com/flowency-live/bndy-enrichment/pull/58",
-            "https://github.com/flowency-live/bndy-enrichment/pull/59",
-            "https://github.com/flowency-live/bndy-enrichment/pull/60",
-            "https://github.com/flowency-live/bndy-enrichment/pull/62"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/CANONICAL-HYDRATION-READINESS.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/CANONICAL-CONTINUOUS-HYDRATION.md"
           ]
         },
         {
-          "title": "KLMA feed status",
-          "detail": "HEALTHY LIVE SHADOW BAU. On 28 Aug Backline deployed with the deploy role, seeded only KLMA as enabled daily standard-runtime ingestion, triggered a real live source run and verified the persisted raw CSV evidence, Observation and 2,771 Claims. Live source config is enabled=true, shadow=true, cadence=daily, writerAuthority=cowork. Canonical writes are disabled and the existing Cowork task remains untouched. Observation obs-bfcbd2f7-3944-4f8a-a41b-47c2ac38e43b is the activation proof. Historical ambiguous-locality and identity-collision rows remain safely parked rather than guessed.",
+          "title": "Deterministic source shadow BAU relaunch",
+          "detail": "KLMA, GigsNews, ScenicEye, On The Case and Lemonrock have repository-ready source paths and daily-or-faster coverage policy, but their post-recovery live state is not assumed. Relaunch one source at a time with two clean shadow runs, stable identities, immutable evidence, run reports, heartbeats, empty operational DLQs and the previous scheduler disabled before authority transfers. Provider qualification is not a prerequisite for deterministic acquisition.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/pull/52",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/klma-shadow-bau-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/63"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/SOURCE-CADENCE-AND-FRESHNESS.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-RELAUNCH-PLAN-2026-08-31.md"
           ]
         },
         {
-          "title": "GigsNews feed status",
-          "detail": "HEALTHY LIVE WEEKLY SHADOW. GigsNews now runs through bounded standard HTTP against the server-rendered page, stores immutable evidence, Observations and Claims, and remains incremental/append-only under Cowork writer authority. The 28 Aug quality-proof run removed all booking/contact footer artefacts from the live 40-case cohort. Disappearance between editions is never cancellation evidence. Shadow mode is on, canonical writes are off, and the superseded browser delivery copy remains retained outside the active DLQ.",
+          "title": "Provider capture failed its approved contract",
+          "detail": "The Interactions evidence-first qualification attempted 20 cases: 12 captured, 9 fact-bearing, 3 safe abstentions and 8 errors. Six cases used four searches against the approved one-to-two-search limit and two returned invalid FACT lines. Cost was $0.758573 against a $1.50 reserve, with zero canonical writes. The provider remains inactive and unqualified while human adjudication of the captured cases remains pending.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-browser-quarantine.json",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33180195595",
-            "https://github.com/flowency-live/bndy-enrichment/pull/71",
-            "https://github.com/flowency-live/bndy-enrichment/pull/72",
-            "https://github.com/flowency-live/bndy-enrichment/pull/73"
+            "https://github.com/flowency-live/bndy-enrichment/pull/130",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-20-case-review.md"
           ]
         },
         {
-          "title": "Scenic Eye feed status",
-          "detail": "IMPLEMENTED SHADOW/MANUAL. Weekly-edition ingestion, fixture coverage and stale-edition protection are merged. It is deliberately unscheduled until its source-specific operating cadence and production bootstrap are agreed/proven."
-        },
-        {
-          "title": "Insangel feed status",
-          "detail": "RECONNAISSANCE ONLY. No production adapter. Implementation is fixture-gated because reliable acquisition has not yet been proven."
-        },
-        {
-          "title": "Norfolk Gig Guide feed status",
-          "detail": "RECONNAISSANCE ONLY. Promising native identities, but implementation is gated on captured fixtures and proof that the source is reachable safely from AWS. No acquisition-evasion work."
-        },
-        {
-          "title": "Lemonrock is Backline's first national flagship source",
-          "detail": "The committed plan deliberately bootstraps the complete discoverable UK Lemonrock artist, venue and future-gig universe into source-native identities, immutable evidence and rich Claims before selective canonical projection.",
+          "title": "Godmode becomes the truthful Backline control surface",
+          "detail": "Extend the surviving graph reader and Explorer so operators can see deployed commit identity, global write state, source ownership and freshness, hydration manifests, evidence, Claims, canonical matches, conflicts, queues, alarms and would-write decisions. A green badge without current evidence is explicitly not acceptable.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/commit/f51d3ba6f10860da6b47d2fcc06853761188bca6"
-          ]
-        },
-        {
-          "title": "BNDY Backline is a logical layer, not another app",
-          "detail": "It lives inside the bndy-enrichment AWS runtime: Source Registry/Runner + S3 evidence + DynamoDB observations/claims + queues/workers + projection policy. The public BNDY database remains the canonical product projection, not the intelligence store."
-        },
-        {
-          "title": "Dual-path operating rule",
-          "detail": "Building durable evidence/claims must not delay live gig publication. A trusted source can create claims and immediately project through canonical BNDY APIs while BNDY Backline keeps the evidence history for later reconciliation."
-        },
-        {
-          "title": "Source authority is source-specific",
-          "detail": "KLMA is a controlled enduring community calendar and can support immediate additive projection. GigsNews is a human-curated weekly aggregation, so absence from a later page is not by itself cancellation evidence."
-        },
-        {
-          "title": "Two generations of claims thinking exist",
-          "detail": "bndy-signals contains the older cognitive runtime; bndy-enrichment/BNDY Backline contains the strategic architecture."
-        },
-        {
-          "title": "Daily Backline discovery metrics",
-          "detail": "DEPLOYED FOR GENERIC SOURCE RUNS. Each generic run produces one 180-day drill-down metric and atomically updates one 400-day source-family daily roll-up from the in-memory report, with DynamoDB TTL and no corpus/evidence scans. Godmode now exposes recent family runs and their item, event, profile, Claim, parked-row, warning, error and duration measures. Remaining: add resolved/unresolved/conflicted and queue/cost aggregates plus historical trend charts.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/pull/37",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/sources/runner/metrics.ts"
-          ]
-        },
-        {
-          "title": "Safe entity enrichment worker",
-          "detail": "EVIDENCE CONTRACT PROVEN ON ONE VENUE, PROVIDER STILL UNQUALIFIED. The inactive Interactions evidence-first adapter requests one or two Google searches, one model call and deterministic fact lines, then derives evidence URLs only from provider url_citation annotations bound to exact output segments. Whittles Oldham produced two searches, six citations and five admitted facts for $0.02963275. The raw response showed cumulative citation ranges, so the production-safe binding must use the citation end offset rather than generic overlap; that hardening is green in PR 116 and awaits explicit merge approval. No schedule or provider activation occurred and canonical writes remain zero. A fresh balanced 20-case proof and adjudication are required before qualification.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-review.md",
-            "https://github.com/flowency-live/bndy-enrichment/pull/74",
-            "https://github.com/flowency-live/bndy-enrichment/pull/77",
-            "https://github.com/flowency-live/bndy-enrichment/pull/80",
-            "https://github.com/flowency-live/bndy-enrichment/pull/81",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206067020",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206997692",
-            "https://github.com/flowency-live/bndy-enrichment/pull/84",
-            "https://github.com/flowency-live/bndy-enrichment/pull/87",
-            "https://github.com/flowency-live/bndy-enrichment/pull/88",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876",
-            "https://github.com/flowency-live/bndy-enrichment/pull/89",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
-            "https://github.com/flowency-live/bndy-enrichment/pull/90",
-            "https://github.com/flowency-live/bndy-backstage/pull/12",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98",
-            "https://github.com/flowency-live/bndy-enrichment/pull/99",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
-            "https://developers.google.com/custom-search/v1/overview",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
-            "https://github.com/flowency-live/bndy-enrichment/pull/108",
-            "https://github.com/flowency-live/bndy-enrichment/pull/110",
-            "https://github.com/flowency-live/bndy-enrichment/pull/111",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
-            "https://github.com/flowency-live/bndy-enrichment/pull/114",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/116",
-            "https://backstage.bndy.co.uk/godmode/enrichment"
-          ]
-        },
-        {
-          "title": "Priority 1: Backline Trust Loop v1",
-          "detail": "LIVE SHADOW, SINGLE-CASE CITATION GATE PASSED. Google Programmable Search remains unavailable, but Gemini Interactions with Google Search grounding has now returned machine-readable url_citation annotations when driven by the deterministic evidence-first plain-text contract. Whittles Oldham passed the transport and citation-admission proof with five facts and zero writes. This does not qualify the provider. Immediate work is PR 116 citation-range hardening, redirect-destination preservation, then a separately approved 10 Artist plus 10 Venue cohort with known-answer review, coverage, false-match and cost gates. The Product Owner will not be a daily reviewer; uncertainty remains automatically parked.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/trust-loop-v1-manifest.json",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
-            "https://github.com/flowency-live/bndy-enrichment/pull/77",
-            "https://github.com/flowency-live/bndy-enrichment/pull/80",
-            "https://github.com/flowency-live/bndy-enrichment/pull/81",
-            "https://github.com/flowency-live/bndy-serverless-api/pull/59",
-            "https://github.com/flowency-live/bndy-backstage/pull/6",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206067020",
-            "https://github.com/flowency-live/bndy-enrichment/pull/84",
-            "https://github.com/flowency-live/bndy-enrichment/pull/86",
-            "https://github.com/flowency-live/bndy-enrichment/pull/87",
-            "https://github.com/flowency-live/bndy-enrichment/pull/88",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876",
-            "https://github.com/flowency-live/bndy-enrichment/pull/89",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
-            "https://github.com/flowency-live/bndy-enrichment/pull/90",
-            "https://github.com/flowency-live/bndy-backstage/pull/12",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98",
-            "https://github.com/flowency-live/bndy-enrichment/pull/99",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/114",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/116"
-          ]
-        },
-        {
-          "title": "Hard gate: healthy artist enrichment",
-          "detail": "NOT YET PASSED. The evidence-first plain-text contract has produced authoritative provider citations for one Venue case, removing the previous zero-citation transport blocker. It has not yet tested an Artist and has not established cohort-wide identity accuracy or requested-predicate coverage. Acceptance still requires zero false matches, at least 80 percent requested-predicate coverage where knowable, explicit attempted-no-official-presence outcomes, authoritative evidence mappings, stable citation destinations and complete cost control across the balanced 20-case cohort. No provider activation or canonical projection is permitted.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33202407979",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/77",
-            "https://github.com/flowency-live/bndy-enrichment/pull/81",
-            "https://github.com/flowency-live/bndy-backstage/pull/6",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/ENRICHMENT-PROVIDER-QUALIFICATION.md",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33206067020",
-            "https://github.com/flowency-live/bndy-enrichment/pull/84",
-            "https://github.com/flowency-live/bndy-enrichment/pull/86",
-            "https://github.com/flowency-live/bndy-enrichment/pull/87",
-            "https://github.com/flowency-live/bndy-enrichment/pull/88",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33207719876",
-            "https://github.com/flowency-live/bndy-enrichment/pull/89",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33214350278",
-            "https://github.com/flowency-live/bndy-enrichment/pull/90",
-            "https://github.com/flowency-live/bndy-backstage/pull/12",
-            "https://github.com/flowency-live/bndy-enrichment/pull/98",
-            "https://github.com/flowency-live/bndy-enrichment/pull/99",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33250186946",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/google-pse-gemini-structured-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264108261",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-grounded-explicit-contract-20-case-review.md",
-            "https://github.com/flowency-live/bndy-enrichment/pull/108",
-            "https://github.com/flowency-live/bndy-enrichment/pull/110",
-            "https://github.com/flowency-live/bndy-enrichment/pull/111",
-            "https://github.com/flowency-live/bndy-enrichment/actions/runs/33264551514",
-            "https://github.com/flowency-live/bndy-enrichment/pull/114",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/enrichment/gemini-interactions-evidence-first-whittles-oldham-unreviewed.json",
-            "https://github.com/flowency-live/bndy-enrichment/pull/116",
-            "https://backstage.bndy.co.uk/godmode/enrichment"
-          ]
-        },
-        {
-          "title": "Embed and operationalise the evidence graph",
-          "detail": "Integrate the existing bounded graph reader into Godmode and populate it with source identities, canonical candidates, resolution/conflict state and projection decisions. Operators must be able to search and expand from one node, see confidence and authority, and drill through to exact evidence and decision history without rendering or scanning the whole corpus.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/knowledge/graph-read.ts",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-EXPLORER.md",
             "https://github.com/flowency-live/bndy-backstage/blob/main/client/src/pages/godmode/enrichment/BacklineExplorer.tsx"
-          ]
-        },
-        {
-          "title": "Capture ongoing Cowork canonical activity",
-          "detail": "CONTRACT LIVE, LEDGER INGESTION WAITING FOR FIRST RECORDS. Claude Cowork schedules remain explicit external canonical writers until replaced. bndy-ops now requires an append-only JSON ledger, human report, CTO inbox entry and canonical API read-back for every run, including no-change or failure. As at 14:34 UTC on 28 Aug the remote repository contains the v2 contract and schema but no run-ledger records, so Backline cannot yet hydrate current Cowork activity honestly. Once records arrive, ingest them as BNDY-origin Observations and Claims tagged with Cowork writer lineage and projection-suppressed to prevent a canonical feedback loop.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
-            "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json",
-            "https://github.com/flowency-live/bndy-ops"
           ]
         }
       ],
       "next": [
         {
-          "title": "Controlled Backline projection",
-          "detail": "After Trust Loop v1 passes, generate a complete shadow would-write report and review every proposed canonical action. KLMA is the first bounded additive-only candidate because its Stoke corpus is a useful known-answer cohort. The pilot must prohibit destructive changes, retain owner protection and stop thresholds, and requires separate human approval before any canonical write or Cowork writer transfer.",
+          "title": "First bounded shadow release and freshness proof",
+          "detail": "After the authorised live audit and classified diff, release only the global gate and would-write code, unified source runtime and source-health controls. Seed the reviewed catalogue separately, prove each heartbeat and the 26-hour alarm, and keep canonical streams, providers, Capture ownership changes, reliability expansion and canonical writes out of this release.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/FIRST-BOUNDED-RELEASE-READINESS.md"
           ]
         },
         {
-          "title": "Bounded network discovery",
-          "detail": "Only after identity quality is proven, add budgeted graph expansion from resolved Artists, Venues and Events. Enforce maximum depth, entities, fetches, model calls, time and cost; fully enrich selected nodes but expand edges selectively. Keep DynamoDB evidence and Claims authoritative and defer Neptune until measured graph workloads justify it."
-        },
-        {
-          "title": "Converge community and agent evidence",
-          "detail": "Route Venue, Event, Festival, Capture, curator and MCP-assisted changes through durable Observations, Claims and projection policy after parity gates. Human and agent contributions should strengthen provenance and exception handling rather than bypass the Backline trust model.",
+          "title": "Controlled canonical delta and continuous hydration",
+          "detail": "Use the 24 August complete baseline for one approved delta catch-up into Backline, reconcile the manifest and prove zero projection. Then activate continuous canonical change ingestion only after the infrastructure owner proves sole stream and SSM ownership and can preserve the DynamoDB stream-retention handoff.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LEMONROCK-NATIONAL-INGESTION.md#31-owned-completion-execution-control"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/CANONICAL-HYDRATION-READINESS.md"
           ]
         },
         {
-          "title": "Migrate useful Signals concepts",
-          "detail": "Port useful deterministic resolvers, review semantics and intelligence concepts from bndy-signals into bndy-enrichment, prove parity, then retire the legacy runtime instead of operating two intelligence systems."
+          "title": "KLMA event-only canonical pilot",
+          "detail": "Once shadow BAU and current hydration are healthy, bring back a separate approval for five to ten future Event creates. Artists and Venues must already exist and resolve unambiguously. No entity creation, updates, cancellations, deletes or owner-managed fields; API only, human-reviewed, exact read-back and hard stop on the first mismatch.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-RELAUNCH-PLAN-2026-08-31.md"
+          ]
+        },
+        {
+          "title": "Net-new regional intelligence proof",
+          "detail": "After the controlled KLMA loop, select a fixture-qualified regional source and prove net-new Artists, Venues and Events, contradictions and coverage gain in shadow. This is the product-value proof that Backline sees parts of the scene BNDY could not previously see."
         }
       ]
     },
@@ -1367,68 +1168,72 @@
       ],
       "now": [
         {
-          "title": "KLMA shadow BAU complete; writer cutover deferred",
-          "detail": "KLMA shadow BAU proven; canonical cutover deferred. Backline now hydrates KLMA daily into immutable evidence, Observations and Claims while remaining shadowed and Cowork-owned. The existing Cowork publication path stays in place until the resolution/intelligence layer is proven and we separately authorise canonical projection. Future writer transfer/cutover gates remain documented but are not part of the current hydration milestone.",
+          "title": "Daily-or-faster source contract is code-ready",
+          "detail": "The current catalogue targets daily GigsNews, daily KLMA, daily ScenicEye, hourly Lemonrock change roots with daily reconcile and hourly On The Case. The 26-hour staleness rule is implemented. None of those post-recovery live schedules or heartbeats is treated as proven until the infrastructure and Cowork schedule reconciliation returns.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/pull/38",
-            "https://github.com/flowency-live/bndy-enrichment/pull/52",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/cutover/klma.md",
-            "https://github.com/flowency-live/bndy-enrichment/blob/main/ops/klma-shadow-bau-manifest.json"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/SOURCE-CADENCE-AND-FRESHNESS.md"
           ]
         },
         {
-          "title": "GigsNews live weekly shadow; next source held behind Trust Loop",
-          "detail": "GigsNews is already the fourth live Backline shadow source on a weekly cadence with immutable snapshots, source health evidence and no cancellation inference from page absence. Scenic Eye and the East Anglia/Cumbria pilots remain queued, but the current delivery priority is to prove trustworthy enrichment on the bounded cohort before multiplying unresolved identities across new source services."
-        },
-        {
-          "title": "East Anglia and Cumbria Backline-only pilots",
-          "detail": "Build two bounded regional services where new coverage is attributable to Backline rather than the existing Cowork schedules. East Anglia starts with Norfolk Gig Guide. Cumbria starts with a Nowt On acquisition, music-only and source-independence audit, with direct venue calendars as the fallback. Establish a pre-pilot canonical baseline, run both in production shadow, and expose net-new gig, Venue and Artist coverage plus enrichment health in Godmode. Acceptance requires evidence-backed artist type, act type, acoustic capability and genres where knowable; confirmed official links or an explicit attempted-no-official-presence result; zero wrong-artist links; and normal Trust Loop and human approval gates before canonical projection.",
+          "title": "Cowork direct-writer history has a ledger gap",
+          "detail": "bndy-ops contains direct canonical writer tasks for GigsNews, KLMA, On The Case, ScenicEye and enrichment, all bound to RUN-CONTRACT v2. It contains no current append-only run-ledger records and no final schedule export, so it cannot prove which canonical changes occurred after the 24 August baseline. Current canonical BNDY is the catch-up truth; Cowork task inventory is still required for safe scheduler cutover.",
           "evidence": [
-            "https://www.norfolkgigguide.com/",
-            "https://www.nowton.events/"
-          ]
-        },
-        {
-          "title": "Cowork canonical change capture",
-          "detail": "Inventory every active Cowork schedule and bind its live prompt to RUN-CONTRACT v2. Ingest each append-only JSON ledger as supporting evidence, correlate create, update and cancellation actions to canonical entity IDs and API read-back, record writerAuthority=cowork and suppress projection. The ledger must include per-Artist enrichment outcomes and identity evidence. This closes the gap between the one-time canonical baseline and live canonical changes while existing tasks continue to run; current mutable snapshots are not accepted as a write ledger.",
-          "evidence": [
+            "https://github.com/flowency-live/bndy-ops",
             "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
             "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json"
           ]
         },
         {
-          "title": "New Backline sources found, 26 August 2026",
-          "detail": "Source discovery pass completed. Three sources selected for planned Backline onboarding, one regional coverage gap documented, and lower-value/blocked aggregator candidates rejected."
+          "title": "Core source families are preserved, live state unverified",
+          "detail": "Lemonrock, On The Case, KLMA, GigsNews and ScenicEye implementations and historical evidence survived. Treat previous live-green claims as historical evidence only until code hashes, schedules, queues, DLQs, last successes and catalogue records are freshly reconciled. Relaunch order is KLMA, GigsNews, ScenicEye, On The Case and then Lemonrock.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/BACKLINE-RELAUNCH-PLAN-2026-08-31.md"
+          ]
         },
         {
-          "title": "On The Case BAU observation",
-          "detail": "Observe the live hourly gig root under normal low-cost operation. No recurring band or venue directory scans. Venue hydration is daily-deduped and band hydration weekly-deduped; explicit owned reconciliations are separately scoped so audit/recovery can prove full lineage without changing BAU cost."
+          "title": "Fizgig and Live Band Photos are canonical-first onboardings",
+          "detail": "Both sources already have data in canonical BNDY. First delta-hydrate those canonical records, recover import lineage, then acquire immutable source-native fixtures and resolve them to existing canonical IDs. BAU remains shadow-only: Live Band Photos targets daily gigs plus weekly indexes after its fixture gate; Fizgig remains reconnaissance and fixture-gated before a daily root is defined.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LIVEBANDPHOTOS-INGESTION.md",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/FIZGIG-INGESTION.md"
+          ]
+        },
+        {
+          "title": "Competing writer shutdown remains a hard cutover gate",
+          "detail": "bndy-signals PR 1 contains the fail-closed legacy writer change but remains unmerged, and live Signals state is unverified. No Backline source becomes authoritative while Signals, Cowork or another runtime can write or schedule the same source concurrently.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-signals/pull/1"
+          ]
         }
       ],
       "next": [
         {
-          "title": "Source sequence after the geography pilots",
-          "detail": "After GigsNews, East Anglia and Cumbria reach stable shadow BAU, prove Scenic Eye on a low-cost weekly cadence and expand the watched-Venue registry using the successful Cumbria fallback pattern. DGWGO Events and Brighton Gigs remain selected behind their fixture, reachability and source-independence gates."
+          "title": "Reconcile one owner and one schedule per source",
+          "detail": "Combine the live EventBridge inventory, Source Registry, Signals state and final Cowork export. For every source, name exactly one acquisition owner, one canonical writer authority and one daily-or-faster freshness path before enabling anything."
         },
         {
-          "title": "East Anglia pilot: Norfolk Gig Guide",
-          "detail": "https://www.norfolkgigguide.com/ covers Norfolk and Norwich grassroots gigs, Venues and acts with useful native numeric band identities. Capture reviewed fixtures, prove a compliant production acquisition path despite non-browser 403 responses, and measure net-new regional coverage against the canonical baseline. No acquisition-evasion work and no canonical writes during shadow proof."
+          "title": "Prove two clean shadow runs per core source",
+          "detail": "Run KLMA, GigsNews, ScenicEye, On The Case and Lemonrock through the reviewed cutover gates in that order. Require stable identities, reconciled counts, evidence, Claims, run report, heartbeat, healthy queues and zero canonical projection before moving to the next source."
         },
         {
-          "title": "Cumbria pilot: Nowt On plus Venue sources",
-          "detail": "https://www.nowton.events/ is an active local events service covering Kendal, Windermere, Ambleside, Keswick, Penrith and wider Cumbria, including small pub gigs and open sessions. First prove stable acquisition, music-only classification, source independence and native identity. If those gates fail, use direct calendars from a bounded Cumbria watched-Venue cohort rather than a national ticket aggregator."
+          "title": "Qualify Live Band Photos for shadow BAU",
+          "detail": "Capture the server-rendered gig root, county and band indexes, month horizon, query-string detail pages and robots policy. Prove snapshot semantics and canonical-first matching, then add daily gig acquisition, weekly discovery indexes and monthly reconcile in shadow.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/LIVEBANDPHOTOS-INGESTION.md",
+            "https://www.livebandphotos.co.uk/"
+          ]
         },
         {
-          "title": "DGWGO Events — selected",
-          "detail": "https://events.dgwgo.com/music-dumfries-galloway/ — Dumfries & Galloway (Carlisle-Glasgow corridor). Plan committed, fixture-gated. WordPress Events Calendar, per-event slug URLs, REST API probe first. Music-only policy."
+          "title": "Complete Fizgig reconnaissance and fixtures",
+          "detail": "Acquire the supplied root and adjacent current, archive, Artist and Venue surfaces through a permitted route. Prove robots, identity, horizon, completeness and cancellation semantics before defining the adapter. Reconcile to existing canonical imports and keep projection off.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/FIZGIG-INGESTION.md",
+            "http://www.fizgig.epizy.com/fizgig-gigs.htm"
+          ]
         },
         {
-          "title": "Brighton Gigs — selected",
-          "detail": "https://brightongigs.uk/ — Brighton / Sussex coast. Plan committed, fixture-gated. ~240 gigs, 12 venues incl. Hope & Ruin, Green Door Store. Itself a scraper: independence rule applies. Browser runtime assumed."
-        },
-        {
-          "title": "Lancashire source gap",
-          "detail": "Lancashire (Preston to coast): no dedicated grassroots gig guide exists. Coverage route: WP-16 venue Gig Sources (venue websites directly) plus Lemonrock national. CAMRA Blackpool pub guide (https://blackpool.camra.org.uk/pubguide) is useful for venue live-music flags only, no gigs."
+          "title": "Resume regional coverage experiments after the control plane is healthy",
+          "detail": "Keep Norfolk, Cumbria, DGWGO and Brighton as fixture-gated candidates. Select the next pilot using measurable net-new canonical coverage, source independence, acquisition reliability and identity quality rather than blocking all source work on optional provider qualification."
         }
       ]
     },
