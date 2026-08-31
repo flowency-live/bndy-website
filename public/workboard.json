@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T15:32:32Z",
-  "updatedBy": "Product Owner: reconcile completed public gig wizard",
+  "updatedAt": "2026-08-31T15:35:05Z",
+  "updatedBy": "Product Owner: reconcile completed accounts, favourites and saved filters",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -260,6 +260,15 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-app/commit/9ea563db1eb8f68db443755f522eba4e6ef1f2a0",
             "https://github.com/flowency-live/bndy-app/commit/108b3290d865c889178cd4407ecf88db34978c6a"
+          ]
+        },
+        {
+          "title": "Accounts, favourites and saved gig filters",
+          "detail": "Signed-in accounts, Artist and Venue favourites, favourite filtering across gigs and the map, and reusable saved gig-filter presets are implemented in the current bndy-app. The older FS-08 proposal is therefore complete rather than backlog work. This does not complete the separately ranked Favourite feed, which remains a future canonical activity experience.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/commit/200a4505cc2c824f025dfc932bc3f16d3b7f2c88",
+            "https://github.com/flowency-live/bndy-app/commit/0b735b5ea0501155421ed6158034ec929ac3a453",
+            "https://github.com/flowency-live/bndy-app/commit/81e9fcf7bcfb101b1b6b5d28fe26f4dc72a03760"
           ]
         }
       ],
