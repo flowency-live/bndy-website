@@ -336,13 +336,16 @@
         {
           "title": "JOIN-15 - production smoke and authenticated acceptance",
           "detail": "The Add, Find and same-name correction is merged to bndy-app main in PR #34, remains in current main and passed PR CI plus rendered-copy checks. Production deployment has not yet been independently confirmed. Confirm the live build, then complete signed-in multi-entity acceptance across new Artist, new Venue, existing-entity Claim, request-more-evidence, approval, conflict, delegate acceptance, ownership transfer and relinquish."
+        },
+        {
+          "title": "JOIN-16 - Facebook Page Claim verification rollout",
+          "detail": "The capability-gated claimant UI is merged in bndy-app PR #35 and remains hidden while the API reports the capability unavailable. The rebuilt API exchanges the Meta code server-side, never stores or returns the user token, and accepts only a short-lived signed Page receipt bound to the same user and entity. Remaining gates are API publication and CI, secure Meta secret configuration, exact callback registration, bounded deployment and a truthful production screencast for pages_show_list App Review.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-app/pull/35"
+          ]
         }
       ],
       "next": [
-        {
-          "title": "Facebook Page-control verification",
-          "detail": "The Meta app is approved and in Live mode. Treat Page control as separate from Facebook Login: confirm the exact granted Page permissions and token scopes, prove managed-Page retrieval for a live user, reconcile a stable Page identity to the BNDY entity and issue verification evidence server-side before exposing the option."
-        },
         {
           "title": "Claim authority projection acceptance",
           "detail": "The privacy-safe Claim stream and Backline consumer are deployed and CI-proven, but production synthetic acceptance did not prove the final authority record. Run a fresh bounded proof without making Backline transport a dependency of Claim success or enabling canonical writes."
@@ -1442,12 +1445,16 @@
         {
           "title": "Meta app approved and in Live mode",
           "detail": "The Meta app has completed approval and is now in Live mode. This is the platform checkpoint, not proof that managed Facebook Page retrieval or Page-control Claim verification works end to end."
+        },
+        {
+          "title": "Minimal Page permission boundary confirmed",
+          "detail": "Facebook Login public_profile and email access are active. The Page Claim design now requests only pages_show_list; pages_read_engagement is not required. Graph Explorer proved the test token carried the requested Page scopes, while /me/accounts still returned an empty list despite the correct personal user, app Administrator role and full Page control. That inconsistency remains a Meta test/review issue rather than proof of a working production journey."
         }
       ],
       "now": [
         {
-          "title": "Confirm approved Meta permission inventory",
-          "detail": "Inspect the Live app's approved permissions, features and access levels, then prove which Page and messaging operations work with a real production user token. Record the exact scopes and API responses before wiring Claim verification or Messenger intake."
+          "title": "Complete pages_show_list review with the real Claim journey",
+          "detail": "The production-safe claimant UI is merged but capability-gated off. Publish and deploy the server-side code exchange and signed receipt boundary, add the exact callback URI, prove a managed Page is returned in the real BNDY flow, record the truthful screencast and submit the existing pages_show_list App Review request. Do not expose internal permission status or fabricate a successful Page result."
         }
       ],
       "next": [
@@ -1612,11 +1619,20 @@
         },
         {
           "title": "Production serverless incident recovered and deployment gated",
-          "detail": "The 29 August incomplete-template deployment removed five Claim and ownership Lambdas and detached four retained DynamoDB tables. The tables were imported back into CloudFormation, the missing functions and 22 routes were restored through reviewed surgical change sets, and five frontend authentication aliases were separately deployed. The stack is UPDATE_COMPLETE with 270 routes, all four tables IN_SYNC, unchanged outputs and successful 401 Lambda smoke responses. Automatic serverless deployment and the cross-repository Capture acceptance job remain disabled pending infrastructure ownership hardening.",
+          "detail": "The 29 August incomplete-template deployment removed five Claim and ownership Lambdas and detached four retained DynamoDB tables. The tables were imported back into CloudFormation, the missing functions and 22 routes were restored through reviewed surgical change sets, and five frontend authentication aliases were separately deployed. The stack is UPDATE_COMPLETE with 270 routes, all four tables IN_SYNC, unchanged outputs and successful 401 Lambda smoke responses. API deployment is now manual-only behind two explicit guards; Enrichment and combined Capture deployment workflows are also manual, use a dedicated deploy-role boundary and no longer run CDK bootstrap routinely. The superseded combined deployment PR #122 was closed unmerged.",
           "evidence": [
             "https://github.com/flowency-live/bndy-website/blob/main/docs/SERVERLESS-API-INCIDENT-RECOVERY-2026-08-30.md",
             "https://github.com/flowency-live/bndy-serverless-api/pull/68",
-            "https://github.com/flowency-live/bndy-serverless-api/commit/ca641b99ea0c2941daacccc9172c6a0cfc14df3b"
+            "https://github.com/flowency-live/bndy-serverless-api/commit/ca641b99ea0c2941daacccc9172c6a0cfc14df3b",
+            "https://github.com/flowency-live/bndy-enrichment/pull/123",
+            "https://github.com/flowency-live/bndy-enrichment/pull/122"
+          ]
+        },
+        {
+          "title": "Claim and Join route security baseline reconciled",
+          "detail": "SEC-01 now classifies all restored Claim, Join, membership, invite, ownership and same-origin authentication alias mutations. Join analytics is explicitly classified as bounded anonymous telemetry rather than authenticated user data. CI passed and PR #69 is merged.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-serverless-api/pull/69"
           ]
         }
       ],
@@ -1624,6 +1640,14 @@
         {
           "title": "Keep security policy aligned with new curator and edition routes",
           "detail": "Every new mutation route should have an explicit trust-zone decision rather than inheriting access accidentally."
+        },
+        {
+          "title": "Deploy the bounded SourceRuns summary update",
+          "detail": "PR #70 removes the interactive full-ledger aggregation that caused 30-second SourceRuns timeouts, and Backstage PR #16 presents exact recent-run metrics while leaving the task ledger separately paginated. Both changes are merged and CI-passed. Production still needs a one-function surgical SourceRunsFunc code update, authenticated smoke test and CloudWatch timeout check.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-serverless-api/pull/70",
+            "https://github.com/flowency-live/bndy-backstage/pull/16"
+          ]
         }
       ],
       "next": [
