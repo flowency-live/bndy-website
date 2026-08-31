@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T10:21:49Z",
-  "updatedBy": "Backline recovery credential security backlog update",
+  "updatedAt": "2026-08-31T12:48:13Z",
+  "updatedBy": "Favourite feed backlog addition",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -171,6 +171,13 @@
         "https://github.com/flowency-live/bndy-serverless-api/pull/71",
         "https://github.com/flowency-live/bndy-ops/blob/main/cto/BACKLINE-POST-RECOVERY-LIVE-AUDIT-2026-08-30.md"
       ]
+    },
+    {
+      "id": "favourite-feed",
+      "rank": 7,
+      "laneId": "core-discovery",
+      "title": "Favourite feed",
+      "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
     }
   ],
   "lanes": [
