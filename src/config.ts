@@ -1,5 +1,5 @@
 // Single home for outbound targets. Change here, not in pages.
-export const MAP_URL = 'https://map.bndy.co.uk';
+export const MAP_URL = 'https://bndy.live';
 export const STAGE_LOGIN_URL = 'https://backstage.bndy.co.uk';
 export const SITE_URL = 'https://www.bndy.co.uk';
 
