@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T14:49:16Z",
-  "updatedBy": "Product Owner: move repository consolidation to low-priority backlog",
+  "updatedAt": "2026-09-01T14:55:09Z",
+  "updatedBy": "Product Owner: align Rhythm status with active discovery",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -593,8 +593,8 @@
       "id": "rhythm",
       "title": "BNDY Rhythm / Curator rewards",
       "objective": "Turn high-quality community contribution into durable provenance, trusted human verification and meaningful progression without making Beats a gameable currency.",
-      "health": "blue",
-      "deliveryState": "planned",
+      "health": "amber",
+      "deliveryState": "building",
       "targetState": true,
       "repos": [
         "app",
