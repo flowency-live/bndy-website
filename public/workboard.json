@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T15:22:13Z",
-  "updatedBy": "Product Owner: expand Ask bndy into voice-first MCP-powered discovery",
+  "updatedAt": "2026-09-01T15:31:20Z",
+  "updatedBy": "Product Owner: clarify live foundation for Artist booking requests",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -152,8 +152,8 @@
       "id": "artist-booking-requests",
       "rank": 4,
       "laneId": "core-discovery",
-      "title": "Date-aware Artist booking requests",
-      "detail": "Later, let a person choose an available or unlisted date on an Artist profile and send a private booking request through BNDY. BNDY should deliver it to the claimed Artist, provide in-app and explicitly opted-in notifications, and keep request status and replies inside the account experience. Decide consent, spam controls, privacy, response flow and any WhatsApp, email or text fallback before delivery. Do not expand the current availability-calendar work into messaging now. This is dependent on claimed Artist adoption and reliable notifications."
+      "title": "Complete in-bndy Artist booking requests",
+      "detail": "Build on the live Artist availability and date-aware contact foundation, which already lets a person select an available or unlisted date and open a prepared WhatsApp, SMS or telephone enquiry. Complete the journey by storing a private booking request inside BNDY, delivering it to the claimed Artist account, providing in-app and explicitly opted-in notifications, and supporting reply, accept, decline and request status. Define claimant authority, consent, spam and rate controls, privacy, retention and any external-channel fallback before delivery. Keep open social messaging out of scope and do not duplicate the existing availability calendar or direct contact actions."
     },
     {
       "id": "replace-static-aws-root-credentials",
