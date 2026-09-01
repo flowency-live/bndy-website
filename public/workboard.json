@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T14:44:25Z",
-  "updatedBy": "Product Owner: mark API security baseline live with remaining hardening planned",
+  "updatedAt": "2026-09-01T14:47:20Z",
+  "updatedBy": "Product Owner: mark workboard focus controls complete",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1686,14 +1686,13 @@
         {
           "title": "Workboard v1 live",
           "detail": "The JSON-backed operating board is deployed on www.bndy.co.uk/workboard."
-        }
-      ],
-      "now": [
+        },
         {
           "title": "Workboard focus controls",
-          "detail": "Add collapsible swimlanes, independent column collapse, NOW-only focus and explicit target-state stamps."
+          "detail": "The live workboard supports collapsible swimlanes, expand/collapse all, SOLO lane view, independent NOW/NEXT/DONE column collapse, a NOW-across-all focus mode and explicit target-state stamps. View preferences persist locally."
         }
       ],
+      "now": [],
       "next": [
         {
           "title": "Use workboard as the agent coordination surface",
