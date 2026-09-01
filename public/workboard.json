@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T15:56:35Z",
-  "updatedBy": "Product Owner: start Ask bndy grounded discovery delivery",
+  "updatedAt": "2026-09-01T16:48:10Z",
+  "updatedBy": "Product Owner: record bounded Ask bndy MCP progress only",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -367,12 +367,19 @@
         {
           "title": "Product UX is separated from evidence architecture",
           "detail": "The UI can stay simple while the backend moves from direct creation to claims/projection."
+        },
+        {
+          "title": "Ask bndy canonical MCP discovery foundation",
+          "detail": "The first bounded foundation is merged in bndy-MCP: discover_events provides read-only canonical BNDY gig discovery across date, text, city, recorded ticketed/free state, open-mic and radius filters. It returns canonical IDs and BNDY URLs with explicit grounding metadata, excludes cancellations and has no mutation path. TypeScript build and all 43 tests passed. This completes only the MCP discovery tool, not the Ask bndy voice or conversational product.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-MCP/pull/9"
+          ]
         }
       ],
       "now": [
         {
           "title": "Ask bndy voice-first grounded discovery",
-          "detail": "Active delivery has started. The first merged slice adds a bounded read-only discover_events capability to bndy-MCP, grounded exclusively in canonical BNDY public events with date, text, city, admission, open-mic and radius filters, canonical event URLs, explicit grounding metadata and no mutation path. Next delivery must add the server-side conversational/voice orchestration and make the existing Map and List react to visible filters; it must not expose the administrative MCP mutation surface or create a standalone chatbot window.",
+          "detail": "The canonical read-only MCP discovery foundation is complete and recorded in DONE. The wider voice-first conversational product remains unfinished. No realtime voice, conversational orchestration or bndy-app UI slice is authorised or under implementation at this checkpoint.",
           "evidence": [
             "https://github.com/flowency-live/bndy-MCP/pull/9"
           ]
