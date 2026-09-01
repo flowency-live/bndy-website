@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T07:51:38Z",
-  "updatedBy": "Product Owner: move estate-wide analytics coverage to low-priority backlog",
+  "updatedAt": "2026-09-01T08:45:00Z",
+  "updatedBy": "Add server-side artist browse to low-priority backlog",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -289,6 +289,16 @@
       "laneId": "analytics",
       "title": "Estate-wide product analytics coverage",
       "detail": "Extend privacy-friendly product analytics across every public browser surface, including www.bndy.co.uk and chat.bndy.live, and maintain one explicit coverage matrix for visits, submissions, successful additions, searches, shares, map interactions and PWA installs. Use aggregate, purpose-limited measurement without user profiling or fingerprinting. Audit cookies, local storage, pixels, SDKs and third-party embeds across the estate: Cloudflare Web Analytics may remain banner-free where it is confirmed cookieless, while any future non-essential storage or tracking must be blocked until valid consent under PECR and UK GDPR. Document essential authentication and security storage, retention and provider behaviour in the public privacy/cookie notice."
+    },
+    {
+      "id": "server-side-artist-browse",
+      "rank": 22,
+      "laneId": "core-discovery",
+      "title": "Server-side Artist browse API",
+      "detail": "The discover-lambda provides a server-side /api/artists/browse endpoint with faceted search, pagination, and an S3-backed search index rebuilt every 15 minutes. The current bndy-app uses client-side filtering over the full artist list, which works well at current scale. When the dataset grows significantly or SSR becomes important, switch the app to use the server-side browse endpoint. The endpoint returns card-format responses; switching requires mapping the response shape and adjusting facet counting to use server-provided facets instead of client-computed counts. Keep client-side filtering as the default until the dataset justifies the latency trade-off of server round-trips per filter change.",
+      "evidence": [
+        "https://github.com/flowency-live/bndy-serverless-api/tree/main/discover-lambda"
+      ]
     }
   ],
   "lanes": [
