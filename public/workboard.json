@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T12:37:52Z",
-  "updatedBy": "Product Owner: add adversarial security and abuse-resistance lane",
+  "updatedAt": "2026-09-01T14:32:31Z",
+  "updatedBy": "Product Owner: begin adversarial attack-surface and threat-model audit",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1632,7 +1632,7 @@
       "title": "Adversarial security & abuse resistance",
       "objective": "Prove that BNDY can withstand deliberate attack, automation abuse and hostile content without exposing canonical data, private information, infrastructure control or unbounded cost.",
       "health": "amber",
-      "deliveryState": "planned",
+      "deliveryState": "building",
       "targetState": true,
       "repos": [
         "app",
@@ -1644,12 +1644,13 @@
         "backstage"
       ],
       "done": [],
-      "now": [],
-      "next": [
+      "now": [
         {
           "title": "Whole-estate attack-surface and threat-model audit",
           "detail": "Inventory every public host, API route, webhook, authentication and Claim journey, upload/parser path, queue, data store, third-party integration, administrative surface and infrastructure control. Model unauthenticated attackers, malicious accounts, compromised Curators, bots and denial-of-wallet attacks. Include OWASP web and API risks, IDOR/BOLA, privilege escalation, injection, SSRF, secret exposure and unsafe defaults."
-        },
+        }
+      ],
+      "next": [
         {
           "title": "Adversarial abuse and content-integrity testing",
           "detail": "Test automated fake-gig and duplicate submission floods, identity poisoning, malicious links and files, parser bombs, oversized payloads, replayed webhooks, enumeration, scraping and attempts to bypass review or write directly to canonical records. Prove rate limits, idempotency, quarantine, evidence lineage, moderation controls and account or source suspension."
