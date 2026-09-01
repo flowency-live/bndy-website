@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T08:45:00Z",
-  "updatedBy": "Add server-side artist browse to low-priority backlog",
+  "updatedAt": "2026-09-01T12:37:52Z",
+  "updatedBy": "Product Owner: add adversarial security and abuse-resistance lane",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -12,7 +12,8 @@
     "All new ingestion paths should converge on Capture + Enrichment rather than inventing another write path.",
     "The target state is evidence -> claims -> projection -> canonical BNDY, not source -> direct database write.",
     "BNDY Backline is the durable intelligence substrate: immutable evidence plus observations and atomised claims feed policy and projection; the graph is a derived view, not the authority.",
-    "Healthy source delivery requires both ingestion health and evidence-backed enrichment health; blank or explicitly unknown is safer than an invented classification or a wrong identity link."
+    "Healthy source delivery requires both ingestion health and evidence-backed enrichment health; blank or explicitly unknown is safer than an invented classification or a wrong identity link.",
+    "Every new mutation route must have an explicit trust-zone classification and fail closed until it is classified."
   ],
   "activityRepos": [
     "flowency-live/bndy-app",
@@ -1607,10 +1608,6 @@
       ],
       "now": [
         {
-          "title": "Keep security policy aligned with new curator and edition routes",
-          "detail": "Every new mutation route should have an explicit trust-zone decision rather than inheriting access accidentally."
-        },
-        {
           "title": "Deploy the bounded SourceRuns summary update",
           "detail": "PR #70 removes the interactive full-ledger aggregation that caused 30-second SourceRuns timeouts, and Backstage PR #16 presents exact recent-run metrics while leaving the task ledger separately paginated. Both changes are merged and CI-passed. Production still needs a one-function surgical SourceRunsFunc code update, authenticated smoke test and CloudWatch timeout check.",
           "evidence": [
@@ -1627,6 +1624,43 @@
         {
           "title": "Finish SDK/dependency hardening",
           "detail": "Plan remaining AWS SDK v2/transitive dependency migration without destabilising the production API."
+        }
+      ]
+    },
+    {
+      "id": "adversarial-security",
+      "title": "Adversarial security & abuse resistance",
+      "objective": "Prove that BNDY can withstand deliberate attack, automation abuse and hostile content without exposing canonical data, private information, infrastructure control or unbounded cost.",
+      "health": "amber",
+      "deliveryState": "planned",
+      "targetState": true,
+      "repos": [
+        "app",
+        "api",
+        "website",
+        "chatzone",
+        "capture",
+        "enrichment",
+        "backstage"
+      ],
+      "done": [],
+      "now": [],
+      "next": [
+        {
+          "title": "Whole-estate attack-surface and threat-model audit",
+          "detail": "Inventory every public host, API route, webhook, authentication and Claim journey, upload/parser path, queue, data store, third-party integration, administrative surface and infrastructure control. Model unauthenticated attackers, malicious accounts, compromised Curators, bots and denial-of-wallet attacks. Include OWASP web and API risks, IDOR/BOLA, privilege escalation, injection, SSRF, secret exposure and unsafe defaults."
+        },
+        {
+          "title": "Adversarial abuse and content-integrity testing",
+          "detail": "Test automated fake-gig and duplicate submission floods, identity poisoning, malicious links and files, parser bombs, oversized payloads, replayed webhooks, enumeration, scraping and attempts to bypass review or write directly to canonical records. Prove rate limits, idempotency, quarantine, evidence lineage, moderation controls and account or source suspension."
+        },
+        {
+          "title": "DDoS, cost-exhaustion and containment controls",
+          "detail": "Review Cloudflare, API Gateway, Cognito, Lambda, SQS, DynamoDB and third-party provider protections. Establish appropriate WAF and bot rules, per-route throttles, concurrency and payload limits, budgets and anomaly alarms, queue back-pressure, emergency kill switches and a tested incident runbook."
+        },
+        {
+          "title": "Controlled penetration test and closure evidence",
+          "detail": "Run destructive techniques only in an isolated environment unless a separately authorised production-safe test window exists. Record findings by severity, owner and remediation deadline, retest every critical and high issue, and require evidence-backed closure before declaring the public estate launch-ready."
         }
       ]
     },
