@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T15:14:14Z",
-  "updatedBy": "Product Owner: reject Scene view and add optional deterministic gig artwork",
+  "updatedAt": "2026-09-01T15:22:13Z",
+  "updatedBy": "Product Owner: expand Ask bndy into voice-first MCP-powered discovery",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -131,8 +131,8 @@
       "id": "ask-bndy",
       "rank": 1,
       "laneId": "core-discovery",
-      "title": "Ask bndy natural-language discovery",
-      "detail": "Add a highly polished natural-language layer to the existing discovery search. It converts intent into visible, editable deterministic filters and returns only canonical BNDY gigs through the existing Map and List experiences. It must not present as a chat interface or chatbot persona, and it must never invent gigs or unsupported attributes. Delivery depends on sufficiently rich and reliable genre, act-type, admission, date and location data. Ship only when the interaction is fast, slick and materially better than using the filters directly, never as an AI novelty."
+      "title": "Ask bndy: voice-first, MCP-powered live music discovery",
+      "detail": "Create BNDY's consumer-facing conversational discovery experience across voice and text. A person can speak or type a natural request, then refine it naturally across turns; Ask bndy uses safe structured BNDY MCP capabilities to retrieve canonical Artists, Venues, Events and Festivals, augmented only by approved evidence-backed Backline intelligence. The existing Map, List and entity pages remain the primary interface and react to the conversation with visible, editable filters and grounded results. Support natural spoken and on-screen responses, contextual follow-ups, save, share and directions journeys. It must never become a generic chatbot window, invent gigs, hide the basis of a result or expose unapproved internal Backline evidence. Delivery depends on reliable discovery data, clear MCP read contracts, low-latency voice interaction and explicit confidence and no-result behaviour."
     },
     {
       "id": "recurring-grassroots-sessions",
