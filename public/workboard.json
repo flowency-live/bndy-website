@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T14:36:47Z",
-  "updatedBy": "Product Owner: mark bounded SourceRuns visibility deployed",
+  "updatedAt": "2026-09-01T14:44:25Z",
+  "updatedBy": "Product Owner: mark API security baseline live with remaining hardening planned",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1563,7 +1563,7 @@
       "title": "API security & platform hardening",
       "objective": "Keep the canonical backend auditable, least-privilege and safe for humans, public apps and agent integrations.",
       "health": "amber",
-      "deliveryState": "building",
+      "deliveryState": "live",
       "targetState": false,
       "repos": [
         "api"
