@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T14:55:09Z",
-  "updatedBy": "Product Owner: align Rhythm status with active discovery",
+  "updatedAt": "2026-09-01T15:14:14Z",
+  "updatedBy": "Product Owner: reject Scene view and add optional deterministic gig artwork",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -128,43 +128,36 @@
   ],
   "backlog": [
     {
-      "id": "scene-view",
-      "rank": 1,
-      "laneId": "core-discovery",
-      "title": "Poster-led Scene view for local discovery",
-      "detail": "Add a future third public discovery mode alongside Map and List. Scene is a finite, location- and date-bounded visual view of canonical gigs, led by authentic posters where available and deterministic BNDY event cards otherwise. It is not a general user-post, comment or infinite-scroll social feed. Delivery is approved but deliberately unscheduled."
-    },
-    {
       "id": "ask-bndy",
-      "rank": 2,
+      "rank": 1,
       "laneId": "core-discovery",
       "title": "Ask bndy natural-language discovery",
       "detail": "Add a highly polished natural-language layer to the existing discovery search. It converts intent into visible, editable deterministic filters and returns only canonical BNDY gigs through the existing Map and List experiences. It must not present as a chat interface or chatbot persona, and it must never invent gigs or unsupported attributes. Delivery depends on sufficiently rich and reliable genre, act-type, admission, date and location data. Ship only when the interaction is fast, slick and materially better than using the filters directly, never as an AI novelty."
     },
     {
       "id": "recurring-grassroots-sessions",
-      "rank": 3,
+      "rank": 2,
       "laneId": "core-discovery",
       "title": "Recurring grassroots sessions",
       "detail": "Make venue-hosted open mics, jam nights and folk sessions first-class recurring discovery objects rather than copying dozens of dated gigs. Store one canonical series with Venue, recurrence, optional host Artist, session type, admission, participation details and source provenance; expand only a bounded future window for public discovery. Support excluded dates and occurrence-specific cancellation, time or host overrides. Give sessions clear filters and presentation so they do not masquerade as ordinary gigs. Complete recurrence support through canonical public reads and creation, then ingest and re-verify suitable sources through Backline. Every series must carry lastVerifiedAt and a freshness/expiry policy so an abandoned weekly listing never repeats indefinitely."
     },
     {
       "id": "curator-activity-audit",
-      "rank": 4,
+      "rank": 3,
       "laneId": "curators",
       "title": "Curator activity audit and accountable editing",
       "detail": "Keep trusted Curators productive in bndy-app while making every meaningful mutation reviewable. Curators may directly edit safe whitelisted Artist, Venue, Festival and Event fields within their assigned access; identity and linkage fields remain protected, and hide or cancel actions require a reason. Complete the existing bndy-activity-log foundation into a reliable immutable mutation trail covering create, edit, hide, restore, cancel, role, access and ownership actions with actor, role, entity, timestamp, changed fields, reason and request correlation, excluding secrets and unnecessary private data. Add one bounded Godmode review screen with pagination, drill-through and filters for Curator, action/activity type, entity type, entity and date. Prove coverage across mutation routes and alert on audit-write failure; do not turn this into indiscriminate read or HTTP request logging."
     },
     {
       "id": "artist-booking-requests",
-      "rank": 5,
+      "rank": 4,
       "laneId": "core-discovery",
       "title": "Date-aware Artist booking requests",
       "detail": "Later, let a person choose an available or unlisted date on an Artist profile and send a private booking request through BNDY. BNDY should deliver it to the claimed Artist, provide in-app and explicitly opted-in notifications, and keep request status and replies inside the account experience. Decide consent, spam controls, privacy, response flow and any WhatsApp, email or text fallback before delivery. Do not expand the current availability-calendar work into messaging now. This is dependent on claimed Artist adoption and reliable notifications."
     },
     {
       "id": "replace-static-aws-root-credentials",
-      "rank": 6,
+      "rank": 5,
       "laneId": "api-security",
       "title": "Replace static AWS root credentials with scoped OIDC roles",
       "detail": "Audit every remaining GitHub Actions reference to static AWS access-key secrets and establish which paths still resolve to the root credentials identified during recovery. Move legitimate deployment and diagnostic paths to least-privilege GitHub OIDC roles, then revoke the root access keys and verify closure through IAM and CloudTrail last-used evidence. Map dependencies before revocation to avoid an accidental outage. This is a separate platform-security task and does not block normal Backline, Claims or product backlog development.",
@@ -175,49 +168,49 @@
     },
     {
       "id": "discovery-image-capture-claim-confirmation",
-      "rank": 7,
+      "rank": 6,
       "laneId": "join-bndy",
       "title": "Discovery image capture and Claim confirmation",
       "detail": "Keep useful discovery-sourced Artist and Venue images visible before Claim while removing the live runtime dependency on Meta. Prefer Facebook where available; when no Facebook image exists but an Instagram URL does, make one bounded attempt to resolve normally accessible public profile metadata without login bypass, aggressive scraping or repeated retries. Download permitted results into BNDY-controlled S3 storage and retain platform, original URL, capture time, image hash and evidence lineage with status discovery_unconfirmed. During Claim, show the current image and require the claimant to confirm continued use, upload a replacement or remove it. Owner-supplied images have highest authority. Support immediate takedown and never discard the original provenance URL."
     },
     {
       "id": "social-identity-instagram",
-      "rank": 8,
+      "rank": 7,
       "laneId": "intelligence",
       "title": "Instagram as first-class Artist identity evidence",
       "detail": "Normalise and retain Instagram handles as strong Artist identity evidence without making them unconditional canonical uniqueness keys. Store source, observed date and handle history. An exact handle may resolve automatically only when the Artist name is compatible with no location conflict, the account is verified through the Claim journey, or independent official evidence corroborates the identity; otherwise route to review. Backfill existing Instagram URLs through a dry-run and controlled evidence path first. Recycled, personal or shared handles must never bypass ADR-014 location safeguards or the zero-wrong-artist-link rule."
     },
     {
       "id": "artist-performance-variants",
-      "rank": 9,
+      "rank": 8,
       "laneId": "intelligence",
       "title": "Artist performance variants and duplicate consolidation",
       "detail": "Represent recurring billing formats such as Full Band, Acoustic Duo and Party Band beneath one canonical Artist without collapsing genuinely separate acts. Add owned performance variants with stable IDs, and store both performanceVariantId and an immutable billed-name snapshot on each Event so public listings retain what was actually advertised while the canonical Artist profile aggregates all appearances. Search and Backline resolution may use supported name variants, location and identity evidence, but ambiguous side-projects or unrelated similarly named acts must route to review. Audit duplicate Artist records that are really performance variants, merge only with evidence, reassign Events safely and preserve aliases, provenance and redirects. This completes the partial ADR-023/name-variant foundation rather than introducing a competing Artist identity model."
     },
     {
       "id": "canonical-artist-lifecycle",
-      "rank": 10,
+      "rank": 9,
       "laneId": "intelligence",
       "title": "Canonical Artist lifecycle and discovery visibility",
       "detail": "Keep evidence-backed Artist identities canonical even when they have no upcoming gigs, while separating canonical existence from default public discovery. Classify Artists as active, historical, dormant or retired/duplicate/invalid. Active Artists have an upcoming public gig or a claimed published profile and appear normally; historical Artists retain their profile and past-event history but are excluded from default active browsing; dormant unclaimed Artists remain stable Claim, matching, deduplication and Backline-monitoring targets but are suppressed from normal discovery. A legitimate future Event or approved Claim reactivates a dormant Artist automatically. Merge or hide only evidence-backed duplicates, invalid identities and retired records, preserving provenance, redirects and audit history. Apply the existing gigging-only API capability consistently across bndy-app discovery surfaces instead of deleting useful canonical records."
     },
     {
       "id": "favourite-feed",
-      "rank": 11,
+      "rank": 10,
       "laneId": "core-discovery",
       "title": "Favourite feed",
       "detail": "Give signed-in people a personal activity feed covering the Artists and Venues they have favourited, including useful changes such as a newly added gig. Build this from canonical entity and event activity rather than introducing user posts, comments or a general social feed. Define the supported activity types, ordering, deduplication, read state and notification boundaries before delivery."
     },
     {
       "id": "festival-pre-event-monitoring",
-      "rank": 12,
+      "rank": 11,
       "laneId": "festivals",
       "title": "Adaptive Festival programme monitoring",
       "detail": "Add Festival-aware monitoring to Backline BAU so canonical programmes stay current as organisers change line-ups, stages, venues, dates, times and cancellations in the weeks before and during a Festival. Register each authoritative Festival and Venue programme source, capture immutable snapshots, increase checking cadence as the start date approaches, and emit only evidence-backed deltas into normal Claims and projection policy. Treat late additions and explicit cancellations as urgent; never infer cancellation solely because an item disappears from an incomplete or rolling listing. Record source freshness, last meaningful change and unresolved conflicts in Godmode, then taper and close monitoring after the Festival ends."
     },
     {
       "id": "fizgig-backline-onboarding",
-      "rank": 13,
+      "rank": 12,
       "laneId": "source-automation",
       "title": "Fizgig Backline source onboarding",
       "detail": "Fizgig's Lincolnshire and East Midlands gig data has already been ingested into canonical BNDY. First recover and record the import lineage, hydrate the corresponding canonical Artists, Venues and Events into Backline without recreating them, then capture a current source snapshot and resolve its source identities against that baseline. After fixture and snapshot-semantics checks, introduce one shadow BAU acquisition path for additions, changes and explicit removals, with ambiguity parked and canonical projection disabled until separately approved.",
@@ -227,7 +220,7 @@
     },
     {
       "id": "livebandphotos-backline-onboarding",
-      "rank": 14,
+      "rank": 13,
       "laneId": "source-automation",
       "title": "Live Band Photos Backline source onboarding",
       "detail": "Live Band Photos data has already been ingested into canonical BNDY. Recover the canonical import lineage and hydrate those records into Backline first, then reconcile them against immutable evidence from the current gig listing, county Venue indexes and band directory. Delivery remains fixture-gated until query-string detail pages and complete-versus-rolling snapshot behaviour are proven. The provisional shadow BAU shape is a daily gig listing, weekly county and band indexes and monthly reconciliation, with no duplicate canonical creation, no inferred cancellation from an incomplete window and no canonical projection without separate approval.",
@@ -237,14 +230,14 @@
     },
     {
       "id": "venue-website-monitoring-workers",
-      "rank": 15,
+      "rank": 14,
       "laneId": "venue-workers",
       "title": "Venue website monitoring workers",
       "detail": "Establish a Backline source family for known canonical Venues whose own websites publish reliable gig listings. Maintain a reviewed registry containing canonical Venue ID, authoritative listing URL, acquisition strategy, cadence, freshness and last successful scan. Capture immutable snapshots, resolve listings to the registered Venue, and emit only evidence-backed new or changed Event Claims through the normal Backline policy and projection path. Never infer cancellation solely because an item disappears unless the source semantics prove a complete programme or explicit cancellation. Track failures, meaningful deltas and useful discoveries in Godmode. Begin after the core Backline control plane and current named-source relaunch gates are healthy."
     },
     {
       "id": "facebook-page-event-sharing",
-      "rank": 16,
+      "rank": 15,
       "laneId": "meta-facebook",
       "title": "BNDY Facebook Page and event sharing",
       "detail": "Build the public BNDY Facebook Page into a credible front door for the product: complete branding, username, About copy, verified bndy.live and chat.bndy.live links, appropriate Page roles and security, action button, Messenger greeting, pinned Send to bndy explainer, initial content plan, moderation rules and basic Page-to-BNDY analytics. Make canonical BNDY Event pages share cleanly out to Facebook using strong Open Graph metadata, the normal web/native share journey and an optional Facebook Share Dialog; sharing publishes the BNDY link and never grants BNDY permission to post on a person’s behalf. For inbound contribution, let people send a Facebook Event URL, BNDY link, poster, screenshot or text to the BNDY Page through Messenger, verify the webhook, route it into Capture with idempotency and provenance, and return bounded acknowledgement and final outcomes. Do not describe the Meta developer app as a user-facing destination, and do not ingest visitor posts, comments or mentions until permissions, moderation, privacy and review requirements justify a later controlled extension.",
@@ -258,7 +251,7 @@
     },
     {
       "id": "festival-add-claim-management",
-      "rank": 17,
+      "rank": 16,
       "laneId": "festivals",
       "title": "Festival Add, Claim and management parity",
       "detail": "Extend the normal BNDY account and relationship model to Festivals. People should be able to find and claim an existing Festival page, safely add a genuinely new Festival, manage more than one Artist, Venue or Festival from the same account, invite legitimate collaborators and relinquish or transfer control without deleting the public record. Reuse the evidence-led Claim, conflict protection and review model rather than creating Festival-specific authentication or ownership shortcuts."
@@ -268,32 +261,32 @@
       "laneId": "rhythm",
       "title": "BNDY Builder applications and Curator approval",
       "detail": "Later, when the contributor community is large enough to need it, let people apply or be nominated as BNDY Builders and give platform administrators a simple approve, reject and access-scope journey. BNDY Builder is the user-facing contributor identity; Curator remains the trusted permission role. Rhythm history and verified contributions may inform a decision but must never grant write authority automatically. Reuse the existing Curator role, own-only, postcode and trusted/global access controls rather than creating another permission model.",
-      "rank": 18
+      "rank": 17
     },
     {
       "id": "builder-contribution-analytics",
       "laneId": "rhythm",
       "title": "BNDY Builder contribution analytics",
       "detail": "Later, provide useful contribution metrics for BNDY Builders and Curators, such as accepted gigs added, meaningful corrections, source freshness work, duplicate prevention and sustained local coverage. Metrics must reward verified quality rather than raw volume, expose enough evidence for accountability, resist gaming and feed Rhythm only after the scoring policy is agreed. Edition visits, embed views and click analytics remain part of Editions/traffic analytics and are not duplicated here.",
-      "rank": 19
+      "rank": 18
     },
     {
       "id": "multi-artist-event-indexing",
-      "rank": 20,
+      "rank": 19,
       "laneId": "core-discovery",
       "title": "Multi-Artist event indexing and complete Artist gig history",
       "detail": "Low priority. Make every canonical Event discoverable from every participating Artist, not only its primary artist_id. Define and retain each Artist's billing role, maintain a reverse Artist-to-Event edge or equivalent queryable index across Event create, edit and delete, and backfill existing multi-Artist Events safely. Artist profiles, event counts, deletion guards and historical views must include headline, support and collaborating appearances without full-table scans. Select the smallest reliable DynamoDB implementation after measuring current access patterns; a separate join table is an option, not a pre-decided product requirement."
     },
     {
       "id": "estate-wide-product-analytics",
-      "rank": 21,
+      "rank": 20,
       "laneId": "analytics",
       "title": "Estate-wide product analytics coverage",
       "detail": "Extend privacy-friendly product analytics across every public browser surface, including www.bndy.co.uk and chat.bndy.live, and maintain one explicit coverage matrix for visits, submissions, successful additions, searches, shares, map interactions and PWA installs. Use aggregate, purpose-limited measurement without user profiling or fingerprinting. Audit cookies, local storage, pixels, SDKs and third-party embeds across the estate: Cloudflare Web Analytics may remain banner-free where it is confirmed cookieless, while any future non-essential storage or tracking must be blocked until valid consent under PECR and UK GDPR. Document essential authentication and security storage, retention and provider behaviour in the public privacy/cookie notice."
     },
     {
       "id": "server-side-artist-browse",
-      "rank": 22,
+      "rank": 21,
       "laneId": "core-discovery",
       "title": "Server-side Artist browse API",
       "detail": "The discover-lambda provides a server-side /api/artists/browse endpoint with faceted search, pagination, and an S3-backed search index rebuilt every 15 minutes. The current bndy-app uses client-side filtering over the full artist list, which works well at current scale. When the dataset grows significantly or SSR becomes important, switch the app to use the server-side browse endpoint. The endpoint returns card-format responses; switching requires mapping the response shape and adjusting facet counting to use server-provided facets instead of client-computed counts. Keep client-side filtering as the default until the dataset justifies the latency trade-off of server round-trips per filter change.",
@@ -303,10 +296,17 @@
     },
     {
       "id": "repository-ownership-legacy-cleanup",
-      "rank": 23,
+      "rank": 22,
       "laneId": "repo-consolidation",
       "title": "Repository ownership and legacy cleanup",
       "detail": "Low priority. Confirm the live dependency and deployment status of every plausible-looking BNDY repository, then assign each capability exactly one primary repository and one canonical backend path. Publish a concise ownership map. Archive obsolete repositories where safe, or add unmistakable legacy and do-not-use README banners where archival must wait. Preserve any useful history and do not disturb current bndy-app, API, Capture, Backline, Claims or deployment work."
+    },
+    {
+      "id": "deterministic-gig-artwork-creator",
+      "rank": 23,
+      "laneId": "core-discovery",
+      "title": "Optional BNDY gig artwork creator",
+      "detail": "Low priority. Let a claimed Artist, Venue or authorised Curator create tasteful shareable promotional artwork from a canonical BNDY Event without making posters mandatory for discovery. Populate date, time, billing, Venue and BNDY link directly from canonical data, then combine approved BNDY layouts with owner-supplied Artist, Venue or event imagery. Provide accessible aspect-ratio variants for social sharing and download. Do not generate fake bands, crowds or generic AI gig imagery, and do not turn generated artwork into a requirement for Map, List or Event visibility."
     }
   ],
   "lanes": [
