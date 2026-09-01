@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-08-31T23:32:55Z",
-  "updatedBy": "Product Owner: add BNDY Facebook Page and event sharing",
+  "updatedAt": "2026-09-01T07:51:38Z",
+  "updatedBy": "Product Owner: move estate-wide analytics coverage to low-priority backlog",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -282,6 +282,13 @@
       "laneId": "core-discovery",
       "title": "Multi-Artist event indexing and complete Artist gig history",
       "detail": "Low priority. Make every canonical Event discoverable from every participating Artist, not only its primary artist_id. Define and retain each Artist's billing role, maintain a reverse Artist-to-Event edge or equivalent queryable index across Event create, edit and delete, and backfill existing multi-Artist Events safely. Artist profiles, event counts, deletion guards and historical views must include headline, support and collaborating appearances without full-table scans. Select the smallest reliable DynamoDB implementation after measuring current access patterns; a separate join table is an option, not a pre-decided product requirement."
+    },
+    {
+      "id": "estate-wide-product-analytics",
+      "rank": 21,
+      "laneId": "analytics",
+      "title": "Estate-wide product analytics coverage",
+      "detail": "Extend privacy-friendly product analytics across every public browser surface, including www.bndy.co.uk and chat.bndy.live, and maintain one explicit coverage matrix for visits, submissions, successful additions, searches, shares, map interactions and PWA installs. Use aggregate, purpose-limited measurement without user profiling or fingerprinting. Audit cookies, local storage, pixels, SDKs and third-party embeds across the estate: Cloudflare Web Analytics may remain banner-free where it is confirmed cookieless, while any future non-essential storage or tracking must be blocked until valid consent under PECR and UK GDPR. Document essential authentication and security storage, retention and provider behaviour in the public privacy/cookie notice."
     }
   ],
   "lanes": [
@@ -1448,7 +1455,7 @@
       "title": "Analytics & traffic",
       "objective": "Understand usage across every BNDY surface without adding unnecessary cost or complexity.",
       "health": "green",
-      "deliveryState": "building",
+      "deliveryState": "live",
       "targetState": false,
       "repos": [
         "app",
@@ -1466,18 +1473,8 @@
           "detail": "Backstage has a Cloudflare traffic dashboard/client."
         }
       ],
-      "now": [
-        {
-          "title": "Coverage is not yet estate-wide",
-          "detail": "www.bndy.co.uk, chat.bndy.live and other browser surfaces need an explicit analytics coverage check."
-        }
-      ],
-      "next": [
-        {
-          "title": "One analytics coverage matrix",
-          "detail": "Track visits, submissions, successful additions, searches, map interactions and PWA installs across all public surfaces."
-        }
-      ]
+      "now": [],
+      "next": []
     },
     {
       "id": "editions-brass",
