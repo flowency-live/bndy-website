@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T14:32:31Z",
-  "updatedBy": "Product Owner: begin adversarial attack-surface and threat-model audit",
+  "updatedAt": "2026-09-01T14:36:47Z",
+  "updatedBy": "Product Owner: mark bounded SourceRuns visibility deployed",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1604,18 +1604,17 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-serverless-api/pull/69"
           ]
-        }
-      ],
-      "now": [
+        },
         {
-          "title": "Deploy the bounded SourceRuns summary update",
-          "detail": "PR #70 removes the interactive full-ledger aggregation that caused 30-second SourceRuns timeouts, and Backstage PR #16 presents exact recent-run metrics while leaving the task ledger separately paginated. Both changes are merged and CI-passed. Production still needs a one-function surgical SourceRunsFunc code update, authenticated smoke test and CloudWatch timeout check.",
+          "title": "Bounded SourceRuns summary and Godmode visibility deployed",
+          "detail": "The bounded SourceRuns Lambda summary and corresponding Godmode visibility are deployed in production. Recent-run metrics remain exact and bounded, while the task ledger is separately paginated. Deployment was verified through the SourceRuns Lambda release and successful Backstage Amplify build.",
           "evidence": [
             "https://github.com/flowency-live/bndy-serverless-api/pull/70",
             "https://github.com/flowency-live/bndy-backstage/pull/16"
           ]
         }
       ],
+      "now": [],
       "next": [
         {
           "title": "Explicit public route allowlist",
