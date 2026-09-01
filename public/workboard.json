@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-01T14:47:20Z",
-  "updatedBy": "Product Owner: mark workboard focus controls complete",
+  "updatedAt": "2026-09-01T14:49:16Z",
+  "updatedBy": "Product Owner: move repository consolidation to low-priority backlog",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -300,6 +300,13 @@
       "evidence": [
         "https://github.com/flowency-live/bndy-serverless-api/tree/main/discover-lambda"
       ]
+    },
+    {
+      "id": "repository-ownership-legacy-cleanup",
+      "rank": 23,
+      "laneId": "repo-consolidation",
+      "title": "Repository ownership and legacy cleanup",
+      "detail": "Low priority. Confirm the live dependency and deployment status of every plausible-looking BNDY repository, then assign each capability exactly one primary repository and one canonical backend path. Publish a concise ownership map. Archive obsolete repositories where safe, or add unmistakable legacy and do-not-use README banners where archival must wait. Preserve any useful history and do not disturb current bndy-app, API, Capture, Backline, Claims or deployment work."
     }
   ],
   "lanes": [
@@ -1704,8 +1711,8 @@
       "id": "repo-consolidation",
       "title": "Repository consolidation",
       "objective": "Make it obvious which repositories are live, supporting, legacy or safe to ignore.",
-      "health": "amber",
-      "deliveryState": "building",
+      "health": "blue",
+      "deliveryState": "planned",
       "targetState": false,
       "repos": [
         "signals",
@@ -1725,22 +1732,8 @@
           "detail": "One major accidental duplicate runtime has been eliminated from the live public ingestion path."
         }
       ],
-      "now": [
-        {
-          "title": "Too many plausible-looking repositories remain",
-          "detail": "Older bndy.live/beta/centrestage/portal/api/infrastructure repos can still confuse humans and agents."
-        }
-      ],
-      "next": [
-        {
-          "title": "Archive or label legacy repos",
-          "detail": "Confirm live dependencies, then archive obsolete repos or add unmistakable README banners."
-        },
-        {
-          "title": "Define repo ownership map",
-          "detail": "Each capability should name exactly one primary repo and one canonical backend path."
-        }
-      ]
+      "now": [],
+      "next": []
     }
   ]
 }
