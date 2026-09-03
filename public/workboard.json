@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-03T21:53:45.242Z",
-  "updatedBy": "Backline Owner: record corrected SourceWorker deployment",
+  "updatedAt": "2026-09-03T22:08:32.048Z",
+  "updatedBy": "Backline Owner: close SourceWorker deployment verification",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1154,6 +1154,13 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
           ]
+        },
+        {
+          "title": "Corrected SourceWorker deployment verified",
+          "detail": "The corrected SourceWorker was deployed code-only from the reviewed OnTheCase repair merge. The built artefact matches the deployed code, Lambda configuration remained unchanged, no infrastructure deployment occurred, operational queues remained stable, both affected sources remained contained and canonical projection remained off.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
+          ]
         }
       ],
       "now": [
@@ -1186,12 +1193,16 @@
         {
           "title": "Canonical writes remain the destination, not the current mode",
           "detail": "After DLQ recovery and two clean shadow runs per selected source, Backline will generate a human-reviewed would-write cohort for a bounded additive-only canonical pilot. The global gate stays off until that separate approval."
+        },
+        {
+          "title": "GigsNews parity fixtures require maintenance",
+          "detail": "The deployment verification test run passed 396 tests, with two unrelated failures isolated to date-sensitive GigsNews parity fixtures and seven skips. OnTheCase adapter and projection coverage passed. Make the GigsNews fixture deterministic before declaring the whole repository green; it does not block the bounded OnTheCase replay."
         }
       ],
       "next": [
         {
-          "title": "Close SourceWorker deployment evidence",
-          "detail": "Before replay, retrieve the missing evidence not included in the deployment summary: npm test result, local ZIP base64 SHA-256 match, pre/post queue counts, CloudFormation status and unchanged last-updated timestamp, reserved concurrency, final source records, OnTheCase rule state and global projection state. This is read-only and must not invoke, redrive or re-enable a source.",
+          "title": "Run a bounded OnTheCase replay pilot",
+          "detail": "After explicit approval, transfer exactly 100 validated historical OnTheCase messages from the dead-letter queue back to processing at no more than one per second. Require repaired or already-complete location evidence for every candidate, retain shadow mode and stop on any validation failure, worker error or dead-letter rebound.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
           ]
@@ -1357,8 +1368,8 @@
       ],
       "next": [
         {
-          "title": "Close SourceWorker deployment evidence",
-          "detail": "Complete the missing read-only post-deployment proof before any DLQ replay: test result, artefact hash match, queue counts, stack timestamp, reserved concurrency and final containment/control state."
+          "title": "Run a bounded OnTheCase replay pilot",
+          "detail": "After explicit approval, replay exactly 100 individually validated OnTheCase dead-letter messages at no more than one per second in shadow. Stop on any unexpected source, missing repair coverage, validation failure, worker error or rebound."
         },
         {
           "title": "Complete classified DLQ recovery",
