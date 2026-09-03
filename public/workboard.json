@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-03T18:26:06.175Z",
-  "updatedBy": "Backline Owner: canonical convergence, DLQ repair and source containment checkpoint",
+  "updatedAt": "2026-09-03T19:30:25.502Z",
+  "updatedBy": "Backline Owner: record clean OnTheCase repair plan",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1139,6 +1139,10 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
+        },
+        {
+          "title": "OnTheCase historical repair plan passed",
+          "detail": "Read-only run onthecase-occurs-at-repair-plan-2026-09-03 inspected 210 Observations and 278 event candidates. All 278 are repairable from their retained event-address Claims; none require a venue-Claim fallback, none are unresolved and no errors occurred. ProjectionQueue remained empty and ProjectionDLQ remained stable at 10,909. No Claims were written."
         }
       ],
       "now": [
@@ -1147,8 +1151,8 @@
           "detail": "ProjectionDLQ is stable at 10,909 historical event-create messages. A 550-message composition sample found only lemonrock-gig-hydration (58.7%) and onthecase-gig-index (41.3%). Both producers are now disabled and shadow=true. OnTheCase's hourly EventBridge rule is disabled, SourceScanQueue is empty, and no new OnTheCase run, Observation, Claim or DLQ message appeared through the 19:00 UTC boundary on 3 Sep. Canonical writes remain disabled."
         },
         {
-          "title": "OnTheCase historical repair is the active step",
-          "detail": "Run the merged repair-onthecase-occurs-at CLI in read-only mode against production Backline. It must require onthecase-gig-index disabled, shadow=true and global canonical projection disabled. The next approval boundary is the exact evidence-backed repair count and unresolved set. Do not write Claims, deploy, redrive or re-enable either source during planning.",
+          "title": "OnTheCase historical repair plan is approved-ready",
+          "detail": "Read-only planning completed cleanly: 278 candidates inspected, 278 repairable from event-address Claims, zero unresolved and zero errors. Queues and safety controls did not move. The next hard gate is explicit approval to write no more than those 278 provenance-linked repair Claims under a new exact run ID. Do not deploy, redrive or re-enable either source during the write.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
@@ -1175,8 +1179,8 @@
       ],
       "next": [
         {
-          "title": "Plan and execute the OnTheCase historical repair",
-          "detail": "First run read-only and adjudicate counts. After separate bounded approval, write only provenance-linked venueLocation repair Claims. Keep both affected sources disabled, shadow=true and canonical writes off."
+          "title": "Write the bounded OnTheCase repair Claims",
+          "detail": "After explicit approval, write at most 278 provenance-linked venueLocation repair Claims under run onthecase-occurs-at-repair-write-2026-09-03-v1. Require both affected sources disabled and shadow=true, the OnTheCase EventBridge rule disabled, global canonical writes off and stable queues. Do not deploy or redrive in the same operation."
         },
         {
           "title": "Deploy the corrected SourceWorker code only",
@@ -1315,8 +1319,8 @@
           "detail": "8,306 evidence-backed venueLocation repair Claims were written to Backline; 17 cases remain unresolved rather than guessed. The corrected path has processed 352 historical Lemonrock messages successfully in shadow."
         },
         {
-          "title": "OnTheCase repair code merged, data repair not started",
-          "detail": "PR 140 is merged. Future parsing and the historical repair planner are code-ready, but SourceWorker has not been deployed and no OnTheCase repair Claims have been written.",
+          "title": "OnTheCase repair plan passed, write awaiting approval",
+          "detail": "The merged planner inspected 278 OnTheCase event candidates and found all 278 repairable directly from retained event-address Claims, with zero unresolved and zero errors. No repair Claims have yet been written and SourceWorker remains undeployed.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
@@ -1332,8 +1336,8 @@
       ],
       "next": [
         {
-          "title": "Run OnTheCase repair planning now",
-          "detail": "Execute only the read-only planner from merged main and return its manifest, exact candidate counts, evidence source split, unresolved samples, errors and queue/control snapshots."
+          "title": "Write the bounded OnTheCase repair Claims",
+          "detail": "After explicit approval, write no more than the 278 planned Claims using a unique write run ID. Keep OnTheCase and Lemonrock disabled, shadow=true and canonical projection off; do not redrive or deploy during this operation."
         },
         {
           "title": "Complete classified DLQ recovery",
