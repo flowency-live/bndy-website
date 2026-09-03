@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-03T22:08:32.048Z",
-  "updatedBy": "Backline Owner: close SourceWorker deployment verification",
+  "updatedAt": "2026-09-03T22:34:49.828Z",
+  "updatedBy": "Backline Owner: record safe replay checkpoint",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1161,6 +1161,10 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
           ]
+        },
+        {
+          "title": "Initial OnTheCase replay attempt stopped safely",
+          "detail": "The initial bounded replay stopped safely because historical recovery work from multiple sources shares the same queue. No messages were transferred or deleted and the contained system state was preserved."
         }
       ],
       "now": [
