@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-03T19:30:25.502Z",
-  "updatedBy": "Backline Owner: record clean OnTheCase repair plan",
+  "updatedAt": "2026-09-03T20:44:12.819Z",
+  "updatedBy": "Backline Owner: complete OnTheCase historical repair",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1143,6 +1143,10 @@
         {
           "title": "OnTheCase historical repair plan passed",
           "detail": "Read-only run onthecase-occurs-at-repair-plan-2026-09-03 inspected 210 Observations and 278 event candidates. All 278 are repairable from their retained event-address Claims; none require a venue-Claim fallback, none are unresolved and no errors occurred. ProjectionQueue remained empty and ProjectionDLQ remained stable at 10,909. No Claims were written."
+        },
+        {
+          "title": "OnTheCase historical Claims repaired",
+          "detail": "Approved write run onthecase-occurs-at-repair-write-2026-09-03-v1 completed in 37 seconds. It inspected 278 candidates and wrote exactly 278 provenance-linked venueLocation repair Claims from retained event-address evidence, with zero unresolved cases, zero errors and an independent count of 278. ProjectionQueue stayed empty, ProjectionDLQ stayed at 10,909, both affected sources remained disabled and shadowed, the OnTheCase rule remained disabled and canonical projection remained disabled."
         }
       ],
       "now": [
@@ -1151,8 +1155,8 @@
           "detail": "ProjectionDLQ is stable at 10,909 historical event-create messages. A 550-message composition sample found only lemonrock-gig-hydration (58.7%) and onthecase-gig-index (41.3%). Both producers are now disabled and shadow=true. OnTheCase's hourly EventBridge rule is disabled, SourceScanQueue is empty, and no new OnTheCase run, Observation, Claim or DLQ message appeared through the 19:00 UTC boundary on 3 Sep. Canonical writes remain disabled."
         },
         {
-          "title": "OnTheCase historical repair plan is approved-ready",
-          "detail": "Read-only planning completed cleanly: 278 candidates inspected, 278 repairable from event-address Claims, zero unresolved and zero errors. Queues and safety controls did not move. The next hard gate is explicit approval to write no more than those 278 provenance-linked repair Claims under a new exact run ID. Do not deploy, redrive or re-enable either source during the write.",
+          "title": "Lemonrock and OnTheCase historical Claims are repaired",
+          "detail": "Lemonrock has 8,306 evidence-backed venueLocation repair Claims with 17 explicitly unresolved candidates. OnTheCase now has exactly 278 evidence-backed repair Claims with zero unresolved candidates. Both writes completed with canonical projection disabled. The shared historical DLQ remains quarantined at 10,909 until the corrected SourceWorker is deployed and a fresh bounded replay proves both source classes.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
@@ -1179,8 +1183,11 @@
       ],
       "next": [
         {
-          "title": "Write the bounded OnTheCase repair Claims",
-          "detail": "After explicit approval, write at most 278 provenance-linked venueLocation repair Claims under run onthecase-occurs-at-repair-write-2026-09-03-v1. Require both affected sources disabled and shadow=true, the OnTheCase EventBridge rule disabled, global canonical writes off and stable queues. Do not deploy or redrive in the same operation."
+          "title": "Deploy corrected SourceWorker code only",
+          "detail": "After fresh deployment approval, build exact bndy-enrichment merge commit 32f957c and update only the existing SourceWorker Lambda code. Make no CloudFormation, configuration, IAM, queue, schedule, stream or concurrency changes. Keep both affected sources disabled and shadowed and canonical projection off. Verify the deployed CodeSha256 against the local artifact before any replay.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
+          ]
         },
         {
           "title": "Deploy the corrected SourceWorker code only",
@@ -1319,8 +1326,8 @@
           "detail": "8,306 evidence-backed venueLocation repair Claims were written to Backline; 17 cases remain unresolved rather than guessed. The corrected path has processed 352 historical Lemonrock messages successfully in shadow."
         },
         {
-          "title": "OnTheCase repair plan passed, write awaiting approval",
-          "detail": "The merged planner inspected 278 OnTheCase event candidates and found all 278 repairable directly from retained event-address Claims, with zero unresolved and zero errors. No repair Claims have yet been written and SourceWorker remains undeployed.",
+          "title": "OnTheCase historical Claims repaired",
+          "detail": "Write run onthecase-occurs-at-repair-write-2026-09-03-v1 wrote exactly 278 event-address-backed venueLocation Claims. Independent verification found exactly 278 repair records; zero candidates remain unresolved. Queues and containment controls were unchanged.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
@@ -1336,8 +1343,8 @@
       ],
       "next": [
         {
-          "title": "Write the bounded OnTheCase repair Claims",
-          "detail": "After explicit approval, write no more than the 278 planned Claims using a unique write run ID. Keep OnTheCase and Lemonrock disabled, shadow=true and canonical projection off; do not redrive or deploy during this operation."
+          "title": "Deploy corrected SourceWorker code only",
+          "detail": "With separate approval, deploy only the SourceWorker asset from exact merge commit 32f957c. Preserve all infrastructure and containment state, verify CodeSha256, then return for bounded classified replay approval."
         },
         {
           "title": "Complete classified DLQ recovery",
