@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-03T20:44:12.819Z",
-  "updatedBy": "Backline Owner: complete OnTheCase historical repair",
+  "updatedAt": "2026-09-03T21:53:45.242Z",
+  "updatedBy": "Backline Owner: record corrected SourceWorker deployment",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1147,6 +1147,13 @@
         {
           "title": "OnTheCase historical Claims repaired",
           "detail": "Approved write run onthecase-occurs-at-repair-write-2026-09-03-v1 completed in 37 seconds. It inspected 278 candidates and wrote exactly 278 provenance-linked venueLocation repair Claims from retained event-address evidence, with zero unresolved cases, zero errors and an independent count of 278. ProjectionQueue stayed empty, ProjectionDLQ stayed at 10,909, both affected sources remained disabled and shadowed, the OnTheCase rule remained disabled and canonical projection remained disabled."
+        },
+        {
+          "title": "Corrected SourceWorker code deployed",
+          "detail": "The existing SourceWorker BndyEnrichmentStack-SourceWorker336FEA29-ghZk2mBRjOks was updated code-only from exact bndy-enrichment merge commit 32f957c using aws lambda update-function-code. CodeSha256 changed from FjlxSVGSQr5/v0PicpicZYag/eM8PqPgBgL8coBirXg= to L/TK4YpWp6lHpCvJJzXYdOn7ruYYsaBsXdUMKBzsszs=. The function is Active with LastUpdateStatus Successful and reported runtime, handler, memory, timeout, role and environment unchanged. No CDK, SAM or CloudFormation deployment ran.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
+          ]
         }
       ],
       "now": [
@@ -1156,7 +1163,7 @@
         },
         {
           "title": "Lemonrock and OnTheCase historical Claims are repaired",
-          "detail": "Lemonrock has 8,306 evidence-backed venueLocation repair Claims with 17 explicitly unresolved candidates. OnTheCase now has exactly 278 evidence-backed repair Claims with zero unresolved candidates. Both writes completed with canonical projection disabled. The shared historical DLQ remains quarantined at 10,909 until the corrected SourceWorker is deployed and a fresh bounded replay proves both source classes.",
+          "detail": "Lemonrock has 8,306 evidence-backed venueLocation repair Claims with 17 explicitly unresolved candidates. OnTheCase has exactly 278 evidence-backed repair Claims with zero unresolved candidates. Corrected SourceWorker code from 32f957c is now deployed code-only. Both writes completed with canonical projection disabled. The shared historical DLQ remains quarantined at 10,909 pending completion of post-deployment evidence and a fresh bounded replay.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
@@ -1183,8 +1190,8 @@
       ],
       "next": [
         {
-          "title": "Deploy corrected SourceWorker code only",
-          "detail": "After fresh deployment approval, build exact bndy-enrichment merge commit 32f957c and update only the existing SourceWorker Lambda code. Make no CloudFormation, configuration, IAM, queue, schedule, stream or concurrency changes. Keep both affected sources disabled and shadowed and canonical projection off. Verify the deployed CodeSha256 against the local artifact before any replay.",
+          "title": "Close SourceWorker deployment evidence",
+          "detail": "Before replay, retrieve the missing evidence not included in the deployment summary: npm test result, local ZIP base64 SHA-256 match, pre/post queue counts, CloudFormation status and unchanged last-updated timestamp, reserved concurrency, final source records, OnTheCase rule state and global projection state. This is read-only and must not invoke, redrive or re-enable a source.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
           ]
@@ -1314,6 +1321,13 @@
             "https://github.com/flowency-live/bndy-ops/blob/main/RUN-CONTRACT.md",
             "https://github.com/flowency-live/bndy-ops/blob/main/RUN-LEDGER-SCHEMA.json"
           ]
+        },
+        {
+          "title": "Corrected OnTheCase parser deployed to SourceWorker",
+          "detail": "SourceWorker was updated code-only from exact commit 32f957c. Deployed CodeSha256 is L/TK4YpWp6lHpCvJJzXYdOn7ruYYsaBsXdUMKBzsszs= and Lambda reports a successful update. No infrastructure deployment ran.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/140"
+          ]
         }
       ],
       "now": [
@@ -1327,7 +1341,7 @@
         },
         {
           "title": "OnTheCase historical Claims repaired",
-          "detail": "Write run onthecase-occurs-at-repair-write-2026-09-03-v1 wrote exactly 278 event-address-backed venueLocation Claims. Independent verification found exactly 278 repair records; zero candidates remain unresolved. Queues and containment controls were unchanged.",
+          "detail": "Write run onthecase-occurs-at-repair-write-2026-09-03-v1 wrote exactly 278 event-address-backed venueLocation Claims with zero unresolved. Corrected SourceWorker code is now deployed from 32f957c. Replay remains blocked until the missing post-deployment evidence is closed.",
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
@@ -1343,8 +1357,8 @@
       ],
       "next": [
         {
-          "title": "Deploy corrected SourceWorker code only",
-          "detail": "With separate approval, deploy only the SourceWorker asset from exact merge commit 32f957c. Preserve all infrastructure and containment state, verify CodeSha256, then return for bounded classified replay approval."
+          "title": "Close SourceWorker deployment evidence",
+          "detail": "Complete the missing read-only post-deployment proof before any DLQ replay: test result, artefact hash match, queue counts, stack timestamp, reserved concurrency and final containment/control state."
         },
         {
           "title": "Complete classified DLQ recovery",
