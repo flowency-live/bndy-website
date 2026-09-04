@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-03T22:34:49.828Z",
-  "updatedBy": "Backline Owner: record safe replay checkpoint",
+  "updatedAt": "2026-09-04T15:13:25.000Z",
+  "updatedBy": "Add Fantastic All Library ingestion and SEO backlog items",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -300,6 +300,23 @@
       "laneId": "core-discovery",
       "title": "Optional BNDY gig artwork creator",
       "detail": "Low priority. Let a claimed Artist, Venue or authorised Curator create tasteful shareable promotional artwork from a canonical BNDY Event without making posters mandatory for discovery. Populate date, time, billing, Venue and BNDY link directly from canonical data, then combine approved BNDY layouts with owner-supplied Artist, Venue or event imagery. Provide accessible aspect-ratio variants for social sharing and download. Do not generate fake bands, crowds or generic AI gig imagery, and do not turn generated artwork into a requirement for Map, List or Event visibility."
+    },
+    {
+      "id": "fantastic-all-library-automated-ingestion",
+      "rank": 23,
+      "laneId": "source-automation",
+      "title": "Automate Fantastic All Library Facebook ingestion",
+      "detail": "Find a way to automate ingestion of https://www.facebook.com/fantasticallibrary events. Currently requires manual copy-paste of the Facebook events page into a Cowork session, which is labour-intensive and error-prone. Investigate Facebook Graph API access, public event scraping within platform terms, RSS or iCal feeds, or a lightweight capture integration that can ingest new events without manual intervention. This is a high-value source covering library-hosted grassroots gigs and should be reliable rather than ad-hoc.",
+      "evidence": [
+        "https://www.facebook.com/fantasticallibrary"
+      ]
+    },
+    {
+      "id": "seo-grassroots-gig-discovery",
+      "rank": 24,
+      "laneId": "core-discovery",
+      "title": "SEO activation for grassroots gig search visibility",
+      "detail": "Improve search engine optimisation so that Google searches for grassroots live music discovery surface bndy.live in results. Target queries include: grass roots gigs, live music near me, live music near me tonight, music gigs around me, live bands pubs, local gig guide, whats on tonight live music, pub gigs near me, and variants. Audit current indexing, meta tags, structured data, sitemap coverage, page speed and mobile experience. Add Event, MusicEvent and Place schema markup where missing. Ensure artist, venue and gig pages have crawlable unique URLs with relevant titles and descriptions. Track search console performance and iterate. The goal is organic discovery growth without paid advertising."
     }
   ],
   "lanes": [
