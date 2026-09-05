@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-04T15:13:25.000Z",
-  "updatedBy": "Add Fantastic All Library ingestion and SEO backlog items",
+  "updatedAt": "2026-09-05T12:30:00.000Z",
+  "updatedBy": "Record Backline live for OnTheCase, pilot outcome, cost controls and the Cowork migration order",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -837,8 +837,8 @@
       "id": "intelligence",
       "title": "BNDY Backline",
       "objective": "Make sources produce evidence and atomised claims; let policy derive BNDY truth.",
-      "health": "amber",
-      "deliveryState": "building",
+      "health": "green",
+      "deliveryState": "live",
       "targetState": true,
       "repos": [
         "enrichment",
@@ -1182,71 +1182,116 @@
         {
           "title": "Initial OnTheCase replay attempt stopped safely",
           "detail": "The initial bounded replay stopped safely because historical recovery work from multiple sources shares the same queue. No messages were transferred or deleted and the contained system state was preserved."
+        },
+        {
+          "title": "Bounded newest-first Claim window for projection",
+          "detail": "Projection reads the newest 300 Claims per candidate instead of the complete history through the 1,000 Claim safety limit. Found when 238 of 250 OnTheCase items failed on 4 Sep.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/143",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-112-bounded-projection-claim-window.md"
+          ]
+        },
+        {
+          "title": "Match-only entity policy and pilot allowlist",
+          "detail": "entityCreation: match-only sends canCreate false to the canonical API and turns a review answer into a handled exception. pilotCandidateKeys names the exact candidates a window may write.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/144",
+            "https://github.com/flowency-live/bndy-enrichment/pull/145",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-113-match-only-entity-projection.md"
+          ]
+        },
+        {
+          "title": "OnTheCase root-only bounded acquisition and hourly schedule restored",
+          "detail": "Fresh root-only runs proved 250 gigs, 2,514 Claims, zero fan-out, zero errors, then 250 unchanged on repeat. The hourly EventBridge rule was re-enabled on 4 Sep at 14:47 UTC after the cost controls landed.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/141"
+          ]
+        },
+        {
+          "title": "Canonical delta hydration 4 Sep",
+          "detail": "canonical-delta-write-2026-09-04-v1: 17,977 scanned, 262 new, 50 modified, 1 removed, 11,017 Claims, zero errors. Backline held the canonical corpus including the Cowork writes since 1 Sep."
+        },
+        {
+          "title": "Stack reliability invariants enforced in CI again",
+          "detail": "The 7 alarm, log retention and concurrency assertions synthesise without CDK bundling and run in CI.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/142"
+          ]
         }
       ],
       "now": [
         {
-          "title": "ProjectionDLQ recovery is contained and source-specific",
-          "detail": "ProjectionDLQ is stable at 10,909 historical event-create messages. A 550-message composition sample found only lemonrock-gig-hydration (58.7%) and onthecase-gig-index (41.3%). Both producers are now disabled and shadow=true. OnTheCase's hourly EventBridge rule is disabled, SourceScanQueue is empty, and no new OnTheCase run, Observation, Claim or DLQ message appeared through the 19:00 UTC boundary on 3 Sep. Canonical writes remain disabled."
-        },
-        {
-          "title": "Lemonrock and OnTheCase historical Claims are repaired",
-          "detail": "Lemonrock has 8,306 evidence-backed venueLocation repair Claims with 17 explicitly unresolved candidates. OnTheCase has exactly 278 evidence-backed repair Claims with zero unresolved candidates. Corrected SourceWorker code from 32f957c is now deployed code-only. Both writes completed with canonical projection disabled. The shared historical DLQ remains quarantined at 10,909 pending completion of post-deployment evidence and a fresh bounded replay.",
+          "title": "Backline is the live writer for OnTheCase",
+          "detail": "Since 5 Sep 00:00 UTC the global projection control is on and onthecase-gig-index runs additive-only, create-only, match-only with no allowlist. Every other source stays shadow. The runbook refuses to open the control unless OnTheCase is the only live source. Stop action: python scripts/pilot-canonical-write.py close.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/pull/140"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-116-onthecase-continuous-additive-projection.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/156"
           ]
         },
         {
-          "title": "Backline corpus is converged with canonical BNDY",
-          "detail": "The Backline canonical corpus reflects the approved 1 Sep canonical state, including the recent manual canonical clear-out. Continuous DynamoDB stream ingestion is still disabled, so later canonical changes require another bounded delta until infrastructure ownership permits gap-free ingestion."
-        },
-        {
-          "title": "Godmode is operational but not yet the complete control surface",
-          "detail": "Godmode exposes the intelligence graph, source families, projection control and canonical convergence. The next UX refactor must make source freshness, run history, queue incidents, evidence, Claims, resolutions, conflicts, would-write outcomes and bounded graph exploration immediately understandable.",
+          "title": "First canonical-write pilot executed and verified",
+          "detail": "onthecase-pilot-2026-09-04-v1 ran the live path for ten named candidates: five matched Events Cowork had already imported (read back from canonical), five were refused by the canonical near-tie artist guard, zero artists or venues created, zero failures, zero dead letters. Canonical already held every OnTheCase gig at the verified venues, which is the decommission evidence for the Cowork OnTheCase importer.",
           "evidence": [
-            "https://backstage.bndy.co.uk/godmode/enrichment"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/PILOT-CANONICAL-WRITE-PACKET.md",
+            "https://github.com/flowency-live/bndy-enrichment/pull/155"
           ]
         },
         {
-          "title": "New source onboarding remains queued behind incident recovery",
-          "detail": "Fizgig and Live Band Photos already contributed data to canonical BNDY and are represented by the converged canonical hydration. Their source-native evidence scans, lineage reconciliation and shadow BAU runners remain outstanding. They must not create duplicate canonical entities."
+          "title": "Godmode Operations tab is live",
+          "detail": "Default tab under /godmode/enrichment: source freshness verdicts against the 26 hour contract, would-write decisions with the proposed fact in words and a Claim count, projection run roll-ups, projection control state. Exceptions and dead-letter depths are not exposed yet and say so.",
+          "evidence": [
+            "https://backstage.bndy.co.uk/godmode/enrichment",
+            "https://github.com/flowency-live/bndy-backstage/pull/20",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/78",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/80"
+          ]
         },
         {
-          "title": "Canonical writes remain the destination, not the current mode",
-          "detail": "After DLQ recovery and two clean shadow runs per selected source, Backline will generate a human-reviewed would-write cohort for a bounded additive-only canonical pilot. The global gate stays off until that separate approval."
+          "title": "Cost controls proven live",
+          "detail": "Testimony checkpoints write Claims only for new or changed events (ADR-114). Lemonrock fingerprints by facts and re-hydrates daily (ADR-115). Lemonrock fell from 121 runs and 1,893 Claims an hour to 2 runs and zero Claims; OnTheCase hourly fell from 2,514 Claims to zero to 100. Would-write records shrank from about 254 KB to under 2 KB.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/147",
+            "https://github.com/flowency-live/bndy-enrichment/pull/153",
+            "https://github.com/flowency-live/bndy-enrichment/pull/150"
+          ]
         },
         {
-          "title": "GigsNews parity fixtures require maintenance",
-          "detail": "The deployment verification test run passed 396 tests, with two unrelated failures isolated to date-sensitive GigsNews parity fixtures and seven skips. OnTheCase adapter and projection coverage passed. Make the GigsNews fixture deterministic before declaring the whole repository green; it does not block the bounded OnTheCase replay."
+          "title": "Five canonical artist duplicates need a human decision",
+          "detail": "The canonical matcher returned a near-tie for The Flames, Rebel Radio, Hard River, Pretty Weeds and A Band Called Horse: two near-identical artist records exist for each. Backline refused rather than guessed. Until merged, new gigs for these acts land as unresolved-entity exceptions, never as records."
+        },
+        {
+          "title": "Historical ProjectionDLQ retained, off the critical path",
+          "detail": "The queue holds 11,148 messages: 10,909 historical plus 239 from the 4 Sep Claim-limit incident, all superseded by later observations. No replay, no purge; they age out under the 14 day retention."
         }
       ],
       "next": [
         {
-          "title": "Run a bounded OnTheCase replay pilot",
-          "detail": "After explicit approval, transfer exactly 100 validated historical OnTheCase messages from the dead-letter queue back to processing at no more than one per second. Require repaired or already-complete location evidence for every candidate, retain shadow mode and stop on any validation failure, worker error or dead-letter rebound.",
-          "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/commit/32f957c1b29fc85d6fb02e8aec48882ff10bcdad"
-          ]
+          "title": "48 clean hours, then retire the Cowork OnTheCase importer",
+          "detail": "Watch hourly created Events, exceptions and dead letters through 7 Sep. On a clean record the Cowork OnTheCase scheduled task is deleted and Backline is the only OnTheCase writer."
         },
         {
-          "title": "Deploy the corrected SourceWorker code only",
-          "detail": "After the repair plan is accepted, build from main commit 32f957c or its current descendant and deploy only the SourceWorker asset. No CDK deploy-all and no resource, schedule, queue, IAM or stream changes. Verify CodeSha256 and parser behaviour before any source re-enable."
+          "title": "Second live source by would-write comparison",
+          "detail": "KLMA and GigsNews already run daily in shadow. Compare their would-writes with canonical for two days, then arm one under the same additive-only, match-only guards. Each source gets its own bounded pilot before joining."
         },
         {
-          "title": "Drain the shared DLQ by classified source",
-          "detail": "Redrive Lemonrock and OnTheCase separately in bounded, validated shadow batches. Delete a DLQ message only after ProjectionQueue accepts its replacement. Stop on an unknown source, worker error or DLQ rebound. Reconcile the final queue balance."
+          "title": "Genuine-create test with a source new to bndy",
+          "detail": "The pilot proved matching, not creation, because canonical already held the OnTheCase corpus. A source with no canonical history proves the create path. Reconnaissance first: permitted route, stable native identities, fixtures, then shadow, then additive-only."
         },
         {
-          "title": "Restore shadow BAU one source at a time",
-          "detail": "Re-enable OnTheCase and Lemonrock independently only after repaired historical messages succeed. Require two clean scheduled runs, fresh heartbeats, stable queues, no DLQ growth and visible Godmode intelligence before restoring the next source."
+          "title": "Migrate the remaining Cowork runners into Backline BAU",
+          "detail": "Order: KLMA, GigsNews, ScenicEye (adapter exists, browser runtime), Fantastic All Library (needs a Facebook events adapter), then the Facebook spider and nightly enrichment as evidence-first workers. Each step: adapter, two clean shadow runs, would-write comparison, additive-only live, Cowork task retired."
         },
         {
-          "title": "Onboard Live Band Photos and Fizgig in shadow",
-          "detail": "Recover import lineage, capture immutable current evidence, match source identities to the already-hydrated canonical corpus and measure new, changed and conflicting intelligence. Add one authoritative BAU schedule per source only after fixture and snapshot-semantics qualification."
+          "title": "Index projection exceptions for Godmode",
+          "detail": "Exceptions are stored without a source index. Add a GSI in the enrichment stack and surface unresolved-entity and incomplete-candidate items per source and per hour."
         },
         {
-          "title": "Run the first controlled canonical projection pilot",
-          "detail": "Select five to ten additive future Events whose Artists and Venues already resolve unambiguously. Review the full would-write set, enable the global gate only for the bounded execution, write through canonical APIs, read back every result and stop on the first mismatch. No updates, deletes, cancellations or entity creation in the first pilot."
+          "title": "Canonical convergence without manual delta hydration",
+          "detail": "Only bndy-events has a stream. Either enable artist and venue streams with the change worker, or retire the remaining Cowork direct writers so Backline is the only path that changes canonical. Decide after the second live source."
+        },
+        {
+          "title": "GigsNews parity fixtures require maintenance",
+          "detail": "Two date-sensitive parity tests fail locally and pass in CI. Rebase the fixtures on relative dates so the suite is green everywhere."
         }
       ]
     },
@@ -1360,53 +1405,77 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/140"
           ]
+        },
+        {
+          "title": "Lemonrock cost cliff delivered",
+          "detail": "Fact fingerprints and a daily gig refresh cut Lemonrock from 121 runs and 1,893 Claims an hour to 2 runs and zero Claims, measured live from 18:15 UTC on 4 Sep.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/153",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-115-lemonrock-fact-fingerprint-daily-refresh.md"
+          ]
+        },
+        {
+          "title": "OnTheCase incident closed without replay",
+          "detail": "Root cause of the empty fresh run was an inventory-control task kind. A root-only fan-out mode, a bounded Claim window and control-task baseline isolation replaced historical dead-letter replay.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/141",
+            "https://github.com/flowency-live/bndy-enrichment/pull/143",
+            "https://github.com/flowency-live/bndy-enrichment/pull/158"
+          ]
         }
       ],
       "now": [
         {
-          "title": "Lemonrock and OnTheCase contained for shared DLQ recovery",
-          "detail": "lemonrock-gig-hydration and onthecase-gig-index are disabled and remain shadow=true. The OnTheCase hourly EventBridge rule is disabled. ProjectionDLQ is stable at 10,909 historical messages and SourceScanQueue is empty. No source is to be re-enabled until its repairs and classified redrive pass."
-        },
-        {
-          "title": "Lemonrock historical Claims repaired",
-          "detail": "8,306 evidence-backed venueLocation repair Claims were written to Backline; 17 cases remain unresolved rather than guessed. The corrected path has processed 352 historical Lemonrock messages successfully in shadow."
-        },
-        {
-          "title": "OnTheCase historical Claims repaired",
-          "detail": "Write run onthecase-occurs-at-repair-write-2026-09-03-v1 wrote exactly 278 event-address-backed venueLocation Claims with zero unresolved. Corrected SourceWorker code is now deployed from 32f957c. Replay remains blocked until the missing post-deployment evidence is closed.",
+          "title": "OnTheCase hourly, live additive-only writer",
+          "detail": "onthecase-gig-index acquires hourly with daily venue and weekly band hydration windows. New gigs for known artists and venues are created within the hour; unknown or ambiguous entities become exceptions.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/pull/140"
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-116-onthecase-continuous-additive-projection.md"
           ]
         },
         {
-          "title": "Other source families remain shadow-only",
-          "detail": "The global projection gate remains disabled. Before broader BAU claims are made, reconcile current schedules and freshness for KLMA, GigsNews and ScenicEye against Godmode and live AWS evidence."
+          "title": "Lemonrock shadow BAU at about 120 hydration runs a day",
+          "detail": "New-gigs and cancellations feeds hourly, gig pages daily, fact fingerprints. Down from about 1,700 runs and 50,000 Claims a day.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/153"
+          ]
+        },
+        {
+          "title": "KLMA and GigsNews daily in shadow, registry reconciled",
+          "detail": "The registry was re-seeded from the code catalogue on 4 Sep so cadence and 26 hour staleness contracts match. Both are candidates for the second live source."
+        },
+        {
+          "title": "ScenicEye adapter exists, schedule disabled",
+          "detail": "Browser runtime adapter with structural gates. Needs a shadow proof before scheduling."
         },
         {
           "title": "Fizgig and Live Band Photos remain canonical-first backlog",
-          "detail": "Their existing canonical records were included in the 1 Sep convergence. Next acquire source-native evidence and reconcile lineage and identities before enabling any shadow BAU runner."
+          "detail": "Their existing canonical records were included in the convergence. Source-native evidence and fixtures come next."
         }
       ],
       "next": [
         {
-          "title": "Run a bounded OnTheCase replay pilot",
-          "detail": "After explicit approval, replay exactly 100 individually validated OnTheCase dead-letter messages at no more than one per second in shadow. Stop on any unexpected source, missing repair coverage, validation failure, worker error or rebound."
+          "title": "Retire the Cowork OnTheCase task after 48 clean hours",
+          "detail": "Backline is the writer of record for OnTheCase from 5 Sep. The nightly Cowork task is deleted once two clean days are on the board."
         },
         {
-          "title": "Complete classified DLQ recovery",
-          "detail": "After approved repairs and SourceWorker code-only deployment, redrive only validated Lemonrock and OnTheCase messages in separate bounded operations."
+          "title": "KLMA to live additive-only",
+          "detail": "Two days of would-write comparison against canonical, then arm under match-only guards and retire the Cowork KLMA task."
         },
         {
-          "title": "Prove restored shadow BAU",
-          "detail": "Re-enable and observe OnTheCase and Lemonrock separately. Require two clean runs each before declaring the incident closed."
+          "title": "GigsNews to live additive-only",
+          "detail": "Same proof as KLMA. Fix the parity fixtures first."
         },
         {
-          "title": "Bring Live Band Photos into shadow BAU",
-          "detail": "Capture and fixture-qualify the current gig root and directory surfaces, match them to canonical entities, then introduce daily gig and slower discovery/reconcile schedules with projection off."
+          "title": "ScenicEye shadow proof, then live",
+          "detail": "Two clean browser-runtime shadow runs, would-write comparison, then additive-only. Retire the Cowork ScenicEye task."
         },
         {
-          "title": "Complete Fizgig acquisition reconnaissance",
-          "detail": "Prove a permitted, stable acquisition route and snapshot semantics, capture fixtures, reconcile existing imported canonical records, then define its bounded shadow cadence."
+          "title": "Fantastic All Library needs a Facebook events adapter",
+          "detail": "The Cowork task reads a logged-in Facebook events page in Chrome. A Backline adapter needs a permitted acquisition route before any shadow run. Linked to backlog item fantastic-all-library-automated-ingestion."
+        },
+        {
+          "title": "Bring Live Band Photos and Fizgig into shadow BAU",
+          "detail": "Fixtures, source-native identities, bounded initial scan, resolution against the hydrated canonical corpus, then additive-only."
         }
       ]
     },
