@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-05T15:10:00.000Z",
-  "updatedBy": "Record the Capture state review and the Backline consolidation plan: evidence-gated creation, enrichment worker, Capture as a source",
+  "updatedAt": "2026-09-05T16:20:00.000Z",
+  "updatedBy": "Remove planned dates: the consolidation plan runs as fast as each phase can be proven, in days",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -1355,23 +1355,23 @@
       ],
       "next": [
         {
-          "title": "Phase 1, by 8 Sep: KLMA live under match-only, GigsNews made safe",
+          "title": "Phase 1: KLMA live under match-only, GigsNews made safe",
           "detail": "Deploy the merged fixes and re-seed the registry (safe: the reconciler keeps OnTheCase live). Arm klma-stoke-gig-list additive-only, create-only, match-only. Add its two unknown artists in Godmode and run one bootstrap projection so their gigs land. GigsNews needs a venue-to-town map and an artist-name cleaner before it can write: today the town parser takes the last word of the venue string. Retire the Cowork OnTheCase task after 48 clean hours."
         },
         {
-          "title": "Phase 2, 8 to 12 Sep: evidence-gated entity creation (ADR-117)",
+          "title": "Phase 2: evidence-gated entity creation (ADR-117)",
           "detail": "A policy level between match-only and free creation. Backline creates an artist when the canonical matcher finds nothing plausible, the source is curated, and the artist is on a future gig at a resolved venue; a venue when it has a town and canonical Places resolution succeeds. Near-ties stay exceptions for a person. The admission rule is the one Capture already applies: a name and a distinct location, with the strong-geography test for same-name artists. Every create carries the Claims that justified it and posts an enrichment job."
         },
         {
-          "title": "Phase 3, 12 to 19 Sep: enrichment worker on the queue (ADR-118)",
+          "title": "Phase 3: enrichment worker on the queue (ADR-118)",
           "detail": "Consume the EntityEnrichmentQueue. The provider is the Capture grounded-discovery module, already live and schema-validated, not the Programmable Search plus reasoner pair that failed qualification in August. Found links become Claims with citation URLs; a search that finds nothing becomes a negative-evidence Claim so the attempt is on record. Canonical receives missing-only patches through the additive-only gate. A daily budget in the control store caps spend below one pound a day; existing artists with no social links are drip-fed as a backfill."
         },
         {
-          "title": "Phase 4, 19 Sep to 3 Oct: Capture becomes a Backline source (ADR-119)",
+          "title": "Phase 4: Capture becomes a Backline source (ADR-119)",
           "detail": "The Capture processor keeps intake, atomic claiming and extraction, then emits an Observation and Claims with a submitted authority class instead of calling canonical itself. Projection writes, with creation allowed for the explicit submission route and the result posted back to the Capture status API within the eight-minute polling window. One writer, one set of guards, one evidence graph per poster, and Godmode Submissions and Backline exceptions become one review inbox. Decision for the owner: the global kill switch then gates Capture too, which is the recommendation."
         },
         {
-          "title": "Phase 5, October: remaining Cowork runners and new sources",
+          "title": "Phase 5: remaining Cowork runners and new sources",
           "detail": "GigsNews live, ScenicEye shadow proof then live, Fantastic All Library once a permitted Facebook events route exists, then the Facebook spider and nightly enrichment as evidence-first workers. A source with no canonical history proves the create path end to end. Each step: adapter, two clean shadow runs, would-write comparison, additive-only live, Cowork task retired."
         },
         {
@@ -1547,7 +1547,7 @@
           "detail": "Backline is the writer of record for OnTheCase from 5 Sep. The nightly Cowork task is deleted once two clean days are on the board."
         },
         {
-          "title": "KLMA live under match-only this week",
+          "title": "KLMA live under match-only",
           "detail": "Arm after the deploy and re-seed. Its two unknown artists are added by hand in Godmode and their gigs created by one bootstrap projection. From Phase 2 KLMA creates such artists itself under the evidence gate."
         },
         {
