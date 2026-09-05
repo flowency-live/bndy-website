@@ -1,7 +1,7 @@
 {
   "version": 3,
-  "updatedAt": "2026-09-05T12:30:00.000Z",
-  "updatedBy": "Record Backline live for OnTheCase, pilot outcome, cost controls and the Cowork migration order",
+  "updatedAt": "2026-09-05T15:10:00.000Z",
+  "updatedBy": "Record the Capture state review and the Backline consolidation plan: evidence-gated creation, enrichment worker, Capture as a source",
   "title": "bndy workboard",
   "description": "Single view of active bndy product, platform, ingestion, intelligence and growth work.",
   "principles": [
@@ -716,7 +716,7 @@
       "id": "chatzone",
       "title": "chat.bndy.live public ingestion",
       "objective": "Let anyone submit a gig poster or event text and get a useful, low-friction result.",
-      "health": "amber",
+      "health": "green",
       "deliveryState": "live",
       "targetState": false,
       "repos": [
@@ -736,40 +736,57 @@
         {
           "title": "Useful result response",
           "detail": "Added/already-existing results show artist, venue, date/time and a direct bndy.live gig link."
+        },
+        {
+          "title": "Immediate dispatch with the scanner as recovery only",
+          "detail": "Every creation path queues the Capture at once. The five-minute scanner dispatches only unprocessed leftovers. Deployed 31 Aug.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/134",
+            "https://github.com/flowency-live/bndy-capture/pull/5"
+          ]
+        },
+        {
+          "title": "Human-review follow-up and clarification UI",
+          "detail": "Purpose-limited email or WhatsApp follow-up with explicit consent, the distinct-artist confirmation prompt and optional artist links after a create.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-chatzone/pull/7",
+            "https://github.com/flowency-live/bndy-chatzone/pull/10"
+          ]
         }
       ],
       "now": [
         {
-          "title": "Send to bndy production qualification",
-          "detail": "The mobile-first poster, screenshot, link and event-text intake is merged and under live production testing. Confirm truthful processing and recovery across real poster and text submissions, including partial matches, human-review outcomes, canonical additions, duplicates and final Artist, Venue, date and time findings. Close only when the UI consistently returns the outcome Capture actually produced.",
+          "title": "Live end to end with a human-review recovery loop",
+          "detail": "chat.bndy.live accepts a poster, screenshot, event text or URL with no account. Capture retains the evidence first, processes it within seconds of submission, resolves artist and venue through canonical identity services, dedupes through the canonical event service and returns the actual artist and event links. Unresolved submissions go to Godmode Submissions for retry with context or an honest closure.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-chatzone/pull/3",
-            "https://github.com/flowency-live/bndy-chatzone/pull/4",
-            "https://github.com/flowency-live/bndy-chatzone/pull/6",
-            "https://github.com/flowency-live/bndy-chatzone/pull/7",
-            "https://github.com/flowency-live/bndy-chatzone/pull/8"
+            "https://chat.bndy.live",
+            "https://github.com/flowency-live/bndy-chatzone/pull/9",
+            "https://github.com/flowency-live/bndy-chatzone/pull/10",
+            "https://github.com/flowency-live/bndy-backstage/pull/17"
           ]
         },
         {
-          "title": "Immediate Capture dispatch and retry-safe processing",
-          "detail": "PR #134 reconciles the immediate Capture dispatch already observed in production with source-controlled retry safety, preserved review context and canonical start-time defaults. Keep this active until the controlled Capture Processor and Capture Scanner deployment is complete and live text and poster submissions prove prompt dispatch without duplicate processing.",
+          "title": "Same-name artists resolved by geography, no Facebook required",
+          "detail": "A new artist needs a name and a distinct location. Strong multi-venue poster geography creates a distinct same-name artist automatically; weaker evidence asks the submitter to confirm the exact inferred name and location, and the same Capture is reprocessed. Social and official links are optional enrichment patched into missing fields only.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-enrichment/pull/134"
+            "https://github.com/flowency-live/bndy-enrichment/pull/137",
+            "https://github.com/flowency-live/bndy-capture/pull/6",
+            "https://github.com/flowency-live/bndy-chatzone/pull/10"
           ]
         }
       ],
       "next": [
         {
-          "title": "Representative reliability qualification",
-          "detail": "Build a repeatable poster, screenshot, link and event-text cohort that measures extraction, identity resolution, deduplication and uncertain-result handling before the feature is treated as production-solid."
+          "title": "Show skipped tour rows publicly",
+          "detail": "A multi-date poster can partially succeed. Skipped rows appear only in private notes today; the public result should list them so the submitter knows what to fix."
         },
         {
-          "title": "Enqueue immediately on submission",
-          "detail": "Send the Capture message to the processing queue at create time and keep the scanner only as a recovery safety net."
+          "title": "Full line-up for multi-act bills",
+          "detail": "A single-event poster with several acts projects the headline artist only. Depends on multi-artist event indexing in canonical."
         },
         {
           "title": "Richer live progress",
-          "detail": "Show resolving artist, matching venue, deduping event and final result rather than a generic spinner."
+          "detail": "Show resolving artist, matching venue, deduping event and final result rather than a generic processing state."
         }
       ]
     },
@@ -781,6 +798,8 @@
       "deliveryState": "live",
       "targetState": false,
       "repos": [
+        "api",
+        "backstage",
         "capture",
         "enrichment"
       ],
@@ -811,25 +830,59 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-capture/pull/4"
           ]
+        },
+        {
+          "title": "Capture review and follow-up contract",
+          "detail": "Retry-safe immediate dispatch, retained review context, purpose-limited follow-up storage with a 30-day TTL and public/private outcome separation.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-capture/pull/5"
+          ]
+        },
+        {
+          "title": "Public artist clarification contract",
+          "detail": "The API copies name and location from its own pending clarification; the browser can only confirm, never substitute an identity.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-capture/pull/6"
+          ]
         }
       ],
       "now": [
         {
-          "title": "Capture review and follow-up contract",
-          "detail": "Complete the controlled review-loop delivery in PR #5: persist retry-safe immediate dispatch in source, retain human-review context, store optional per-submission follow-up contact separately with expiry, and expose bounded internal review and notification contracts. Keep WhatsApp disabled. Close only after a reviewed Capture change set deploys without resource deletion or replacement and the Chatzone follow-up journey passes end to end.",
+          "title": "Durable intake with atomic claiming and retry-safe processing",
+          "detail": "Deterministic Capture IDs make browser retries replay rather than duplicate. The processor claims a Capture atomically before any paid or mutating work, so a duplicate queue delivery loses the claim while the same delivery can resume its own state. Three failures publish could_not_resolve instead of leaving the UI processing. Godmode reviews the failed queue through the authenticated admin proxy.",
           "evidence": [
-            "https://github.com/flowency-live/bndy-capture/pull/5"
+            "https://github.com/flowency-live/bndy-capture/pull/5",
+            "https://github.com/flowency-live/bndy-enrichment/pull/134",
+            "https://github.com/flowency-live/bndy-serverless-api/pull/72"
+          ]
+        },
+        {
+          "title": "Capture writes canonical directly, outside Backline gates",
+          "detail": "The processor calls find-or-create and events/community itself and keeps its grounding evidence in private notes. This is the second canonical writer and the reason Capture has no auditable evidence graph. Consolidation into Backline is planned as Phase 4 on the BNDY Backline lane.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/handlers/capture-processor.ts"
           ]
         }
       ],
       "next": [
         {
-          "title": "Immediate queue dispatch",
-          "detail": "Remove the normal-path dependency on the five-minute scanner."
+          "title": "Capture as a Backline source",
+          "detail": "Keep intake, claiming and grounded extraction; emit Observation and Claims with a submitted authority class; let projection be the writer and post the result back to the Capture status API. Godmode Submissions and Backline exceptions merge into one inbox."
         },
         {
-          "title": "Transport idempotency",
-          "detail": "Add stronger submission idempotency and lease recovery for unattended/high-volume use."
+          "title": "Field-level correction in Godmode",
+          "detail": "A reviewer can retry with context or close, but cannot edit extracted fields and submit a corrected event from the same screen."
+        },
+        {
+          "title": "Paginate the review list",
+          "detail": "The admin proxy fetches at most 100 failed Captures and filters in memory."
+        },
+        {
+          "title": "Close the superseded dispatch PR",
+          "detail": "bndy-enrichment PR 131 is still open; its content shipped in PR 134 and the state document cites the wrong number.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/131"
+          ]
         }
       ]
     },
@@ -1217,6 +1270,27 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/pull/142"
           ]
+        },
+        {
+          "title": "Registry re-seed keeps live sources live",
+          "detail": "The catalogue reconciler preserves shadow=false, writerAuthority=aws and any pilot allowlist for a source that is already live, so a re-seed can no longer put OnTheCase back into shadow.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/159"
+          ]
+        },
+        {
+          "title": "KLMA identity is content-addressed",
+          "detail": "A KLMA row is identified by date, artist and venue rather than its position in the sheet, so a new row at the top no longer makes every gig below it look updated. Parking and dedupe rejoin on the row index.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/160"
+          ]
+        },
+        {
+          "title": "Control-task runs no longer advance the source baseline",
+          "detail": "Inventory control tasks return snapshot=false so a child run cannot report the whole corpus as added.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/pull/158"
+          ]
         }
       ],
       "now": [
@@ -1226,6 +1300,13 @@
           "evidence": [
             "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-116-onthecase-continuous-additive-projection.md",
             "https://github.com/flowency-live/bndy-enrichment/pull/156"
+          ]
+        },
+        {
+          "title": "Match-only was the pilot rule, not the destination",
+          "detail": "Live sources may only create an Event when the artist and venue already exist in bndy (ADR-113). A curated source with a genuinely new artist therefore produces an unresolved-entity exception instead of a record. KLMA has two such artists today. The plan below replaces match-only with evidence-gated creation and puts enrichment behind every create.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/docs/adr/ADR-113-match-only-entity-projection.md"
           ]
         },
         {
@@ -1262,36 +1343,44 @@
         {
           "title": "Historical ProjectionDLQ retained, off the critical path",
           "detail": "The queue holds 11,148 messages: 10,909 historical plus 239 from the 4 Sep Claim-limit incident, all superseded by later observations. No replay, no purge; they age out under the 14 day retention."
+        },
+        {
+          "title": "Two writers exist and one of them has no evidence graph",
+          "detail": "Backline projection writes through three gates and records Claims for every fact. The Capture processor writes to the same canonical APIs directly, outside those gates, and keeps its reasoning in private notes. Capture also runs the only grounded discovery engine that is live and schema-validated (Gemini with Google Search), while the enrichment queue Backline posts to after every create has no consumer. Consolidation closes both gaps.",
+          "evidence": [
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/src/handlers/capture-processor.ts",
+            "https://github.com/flowency-live/bndy-enrichment/blob/main/lib/bndy-enrichment-stack.ts"
+          ]
         }
       ],
       "next": [
         {
-          "title": "48 clean hours, then retire the Cowork OnTheCase importer",
-          "detail": "Watch hourly created Events, exceptions and dead letters through 7 Sep. On a clean record the Cowork OnTheCase scheduled task is deleted and Backline is the only OnTheCase writer."
+          "title": "Phase 1, by 8 Sep: KLMA live under match-only, GigsNews made safe",
+          "detail": "Deploy the merged fixes and re-seed the registry (safe: the reconciler keeps OnTheCase live). Arm klma-stoke-gig-list additive-only, create-only, match-only. Add its two unknown artists in Godmode and run one bootstrap projection so their gigs land. GigsNews needs a venue-to-town map and an artist-name cleaner before it can write: today the town parser takes the last word of the venue string. Retire the Cowork OnTheCase task after 48 clean hours."
         },
         {
-          "title": "Second live source by would-write comparison",
-          "detail": "KLMA and GigsNews already run daily in shadow. Compare their would-writes with canonical for two days, then arm one under the same additive-only, match-only guards. Each source gets its own bounded pilot before joining."
+          "title": "Phase 2, 8 to 12 Sep: evidence-gated entity creation (ADR-117)",
+          "detail": "A policy level between match-only and free creation. Backline creates an artist when the canonical matcher finds nothing plausible, the source is curated, and the artist is on a future gig at a resolved venue; a venue when it has a town and canonical Places resolution succeeds. Near-ties stay exceptions for a person. The admission rule is the one Capture already applies: a name and a distinct location, with the strong-geography test for same-name artists. Every create carries the Claims that justified it and posts an enrichment job."
         },
         {
-          "title": "Genuine-create test with a source new to bndy",
-          "detail": "The pilot proved matching, not creation, because canonical already held the OnTheCase corpus. A source with no canonical history proves the create path. Reconnaissance first: permitted route, stable native identities, fixtures, then shadow, then additive-only."
+          "title": "Phase 3, 12 to 19 Sep: enrichment worker on the queue (ADR-118)",
+          "detail": "Consume the EntityEnrichmentQueue. The provider is the Capture grounded-discovery module, already live and schema-validated, not the Programmable Search plus reasoner pair that failed qualification in August. Found links become Claims with citation URLs; a search that finds nothing becomes a negative-evidence Claim so the attempt is on record. Canonical receives missing-only patches through the additive-only gate. A daily budget in the control store caps spend below one pound a day; existing artists with no social links are drip-fed as a backfill."
         },
         {
-          "title": "Migrate the remaining Cowork runners into Backline BAU",
-          "detail": "Order: KLMA, GigsNews, ScenicEye (adapter exists, browser runtime), Fantastic All Library (needs a Facebook events adapter), then the Facebook spider and nightly enrichment as evidence-first workers. Each step: adapter, two clean shadow runs, would-write comparison, additive-only live, Cowork task retired."
+          "title": "Phase 4, 19 Sep to 3 Oct: Capture becomes a Backline source (ADR-119)",
+          "detail": "The Capture processor keeps intake, atomic claiming and extraction, then emits an Observation and Claims with a submitted authority class instead of calling canonical itself. Projection writes, with creation allowed for the explicit submission route and the result posted back to the Capture status API within the eight-minute polling window. One writer, one set of guards, one evidence graph per poster, and Godmode Submissions and Backline exceptions become one review inbox. Decision for the owner: the global kill switch then gates Capture too, which is the recommendation."
+        },
+        {
+          "title": "Phase 5, October: remaining Cowork runners and new sources",
+          "detail": "GigsNews live, ScenicEye shadow proof then live, Fantastic All Library once a permitted Facebook events route exists, then the Facebook spider and nightly enrichment as evidence-first workers. A source with no canonical history proves the create path end to end. Each step: adapter, two clean shadow runs, would-write comparison, additive-only live, Cowork task retired."
         },
         {
           "title": "Index projection exceptions for Godmode",
-          "detail": "Exceptions are stored without a source index. Add a GSI in the enrichment stack and surface unresolved-entity and incomplete-candidate items per source and per hour."
+          "detail": "Exceptions are stored without a source index. Add a GSI in the enrichment stack and surface unresolved-entity and incomplete-candidate items per source and per hour. Needed before Phase 2 so create decisions are visible."
         },
         {
           "title": "Canonical convergence without manual delta hydration",
-          "detail": "Only bndy-events has a stream. Either enable artist and venue streams with the change worker, or retire the remaining Cowork direct writers so Backline is the only path that changes canonical. Decide after the second live source."
-        },
-        {
-          "title": "GigsNews parity fixtures require maintenance",
-          "detail": "Two date-sensitive parity tests fail locally and pass in CI. Rebase the fixtures on relative dates so the suite is green everywhere."
+          "detail": "Only bndy-events has a stream. Once Capture writes through projection (Phase 4) and the Cowork direct writers are retired, Backline is the only path that changes canonical and the hydration job becomes a periodic audit rather than a dependency."
         }
       ]
     },
@@ -1458,12 +1547,12 @@
           "detail": "Backline is the writer of record for OnTheCase from 5 Sep. The nightly Cowork task is deleted once two clean days are on the board."
         },
         {
-          "title": "KLMA to live additive-only",
-          "detail": "Two days of would-write comparison against canonical, then arm under match-only guards and retire the Cowork KLMA task."
+          "title": "KLMA live under match-only this week",
+          "detail": "Arm after the deploy and re-seed. Its two unknown artists are added by hand in Godmode and their gigs created by one bootstrap projection. From Phase 2 KLMA creates such artists itself under the evidence gate."
         },
         {
-          "title": "GigsNews to live additive-only",
-          "detail": "Same proof as KLMA. Fix the parity fixtures first."
+          "title": "GigsNews venue map, then live",
+          "detail": "Replace the last-word town parser with a venue-to-town map and clean artist names of date and time fragments. Two clean shadow days, then additive-only."
         },
         {
           "title": "ScenicEye shadow proof, then live",
@@ -1568,6 +1657,10 @@
         }
       ],
       "now": [
+        {
+          "title": "Built, not confirmed live",
+          "detail": "Webhook signature verification, inbound SQS ingestion and result delivery exist. The last verified deployment reported WhatsApp disabled pending Meta configuration, so it is not described to users as available."
+        },
         {
           "title": "Cloud API transport in active delivery",
           "detail": "Build verified webhooks, media retrieval, message-ID deduplication and bounded acknowledgement and result replies through Capture. Production activation still requires a dedicated BNDY number and Meta credentials."
