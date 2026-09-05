@@ -892,7 +892,7 @@
       "objective": "Make sources produce evidence and atomised claims; let policy derive BNDY truth.",
       "health": "green",
       "deliveryState": "live",
-      "targetState": "One writer for canonical bndy. Every source, every poster and every enrichment answer becomes evidence and Claims; projection policy decides what bndy records, and a person only decides the near-ties.",
+      "targetState": true,
       "repos": [
         "enrichment",
         "api",
